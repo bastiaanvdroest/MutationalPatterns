@@ -15,6 +15,7 @@ Imports: BiocGenerics (>= 0.18.0), GenomicRanges (>= 1.24.0),
        gplots (>= 3.0.1), NMF (>= 0.20.6), reshape2 (>= 1.4.1),
        plyr (>= 1.8.3), SummarizedExperiment (>= 1.2.2)
 Depends: R (>= 3.3.0), VariantAnnotation (>= 1.18.1)
+Suggests: BSgenome (>= 1.40.0)
 biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false
