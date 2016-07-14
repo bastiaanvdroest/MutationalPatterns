@@ -3,6 +3,7 @@
 #' aggregates (optional) and then performs enrichment depletion test
 #' @param x Dataframe result from genomic_distribution() 
 #' @param by Optional aggregation vector
+#' @importFrom BiocGenerics cbind
 #' @export
 
 enrichment_depletion_test = function(x, by = c())

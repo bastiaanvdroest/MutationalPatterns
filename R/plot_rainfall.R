@@ -15,6 +15,7 @@
 #' @param cex_text Text size
 #' @param ylim Maximum y value (genomic distance)
 #' @return Rainfall plot
+#' @importFrom ggplot2 ggplot
 #' @export
 
 plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5, cex_text = 3, ylim = 1e+08)

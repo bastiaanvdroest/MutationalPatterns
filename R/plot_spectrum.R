@@ -6,6 +6,10 @@
 #' @param colors Optional color vector with 7 values
 #' @param legend Plot legend, default = T
 #' @return Spectrum plot
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot
+#' @importFrom BiocGenerics cbind
+#' @importFrom plyr ddply
 #' @export
 
 plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)

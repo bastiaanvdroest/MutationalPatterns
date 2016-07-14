@@ -1,3 +1,11 @@
+#' 
+#' 
+#' @param mut_mat_s
+#' @param by 
+#' @return
+#' @importFrom reshape2 melt
+#' @export
+
 strand_bias = function(mut_mat_s, by)
 {
   df = t(mut_mat_s)

@@ -7,6 +7,8 @@
 #' @param index optional sample subset parameter
 #' @param coord_flip Flip X and Y coordinates, default = F
 #' @param mode relative or absolute number of mutations, default = "relative"
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot
 #' @export
 #' 
 

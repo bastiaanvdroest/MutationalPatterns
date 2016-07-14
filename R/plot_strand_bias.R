@@ -1,3 +1,12 @@
+#' 
+#' 
+#' @param strand_bias_df
+#' @param mode 
+#' @param colors 
+#' @return
+#' @importFrom ggplot2 ggplot
+#' @export
+
 plot_strand_bias = function(strand_bias_df, mode = "relative", colors)
 {
   if(missing(colors)){colors=COLORS6}

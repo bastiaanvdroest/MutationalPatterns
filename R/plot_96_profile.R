@@ -5,6 +5,9 @@
 #' @param ymax Y axis maximum value, default = 0.015
 #' @param colors 6 value color vector
 #' @return 96 trinucleotide profile plot
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot
+#' @importFrom BiocGenerics cbind
 #' @export
 
 plot_96_profile = function(mut_matrix, colors, ymax = 0.15)

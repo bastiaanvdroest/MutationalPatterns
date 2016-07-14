@@ -4,6 +4,7 @@
 #' @param mut_matrix 96 mutation count matrix (dimensions: 96 mutations X n samples)
 #' @param signatures Signature matrix (dimensions: 96 mutations X n signatures)
 #' @return Named list with signature contributions and reconstructed mutation matrix
+#' @importFrom pracma lsqnonneg
 #' @export
 
 fit_to_signatures = function(mut_matrix, signatures)

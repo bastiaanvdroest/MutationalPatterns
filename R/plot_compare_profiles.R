@@ -8,6 +8,9 @@
 #' @param diff_ylim Y-axis limits for profile difference plot, default = c(-0.02, 0.02)
 #' @param colors 6 value color vector
 #' @return 96 spectrum plot of profile 1, profile 2 and their difference
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot
+#' @importFrom BiocGenerics cbind
 #' @export
 
 plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 1", "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors)
