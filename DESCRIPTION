@@ -1,14 +1,20 @@
 Package: MutationalPatterns
 Type: Package
 Title: studying patterns in base substitution catalogues
-Description: MutationalPatterns Package provides an extensive toolset for easy identification, characterization and visualization of various patterns in point mutation data.
+Description: MutationalPatterns Package provides an extensive toolset for easy
+       identification, characterization and visualization of various patterns
+       in point mutation data.
 Version: 0.1
 Date: 2016-04-08
 Author: Francis Blokzijl
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
-Depends: R (>= 3.3.1), VariantAnnotation, GenomicRanges, ggplot2, RColorBrewer, gplots, NMF, reshape2, plyr, pracma
+Imports: BiocGenerics (>= 0.18.0), GenomicRanges (>= 1.24.0),
+       RColorBrewer (>= 1.1), ggplot2 (>= 2.1.0), pracma (>= 1.8.8),
+       gplots (>= 3.0.1), NMF (>= 0.20.6), reshape2 (>= 1.4.1),
+       plyr (>= 1.8.3), SummarizedExperiment (>= 1.2.2)
+Depends: R (>= 3.3.0), VariantAnnotation (>= 1.18.1)
 biocViews: VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false

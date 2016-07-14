@@ -5,8 +5,10 @@
 #' @param sample_names Character vector of sample names
 #' @param genome A character or Seqinfo object
 #' @return List of GRanges objects
+#' @importFrom BiocGenerics match
+#' @importFrom VariantAnnotation readVcf
+#' @importFrom SummarizedExperiment rowRanges
 #' @export
-#' @import BiocGenerics
 
 read_vcf = function(vcf_files, sample_names, genome = "-")
 {
@@ -16,9 +18,9 @@ read_vcf = function(vcf_files, sample_names, genome = "-")
   vcf_list = list()
   for(i in 1:length(vcf_files))
   {
-    vcf = VariantAnnotation::readVcf(vcf_files[i], genome)
+    vcf = readVcf(vcf_files[i], genome)
     vcf = rowRanges(vcf)
-    rem = which(all(!( !is.na(BiocGenerics::match(vcf$ALT, DNA_BASES)) & !is.na(BiocGenerics::match(vcf$REF, DNA_BASES)) & (lengths(vcf$ALT) == 1) )))
+    rem = which(all(!( !is.na(match(vcf$ALT, DNA_BASES)) & !is.na(match(vcf$REF, DNA_BASES)) & (lengths(vcf$ALT) == 1) )))
     if(length(rem) > 0) {
       vcf = vcf[-rem]
       warning(length(rem), " position(s) with indels and multiple alternative alleles are removed.")
