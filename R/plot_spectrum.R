@@ -10,6 +10,7 @@
 #' @importFrom ggplot2 ggplot
 #' @importFrom BiocGenerics cbind
 #' @importFrom plyr ddply
+#' @importFrom plyr summarise
 #' @export
 
 plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
