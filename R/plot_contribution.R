@@ -10,6 +10,7 @@
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
+#' @importFrom ggplot2 coord_flip
 #' @importFrom ggplot2 geom_bar
 #' @importFrom ggplot2 xlim
 #' @importFrom ggplot2 labs
