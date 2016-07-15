@@ -11,7 +11,9 @@
 get_mut_context = function(vcf, ref_genome) 
 {
   # check if chromosome names are the same
-  if(!(all( seqlevels(vcf) %in% seqlevels(get(ref_genome)) ))){stop("Chromosome names (seqlevels) of vcf and reference genome object do not match. Use rename_chrom() function to rename chromosome names.")}
+  if (!(all( seqlevels(vcf) %in% seqlevels(get(ref_genome)) )))
+    stop("Chromosome names (seqlevels) of vcf and reference genome object do not match. Use rename_chrom() function to rename chromosome names.")
+
   ranges = resize(vcf, 3, fix = "center")
   vcf_context = getSeq(get(ref_genome), ranges)
   return(vcf_context)

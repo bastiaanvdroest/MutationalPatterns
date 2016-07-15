@@ -12,7 +12,9 @@
 get_strand = function(vcf, genes)
 {
   # check chromosome names
-  if(!(all( seqlevels(vcf) %in% seqlevels(genes)) )){stop("Chromosome names (seqlevels) of vcf and genes Granges object do not match. Use rename_chrom() function to rename chromosome names.")}
+  if (!(all( seqlevels(vcf) %in% seqlevels(genes)) ))
+    stop("Chromosome names (seqlevels) of vcf and genes Granges object do not match. Use rename_chrom() function to rename chromosome names.")
+
   # determine overlap between vcf positions and genes
   overlap = findOverlaps(vcf, genes)
   overlap = as.data.frame(as.matrix(overlap))

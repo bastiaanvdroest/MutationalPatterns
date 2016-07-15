@@ -14,10 +14,9 @@ estimate_rank = function(mut_matrix, rank_range, nrun=100)
   # add small pseudocount
   mut_matrix = mut_matrix + 0.0001
   # Check if rank_range is appropriate
-  if(ncol(mut_matrix) < max(rank_range))
-  {
+  if (ncol(mut_matrix) < max(rank_range))
     stop("Maximum rank should be smaller than the number of samples")
-  }
+
   # Estimate ranks
   print("Estimating ranks...")
   estim.r = nmf(mut_matrix, rank = rank_range, method = "brunet", nrun = nrun, seed = 123456)

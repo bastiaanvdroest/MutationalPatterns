@@ -8,7 +8,9 @@
 
 genomic_distribution = function(vcf_list, surveyed_list, region_list)
 {
-  if(!(length(vcf_list) == length(surveyed_list) )){stop("Vcf list and surveyed list must have the same length")}
+  if (length(vcf_list) != length(surveyed_list))
+    stop("Vcf list and surveyed list must have the same length")
+
   df = data.frame()
   # for each region j
   for(j in 1:length(region_list) )

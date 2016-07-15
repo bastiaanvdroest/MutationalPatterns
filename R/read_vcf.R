@@ -13,7 +13,8 @@
 read_vcf = function(vcf_files, sample_names, genome = "-")
 {
   # check sample names
-  if(!(length(vcf_files) == length(sample_names))){stop("Provide the same number of sample names as vcf files")}
+  if (length(vcf_files) != length(sample_names))
+    stop("Provide the same number of sample names as vcf files")
   # make list with vcf objects
   vcf_list = list()
   for(i in 1:length(vcf_files))
