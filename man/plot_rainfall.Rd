@@ -12,6 +12,8 @@ plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
 
 \item{ref_genome}{BSgenome reference genome object}
 
+\item{chromosomes}{Vector of chromosome/contig names of the reference genome to be plotted}
+
 \item{title}{Optional plot title}
 
 \item{colors}{Vector of 6 colors used for plotting}
@@ -21,8 +23,6 @@ plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
 \item{cex_text}{Text size}
 
 \item{ylim}{Maximum y value (genomic distance)}
-
-\item{chrom}{Vector of chromosome/contig names of the reference genome to be plotted}
 }
 \value{
 Rainfall plot

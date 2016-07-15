@@ -4,12 +4,12 @@
 \alias{bed_to_granges}
 \title{Read bed files as a list of GRanges objects}
 \usage{
-bed_to_granges(bed_files, names)
+bed_to_granges(bed_files, region_names)
 }
 \arguments{
 \item{bed_files}{Character vector with bed files}
 
-\item{names}{Character vector with names of regions in bed files}
+\item{region_names}{Character vector with names of regions in bed files}
 }
 \value{
 granges_list List of Granges objects

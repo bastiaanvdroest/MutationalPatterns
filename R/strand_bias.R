@@ -1,8 +1,9 @@
-#' 
-#' 
-#' @param mut_mat_s
-#' @param by 
-#' @return
+#' Calculate strand bias
+#'
+#' A function to calculate strand bias.
+#' @param mut_mat_s The mutation matrix
+#' @param by The column to group by
+#' @return A data frame with strand bias data
 #' @importFrom reshape2 melt
 #' @export
 
