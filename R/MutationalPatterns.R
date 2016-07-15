@@ -10,3 +10,4 @@ C_TRIPLETS = c("ACA", "ACC", "ACG", "ACT", "CCA", "CCC", "CCG", "CCT", "GCA", "G
 T_TRIPLETS = c("ATA", "ATC", "ATG", "ATT", "CTA", "CTC", "CTG", "CTT", "GTA", "GTC", "GTG", "GTT", "TTA", "TTC", "TTG", "TTT") 
 TRIPLETS_96 = c(rep(C_TRIPLETS, 3), rep(T_TRIPLETS, 3))
 STRAND = rep(c("U","T"), 96)
+DNA_BASES = c("A", "C", "G", "T")
