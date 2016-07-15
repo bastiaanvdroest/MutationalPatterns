@@ -10,8 +10,12 @@
 fit_to_signatures = function(mut_matrix, signatures)
 {
   # make sure dimensions of input matrix are correct
-  if(!(dim(mut_matrix)[1] == 96))stop("Mutation count matrix input should have dimensions 96 X n samples")
-  if(!(dim(mut_matrix)[1] == 96))stop("Signatures input should have dimensions 96 X n signatures")
+  if (dim(mut_matrix)[1] != 96)
+    stop("Mutation count matrix input should have dimensions 96 X n samples")
+
+  if (dim(signatures)[1] != 96)
+    stop("Signatures input should have dimensions 96 X n signatures")
+
   n_samples = dim(mut_matrix)[2]
   n_signatures = dim(signatures)[2]
   lsq_contribution = matrix(NA, nrow=n_signatures, ncol=n_samples)
