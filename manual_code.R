@@ -54,18 +54,19 @@ grid.arrange(plot5, plot4, ncol=2, widths=c(3,2))
 # ------ 96 SPECTRUM -----
 
 # make 96 count matrix
-aa = proc.time()
-mut_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
-proc.time() - aa
+#aa = proc.time()
+test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+#proc.time() - aa
+
 # plot 96 profile of three samples
-plot_96_profile(mut_matrix[,c(1,4,7)]) 
+plot_96_profile(test_matrix[,c(1,4,7)])
 
 # ------ EXTRACT SIGNATURES ------
 
 # estimate rank
-estimate_rank(mut_matrix, rank_range = 2:5, nrun = 50)
+estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
 # extract 3 signatures
-nmf_res = extract_signatures(mut_matrix, rank = 3)
+nmf_res = extract_signatures(test_matrix, rank = 3)
 # provide signature names (optional)
 colnames(nmf_res$signatures) = c("Signature A", "Signature B" , "Signature C")
 # plot signatures
@@ -87,13 +88,13 @@ grid.arrange(p3,p4, ncol=2)
 
 
 # compare reconstructed 96 profile of sample 1 with orignal profile
-plot_compare_profiles(mut_matrix[,1], nmf_res$reconstructed[,1], profile_names = c("Original", "Reconstructed"))
+plot_compare_profiles(test_matrix[,1], nmf_res$reconstructed[,1], profile_names = c("Original", "Reconstructed"))
 
 # ------ REFIT SIGNATURES ------
 
 # download signatures from pan-cancer study Alexandrov et al.
-url = "http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt"
-cancer_signatures = read.table(url, sep = "\t", header = T)
+sp_url = "http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt"
+cancer_signatures = read.table(sp_url, sep = "\t", header = T)
 # reorder (to make the order of the trinucleotide changes the same)
 cancer_signatures = cancer_signatures[order(cancer_signatures[,1]),]
 # only signatures in matrix
@@ -101,14 +102,14 @@ cancer_signatures = as.matrix(cancer_signatures[,4:33])
 # plot signature 1
 plot_96_profile(cancer_signatures[,1,drop=F], ymax = 0.2)
 
-fit_res = fit_to_signatures(mut_matrix, cancer_signatures)
+fit_res = fit_to_signatures(test_matrix, cancer_signatures)
 # select signatures with some contribution
 select = which(rowSums(fit_res$contribution) > 0)
 # plot contribution
 plot_contribution(fit_res$contribution[select,], cancer_signatures[,select], coord_flip = F, mode = "absolute")
 
 # compare reconstructed from refit with original profile
-plot_compare_profiles(mut_matrix[,1], fit_res$reconstructed[,1], profile_names = c("Original", "Reconstructed \n cancer signatures"))
+plot_compare_profiles(test_matrix[,1], fit_res$reconstructed[,1], profile_names = c("Original", "Reconstructed \n cancer signatures"))
 
 # ------ RAINFALL PLOT ------
 
