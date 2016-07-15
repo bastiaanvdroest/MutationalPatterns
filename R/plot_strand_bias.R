@@ -1,10 +1,21 @@
+#' Plot strand bias
+#'
+#' A function to plot the absolute or relative strand bias
 #' 
-#' 
-#' @param strand_bias_df
-#' @param mode 
-#' @param colors 
-#' @return
+#' @param strand_bias_df the data frame containing strand bias data
+#' @param mode Either "absolute" or "relative"
+#' @param colors the colors to use in the plot
+#' @return a plot of the strand bias data
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 scale_alpha_discrete
+#' @importFrom ggplot2 scale_x_discrete
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 facet_grid
+#' @importFrom ggplot2 theme_bw
 #' @export
 
 plot_strand_bias = function(strand_bias_df, mode = "relative", colors)

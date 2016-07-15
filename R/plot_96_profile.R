@@ -7,6 +7,17 @@
 #' @return 96 trinucleotide profile plot
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 coord_cartesian
+#' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 guides
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 element_text
 #' @importFrom BiocGenerics cbind
 #' @export
 

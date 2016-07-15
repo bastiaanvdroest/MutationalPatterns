@@ -8,14 +8,30 @@
 #' Clusters of mutations with lower intermutation distance represent mutation hotspots.
 #' @param vcf CollapsedVCF object
 #' @param ref_genome BSgenome reference genome object
+#' @param chromosomes Vector of chromosome/contig names of the reference genome to be plotted
 #' @param title Optional plot title
 #' @param colors Vector of 6 colors used for plotting
-#' @param chrom Vector of chromosome/contig names of the reference genome to be plotted
 #' @param cex Point size
 #' @param cex_text Text size
 #' @param ylim Maximum y value (genomic distance)
 #' @return Rainfall plot
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 geom_vline
+#' @importFrom ggplot2 annotate
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 scale_y_log10
+#' @importFrom ggplot2 scale_colour_manual
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 guides
+#' @importFrom ggplot2 guide_legend
+#' @importFrom GenomeInfoDb seqlengths
 #' @export
 
 plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5, cex_text = 3, ylim = 1e+08)

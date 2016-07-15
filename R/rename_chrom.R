@@ -3,6 +3,9 @@
 #' @param granges Granges object with chromosome names to rename
 #' @param style "UCSC", NCBI" or "Ensembl", default = "UCSC"
 #' @return granges Granges object with renamed chromosomes according to style
+#' @importFrom GenomeInfoDb seqlevels<-
+#' @importFrom GenomeInfoDb mapSeqlevels
+#' @importFrom GenomeInfoDb renameSeqlevels
 #' @export
 
 rename_chrom = function(granges, style = "UCSC")

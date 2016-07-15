@@ -9,6 +9,14 @@
 #' @param mode relative or absolute number of mutations, default = "relative"
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 xlim
+#' @importFrom ggplot2 labs
+#' @importFrom ggplot2 scale_fill_discrete
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
 #' @export
 #' 
 

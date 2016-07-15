@@ -10,6 +10,17 @@
 #' @return 96 spectrum plot of profile 1, profile 2 and their difference
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 facet_grid
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 guides
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 element_blank
 #' @importFrom BiocGenerics cbind
 #' @export
 

@@ -3,6 +3,16 @@
 #' @param df Dataframe result from enrichment_depletion_test()
 #' @return plot
 #' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 facet_grid
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 scale_x_discrete
+#' @importFrom ggplot2 element_blank
 #' @export
 
 plot_enrichment_depletion = function(df)

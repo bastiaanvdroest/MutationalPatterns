@@ -4,7 +4,8 @@
 #' @param vcf CollapsedVCF object with mutations
 #' @param surveyed GRanges object with regions of the genome that were surveyed
 #' @param region GRanges object with genomic region(s)
-  
+#' @importFrom GenomeInfoDb seqlevelsStyle
+#' 
 intersect_with_region = function(vcf, surveyed, region)
 {
   # number of mutations in vcf file
