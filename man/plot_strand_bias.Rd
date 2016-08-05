@@ -2,21 +2,22 @@
 % Please edit documentation in R/plot_strand_bias.R
 \name{plot_strand_bias}
 \alias{plot_strand_bias}
-\title{Plot strand bias}
+\title{Plot strand bias per base substitution type}
 \usage{
 plot_strand_bias(strand_bias_df, mode = "relative", colors)
 }
 \arguments{
-\item{strand_bias_df}{the data frame containing strand bias data}
+\item{strand_bias_df}{Data.frame, result from strand_bias function}
 
-\item{mode}{Either "absolute" or "relative"}
+\item{mode}{Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"}
 
-\item{colors}{the colors to use in the plot}
+\item{colors}{Optional color vector for plotting with 6 values}
 }
 \value{
-a plot of the strand bias data
+Barplot
 }
 \description{
-A function to plot the absolute or relative strand bias
+For each base substitution type and transcriptional strand the total number of mutations
+and the relative contribution within a group is returned
 }
 

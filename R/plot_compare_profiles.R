@@ -71,7 +71,7 @@ plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 
           axis.title.x=element_text(size=12),
           axis.text.x=element_text(size=5,angle=90,vjust=0.4),
           strip.text.x=element_text(size=14),
-          strip.text.y=element_text(size=14, angle=360),
+          strip.text.y=element_text(size=14),
           panel.grid.major.x = element_blank())
   return(plot)
 }

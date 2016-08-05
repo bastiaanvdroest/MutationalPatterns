@@ -2,19 +2,21 @@
 % Please edit documentation in R/strand_bias.R
 \name{strand_bias}
 \alias{strand_bias}
-\title{Calculate strand bias}
+\title{Count mutations per base substitution type and transcriptional strand}
 \usage{
 strand_bias(mut_mat_s, by)
 }
 \arguments{
-\item{mut_mat_s}{The mutation matrix}
+\item{mut_mat_s}{192 feature mutation count matrix, result from mut_matrix_stranded()}
 
-\item{by}{The column to group by}
+\item{by}{Character vector with grouping info, optional}
 }
 \value{
-A data frame with strand bias data
+Dataframe with the total number of mutations and relative contribution within group per base substitution 
+type and transcriptional strand (T = transcribed strand, U = untranscribed strand)
 }
 \description{
-A function to calculate strand bias.
+For each base substitution type and transcriptional strand the total number of mutations
+and the relative contribution within a group is returned
 }
 

@@ -1,11 +1,11 @@
-#' Plot strand bias
-#'
-#' A function to plot the absolute or relative strand bias
+#' Plot strand bias per base substitution type
 #' 
-#' @param strand_bias_df the data frame containing strand bias data
-#' @param mode Either "absolute" or "relative"
-#' @param colors the colors to use in the plot
-#' @return a plot of the strand bias data
+#' @description For each base substitution type and transcriptional strand the total number of mutations
+#' and the relative contribution within a group is returned
+#' @param strand_bias_df Data.frame, result from strand_bias function
+#' @param mode Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"
+#' @param colors Optional color vector for plotting with 6 values
+#' @return Barplot
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_bar

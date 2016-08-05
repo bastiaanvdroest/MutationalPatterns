@@ -66,7 +66,7 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
       # make sure sample ordering is correct
       xlim(rev(levels(factor(m_contribution$Sample)))) +
       # ylabel
-      labs(x = "", y = "Absolute contribution (n mutations)") +  
+      labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
       scale_fill_discrete(name="Signature") +
       # white background
       theme_bw() +

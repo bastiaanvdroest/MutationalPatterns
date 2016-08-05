@@ -51,7 +51,7 @@ plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
   info_type = data.frame(sub_type = c("C>A", "C>G", "C>T", "C>T", "C>T", "T>A", "T>C", "T>G"), variable = c("C>A", "C>G", "C>T", "C>T at CpG", "C>T other", "T>A", "T>C", "T>G"))
   x = merge(x,info_type)
   x$total_mutations = prettyNum(x$total_mutations, big.mark = ",")
-  x$total_mutations = paste("N =", as.character(x$total_mutations))
+  x$total_mutations = paste("No. mutations =", as.character(x$total_mutations))
   # define colors for plotting
   if(CT == F){colors = colors[c(1,2,3,5:7)]}
   # define positioning of error bars

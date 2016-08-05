@@ -1,27 +1,29 @@
 #' Binomial test for enrichment or depletion testing
 #' 
-#' Test whether specific genomic region is depleted or enriched using a binomial test
+#' Performs lower.tail binomial test for depletion and upper tail test for enrichment
 #' 
-#' @param n_muts Number of mutations in whole surveyed genome
-#' @param observed Observed number of mutations in surveyed region
-#' @param surveyed_length Number of bp that was surveyed in whole genome
-#' @param surveyed_region_length Number of bp that is surveyed in region
+#' @param p Probability of success
+#' @param n Number of trials
+#' @param x Observed number of successes
+#' @return data.frame With direction of effect (enrichment/depletion), P value and significance asterisks
+#' @export
 
 
-binomial_test = function(prob, surveyed_region_length, observed)
+binomial_test = function(p, n, x)
 {
-  expected = prob * surveyed_region_length
-  
-  if(observed < expected)
+  # calculate expected number of successes
+  expected = p * n
+  # if observed is less than expected
+  if(x < expected)
   {
     # For depletion
     # do lower tail test
-    pval = pbinom(observed, surveyed_region_length, prob, lower.tail=TRUE)
+    pval = pbinom(x, n, p, lower.tail=TRUE)
     effect = "depletion"
   }else{
     # For enrichment
     # do upper tail test
-    pval = pbinom(observed-1, surveyed_region_length, prob, lower.tail=FALSE)
+    pval = pbinom(x-1, n, p, lower.tail=FALSE)
     effect = "enrichment"
   }
   # add significance asteriks
@@ -32,10 +34,3 @@ binomial_test = function(prob, surveyed_region_length, observed)
   res = data.frame(effect, pval, significant)
   return(res)
 }
-
-
-
-
-
-
-

@@ -15,8 +15,8 @@ mut_192_occurences = function(type_context, strand)
   U_vector = mut_96_occurences(type_context_U)
   T_vector = mut_96_occurences(type_context_T)
   # add names
-  names_U = paste(TRIPLETS, "-u", sep = "")
-  names_T = paste(TRIPLETS, "-t", sep = "")
+  names_U = paste(TRIPLETS_96, "-u", sep = "")
+  names_T = paste(TRIPLETS_96, "-t", sep = "")
   # combine vectors in alternating fashion
   vector = c(rbind(U_vector, T_vector))
   names = c(rbind(names_U, names_T))

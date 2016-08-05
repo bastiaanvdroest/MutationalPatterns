@@ -4,18 +4,19 @@
 \alias{binomial_test}
 \title{Binomial test for enrichment or depletion testing}
 \usage{
-binomial_test(prob, surveyed_region_length, observed)
+binomial_test(p, n, x)
 }
 \arguments{
-\item{surveyed_region_length}{Number of bp that is surveyed in region}
+\item{p}{Probability of success}
 
-\item{observed}{Observed number of mutations in surveyed region}
+\item{n}{Number of trials}
 
-\item{n_muts}{Number of mutations in whole surveyed genome}
-
-\item{surveyed_length}{Number of bp that was surveyed in whole genome}
+\item{x}{Observed number of successes}
+}
+\value{
+data.frame With direction of effect (enrichment/depletion), P value and significance asterisks
 }
 \description{
-Test whether specific genomic region is depleted or enriched using a binomial test
+Performs lower.tail binomial test for depletion and upper tail test for enrichment
 }
 

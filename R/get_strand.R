@@ -8,6 +8,7 @@
 #' @param vcf Granges vcf object
 #' @param genes Granges with definition of gene bodies, should include strand information
 #' @return Character vector with transcriptional strand information with length of vcf: "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand
+#' @export
 
 get_strand = function(vcf, genes)
 {
@@ -19,14 +20,14 @@ get_strand = function(vcf, genes)
   overlap = findOverlaps(vcf, genes)
   overlap = as.data.frame(as.matrix(overlap))
   colnames(overlap) = c('vcf_id', 'gene_body_id')
-  # remove positions in vcf that occur more than once
-  # these positions overlap with multiple genes and therefore cannot be determined whether they are on transcribed or untranscribed strand are
-  # dup_pos = overlap$vcf_id[duplicated(overlap$vcf_id)]
-  # dup_idx = which(overlap$vcf_id %in% dup_pos)
-  # xx = overlap[dup_idx,]
-  # # get strand info of overlapping genes
-  # xx$strand = as.character(strand(genes[overlap[dup_idx,]$gene_body_id]))
-  # overlap = overlap[-dup_idx,]
+  # remove mutations that overlap with multiple genes and therefore cannot be 
+  # determined whether they are on transcribed or untranscribed strand
+  # duplicated mutations
+  dup_pos = overlap$vcf_id[duplicated(overlap$vcf_id)]
+  # index of duplicated mutations
+  dup_idx = which(overlap$vcf_id %in% dup_pos)
+  # remove all duplicated (non-unique mapping) mutations
+  if(length(dup_idx) > 0){overlap = overlap[-dup_idx,]}
   # subset of mutations in genes
   vcf_overlap = vcf[overlap$vcf_id]
   # find reference allele of mutations (+ strand of reference genome is reported in vcf file)

@@ -19,8 +19,11 @@ read_vcf = function(vcf_files, sample_names, genome = "-")
   vcf_list = list()
   for(i in 1:length(vcf_files))
   {
+    # parse vcf file with variantannotation
     vcf = readVcf(vcf_files[i], genome)
+    # only store genomic ranges info (to reduce memory usage)
     vcf = rowRanges(vcf)
+    # find and exclude positions with indels or multiple alternative alleles
     rem = which(all(!( !is.na(match(vcf$ALT, DNA_BASES)) & !is.na(match(vcf$REF, DNA_BASES)) & (lengths(vcf$ALT) == 1) )))
     if(length(rem) > 0) {
       vcf = vcf[-rem]
