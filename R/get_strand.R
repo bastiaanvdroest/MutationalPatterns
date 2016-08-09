@@ -1,10 +1,10 @@
 #' Find transcriptional strand of base substitutions in vcf
 #'  
 #' @description For the positions that are within gene bodies it is determined whether the "C" or "T" base 
-#' (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition.
+#' (since by convention we regard base substitutions as C>X or T>X) is on the same strand as the gene definition.
 #' Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, 
 #' since the gene definitions report the coding or sense strand, which is untranscribed.  
-#' No strand information "-" is reported for base substitution that overlap with more than one gene body.
+#' No strand information "-" is returned for base substitutions outside gene bodies, or base substitutions that overlap with more than one gene body.
 #' @param vcf Granges vcf object
 #' @param genes Granges with definition of gene bodies, should include strand information
 #' @return Character vector with transcriptional strand information with length of vcf: "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand

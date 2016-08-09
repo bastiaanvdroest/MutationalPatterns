@@ -54,9 +54,7 @@ grid.arrange(plot5, plot4, ncol=2, widths=c(3,2))
 # ------ 96 SPECTRUM -----
 
 # make 96 count matrix
-#aa = proc.time()
-test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
-#proc.time() - aa
+mut_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 
 # plot 96 profile of three samples
 plot_96_profile(test_matrix[,c(1,4,7)])
@@ -74,10 +72,8 @@ plot_96_profile(nmf_res$signatures)
 
 # provide signature names (optional)
 rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
-# plot signature contribution relative
-plot_contribution(nmf_res$contribution, coord_flip = T)
-# plot signature contribution absolute
 
+# plot signature contribution
 p1 = plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 p2 = plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
 p3 = plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute", index = c(1,2))
@@ -111,6 +107,47 @@ plot_contribution(fit_res$contribution[select,], cancer_signatures[,select], coo
 # compare reconstructed from refit with original profile
 plot_compare_profiles(test_matrix[,1], fit_res$reconstructed[,1], profile_names = c("Original", "Reconstructed \n cancer signatures"))
 
+# ------ STRAND BIAS ----------
+
+# get knowngenes for hg19
+source("https://bioconductor.org/biocLite.R")
+biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
+library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+genes_hg19 = genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+# get transcriptional strand information
+
+get_strand(vcfs[[1]], genes_hg19)
+
+# make mutation count matrix with transcriptional information
+mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+
+strand_counts = strand_occurences(mut_mat_s, by=tissue)
+strand_plot = plot_strand(strand_counts , mode = "relative")
+strand_bias = strand_bias_test(strand_counts)
+strand_bias_plot = plot_strand_bias(strand_bias)
+
+grid.arrange(strand_plot, strand_bias_plot)
+
+# Extract signatures with strand bias
+
+# extract 2 signatures
+nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
+
+# provide signature names (optional)
+colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
+# plot signatures with 192 features
+plot_192_profile(nmf_res_strand$signatures)
+
+# provide signature names (optional)
+rownames(nmf_res_strand$contribution) = c("Signature A", "Signature B")
+# plot signature contribution
+plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_flip = T, mode = "absolute")
+
+
+
+
+
 # ------ RAINFALL PLOT ------
 
 # define chromosomes of interest
@@ -126,7 +163,7 @@ plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromo
 
 bed_files = list.files("~/Documents/Organoids/ASC_multi_tissues/data/genomic_regions/", full.names = T)
 region_names = c("H3k27ac", "H3K9me3", "early", "intermediate", "late", "exonic")
-regions = bed_to_granges(bed_files, region_names = region_names)
+regions = bed_to_granges(bed_files, names = region_names)
 
 surveyed_files = list.files("~/Documents/Organoids/ASC_multi_tissues/data/surveyed/", full.names = T)
 surveyed_consensus = bed_to_granges(surveyed_files[1], "surveyed_consensus")
@@ -143,34 +180,4 @@ surveyed_list = lapply(surveyed_list, function(x) rename_chrom(x))
 x = genomic_distribution(vcfs[1:2], surveyed_list[1:2], regions[1:2])
 df = enrichment_depletion_test(x)
 plot_enrichment_depletion(df)
-
-# ------ STRAND BIAS ----------
-
-library("TxDb.Mmusculus.UCSC.mm10.knownGene")
-genes_mm10 = genes(TxDb.Mmusculus.UCSC.mm10.knownGene)
-
-seqlevels(vcf_ERCC1[[1]]) %in% seqlevels(get(mm10))
-vcf_ERCC1 = lapply(vcf_ERCC1, function(x) rename_chrom(x, "UCSC"))
-
-mut_mat = mut_matrix(vcf_ERCC1, mm10)
-mut_mat_s = mut_matrix_stranded(vcf_ERCC1, mm10, genes_mm10)
-
-sample_type = rep(c("mutant","wt"), each=3)
-grid.arrange(plot_96_profile(mut_mat), plot_192_profile(mut_mat_s))
-
-strand_bias = strand_bias(mut_mat_s, by=sample_type)
-
-plot_strand_bias(strand_bias, mode = "absolute")
-
-# statistical test for strand ratio
-# poisson
-df_strand = dcast(melt(strand_bias), type + group ~ strand, sum, subset = .(variable == "no_mutations"))
-df_strand = ddply(df_strand, c("group", "type", "T", "U"), summarise, total = T+U, ratio = T/U,  p_poisson = poisson.test(c(U,T), c(total,total), r=1)$p.value)
-df_strand$significant[df_strand$p_poisson < 0.05] = "*"
-
-vcf = vcf_ERCC1[[1]]
-genes = genes_mm10
-
-
-
 

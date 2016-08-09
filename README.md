@@ -1,11 +1,11 @@
 # MutationalPatterns
 
-The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in Single Nucleotide Variant (SNV) data.
+The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in base substitution catalogues.
 
 NEW RELEASE: 
-* Faster vcf file read
+* Faster vcf file loading
 * Automatic check and exclusion of positions in vcf with indels and/or multiple alternative alleles 
-* Default plotting colours to standard
+* Default plotting colours to standard in the mutational signatures field
 
 NEW FUNCTIONALITIES
 * Function to make chromosome names uniform according to e.g. UCSC standard
@@ -47,6 +47,7 @@ Install and load MutationalPatterns package
 1. List all available reference genomes (BSgenome)
 
   ```{r}
+  library(BSgenome)
   available.genomes()
   ```
 2. Download and load your reference genome of interest
@@ -253,7 +254,8 @@ Fit mutation matrix to cancer signatures. This function finds the optimal linear
   # select signatures with some contribution
   select = which(rowSums(fit_res$contribution) > 0)
   # plot contribution
-  plot_contribution(fit_res$contribution[select,], coord_flip = T)
+  plot_contribution(fit_res$contribution[select,], cancer_signatures[,select], coord_flip = F, mode = "absolute")
+
   ```
 
   ![signatures](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/contribution_cancer_sigs.png)
@@ -265,6 +267,76 @@ Compare reconstructed mutation profile of sample 1 using cancer signatures with 
   ```
 
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
+
+
+### Transcriptional strand bias analysis
+
+For the mutations within genes it can be determined whether the mutation is on the transcribed or non-transcribed strand, which is interesting to study involvement of transcription-coupled repair. To this end, it is determined whether the "C" or "T" base (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition. Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, since the gene definitions report the coding or sense strand, which is untranscribed. No strand information is reported for base substitution that overlap with more than one gene body.
+
+Find gene definitions for your reference genome.
+
+  ```{r}
+  # get knowngenes table from UCSC for hg19
+  biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
+  library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+  genes_hg19 = genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
+  ```
+  
+Get transcriptional strand information for all positions in vcf 1. "Base substitions on the same strand as the gene definitions are considered. "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand.
+
+  ```{r}
+  get_strand(vcfs[[1]], genes_hg19)
+  ```
+
+Make mutation count matrix with transcriptional strand information (96 trinucleotides * 2 strands = 192 features). NB: only those mutations that are located within gene bodies are counted.
+
+  ```{r}
+  mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+  ```
+  
+Perform strand bias analysis
+
+  ```{r}
+  strand_counts = strand_occurences(mut_mat_s, by=tissue)
+  strand_plot = plot_strand(strand_counts, mode = "relative")
+  ```
+
+Perform poisson test for strand asymmetry significance testing
+
+  ```{r}
+  strand_bias = strand_bias_test(strand_counts)
+  strand_bias_plot = plot_strand_bias(strand_bias)
+  ```
+  
+  ![strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/strand.png)  
+
+  
+## Extract signatures with strand bias
+
+
+  ```{r}
+  # extract 2 signatures
+  nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
+  
+  # provide signature names (optional)
+  colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
+  # plot signatures with 192 features
+  plot_192_profile(nmf_res_strand$signatures)
+  
+  # provide signature names (optional)
+  rownames(nmf_res_strand$contribution) = c("Signature A", "Signature B")
+  # plot signature contribution
+  plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_flip = T, mode = "absolute")
+  ```
+  
+
+  ![signatures_strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures_strand.png)  
+
+
+
+
+
+
 
 ### Rainfall plot
 
