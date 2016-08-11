@@ -54,7 +54,7 @@ grid.arrange(plot5, plot4, ncol=2, widths=c(3,2))
 # ------ 96 SPECTRUM -----
 
 # make 96 count matrix
-mut_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 
 # plot 96 profile of three samples
 plot_96_profile(test_matrix[,c(1,4,7)])
