@@ -8,6 +8,8 @@ mut_type_occurences(vcf_list, ref_genome)
 }
 \arguments{
 \item{vcf_list}{A list of CollapsedVCF object}
+
+\item{ref_genome}{Reference genome}
 }
 \value{
 Dataframe with counts of each base substitution type for each sample in vcf_list

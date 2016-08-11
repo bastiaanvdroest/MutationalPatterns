@@ -8,6 +8,8 @@ get_type_context(vcf, ref_genome)
 }
 \arguments{
 \item{vcf}{A CollapsedVCF object}
+
+\item{ref_genome}{Reference genome}
 }
 \value{
 Mutation types and context character vectors in a named list

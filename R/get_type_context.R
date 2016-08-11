@@ -2,6 +2,7 @@
 #' 
 #' A function to extract the bases 3' upstream and 5' downstream of the base substitution types
 #' @param vcf A CollapsedVCF object
+#' @param ref_genome Reference genome
 #' @return Mutation types and context character vectors in a named list
 #' @export
 
