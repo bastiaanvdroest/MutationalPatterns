@@ -9,9 +9,9 @@ enrichment_depletion_test(x, by = c())
 \arguments{
 \item{x}{Dataframe result from genomic_distribution()}
 
-\item{by}{Optional aggregation vector}
+\item{by}{Optional aggregation vector, e.g. tissue type}
 }
 \description{
-aggregates (optional) and then performs enrichment depletion test
+Aggregates mutations per group (optional) and performs enrichment depletion test
 }
 

@@ -355,7 +355,10 @@ Make rainfall plot of sample 1 over chromosome 1
   ```
   ![rainfall2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/rainfall2.png)
   
-## Genomic distribution - enrichment/depletion of mutations in genomic regions
+  
+## Enrichment or depletion of mutations in genomic regions
+
+Test for enrichment or depletion of mutations in certrain genomic regions, such as promoters, CTCF binding sites and transcription factor binding sites. To use your own genomic region definitions (based on e.g. ChipSeq experiments) specify your genomic regions in a named list of GRanges objects. Alternatively, use publically available genomic annotation data, like in the example below.
 
 ### Example: regulation annotation data from Ensembl using biomaRt
 
@@ -387,7 +390,21 @@ Install and load biomaRt package
 Download data from Ensembl using biomaRt
 
   ```{r}
-  # download CTCF binding site genomic regions
+  # Promoters
+  promoter = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+                   filters = "regulatory_feature_type_name", 
+                   values = "Promoter", 
+                   mart = regulation_regulatory)
+  promoter_g = reduce(GRanges(promoter$chromosome_name, IRanges(promoter$chromosome_start, promoter$chromosome_end)))
+  
+    # Promoter flanking regions
+    promoter_flanking = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
+                filters = "regulatory_feature_type_name", 
+                values = "Promoter Flanking Region", 
+                mart = regulation_regulatory)
+  promoter_flanking_g = reduce(GRanges(promoter_flanking$chromosome_name, IRanges(promoter_flanking$chromosome_start, promoter_flanking$chromosome_end))) 
+  
+  # CTCF binding sites
   CTCF = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name', 'cell_type_name'), 
                 filters = "regulatory_feature_type_name", 
                 values = "CTCF Binding Site", 
@@ -395,31 +412,23 @@ Download data from Ensembl using biomaRt
   # convert to GRanges object
   CTCF_g = reduce(GRanges(CTCF$chromosome_name, IRanges(CTCF$chromosome_start, CTCF$chromosome_end))) 
   
-  
-  promoter = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
-                   filters = "regulatory_feature_type_name", 
-                   values = "Promoter", 
-                   mart = regulation_regulatory)
-  promoter_g = reduce(GRanges(promoter$chromosome_name, IRanges(promoter$chromosome_start, promoter$chromosome_end)))
-  
+  # Open chromatin
   open = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
                 filters = "regulatory_feature_type_name", 
                 values = "Open chromatin", 
                 mart = regulation_regulatory)
   open_g = reduce(GRanges(open$chromosome_name, IRanges(open$chromosome_start, open$chromosome_end))) 
   
-  promoter_flanking = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
-                filters = "regulatory_feature_type_name", 
-                values = "Promoter Flanking Region", 
-                mart = regulation_regulatory)
-  promoter_flanking_g = reduce(GRanges(promoter_flanking$chromosome_name, IRanges(promoter_flanking$chromosome_start, promoter_flanking$chromosome_end))) 
-  
+
+  # Transcription factor binding sites
   TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
                             filters = "regulatory_feature_type_name", 
                             values = "TF binding site", 
                             mart = regulation_regulatory)
   TF_binding_g = reduce(GRanges(TF_binding$chromosome_name, IRanges(TF_binding$chromosome_start, TF_binding$chromosome_end))) 
   ```
+
+Combine all genomic regions (GRanges objects) in a named list.
 
   ```{r}
   # combine all genomic regions in one regions list object
@@ -430,13 +439,25 @@ Download data from Ensembl using biomaRt
   regions = lapply(regions, function(x) rename_chrom(x))
   ```
 
-Test for an enrichment or depletion of mutations in your defined genomic regions using a binomial test. For this test, the chance of observing a mutation is calculated as the total number of mutations, divided by the total number of surveyed bases. Therefore, it is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, using for example CallableLoci tool by GATK. If you don't include this in your analysis, you might see a depletion of mutations in a certain genomic region that is solely a result from a low read depth in that region, and not represent an actual depletion of mutations.
+## Test for significant depletion or enrichment in genomic regions
 
+It is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you would not include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
+
+  ```{r}
+  # Read example file with surveyed/callable regions
+  surveyed_file = list.files(system.file("bed", package="MutationalPatterns"), full.names = T)
+  # read bed file as granges object
+  surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+  # for this example we use the same surveyed file for each sample
+  surveyed_list= rep(surveyed_list, 9)
+  ```
+Test for an enrichment or depletion of mutations in your defined genomic regions using a binomial test. For this test, the chance of observing a mutation is calculated as the total number of mutations, divided by the total number of surveyed bases.
+  
   ```{r}
   # for each sample calculate the number of observed and expected number of mutations in each genomic regions
   distr = genomic_distribution(vcfs, surveyed_list, regions)
   # test for significant enrichment or depletion in the genomic regions
-  # samples can be collapsed into groups, here: tissue type
+  # samples can be collapsed into groups, here the analysis is performed per tissue type
   distr_test = enrichment_depletion_test(distr, by = tissue)
   # plot enrichment depletion test results
   plot_enrichment_depletion(distr_test)

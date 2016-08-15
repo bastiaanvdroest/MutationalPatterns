@@ -1,8 +1,8 @@
 #' Find overlaps between mutations and a genomic region
 #' 
-#' aggregates (optional) and then performs enrichment depletion test
+#' @description Aggregates mutations per group (optional) and performs enrichment depletion test
 #' @param x Dataframe result from genomic_distribution() 
-#' @param by Optional aggregation vector
+#' @param by Optional aggregation vector, e.g. tissue type
 #' @importFrom BiocGenerics cbind
 #' @export
 

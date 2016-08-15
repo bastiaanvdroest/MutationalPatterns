@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_enrichment_depletion.R
 \name{plot_enrichment_depletion}
 \alias{plot_enrichment_depletion}
-\title{Plot enrichment depletion barplot}
+\title{Plot enrichment/depletion of mutations in genomic regions}
 \usage{
 plot_enrichment_depletion(df)
 }
@@ -10,9 +10,9 @@ plot_enrichment_depletion(df)
 \item{df}{Dataframe result from enrichment_depletion_test()}
 }
 \value{
-plot
+Plot with two parts. 1: Barplot with no. mutations expected and observed per region. 2: effect size of enrichment/depletion (log2ratio) with results significance test
 }
 \description{
-Plot enrichment depletion barplot
+Plot enrichment/depletion of mutations in genomic regions
 }
 
