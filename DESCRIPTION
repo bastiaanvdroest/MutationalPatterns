@@ -11,12 +11,12 @@ Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
 Imports: BiocGenerics (>= 0.18.0), GenomicRanges (>= 1.24.0),
-       ggplot2 (>= 2.1.0), pracma (>= 1.8.8), NMF (>= 0.20.6),
-       reshape2 (>= 1.4.1), plyr (>= 1.8.3), SummarizedExperiment (>= 1.2.2),
-       IRanges (>= 2.6.0), GenomeInfoDb (>= 1.8.1), Biostrings (>= 2.40.0)
-Depends: R (>= 3.3.0), VariantAnnotation (>= 1.18.1), BiocInstaller
+       reshape2 (>= 1.4.1), plyr (>= 1.8.3), ggplot2 (>= 2.1.0),
+       pracma (>= 1.8.8), SummarizedExperiment (>= 1.2.2), IRanges (>= 2.6.0),
+       GenomeInfoDb (>= 1.8.1), Biostrings (>= 2.40.0)
+Depends: R (>= 3.3.0), VariantAnnotation (>= 1.18.1), NMF (>= 0.20.6),
 Suggests: BSgenome (>= 1.40.0), gridExtra (>= 2.2.1)
-biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
+biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BiocGenerics
 ZipData: NA
 LazyData: false
 RoxygenNote: 5.0.1

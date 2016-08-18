@@ -13,6 +13,7 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 scale_x_discrete
 #' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 position_dodge
 #' @export
 
 plot_enrichment_depletion = function(df)

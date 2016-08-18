@@ -3,6 +3,18 @@
 #' @description Plot strand bias per mutation type for each signature
 #' @param signatures_strand_bias Signature matrix with 192 features
 #' @return Barplot
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 scale_x_discrete
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 facet_grid
+#' @importFrom ggplot2 position_dodge
+#' @importFrom plyr adply
 #' @export
 
 

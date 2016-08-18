@@ -6,8 +6,18 @@
 #' @param mode Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"
 #' @param colors Optional color vector for plotting with 6 values
 #' @return Barplot
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 scale_fill_manual
+#' @importFrom ggplot2 scale_alpha_discrete
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 facet_grid
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 scale_x_discrete
+#' @importFrom ggplot2 position_dodge
 #' @export
-
 
 plot_strand = function(strand_bias_df, mode = "relative", colors)
 {

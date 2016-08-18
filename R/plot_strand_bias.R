@@ -8,6 +8,7 @@
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 geom_text
 #' @importFrom ggplot2 scale_fill_manual
 #' @importFrom ggplot2 scale_alpha_discrete
 #' @importFrom ggplot2 scale_x_discrete
@@ -15,6 +16,7 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 facet_grid
 #' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 position_dodge
 #' @export
 
 

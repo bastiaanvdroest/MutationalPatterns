@@ -8,10 +8,7 @@ plot_strand_bias(strand_bias, colors)
 }
 \arguments{
 \item{colors}{Optional color vector for plotting with 6 values}
-
-\item{strand_bias_df}{Data.frame, result from strand_bias function}
-
-\item{mode}{Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"}
+\item{strand_bias}{Data.frame, result from strand_bias function}
 }
 \value{
 Barplot

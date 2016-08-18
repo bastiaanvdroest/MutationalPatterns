@@ -39,25 +39,30 @@ plot_192_profile = function(mut_matrix, colors, ymax = 0.15)
   rownames(norm_mut_matrix) = NULL
   df2 = cbind(df, as.data.frame(norm_mut_matrix))
   df3 = melt(df2, id.vars = c("substitution", "context", "strand"))
-  
-  plot = ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6, alpha=strand)) +  
-    geom_bar(stat="identity", colour="black", size=.2) + 
-    scale_fill_manual(values=colors) + 
-    facet_grid(variable ~ substitution) + 
-    ylab("Relative contribution") + 
-    coord_cartesian(ylim=c(0,ymax)) +
-    scale_y_continuous(breaks=seq(0, ymax, 0.1)) +
-    # no legend
-    guides(fill=FALSE) + 
-    # white background
-    theme_bw() +
-    # format text
-    theme(axis.title.y=element_text(size=12,vjust=1),
-          axis.text.y=element_text(size=8),
-          axis.title.x=element_text(size=12),
-          axis.text.x=element_text(size=5,angle=90,vjust=0.4),
-          strip.text.x=element_text(size=9),
-          strip.text.y=element_text(size=9),
-          panel.grid.major.x = element_blank())
+
+  plot = ggplot(data=df3, aes(x=context,
+                              y=value,
+                              fill=substitution,
+                              width=0.6,
+                              alpha=strand)) +
+         geom_bar(stat="identity", colour="black", size=.2) + 
+         scale_fill_manual(values=colors) + 
+         facet_grid(variable ~ substitution) + 
+         ylab("Relative contribution") + 
+         coord_cartesian(ylim=c(0,ymax)) +
+         scale_y_continuous(breaks=seq(0, ymax, 0.1)) +
+         # no legend
+         guides(fill=FALSE) + 
+         # white background
+         theme_bw() +
+         # format text
+         theme(axis.title.y=element_text(size=12,vjust=1),
+               axis.text.y=element_text(size=8),
+               axis.title.x=element_text(size=12),
+               axis.text.x=element_text(size=5,angle=90,vjust=0.4),
+               strip.text.x=element_text(size=9),
+               strip.text.y=element_text(size=9),
+               panel.grid.major.x = element_blank())
+
   return(plot)
 }

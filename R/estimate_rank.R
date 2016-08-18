@@ -5,7 +5,6 @@
 #' @param rank_range Range of ranks one would like to test 
 #' @param nrun Number of runs to perform, default=100
 #' @return NMF rank survey plot
-#' @importFrom NMF nmf
 #' @export
 
 estimate_rank = function(mut_matrix, rank_range, nrun=100)
