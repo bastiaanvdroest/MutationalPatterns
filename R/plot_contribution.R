@@ -6,8 +6,7 @@
 #' @param signatures Signature matrix
 #' @param index optional sample subset parameter
 #' @param coord_flip Flip X and Y coordinates, default = F
-#' @param mode relative or absolute number of mutations, default = "relative"
-#' @param mode "relative" or"absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"
+#' @param mode "relative" or "absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"
 #' @return Stacked barplot with contribution of each signatures for each sample
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot

@@ -7,8 +7,9 @@
 plot_strand_bias(strand_bias, colors)
 }
 \arguments{
-\item{colors}{Optional color vector for plotting with 6 values}
 \item{strand_bias}{Data.frame, result from strand_bias function}
+
+\item{colors}{Optional color vector for plotting with 6 values}
 }
 \value{
 Barplot
