@@ -123,7 +123,7 @@ get_strand(vcfs[[1]], genes_hg19)
 mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 
 strand_counts = strand_occurences(mut_mat_s, by=tissue)
-strand_plot = plot_strand(strand_counts , mode = "relative")
+strand_plot = plot_strand(strand_counts, mode = "relative")
 strand_bias = strand_bias_test(strand_counts)
 strand_bias_plot = plot_strand_bias(strand_bias)
 

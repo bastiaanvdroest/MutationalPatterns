@@ -29,20 +29,21 @@ plot_enrichment_depletion = function(df)
     ylab("No. mutations")
     scale_x_discrete(breaks=NULL) 
   # determine max y value for plotting
-  max = round( max(abs(log2((df$observed+0.1)/(df$expected+0.1)))) , digits=2) + 0.1
+  # = log2 ratio with pseudo counts
+  max = round( max(abs(log2((df$observed+0.1)/(df$expected+0.1)))) , digits = 1) + 0.1
   # plot part 2: effect size of enrichment/depletion with significance test
   plot2 = ggplot(data=df, aes(x=by, y=log2((observed+0.1)/(expected+0.1)), fill=by)) + 
     geom_bar(colour="black" , stat="identity", position=position_dodge()) +
-    scale_y_continuous(limits=c(-max,max)) +
+    scale_y_continuous(limits=c(-max, max)) +
     geom_text(aes(x = by, y = log2((observed+0.1)/(expected+0.1)), ymax = log2((observed+0.1)/(expected+0.1)),
                   label=significant, vjust=ifelse(sign(log2((observed+0.1)/(expected+0.1))) > 0, 0.5, 1)),
-              size = 8, position = position_dodge(width=1)) +
+              size = 8, position = position_dodge(width = 1)) +
     facet_grid(~ region) +
     theme_bw()  +
-    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), legend.title=element_blank()) +
+    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), legend.title = element_blank()) +
     xlab("") + 
     ylab("log2(observed/expected)") +
-    scale_x_discrete(breaks=NULL)
+    scale_x_discrete(breaks = NULL)
   plot = grid.arrange(plot1, plot2, heights = c(2,1.2))
   return(plot)
 }

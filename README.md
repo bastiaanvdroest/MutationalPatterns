@@ -24,7 +24,7 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
 * [Getting started](#getting-started)
   * [Installation](#installation)
   * [Reference genome](#reference-genome)
-  * [Test data](#test-data)
+  * [Load data](#load-data)
   * [Make chromosome names uniform](#make-chromosome-names-uniform)
 * [Mutation characteristics](#mutation-characteristics)
   * [Base substitution types](#base-substitution-types)

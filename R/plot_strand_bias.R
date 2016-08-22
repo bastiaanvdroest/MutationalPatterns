@@ -24,17 +24,20 @@ plot_strand_bias = function(strand_bias, colors)
 {
   # if colors parameter not provided, set to default colors
   if(missing(colors)){colors=COLORS6}
+  # determine max y value for plotting
+  # = log2 ratio with pseudo counts
+  max = round( max(abs(log2(strand_bias$ratio))), digits = 1) + 0.1
   # plot strand bias with poisson test results
-  plot = ggplot(strand_bias, aes(x=type, y=log2(ratio), fill=type)) +
-    scale_fill_manual(values=COLORS6) +
-    geom_bar(colour="black", stat="identity",position = "identity") +
-    scale_y_continuous(limits=c(-0.7, 0.7), breaks=seq(-1, 1, 0.2)) +
+  plot = ggplot(strand_bias, aes(x = type, y = log2(ratio), fill = type)) +
+    scale_fill_manual(values = COLORS6) +
+    geom_bar(colour = "black", stat ="identity", position = "identity") +
+    scale_y_continuous(limits = c(-max, max), breaks = seq(-1, 1, 0.2)) +
     geom_text(aes(x = type, y = log2(ratio), ymax = log2(ratio), 
-                  label=significant, vjust=ifelse(sign(log2(ratio)) > 0, 0.5, 1)), 
-              size = 8, position = ggplot2::position_dodge(width=1)) +
+                  label = significant, vjust = ifelse(sign(log2(ratio)) > 0, 0.5, 1)), 
+              size = 8, position = ggplot2::position_dodge(width = 1)) +
     facet_grid(. ~ group) +
     theme_bw()  +
-    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), legend.title=element_blank()) +
+    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), legend.title = element_blank()) +
     xlab("") + 
     ylab("log2(transcribed/untranscribed)") +
     scale_x_discrete(breaks=NULL)
