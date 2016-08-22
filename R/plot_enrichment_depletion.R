@@ -1,7 +1,7 @@
 #' Plot enrichment/depletion of mutations in genomic regions
 #' 
 #' @param df Dataframe result from enrichment_depletion_test()
-#' @return Plot with two parts. 1: Barplot with no. mutations expected and observed per region. 2: effect size of enrichment/depletion (log2ratio) with results significance test
+#' @return Plot with two parts. 1: Barplot with no. mutations expected and observed per region. 2: Effect size of enrichment/depletion (log2ratio) with results significance test
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_bar
@@ -29,13 +29,13 @@ plot_enrichment_depletion = function(df)
     ylab("No. mutations")
     scale_x_discrete(breaks=NULL) 
   # determine max y value for plotting
-  max = round(max(abs(log2((df$observed+0.1)/df$expected))))
+  max = round( max(abs(log2((df$observed+0.1)/(df$expected+0.1)))) , digits=2) + 0.1
   # plot part 2: effect size of enrichment/depletion with significance test
-  plot2 = ggplot(data=df, aes(x=by, y=log2((observed+0.1)/expected), fill=by)) + 
+  plot2 = ggplot(data=df, aes(x=by, y=log2((observed+0.1)/(expected+0.1)), fill=by)) + 
     geom_bar(colour="black" , stat="identity", position=position_dodge()) +
     scale_y_continuous(limits=c(-max,max)) +
-    geom_text(aes(x = by, y = log2(observed/expected), ymax = log2(observed/expected), 
-                  label=significant, vjust=ifelse(sign(log2(observed/expected)) > 0, 0.5, 1)), 
+    geom_text(aes(x = by, y = log2((observed+0.1)/(expected+0.1)), ymax = log2((observed+0.1)/(expected+0.1)),
+                  label=significant, vjust=ifelse(sign(log2((observed+0.1)/(expected+0.1))) > 0, 0.5, 1)),
               size = 8, position = position_dodge(width=1)) +
     facet_grid(~ region) +
     theme_bw()  +

@@ -1,8 +1,9 @@
-#' Find overlaps between mutations and a genomic region
+#' Test for enrichment or depletion of mutations in genomic regions
 #' 
 #' @description Aggregates mutations per group (optional) and performs enrichment depletion test
 #' @param x Dataframe result from genomic_distribution() 
-#' @param by Optional aggregation vector, e.g. tissue type
+#' @param by Optional grouping variable, e.g. tissue type
+#' @return Data.frame with the observed and expected number of mutations per genomic region per group (by) or sample
 #' @importFrom BiocGenerics cbind
 #' @export
 
@@ -19,6 +20,8 @@ enrichment_depletion_test = function(x, by = c())
     res2 = x
     # by variable is sample variable
     res2$by = res2$sample
+    # select output columns
+    res2 = res2[,c(9,1,3,4,6,8)]
   }
   # calculate probability and expected number of mutations
   res2$prob = res2$n_muts / res2$surveyed_length

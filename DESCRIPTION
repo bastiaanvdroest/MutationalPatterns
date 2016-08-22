@@ -1,11 +1,9 @@
 Package: MutationalPatterns
 Type: Package
 Title: studying patterns in base substitution catalogues
-Description: MutationalPatterns Package provides an extensive toolset for easy
-       identification, characterization and visualization of various patterns
-       in point mutation data.
+Description: MutationalPatterns Package provides an extensive toolset for the characterization and visualization of a wide range of mutational patterns in base substitution data.
 Version: 0.1
-Date: 2016-04-08
+Date: 2016-08-22
 Author: Francis Blokzijl
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
 License: MIT + file LICENSE
@@ -16,7 +14,7 @@ Imports: BiocGenerics (>= 0.18.0), GenomicRanges (>= 1.24.0),
        GenomeInfoDb (>= 1.8.1), Biostrings (>= 2.40.0)
 Depends: R (>= 3.3.0), VariantAnnotation (>= 1.18.1), NMF (>= 0.20.6),
 Suggests: BSgenome (>= 1.40.0), gridExtra (>= 2.2.1)
-biocViews: BiocInstaller, VariantAnnotation, GenomicRanges, IRanges, BiocGenerics
+biocViews: VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false
 RoxygenNote: 5.0.1

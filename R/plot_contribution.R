@@ -7,6 +7,8 @@
 #' @param index optional sample subset parameter
 #' @param coord_flip Flip X and Y coordinates, default = F
 #' @param mode relative or absolute number of mutations, default = "relative"
+#' @param mode "relative" or"absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"
+#' @return Stacked barplot with contribution of each signatures for each sample
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
@@ -52,6 +54,7 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
   # if mode is absolute
   if(mode == "absolute")
   {
+    if(missing(signatures)){stop("For contribution plotting in mode 'absolute': also provide signatures matrix")}
     # total number of mutations per siganture
     total_signatures = colSums(signatures) 
     # calculate signature contribution in absolute number of signatures

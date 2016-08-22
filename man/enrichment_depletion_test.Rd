@@ -2,14 +2,17 @@
 % Please edit documentation in R/enrichment_depletion_test.R
 \name{enrichment_depletion_test}
 \alias{enrichment_depletion_test}
-\title{Find overlaps between mutations and a genomic region}
+\title{Test for enrichment or depletion of mutations in genomic regions}
 \usage{
 enrichment_depletion_test(x, by = c())
 }
 \arguments{
 \item{x}{Dataframe result from genomic_distribution()}
 
-\item{by}{Optional aggregation vector, e.g. tissue type}
+\item{by}{Optional grouping variable, e.g. tissue type}
+}
+\value{
+Data.frame with the observed and expected number of mutations per genomic region per group (by) or sample
 }
 \description{
 Aggregates mutations per group (optional) and performs enrichment depletion test

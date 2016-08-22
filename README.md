@@ -15,22 +15,36 @@ NEW FUNCTIONALITIES
 
 Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
 
-PAPER ON bioRxiv
-
   ```{r}
   citation("MutationalPatterns")
   ```
 
+# Table of Contents
+
+* [Getting started](#getting-started)
+  * [Installation](#installation)
+  * [Reference genome](#reference-genome)
+  * [Test data](#test-data)
+  * [Make chromosome names uniform](#make-chromosome-names-uniform)
+* [Mutation characteristics](#mutation-characteristics)
+* [Mutational signatures](#mutational-signatures)
+* [Transcriptional strand bias](#transcriptional-strand-bias)
+* [Genomic distribution](#genomic-distribution)
+
 
 # Getting started
 
-### Installation
+## Installation
 
-This package is dependent on R version 3.3.1
+This package is dependent on R version 3.3.0
 
-Install and load devtools package
+Install and load Devtools & BiocInstaller package
 
   ```{r}
+  # BiocInstaller
+  source("https://bioconductor.org/biocLite.R")
+  biocLite("BiocInstaller")
+  # Devtools
   install.packages("devtools")
   library(devtools)
   ```
@@ -42,7 +56,7 @@ Install and load MutationalPatterns package
   library(MutationalPatterns)
   ```
 
-### Reference genome
+## Reference genome
 
 1. List all available reference genomes (BSgenome)
 
@@ -59,9 +73,9 @@ Install and load MutationalPatterns package
   library(ref_genome, character.only = T)
   ```
   
-### Load base substitution data
+## Test data
 
-This package is for the analysis of patterns in SNV data only, therefore the vcf files should not contain indel positions.
+This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
 Find package base substitution example/test data
   ```{r}
@@ -84,7 +98,7 @@ Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissu
   tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "liver", "liver", "liver")
   ```
 
-### Make chromosome names uniform
+## Make chromosome names uniform
 
 Check if chromosome names in vcf(s) and reference genome are the same
   ```{r}
@@ -102,9 +116,9 @@ Select autosomal chromosomes
   vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
-#Analyses
+# Mutation characteristics
 
-## Mutation types
+## Base substitution types
 
 Retrieve base substitutions from vcf object as "REF>ALT"
   ```{r}
@@ -182,7 +196,9 @@ Plot 96 profile of three samples
   ```
   ![96_mutation_profile](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/96_profile.png)
 
-## Extract Signatures
+# Mutational signatures
+
+## De novo mutational signature extraction
 
 Estimate optimal rank for NMF mutation matrix decomposition
 
@@ -192,12 +208,12 @@ Estimate optimal rank for NMF mutation matrix decomposition
 
   ![estim_rank](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/estim_rank.png)
 
-Extract and plot 3 signatures
+Extract and plot 2 signatures
 
   ```{r}
   nmf_res = extract_signatures(test_matrix, rank = 3)
   # provide signature names (optional)
-  colnames(nmf_res$signatures) = c("Signature A", "Signature B" , "Signature C")
+  colnames(nmf_res$signatures) = c("Signature A", "Signature B")
   # plot signatures
   plot_96_profile(nmf_res$signatures)
   ```
@@ -208,7 +224,7 @@ Plot signature contribution
 
   ```{r}
   # provide signature names (optional)
-  rownames(nmf_res$contribution) = c("Signature A", "Signature B" , "Signature C")
+  rownames(nmf_res$contribution) = c("Signature A", "Signature B")
   # plot relative signature contribution
   plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
   # plot absolute signature contribution
@@ -234,7 +250,8 @@ Compare reconstructed mutation profile with original mutation profile
 
   ![originalVSreconstructed](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed.png)
 
-### Fit 96 mutation profiles to known signatures  
+
+## Fit 96 mutation profiles to known signatures  
 
 Download signatures from pan-cancer study Alexandrov et al.
   
@@ -269,7 +286,7 @@ Compare reconstructed mutation profile of sample 1 using cancer signatures with 
   ![contribution](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/original_VS_reconstructed_cancer_sigs.png)
 
 
-## Transcriptional strand bias analysis
+# Transcriptional strand bias
 
 For the mutations within genes it can be determined whether the mutation is on the transcribed or non-transcribed strand, which is interesting to study involvement of transcription-coupled repair. To this end, it is determined whether the "C" or "T" base (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition. Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, since the gene definitions report the coding or sense strand, which is untranscribed. No strand information is reported for base substitution that overlap with more than one gene body.
 
@@ -323,14 +340,14 @@ Perform poisson test for strand asymmetry significance testing
   # plot signatures with 192 features
   plot_192_profile(nmf_res_strand$signatures)
   
-  # provide signature names (optional)
-  rownames(nmf_res_strand$contribution) = c("Signature A", "Signature B")
-  # plot signature contribution
-  plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_flip = T, mode = "absolute")
+  # plot strand bias per mutation type for each signature with significance test
+  plot_signature_strand_bias(nmf_res_strand$signatures)
   ```
   
   ![signatures_strand](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/signatures_strand.png)  
 
+
+# Genomic distribution
 
 ## Rainfall plot
 

@@ -36,7 +36,6 @@ plot_signature_strand_bias = function(signatures_strand_bias)
   ratio = as.matrix(subset(sum_per_type,strand == "T")$value / subset(sum_per_type,strand == "U")$value)
   ratio_per_type_per_signature = cbind(subset(sum_per_type,strand == "T")[,2:3], ratio)
   
-  
   # binomial test per type per signature
   size = c()
   observed = c()
@@ -47,21 +46,28 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     for(t in unique(sum_per_type$type))
     {
       sub = subset(sum_per_type, Signature==s & type==t)
-      size = c(size,sum(sub$value))
-      observed = c(observed,subset(sub, strand == "T")$value)
+      size = c(size, sum(sub$value))
+      observed = c(observed, subset(sub, strand == "T")$value)
       transcribed = c(transcribed, subset(sub, strand == "T")$value)
       untranscribed = c(untranscribed, subset(sub, strand == "U")$value)
     }
   }
   
-  stats_per_type = data.frame(Signature = c(rep("Signature A",6), rep("Signature B",6)), type = rep(SUBSTITUTIONS,2), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
+  # names of signatures
+  signatures = colnames(signatures_strand_bias)
+  # No. signatures
+  n = length(signatures)
+  # Observed: observed no. mutations on transcribed strand rounded to integer
+  # Combine counts in one data.frame
+  stats_per_type = data.frame(Signature = rep(signatures, each=6), type = rep(SUBSTITUTIONS,n), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
+  # Perform binomial test
   stats_per_type = adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
-  
+  # Calculate ratio 
   ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
   strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
-  
+  # Find maximum y value for plotting
   max = round(max(abs(log2(strand_bias_per_type_df$value))))
-  
+  # Plot
   plot = ggplot(strand_bias_per_type_df, aes(x=type, y=log2(value), fill=type)) +
     geom_bar(stat="identity", position="dodge", color="black") +
     scale_y_continuous(limits=c(-max,max)) +

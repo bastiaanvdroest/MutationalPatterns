@@ -16,7 +16,10 @@ plot_contribution(contribution, signatures, index = c(), coord_flip = F,
 
 \item{coord_flip}{Flip X and Y coordinates, default = F}
 
-\item{mode}{relative or absolute number of mutations, default = "relative"}
+\item{mode}{"relative" or"absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"}
+}
+\value{
+Stacked barplot with contribution of each signatures for each sample
 }
 \description{
 Plot contribution of signatures
