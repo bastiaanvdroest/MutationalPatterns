@@ -36,6 +36,3 @@ Pleasance,E.D. et al. (2010) A comprehensive catalogue of somatic mutations from
 \seealso{
 \url{https://github.com/CuppenResearch/MutationalPatterns}
 }
-\examples{
-vignette(pacakge = "MutationalPatterns")
-}

@@ -18,3 +18,4 @@ biocViews: VariantAnnotation, GenomicRanges, IRanges, BSgenome, BiocGenerics
 ZipData: NA
 LazyData: false
 RoxygenNote: 5.0.1
+Encoding: UTF-8
