@@ -102,7 +102,7 @@ fit_res = fit_to_signatures(test_matrix, cancer_signatures)
 # select signatures with some contribution
 select = which(rowSums(fit_res$contribution) > 0)
 # plot contribution
-plot_contribution(fit_res$contribution[select,], cancer_signatures[,select], coord_flip = F, mode = "absolute")
+plot_contribution(fit_res$contribution[select,], cancer_signatures[,select], coord_flip = T, mode = "absolute")
 
 # compare reconstructed from refit with original profile
 plot_compare_profiles(test_matrix[,1], fit_res$reconstructed[,1], profile_names = c("Original", "Reconstructed \n cancer signatures"))
@@ -147,7 +147,7 @@ plot_contribution(nmf_res_strand$contribution, nmf_res_strand$signatures, coord_
 # plot strand bias per mutation type for each signature with significance test
 sig_strand_bias_plot = plot_signature_strand_bias(nmf_res_strand$signatures)
 
-grid.arrange(sig_stranded, sig_strand_bias_plot, ncol=2, widths=c(3,1))
+grid.arrange(sig_stranded, sig_strand_bias_plot, ncol=2, widths=c(2.5,1))
 
 # ------ RAINFALL PLOT ------
 
@@ -160,12 +160,7 @@ plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromo
 plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome, chromosomes = chromosomes[1], cex = 2)
 
 
-
-
 # ------ GENOMIC DISTRIBUTION -------
-
-
-
 
 # Use regulation annotation data from ENCODE
 
@@ -248,5 +243,7 @@ distr = genomic_distribution(vcfs, surveyed_list, regions)
 # test for significant enrichment or depletion in the genomic regions
 # samples can be collapsed into groups, here: tissue type
 distr_test = enrichment_depletion_test(distr, by = tissue)
+distr_test2 = enrichment_depletion_test(distr)
 # plot enrichment depletion test results
 plot_enrichment_depletion(distr_test)
+plot_enrichment_depletion(distr_test2)

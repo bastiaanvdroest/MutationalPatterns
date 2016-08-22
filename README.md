@@ -27,10 +27,18 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
   * [Test data](#test-data)
   * [Make chromosome names uniform](#make-chromosome-names-uniform)
 * [Mutation characteristics](#mutation-characteristics)
+  * [Base substitution types](#base-substitution-types)
+  * [Mutation spectrum](#mutation-spectrum)
+  * [96 Mutation profile](#96-mutation-profile)
 * [Mutational signatures](#mutational-signatures)
+  * [De novo mutational signature extraction](#de-novo-mutational-signature-extraction)
+  * [Fit 96 mutation profiles to known signatures](#fit-96-mutation-profiles-to-known-signatures)
 * [Transcriptional strand bias](#transcriptional-strand-bias)
+  * [Strand bias analysis](#strand-bias-analysis)
+  * [Extract signatures with strand bias](#extract-signatures-with-strand-bias)
 * [Genomic distribution](#genomic-distribution)
-
+  * [Rainfall plot](#rainfall-plot)
+  * [Enrichment or depletion of mutations in genomic regions](#enrichment-or-depletion-of-mutations-in-genomic-regions)
 
 # Getting started
 
@@ -44,6 +52,7 @@ Install and load Devtools & BiocInstaller package
   # BiocInstaller
   source("https://bioconductor.org/biocLite.R")
   biocLite("BiocInstaller")
+  library("BiocInstaller")
   # Devtools
   install.packages("devtools")
   library(devtools)
@@ -73,7 +82,7 @@ Install and load MutationalPatterns package
   library(ref_genome, character.only = T)
   ```
   
-## Test data
+## Load data
 
 This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
@@ -81,10 +90,15 @@ Find package base substitution example/test data
   ```{r}
   vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
   ```
+  
+Alternatively, list all the vcf files in your directory
+  ```{r}
+  vcf_files = list.files("your_dir", pattern = ".vcf", full.names = T)
+  ```
 
 Load a single vcf file
   ```{r}
-  vcf = read_vcf(vcf_files[1], "sample1")
+  vcf = read_vcf(vcf_files[1], "sample1", genome = "hg19")
   ```
 
 Load a list of vcf files
@@ -183,7 +197,7 @@ Specify 7 colors for spectrum plotting
   
   ![spectra2](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra2.png)
 
-## 96 Mutation Profile
+## 96 Mutation profile
 
 Make 96 trinucleodide mutation count matrix
   ```{r}
@@ -287,6 +301,8 @@ Compare reconstructed mutation profile of sample 1 using cancer signatures with 
 
 
 # Transcriptional strand bias
+
+## Strand bias analysis
 
 For the mutations within genes it can be determined whether the mutation is on the transcribed or non-transcribed strand, which is interesting to study involvement of transcription-coupled repair. To this end, it is determined whether the "C" or "T" base (since by convention we regard base substitutions as C>X or T>X) are on the same strand as the gene definition. Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, since the gene definitions report the coding or sense strand, which is untranscribed. No strand information is reported for base substitution that overlap with more than one gene body.
 
