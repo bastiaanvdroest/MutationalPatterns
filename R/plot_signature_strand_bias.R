@@ -61,7 +61,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
   # Combine counts in one data.frame
   stats_per_type = data.frame(Signature = rep(signatures, each=6), type = rep(SUBSTITUTIONS,n), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
   # Perform binomial test
-  stats_per_type = adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
+  stats_per_type = plyr::adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
   # Calculate ratio 
   ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
   strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
@@ -79,7 +79,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     xlab("") +
     geom_text(aes(x = type, y = log2(value), ymax = log2(value), 
                   label=significant, vjust=ifelse(sign(log2(value)) > 0, 0.5, 1)), 
-              size = 8, position = position_dodge(width=1)) 
+              size = 8, position = ggplot2::position_dodge(width=1)) 
   
   return(plot)
 }
