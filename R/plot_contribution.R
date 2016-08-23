@@ -28,7 +28,13 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
   if(!(mode == "relative" | mode == "absolute")){stop("mode parameter should be either 'relative' or 'absolute' ")}
   # optional subsetting if index parameter is provided
   if(length(index > 0)){contribution = contribution[,index]}
-  
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  Sample = NULL
+  Contribution = NULL
+  Signature = NULL
+
   # if mode is relative
   if(mode == "relative")
   {
@@ -62,7 +68,7 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
     # Plot contribution
     m_contribution = melt(abs_contribution)
     colnames(m_contribution) = c("Signature", "Sample", "Contribution")
-    
+
     plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
       geom_bar(stat="identity", colour = "black")  +  
       # make sure sample ordering is correct

@@ -49,7 +49,15 @@ plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 
   rownames(x) = NULL
   df2 = cbind(df, as.data.frame(x))
   df3 = melt(df2, id.vars = c("substitution", "context"))
-  
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  value = NULL
+  substitution = NULL
+  Sample = NULL
+  Contribution = NULL
+  Signature = NULL
+    
   # Add dummy non_visible data points to force y axis limits per facet
   df4 = data.frame(substitution = rep("C>A", 4), context = rep("A.A",4), variable = c(profile_names, "Difference", "Difference"), value = c(profile_ymax, profile_ymax, diff_ylim[1], diff_ylim[2]))
   

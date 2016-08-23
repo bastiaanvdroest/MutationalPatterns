@@ -67,6 +67,14 @@ plot_signature_strand_bias = function(signatures_strand_bias)
   strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
   # Find maximum y value for plotting
   max = round(max(abs(log2(strand_bias_per_type_df$value))))
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  Signature = NULL
+  type = NULL
+  value = NULL
+  significant = NULL
+
   # Plot
   plot = ggplot(strand_bias_per_type_df, aes(x=type, y=log2(value), fill=type)) +
     geom_bar(stat="identity", position="dodge", color="black") +

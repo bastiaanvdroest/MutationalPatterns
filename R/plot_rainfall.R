@@ -66,6 +66,11 @@ plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex =
     chrom = c(chrom, rep(chromosomes[i],n-1))
   }
   data = data.frame(type = type, location = loc, distance = dist, chromosome = chrom)
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  location = NULL
+
   # make rainfall plot
   plot = ggplot(data, aes(x=location, y=distance)) +
     geom_point(aes(colour=factor(type)), cex=cex) + 

@@ -25,6 +25,15 @@
 
 plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
 {
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  value = NULL
+  nmuts = NULL
+  sub_type = NULL
+  variable = NULL
+  error_pos = NULL
+  stdev = NULL
+
   # if colors parameter not provided, set to default colors
   if(missing(colors)){colors = COLORS7}
   # check color vector length
@@ -68,6 +77,7 @@ plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
     order = order(factor(x$variable, levels = c("C>A", "C>G",  "C>T other", "C>T at CpG","T>A", "T>C", "T>G")))
     x = x[order,]
   }
+
   # make barplot
   plot = ggplot(data=x, aes(x=sub_type, y=mean, fill=variable, group=sub_type)) +
           geom_bar(stat="identity") +

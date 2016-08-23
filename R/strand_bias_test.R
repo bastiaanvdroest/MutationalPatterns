@@ -10,6 +10,11 @@
 
 strand_bias_test = function(strand_occurences)
 {
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  variable = NULL
+  U = NULL
+
   # statistical test for strand ratio
   # poisson test
   df_strand = reshape2::dcast(melt(strand_occurences), type + group ~ strand, sum, subset = plyr::.(variable == "no_mutations"))

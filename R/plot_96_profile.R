@@ -39,6 +39,10 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
   df2 = cbind(df, as.data.frame(norm_mut_matrix))
   df3 = melt(df2, id.vars = c("substitution", "context"))
   
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  value = NULL
+
   plot = ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6)) +  
           geom_bar(stat="identity", colour="black", size=.2) + 
           scale_fill_manual(values=colors) + 

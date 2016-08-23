@@ -27,6 +27,15 @@ plot_strand_bias = function(strand_bias, colors)
   # determine max y value for plotting
   # = log2 ratio with pseudo counts
   max = round( max(abs(log2(strand_bias$ratio))), digits = 1) + 0.1
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  type = NULL
+  ratio = NULL
+  significant = NULL
+  variable = NULL
+  U = NULL
+
   # plot strand bias with poisson test results
   plot = ggplot(strand_bias, aes(x = type, y = log2(ratio), fill = type)) +
     scale_fill_manual(values = COLORS6) +
