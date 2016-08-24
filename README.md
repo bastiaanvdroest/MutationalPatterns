@@ -293,7 +293,7 @@ Compare reconstructed mutation profile with original mutation profile
 
 ## Fit 96 mutation profiles to known signatures  
 
-Download signatures from pan-cancer study Alexandrov et al.
+Download signatures from pan-cancer study (Alexandrov et al. 2013)
   
   ```{r}
   sp_url = "http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt"
@@ -417,9 +417,11 @@ Make rainfall plot of sample 1 over chromosome 1
   
 ## Enrichment or depletion of mutations in genomic regions
 
-Test for enrichment or depletion of mutations in certrain genomic regions, such as promoters, CTCF binding sites and transcription factor binding sites. To use your own genomic region definitions (based on e.g. ChipSeq experiments) specify your genomic regions in a named list of GRanges objects. Alternatively, use publically available genomic annotation data, like in the example below.
+Test for enrichment or depletion of mutations in certain genomic regions, such as promoters, CTCF binding sites and transcription factor binding sites. To use your own genomic region definitions (based on e.g. ChipSeq experiments) specify your genomic regions in a named list of GRanges objects. Alternatively, use publically available genomic annotation data, like in the example below.
 
 ### Example: regulation annotation data from Ensembl using biomaRt
+
+Here is an example of how to download regulation annotation data for genome build hg19. For other datasets, see biomaRt package documentation (Durinck et al. 2005). 
 
 Install and load biomaRt package
 
@@ -431,12 +433,12 @@ Install and load biomaRt package
 
   ```{r}
   mart="ensembl"
-  # list datasets available from ensembl for hg19 = GrCh37
-  listDatasets(useEnsembl(biomart="regulation", GRCh = 37))
+  # list datasets available from ensembl BiomaRt
+  listDatasets(useEnsembl(biomart="regulation"))
   ```
 
   ```{r}
-  # Multicell regulatory features
+  # Multicell regulatory features for hg19
   regulation_regulatory = useEnsembl(biomart="regulation", dataset="hsapiens_regulatory_feature", GRCh = 37)
   # list all possible filters
   listFilters(regulation_regulatory)
