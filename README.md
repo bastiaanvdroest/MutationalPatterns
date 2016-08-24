@@ -88,21 +88,23 @@ Example data for the package is provided in the MutationalPatterns data reposito
 
 Define a function to download the example data from the MutationalPatterns data repository
   ```{r}
-  download_example_data <- function(data_dir, samples) {
+  download_example_data <- function(data_dir) {
+    samples = c("colon1.vcf", "colon2.vcf", "colon3.vcf", 
+                "intestine1.vcf", "intestine2.vcf", "intestine3.vcf", 
+                "liver1.vcf", "liver2.vcf", "liver3.vcf")
     dir.create(data_dir, recursive = TRUE, mode = "0755")
     for (i in 1:length(samples)) {
       download.file (paste("https://raw.githubusercontent.com/CuppenResearch/",
-                           "MutationalPatterns-data/master/", samples[i], ".vcf",
-                           sep=""), paste(data_dir, "/", samples[i], ".vcf", sep=""))
+                           "MutationalPatterns-data/master/", samples[i],
+                           sep=""), paste(data_dir, "/", samples[i], sep=""))
     }
   }
   ```
-  
 
 Download example data to your destination directory
   ```{r}
   dest_dir = "example_data"
-  download_example_data(dest_dir, sample_names)
+  download_example_data(dest_dir)
   ```
 
 List vcf files
@@ -503,9 +505,9 @@ It is necessary to include a list with Granges of regions that were surveyed in 
   ```{r}
   # Download sample data.
   download.file("https://raw.githubusercontent.com/CuppenResearch/MutationalPatterns-data/master/callableloci.bed",
-                paste(download_dir, "/callableloci.bed", sep=""))
+                paste(dest_dir, "/callableloci.bed", sep=""))
   # Read example file with surveyed/callable regions
-  surveyed_file = list.files(download_dir, pattern = ".bed", full.names = T)
+  surveyed_file = list.files(dest_dir, pattern = ".bed", full.names = T)
   # read bed file as granges object
   surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
   # for this example we use the same surveyed file for each sample
