@@ -5,6 +5,21 @@ vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), ful
 sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
 vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
 
+# ----- OBTAIN EXAMPLE DATA ------
+download_example_data <- function(data_dir, samples) {
+  dir.create(data_dir, recursive = TRUE, mode = "0755")
+  for (i in 1:length(samples)) {
+    download.file (paste("https://raw.githubusercontent.com/CuppenResearch/",
+                         "MutationalPatterns-data/master/", samples[i], ".vcf",
+                         sep=""), paste(data_dir, "/", samples[i], ".vcf", sep=""))
+  }
+}
+
+download_dir = "example_data"
+download_example_data(download_dir, sample_names)
+
+vcf_files = list.files(download_dir, full.names = T)
+
 ref_genome = "BSgenome.Hsapiens.UCSC.hg19" 
 # source("http://bioconductor.org/biocLite.R")
 # biocLite(ref_genome)
@@ -231,8 +246,11 @@ regions = lapply(regions, function(x) rename_chrom(x))
 
 # GENOMIC DISTRIBUTION TESTING
 
-# Provide regions that are surveyed/callable
-surveyed_file = list.files(system.file("bed", package="MutationalPatterns"), full.names = T)
+# Download sample data.
+download.file("https://raw.githubusercontent.com/CuppenResearch/MutationalPatterns-data/master/callableloci.bed",
+              paste(download_dir, "/callableloci.bed", sep=""))
+# Read example file with surveyed/callable regions
+surveyed_file = list.files(download_dir, pattern = ".bed", full.names = T)
 # read bed file as grange object
 surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
 # for this example we use the same surveyed file for each sample
