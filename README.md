@@ -84,9 +84,9 @@ Install and load MutationalPatterns package
   
 ## Load data
 
-This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
+Example data for the package is provided in the MutationalPatterns data repository and consists of somatic mutation catalogues of 9 normal human adult stem cells from 3 tissues (Blokzijl et al., 2016).
 
-Define a function to download the example/test data from our data repository
+Define a function to download the example data from the MutationalPatterns data repository
   ```{r}
   download_example_data <- function(data_dir, samples) {
     dir.create(data_dir, recursive = TRUE, mode = "0755")
@@ -97,26 +97,32 @@ Define a function to download the example/test data from our data repository
     }
   }
   ```
+  
 
-Define a list of samples
+Download example data to your destination directory
+  ```{r}
+  dest_dir = "example_data"
+  download_example_data(dest_dir, sample_names)
+  ```
+
+List vcf files
+  ```{r}
+  # List vcf files in the destination directory of the downloaded example data
+  vcf_files = list.files(dest_dir, pattern = ".vcf", full.names = T)
+  # Or to list your vcf files in your directory
+  vcf_files = list.files(your_dir, pattern = ".vcf", full.names = T)
+  ```
+
+Define sample names
   ```{r}
   sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
   ```
-
-Download the samples
-  ```{r}
-  download_dir = "example_data"
-  download_example_data(download_dir, sample_names)
-  ```
-
-Find package base substitution example/test data
-  ```{r}
-  vcf_files = list.files(download_dir, pattern = ".vcf", full.names = T)
-  ```
+  
+This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
 Load a single vcf file
   ```{r}
-  vcf = read_vcf(vcf_files[1], "sample1", genome = "hg19")
+  vcf = read_vcf(vcf_files[1], sample_names[1], genome = "hg19")
   ```
 
 Load a list of vcf files
