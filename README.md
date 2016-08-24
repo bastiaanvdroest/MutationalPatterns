@@ -31,7 +31,7 @@ Please give credit and cite MutationalPatterns R Package when you use it for you
   * [Mutation spectrum](#mutation-spectrum)
   * [96 Mutation profile](#96-mutation-profile)
 * [Mutational signatures](#mutational-signatures)
-  * [De novo mutational signature extraction](#de-novo-mutational-signature-extraction)
+  * [De novo mutational signature extraction](#de-novo-mutational-signature-extraction-using-NMF)
   * [Fit 96 mutation profiles to known signatures](#fit-96-mutation-profiles-to-known-signatures)
 * [Transcriptional strand bias](#transcriptional-strand-bias)
   * [Strand bias analysis](#strand-bias-analysis)
@@ -235,11 +235,12 @@ Plot 96 profile of three samples
 
 # Mutational signatures
 
-## De novo mutational signature extraction
+## De novo mutational signature extraction using NMF
 
-Estimate optimal rank for NMF mutation matrix decomposition
+A critical parameter in NMF is the factorization rank, which is the number of mutational signatures. Determine the optimal factorization rank using the NMF package (Gaujoux and Seoighe, 2010). As described in their paper: "...a common way of deciding on the rank is to try different values, compute some quality measure of the results, and choose the best value according to this quality criteria. The most common approach is to choose the smallest rank for which cophenetic correlation coefficient starts decreasing. Another approach is to choose the rank for which the plot of the residual sum of squares (RSS) between the input matrix and its estimate shows an inflection point."
 
   ```{r}
+  # Plot various quality criteria for a specific range of ranks
   estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
   ```
 
@@ -510,6 +511,7 @@ It is necessary to include a list with Granges of regions that were surveyed in 
   # for this example we use the same surveyed file for each sample
   surveyed_list= rep(surveyed_list, 9)
   ```
+  
 Test for an enrichment or depletion of mutations in your defined genomic regions using a binomial test. For this test, the chance of observing a mutation is calculated as the total number of mutations, divided by the total number of surveyed bases.
   
   ```{r}
