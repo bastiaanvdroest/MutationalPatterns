@@ -23,6 +23,13 @@ plot_strand = function(strand_bias_df, mode = "relative", colors)
 {
   # if colors parameter not provided, set to default colors
   if(missing(colors)){colors=COLORS6}
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  type = NULL
+  relative_contribution = NULL
+  no_mutations = NULL
+
   # plot relative contribution within each group
   if(mode == "relative")
   {

@@ -86,14 +86,32 @@ Install and load MutationalPatterns package
 
 This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
 
+Define a function to download the example/test data from our data repository
+  ```{r}
+  download_example_data <- function(data_dir, samples) {
+    dir.create(data_dir, recursive = TRUE, mode = "0755")
+    for (i in 1:length(samples)) {
+      download.file (paste("https://raw.githubusercontent.com/CuppenResearch/",
+                           "MutationalPatterns-data/master/", samples[i], ".vcf",
+                           sep=""), paste(data_dir, "/", samples[i], ".vcf", sep=""))
+    }
+  }
+  ```
+
+Define a list of samples
+  ```{r}
+  sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
+  ```
+
+Download the samples
+  ```{r}
+  download_dir = "example_data"
+  download_example_data(download_dir, sample_names)
+  ```
+
 Find package base substitution example/test data
   ```{r}
-  vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
-  ```
-  
-Alternatively, list all the vcf files in your directory
-  ```{r}
-  vcf_files = list.files("your_dir", pattern = ".vcf", full.names = T)
+  vcf_files = list.files(download_dir, pattern = ".vcf", full.names = T)
   ```
 
 Load a single vcf file
@@ -103,7 +121,6 @@ Load a single vcf file
 
 Load a list of vcf files
   ```{r}
-  sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
   vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
   ```
 
@@ -477,8 +494,11 @@ Combine all genomic regions (GRanges objects) in a named list.
 It is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you would not include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
 
   ```{r}
+  # Download sample data.
+  download.file("https://raw.githubusercontent.com/CuppenResearch/MutationalPatterns-data/master/callableloci.bed",
+                paste(download_dir, "/callableloci.bed", sep=""))
   # Read example file with surveyed/callable regions
-  surveyed_file = list.files(system.file("bed", package="MutationalPatterns"), full.names = T)
+  surveyed_file = list.files(download_dir, pattern = ".bed", full.names = T)
   # read bed file as granges object
   surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
   # for this example we use the same surveyed file for each sample

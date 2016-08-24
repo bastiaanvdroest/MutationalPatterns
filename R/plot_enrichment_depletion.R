@@ -14,11 +14,21 @@
 #' @importFrom ggplot2 scale_x_discrete
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 position_dodge
+#' @importFrom gridExtra grid.arrange
 #' @export
 
 plot_enrichment_depletion = function(df)
 {
   df2 = melt(df[,c(1,2,6,8)])
+
+  # These variables will be available at run-time, but not at compile-time.
+  # To avoid compiling trouble, we initialize them to NULL.
+  value = NULL
+  variable = NULL
+  observed = NULL
+  expected = NULL
+  significant = NULL
+
   # plot part 1: No. mutations expected and observed per region
   plot1 =  ggplot(df2, aes(x=by, y=value, fill=by, group=variable, alpha=variable)) +
     geom_bar(colour="black" , stat="identity", position=position_dodge()) +

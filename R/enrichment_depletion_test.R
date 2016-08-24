@@ -5,6 +5,7 @@
 #' @param by Optional grouping variable, e.g. tissue type
 #' @return Data.frame with the observed and expected number of mutations per genomic region per group (by) or sample
 #' @importFrom BiocGenerics cbind
+#' @importFrom BiocGenerics rbind
 #' @export
 
 enrichment_depletion_test = function(x, by = c())
@@ -13,7 +14,7 @@ enrichment_depletion_test = function(x, by = c())
   if(length(by) > 0){
     x$by = by
     # sum the columns while aggregating rows based on unique values in by and region
-    res2 = aggregate(cbind(n_muts, surveyed_length, surveyed_region_length, observed) ~ by + region, data = x, sum)
+    res2 = stats::aggregate(cbind(n_muts, surveyed_length, surveyed_region_length, observed) ~ by + region, data = x, sum)
   }
   # else without aggregation
   else{
