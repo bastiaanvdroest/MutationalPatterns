@@ -14,15 +14,19 @@ The package provides functionalities for both extracting mutational signatures d
 
 \author{
 Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
-Maintainer: Francis Blokzijl, UMC Utrecht <f.blokzijl@umcutrecht.nl>
+Maintainers: Francis Blokzijl, UMC Utrecht <f.blokzijl@umcutrecht.nl>
+Roel Janssen, UMC Utrecht <roel@gnu.org>
 }
 \references{
 Alexandrov,L.B. et al. (2013) Signatures of mutational processes in human cancer. Nature, 500, 415–21.
+
 Blokzijl,F. et al. (2016) Tissue-specific mutation accumulation in human adult stem cells during life. Nature, in press.
 
 Borchers,H.W. (2016) pracma: Practical Numerical Math Functions.
 
 Durinck,S. et al. (2005) BioMart and Bioconductor: A powerful link between biological databases and microarray data analysis. Bioinformatics, 21, 3439–3440.
+
+Gaujoux,R. and Seoighe,C. (2010) A flexible R package for nonnegative matrix factorization. BMC Bioinformatics, 11, 367.
 
 Haradhvala,N.J. et al. (2016) Mutational Strand Asymmetries in Cancer Genomes Reveal Mechanisms of DNA Damage and Repair. Cell, 1–12.
 

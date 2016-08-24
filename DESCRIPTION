@@ -1,11 +1,11 @@
 Package: MutationalPatterns
 Type: Package
-Title: studying patterns in base substitution catalogues
-Description: MutationalPatterns Package provides an extensive toolset for the characterization and visualization of a wide range of mutational patterns in base substitution data.
-Version: 0.1
-Date: 2016-08-22
-Author: Francis Blokzijl
-Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>
+Title: Studying patterns in base substitution catalogues
+Description: An extensive toolset for the characterization and visualization of a wide range of mutational patterns in base substitution data.
+Version: 0.2
+Date: 2016-08-24
+Author: Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
+Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>, Roel Janssen <roel@gnu.org>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
 Imports: BiocGenerics (>= 0.18.0), VariantAnnotation (>= 1.18.1),
