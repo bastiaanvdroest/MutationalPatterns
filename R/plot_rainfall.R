@@ -32,6 +32,7 @@
 #' @importFrom ggplot2 guides
 #' @importFrom ggplot2 guide_legend
 #' @importFrom GenomeInfoDb seqlengths
+#' @importFrom GenomeInfoDb seqnames
 #' @export
 
 plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5, cex_text = 3, ylim = 1e+08)
