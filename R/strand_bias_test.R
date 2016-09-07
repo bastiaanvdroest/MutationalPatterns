@@ -13,6 +13,8 @@ strand_bias_test = function(strand_occurences)
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
     variable = NULL
+    T = NULL
+    U = NULL
 
     # statistical test for strand ratio
     # poisson test
