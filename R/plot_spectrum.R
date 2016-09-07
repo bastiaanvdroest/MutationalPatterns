@@ -1,10 +1,10 @@
 #' Plot point mutation spectrum
 #'    
 #' @param type_occurences Type occurences matrix
-#' @param CT Distinction between C>T at CpG and C>T at other sites, default = F
+#' @param CT Distinction between C>T at CpG and C>T at other sites, default = FALSE
 #' @param by Optional grouping variable
 #' @param colors Optional color vector with 7 values
-#' @param legend Plot legend, default = T
+#' @param legend Plot legend, default = TRUE
 #' @return Spectrum plot
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
@@ -23,7 +23,7 @@
 #' @importFrom plyr summarise
 #' @export
 
-plot_spectrum = function(type_occurences, CT = FALSE, by, colors, legend = T)
+plot_spectrum = function(type_occurences, CT = FALSE, by, colors, legend = TRUE)
 {
   # These variables will be available at run-time, but not at compile-time.
   # To avoid compiling trouble, we initialize them to NULL.
