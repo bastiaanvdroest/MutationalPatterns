@@ -18,7 +18,7 @@ bed_to_granges = function(bed_files, region_names)
   for(i in 1:length(bed_files))
   {
     bed_file = bed_files[i]
-    bed = read.table(bed_file, header = F, stringsAsFactors = F)
+    bed = read.table(bed_file, header = FALSE, stringsAsFactors = F)
     chr = paste("chr", bed[,1], sep="")
     # Convert BED (0-based) start postion to Granges (1-based)
     start = bed[,2] + 1

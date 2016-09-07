@@ -33,7 +33,7 @@ plot_compare_profiles = function(profile1, profile2, profile_names = c("profile 
   diff = s1_relative - s2_relative
   # residual sum of squares
   RSS = sum(diff^2)
-  RSS = format(RSS, scientific = T, digits = 3)
+  RSS = format(RSS, scientific = TRUE, digits = 3)
   
   x = cbind(s1_relative, s2_relative, diff)
   colnames(x) = c(profile_names, "Difference")

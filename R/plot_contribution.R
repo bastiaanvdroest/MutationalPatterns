@@ -22,7 +22,7 @@
 #' @export
 #' 
 
-plot_contribution = function(contribution, signatures, index=c(), coord_flip = F, mode = "relative")
+plot_contribution = function(contribution, signatures, index=c(), coord_flip = FALSE, mode = "relative")
 {
   # check mode parameter
   if(!(mode == "relative" | mode == "absolute")){stop("mode parameter should be either 'relative' or 'absolute' ")}
@@ -84,6 +84,6 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
   }
   
   # optional coordinate flipping
-  if(coord_flip == T){plot = plot + coord_flip()}
+  if(coord_flip == TRUE){plot = plot + coord_flip()}
   return(plot)
 }

@@ -23,7 +23,7 @@
 #' @importFrom plyr summarise
 #' @export
 
-plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
+plot_spectrum = function(type_occurences, CT = FALSE, by, colors, legend = T)
 {
   # These variables will be available at run-time, but not at compile-time.
   # To avoid compiling trouble, we initialize them to NULL.
@@ -66,7 +66,7 @@ plot_spectrum = function(type_occurences, CT = F, by, colors, legend = T)
   # define positioning of error bars
   x$error_pos = x$mean
   # if C>T stacked bar (distinction between CpG sites and other)
-  if(CT == T){
+  if(CT == TRUE){
     # adjust positioning of error bars for stacked bars
     # mean of C>T at CpG should be plus the mean of C>T at other
     x = x[order(x$by),]

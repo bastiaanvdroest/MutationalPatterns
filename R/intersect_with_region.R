@@ -21,7 +21,7 @@ intersect_with_region = function(vcf, surveyed, region)
     stop("Chromosome names (seqlevels) of surveyed and region granges object do not match.")
 
   # Intersect genomic region and surveyed region
-  surveyed_region = intersect(surveyed, region, ignore.strand = T)
+  surveyed_region = intersect(surveyed, region, ignore.strand = TRUE)
   surveyed_region_length = sum(width(surveyed_region))
   
 
