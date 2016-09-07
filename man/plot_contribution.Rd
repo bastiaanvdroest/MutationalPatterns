@@ -4,7 +4,7 @@
 \alias{plot_contribution}
 \title{Plot signature contribution}
 \usage{
-plot_contribution(contribution, signatures, index = c(), coord_flip = F,
+plot_contribution(contribution, signatures, index = c(), coord_flip = FALSE,
   mode = "relative")
 }
 \arguments{
@@ -14,7 +14,7 @@ plot_contribution(contribution, signatures, index = c(), coord_flip = F,
 
 \item{index}{optional sample subset parameter}
 
-\item{coord_flip}{Flip X and Y coordinates, default = F}
+\item{coord_flip}{Flip X and Y coordinates, default = FALSE}
 
 \item{mode}{"relative" or "absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"}
 }
