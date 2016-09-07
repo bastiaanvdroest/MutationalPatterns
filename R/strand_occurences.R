@@ -11,26 +11,34 @@
 
 strand_occurences = function(mut_mat_s, by)
 {
-  df = t(mut_mat_s)
-  # check if grouping parameter by was provided, if not group by all
-  if(missing(by)){by = rep("all", nrow(df))}
-  # sum by group
-  x = aggregate(df, by=list(by), FUN=sum) 
-  # add group as rownames
-  rownames(x) = x[,1]
-  x = x[,-1]
-  # calculate relative contribution within group
-  x_r = x/ rowSums(x)
-  # sum per substition per strand
-  substitutions = rep(SUBSTITUTIONS, each=32)
-  x2 = melt(aggregate(t(x), by = list(substitutions, STRAND), FUN=sum))
-  x2_r = melt(aggregate(t(x_r), by = list(substitutions, STRAND), FUN=sum))
-  colnames(x2) = c("type", "strand", "group", "no_mutations")
-  colnames(x2_r) = c("type", "strand", "group", "relative_contribution")
-  # combine relative and absolute
-  y = merge(x2, x2_r)
-  # reorder group, type, strand
-  y = y[,c(3,1,2,4,5)]
-  y = y[order(y$group, y$type),]
-  return(y)
+    df = t(mut_mat_s)
+
+    # check if grouping parameter by was provided, if not group by all
+    if(missing(by)){by = rep("all", nrow(df))}
+
+    # sum by group
+    x = aggregate(df, by=list(by), FUN=sum) 
+
+    # add group as rownames
+    rownames(x) = x[,1]
+    x = x[,-1]
+
+    # calculate relative contribution within group
+    x_r = x/ rowSums(x)
+
+    # sum per substition per strand
+    substitutions = rep(SUBSTITUTIONS, each=32)
+    x2 = melt(aggregate(t(x), by = list(substitutions, STRAND), FUN=sum))
+    x2_r = melt(aggregate(t(x_r), by = list(substitutions, STRAND), FUN=sum))
+    colnames(x2) = c("type", "strand", "group", "no_mutations")
+    colnames(x2_r) = c("type", "strand", "group", "relative_contribution")
+
+    # combine relative and absolute
+    y = merge(x2, x2_r)
+
+    # reorder group, type, strand
+    y = y[,c(3,1,2,4,5)]
+    y = y[order(y$group, y$type),]
+
+    return(y)
 }

@@ -24,66 +24,75 @@
 
 plot_contribution = function(contribution, signatures, index=c(), coord_flip = FALSE, mode = "relative")
 {
-  # check mode parameter
-  if(!(mode == "relative" | mode == "absolute")){stop("mode parameter should be either 'relative' or 'absolute' ")}
-  # optional subsetting if index parameter is provided
-  if(length(index > 0)){contribution = contribution[,index]}
+    # check mode parameter
+    if(!(mode == "relative" | mode == "absolute"))
+        stop("mode parameter should be either 'relative' or 'absolute'")
 
-  # These variables will be available at run-time, but not at compile-time.
-  # To avoid compiling trouble, we initialize them to NULL.
-  Sample = NULL
-  Contribution = NULL
-  Signature = NULL
+    # optional subsetting if index parameter is provided
+    if(length(index > 0)){contribution = contribution[,index]}
 
-  # if mode is relative
-  if(mode == "relative")
-  {
-    # Plot contribution
-    m_contribution = melt(contribution)
-    colnames(m_contribution) = c("Signature", "Sample", "Contribution")
-    
-    plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
-      geom_bar(position = "fill", stat="identity", colour="black")  +  
-      # make sure sample ordering is correct
-      xlim(rev(levels(factor(m_contribution$Sample)))) +
-      # ylabel
-      labs(x = "", y = "Relative contribution") +  
-      scale_fill_discrete(name="Signature") +
-      # white background
-      theme_bw() +
-      # no gridlines
-      theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
-      theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
-  }
+    # These variables will be available at run-time, but not at compile-time.
+    # To avoid compiling trouble, we initialize them to NULL.
+    Sample = NULL
+    Contribution = NULL
+    Signature = NULL
 
-  # if mode is absolute
-  if(mode == "absolute")
-  {
-    if(missing(signatures)){stop("For contribution plotting in mode 'absolute': also provide signatures matrix")}
-    # total number of mutations per siganture
-    total_signatures = colSums(signatures) 
-    # calculate signature contribution in absolute number of signatures
-    abs_contribution = contribution * total_signatures
-    
-    # Plot contribution
-    m_contribution = melt(abs_contribution)
-    colnames(m_contribution) = c("Signature", "Sample", "Contribution")
+    if (mode == "relative")
+    {
+        # Plot contribution
+        m_contribution = melt(contribution)
+        colnames(m_contribution) = c("Signature", "Sample", "Contribution")
+        
+        plot = ggplot(m_contribution,
+                      aes(x = factor(Sample),
+                          y = Contribution,
+                          fill = factor(Signature),
+                          order = Sample)) +
+            geom_bar(position = "fill", stat="identity", colour="black")  +  
+            # make sure sample ordering is correct
+            xlim(rev(levels(factor(m_contribution$Sample)))) +
+                                        # ylabel
+            labs(x = "", y = "Relative contribution") +  
+            scale_fill_discrete(name="Signature") +
+            # white background
+            theme_bw() +
+            # no gridlines
+            theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
+            theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
+    }
 
-    plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
-      geom_bar(stat="identity", colour = "black")  +  
-      # make sure sample ordering is correct
-      xlim(rev(levels(factor(m_contribution$Sample)))) +
-      # ylabel
-      labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
-      scale_fill_discrete(name="Signature") +
-      # white background
-      theme_bw() +
-      # no gridlines
-      theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
-      theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
-  }
-  
-  # optional coordinate flipping
-  if(coord_flip == TRUE){plot = plot + coord_flip()}
-  return(plot)
+    # Handle the absolute mode.
+    else 
+    {
+        if(missing(signatures))
+            stop("For contribution plotting in mode 'absolute': also provide signatures matrix")
+
+        # total number of mutations per siganture
+        total_signatures = colSums(signatures) 
+
+        # calculate signature contribution in absolute number of signatures
+        abs_contribution = contribution * total_signatures
+
+        # Plot contribution
+        m_contribution = melt(abs_contribution)
+        colnames(m_contribution) = c("Signature", "Sample", "Contribution")
+
+        plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
+            geom_bar(stat="identity", colour = "black")  +  
+            # make sure sample ordering is correct
+            xlim(rev(levels(factor(m_contribution$Sample)))) +
+            # ylabel
+            labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
+            scale_fill_discrete(name="Signature") +
+            # white background
+            theme_bw() +
+            # no gridlines
+            theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
+            theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
+    }
+
+    if (coord_flip == TRUE)
+        plot = plot + coord_flip()
+
+    return(plot)
 }

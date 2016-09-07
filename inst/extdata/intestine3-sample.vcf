@@ -1,0 +1,200 @@
+##fileformat=VCFv4.1
+##reference=file:///data_fedor12/common_data/GENOMES/H_sapiens/g1k_v37/reference/human_g1k_v37.fasta
+##fileDate=20150908
+##FILTER=<ID=HARD_TO_VALIDATE,Description="MQ0 >= 4 && ((MQ0 / (1.0 * DP)) > 0.1)">
+##FILTER=<ID=LowQD,Description="QD < 1.5 ">
+##FILTER=<ID=LowQual,Description="Low quality">
+##FILTER=<ID=LowQual.1,Description="QUAL < 100.0 ">
+##FILTER=<ID=SnpCluster,Description="SNPs found in clusters">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=DS,Number=0,Type=Flag,Description="Were any of the samples downsampled?">
+##INFO=<ID=Dels,Number=1,Type=Float,Description="Fraction of Reads Containing Spanning Deletions">
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=HaplotypeScore,Number=1,Type=Float,Description="Consistency of the site with at most two segregating haplotypes">
+##INFO=<ID=InbreedingCoeff,Number=1,Type=Float,Description="Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hardy-Weinberg expectation">
+##INFO=<ID=MLEAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed">
+##INFO=<ID=MLEAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT allele, in the same order as listed">
+##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS Mapping Quality">
+##INFO=<ID=MQ0,Number=1,Type=Integer,Description="Total Mapping Quality Zero Reads">
+##INFO=<ID=MQRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RPA,Number=.,Type=Integer,Description="Number of times tandem repeat unit is repeated, for each allele (including reference)">
+##INFO=<ID=RU,Number=1,Type=String,Description="Tandem repeat unit (bases)">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">
+##contig=<ID=1,length=249250621,assembly="hg19">
+##contig=<ID=2,length=243199373,assembly="hg19">
+##contig=<ID=3,length=198022430,assembly="hg19">
+##contig=<ID=4,length=191154276,assembly="hg19">
+##contig=<ID=5,length=180915260,assembly="hg19">
+##contig=<ID=6,length=171115067,assembly="hg19">
+##contig=<ID=7,length=159138663,assembly="hg19">
+##contig=<ID=8,length=146364022,assembly="hg19">
+##contig=<ID=9,length=141213431,assembly="hg19">
+##contig=<ID=10,length=135534747,assembly="hg19">
+##contig=<ID=11,length=135006516,assembly="hg19">
+##contig=<ID=12,length=133851895,assembly="hg19">
+##contig=<ID=13,length=115169878,assembly="hg19">
+##contig=<ID=14,length=107349540,assembly="hg19">
+##contig=<ID=15,length=102531392,assembly="hg19">
+##contig=<ID=16,length=90354753,assembly="hg19">
+##contig=<ID=17,length=81195210,assembly="hg19">
+##contig=<ID=18,length=78077248,assembly="hg19">
+##contig=<ID=19,length=59128983,assembly="hg19">
+##contig=<ID=20,length=63025520,assembly="hg19">
+##contig=<ID=21,length=48129895,assembly="hg19">
+##contig=<ID=22,length=51304566,assembly="hg19">
+##contig=<ID=X,length=155270560,assembly="hg19">
+##contig=<ID=Y,length=59373566,assembly="hg19">
+##contig=<ID=MT,length=16569,assembly="hg19">
+##contig=<ID=GL000207.1,length=4262,assembly="hg19">
+##contig=<ID=GL000226.1,length=15008,assembly="hg19">
+##contig=<ID=GL000229.1,length=19913,assembly="hg19">
+##contig=<ID=GL000231.1,length=27386,assembly="hg19">
+##contig=<ID=GL000210.1,length=27682,assembly="hg19">
+##contig=<ID=GL000239.1,length=33824,assembly="hg19">
+##contig=<ID=GL000235.1,length=34474,assembly="hg19">
+##contig=<ID=GL000201.1,length=36148,assembly="hg19">
+##contig=<ID=GL000247.1,length=36422,assembly="hg19">
+##contig=<ID=GL000245.1,length=36651,assembly="hg19">
+##contig=<ID=GL000197.1,length=37175,assembly="hg19">
+##contig=<ID=GL000203.1,length=37498,assembly="hg19">
+##contig=<ID=GL000246.1,length=38154,assembly="hg19">
+##contig=<ID=GL000249.1,length=38502,assembly="hg19">
+##contig=<ID=GL000196.1,length=38914,assembly="hg19">
+##contig=<ID=GL000248.1,length=39786,assembly="hg19">
+##contig=<ID=GL000244.1,length=39929,assembly="hg19">
+##contig=<ID=GL000238.1,length=39939,assembly="hg19">
+##contig=<ID=GL000202.1,length=40103,assembly="hg19">
+##contig=<ID=GL000234.1,length=40531,assembly="hg19">
+##contig=<ID=GL000232.1,length=40652,assembly="hg19">
+##contig=<ID=GL000206.1,length=41001,assembly="hg19">
+##contig=<ID=GL000240.1,length=41933,assembly="hg19">
+##contig=<ID=GL000236.1,length=41934,assembly="hg19">
+##contig=<ID=GL000241.1,length=42152,assembly="hg19">
+##contig=<ID=GL000243.1,length=43341,assembly="hg19">
+##contig=<ID=GL000242.1,length=43523,assembly="hg19">
+##contig=<ID=GL000230.1,length=43691,assembly="hg19">
+##contig=<ID=GL000237.1,length=45867,assembly="hg19">
+##contig=<ID=GL000233.1,length=45941,assembly="hg19">
+##contig=<ID=GL000204.1,length=81310,assembly="hg19">
+##contig=<ID=GL000198.1,length=90085,assembly="hg19">
+##contig=<ID=GL000208.1,length=92689,assembly="hg19">
+##contig=<ID=GL000191.1,length=106433,assembly="hg19">
+##contig=<ID=GL000227.1,length=128374,assembly="hg19">
+##contig=<ID=GL000228.1,length=129120,assembly="hg19">
+##contig=<ID=GL000214.1,length=137718,assembly="hg19">
+##contig=<ID=GL000221.1,length=155397,assembly="hg19">
+##contig=<ID=GL000209.1,length=159169,assembly="hg19">
+##contig=<ID=GL000218.1,length=161147,assembly="hg19">
+##contig=<ID=GL000220.1,length=161802,assembly="hg19">
+##contig=<ID=GL000213.1,length=164239,assembly="hg19">
+##contig=<ID=GL000211.1,length=166566,assembly="hg19">
+##contig=<ID=GL000199.1,length=169874,assembly="hg19">
+##contig=<ID=GL000217.1,length=172149,assembly="hg19">
+##contig=<ID=GL000216.1,length=172294,assembly="hg19">
+##contig=<ID=GL000215.1,length=172545,assembly="hg19">
+##contig=<ID=GL000205.1,length=174588,assembly="hg19">
+##contig=<ID=GL000219.1,length=179198,assembly="hg19">
+##contig=<ID=GL000224.1,length=179693,assembly="hg19">
+##contig=<ID=GL000223.1,length=180455,assembly="hg19">
+##contig=<ID=GL000195.1,length=182896,assembly="hg19">
+##contig=<ID=GL000212.1,length=186858,assembly="hg19">
+##contig=<ID=GL000222.1,length=186861,assembly="hg19">
+##contig=<ID=GL000200.1,length=187035,assembly="hg19">
+##contig=<ID=GL000193.1,length=189789,assembly="hg19">
+##contig=<ID=GL000194.1,length=191469,assembly="hg19">
+##contig=<ID=GL000225.1,length=211173,assembly="hg19">
+##contig=<ID=GL000192.1,length=547496,assembly="hg19">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	BLOODSTE0098	CLONESTE0098
+1	949767	1:949767_C/T	C	T	524.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.65;DP=57;Dels=0;FS=1.098;HaplotypeScore=0.7881;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.176;QD=16.91;ReadPosRankSum=0.36	GT:AD:DP:GQ:PL	0/0:26,0:26:78:0,78,816	0/1:11,20:31:99:554,0,241
+1	4395218	1:4395218_G/A	G	A	455.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.26;DP=71;Dels=0;FS=1.091;HaplotypeScore=1.4608;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.479;QD=13.79;ReadPosRankSum=-1.178	GT:AD:DP:GQ:PL	0/0:38,0:38:99:0,111,1122	0/1:16,17:33:99:485,0,384
+1	4518314	1:4518314_C/T	C	T	457.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.964;DP=67;Dels=0;FS=1.073;HaplotypeScore=3.4841;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.022;QD=14.29;ReadPosRankSum=1.174	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1048	0/1:15,17:32:99:487,0,334
+1	4974714	1:4974714_C/T	C	T	625.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.494;DP=76;Dels=0;FS=3.418;HaplotypeScore=0.9154;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.927;QD=13.3;ReadPosRankSum=0.215	GT:AD:DP:GQ:PL	0/0:29,0:29:84:0,84,904	0/1:24,23:47:99:655,0,601
+1	5087672	1:5087672_G/A	G	A	693.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.054;DP=123;Dels=0;FS=1.779;HaplotypeScore=1.8306;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.999;QD=10.5;ReadPosRankSum=-0.07	GT:AD:DP:GQ:PL	0/0:57,0:57:99:0,162,1676	0/1:39,27:66:99:723,0,999
+1	5288326	1:5288326_T/C	T	C	326.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.197;DP=64;Dels=0;FS=0;HaplotypeScore=2.478;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.11;QD=10.52;ReadPosRankSum=1.316	GT:AD:DP:GQ:PL	0/0:33,0:33:99:0,99,1119	0/1:17,14:31:99:356,0,482
+1	5356811	1:5356811_G/A	G	A	289.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.662;DP=55;Dels=0;FS=0;HaplotypeScore=3.2314;MLEAC=1;MLEAF=0.25;MQ=59.88;MQ0=0;MQRankSum=0.275;QD=12.05;ReadPosRankSum=1.6	GT:AD:DP:GQ:PL	0/0:31,0:31:87:0,87,937	0/1:12,12:24:99:319,0,295
+1	11032954	1:11032954_G/A	G	A	177.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.28;DP=53;Dels=0;FS=1.771;HaplotypeScore=1.8087;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.708;QD=8.86;ReadPosRankSum=0.435	GT:AD:DP:GQ:PL	0/0:33,0:33:99:0,99,1166	0/1:12,8:20:99:207,0,369
+1	13721594	1:13721594_C/T	C	T	321.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.564;DP=56;Dels=0;FS=0;HaplotypeScore=2.3549;MLEAC=1;MLEAF=0.25;MQ=41.83;MQ0=0;MQRankSum=2.897;QD=9.45;ReadPosRankSum=0.27	GT:AD:DP:GQ:PL	0/0:22,0:22:60:0,60,640	0/1:17,17:34:99:351,0,431
+1	16851209	1:16851209_C/T	C	T	596.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.524;DP=105;Dels=0;FS=14.833;HaplotypeScore=1.9968;MLEAC=1;MLEAF=0.25;MQ=45.95;MQ0=2;MQRankSum=-0.891;QD=13.55;ReadPosRankSum=-1.144	GT:AD:DP:GQ:PL	0/0:61,0:61:99:0,174,1994	0/1:21,23:44:99:626,0,599
+1	17677303	1:17677303_C/T	C	T	306.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.893;DP=69;Dels=0;FS=1.2;HaplotypeScore=2.9896;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.269;QD=8.75;ReadPosRankSum=1.097	GT:AD:DP:GQ:PL	0/0:34,0:34:99:0,102,1031	0/1:22,13:35:99:336,0,576
+1	18205970	1:18205970_C/T	C	T	312.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.265;DP=63;Dels=0;FS=6.797;HaplotypeScore=1.4144;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.372;QD=9.18;ReadPosRankSum=-0.074	GT:AD:DP:GQ:PL	0/0:29,0:29:87:0,87,943	0/1:20,14:34:99:342,0,533
+1	18352409	1:18352409_C/T	C	T	504.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.248;DP=86;Dels=0;FS=0.983;HaplotypeScore=1.9971;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=2.103;QD=12;ReadPosRankSum=0.167	GT:AD:DP:GQ:PL	0/0:44,0:44:99:0,129,1350	0/1:23,19:42:99:534,0,583
+1	23629575	1:23629575_A/G	A	G	462.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.025;DP=73;Dels=0;FS=15.382;HaplotypeScore=1.3893;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.359;QD=13.21;ReadPosRankSum=0.124	GT:AD:DP:GQ:PL	0/0:38,0:38:99:0,111,1259	0/1:18,17:35:99:492,0,474
+1	24526394	1:24526394_G/A	G	A	458.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.157;DP=56;Dels=0;FS=2.505;HaplotypeScore=5.9048;MLEAC=1;MLEAF=0.25;MQ=52.65;MQ0=0;MQRankSum=0.938;QD=14.78;ReadPosRankSum=1.375	GT:AD:DP:GQ:PL	0/0:25,0:25:69:0,69,772	0/1:14,17:31:99:488,0,350
+1	31539590	1:31539590_T/C	T	C	493.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.087;DP=67;Dels=0;FS=1.049;HaplotypeScore=2.2841;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.526;QD=15.41;ReadPosRankSum=0.77	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,102,1131	0/1:13,18:31:99:523,0,330
+1	34356497	1:34356497_C/T	C	T	310.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.041;DP=67;Dels=0;FS=0;HaplotypeScore=0.9989;MLEAC=1;MLEAF=0.25;MQ=51.69;MQ0=0;MQRankSum=-1.594;QD=14.1;ReadPosRankSum=-0.793	GT:AD:DP:GQ:PL	0/0:45,0:45:99:0,135,1526	0/1:10,12:22:99:340,0,261
+1	34509857	1:34509857_C/G	C	G	401.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.505;DP=69;Dels=0;FS=1.098;HaplotypeScore=1.4983;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.618;QD=10.56;ReadPosRankSum=-0.618	GT:AD:DP:GQ:PL	0/0:31,0:31:90:0,90,1021	0/1:22,16:38:99:431,0,640
+1	45842222	1:45842222_G/A	G	A	259.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.034;DP=75;Dels=0;FS=4.569;HaplotypeScore=3.4924;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.33;QD=7.2;ReadPosRankSum=1.679	GT:AD:DP:GQ:PL	0/0:39,0:39:99:0,114,1164	0/1:23,12:35:99:289,0,582
+1	49514908	1:49514908_T/C	T	C	422.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.491;DP=65;Dels=0;FS=5.037;HaplotypeScore=11.9173;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.314;QD=13.19;ReadPosRankSum=-0.587	GT:AD:DP:GQ:PL	0/0:31,0:31:93:0,93,1045	0/1:15,16:31:99:452,0,420
+1	49529197	1:49529197_T/C	T	C	443.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.733;DP=77;Dels=0;FS=5.71;HaplotypeScore=4.3665;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.841;QD=11.36;ReadPosRankSum=0.645	GT:AD:DP:GQ:PL	0/0:38,0:38:99:0,111,1218	0/1:22,17:39:99:473,0,618
+1	50093892	1:50093892_G/A	G	A	499.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.404;DP=75;Dels=0;FS=5.292;HaplotypeScore=1.8926;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.457;QD=12.8;ReadPosRankSum=-0.725	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1075	0/1:20,19:39:99:529,0,484
+1	58193316	1:58193316_C/T	C	T	639.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.159;DP=72;Dels=0;FS=0;HaplotypeScore=0.9985;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-1.063;QD=15.59;ReadPosRankSum=-0.894	GT:AD:DP:GQ:PL	0/0:31,0:31:87:0,87,993	0/1:18,23:41:99:669,0,485
+1	59566901	1:59566901_G/A	G	A	525.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.672;DP=80;Dels=0;FS=0;HaplotypeScore=4.9785;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.894;QD=11.94;ReadPosRankSum=0.461	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1240	0/1:24,20:44:99:555,0,687
+1	59811831	1:59811831_A/G	A	G	604.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-3.025;DP=90;Dels=0;FS=1.958;HaplotypeScore=1.9977;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.214;QD=16.78;ReadPosRankSum=-0.662	GT:AD:DP:GQ:PL	0/0:54,0:54:99:0,162,1843	0/1:12,24:36:99:634,0,298
+1	61182361	1:61182361_C/T	C	T	373.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.996;DP=53;Dels=0;FS=6.473;HaplotypeScore=0.4161;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.05;QD=15.55;ReadPosRankSum=-1.725	GT:AD:DP:GQ:PL	0/0:29,0:29:81:0,81,848	0/1:10,14:24:99:403,0,253
+1	61895833	1:61895833_T/A	T	A	532.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.868;DP=82;Dels=0;FS=2.068;HaplotypeScore=2.4969;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.183;QD=11.83;ReadPosRankSum=-0.33	GT:AD:DP:GQ:PL	0/0:37,0:37:99:0,111,1242	0/1:23,22:45:99:562,0,642
+1	66385503	1:66385503_C/T	C	T	533.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.585;DP=79;Dels=0;FS=3.594;HaplotypeScore=2.4714;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.728;QD=16.66;ReadPosRankSum=-1.313	GT:AD:DP:GQ:PL	0/0:47,0:47:99:0,141,1455	0/1:13,19:32:99:563,0,326
+1	66508932	1:66508932_A/T	A	T	287.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.193;DP=59;Dels=0;FS=2.725;HaplotypeScore=0.9989;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-1.305;QD=9.9;ReadPosRankSum=-0.336	GT:AD:DP:GQ:PL	0/0:29,0:29:87:0,87,973	0/1:16,13:29:99:317,0,448
+1	69754697	1:69754697_G/A	G	A	639.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.508;DP=88;Dels=0;FS=0.904;HaplotypeScore=3.2476;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.91;QD=16.39;ReadPosRankSum=0.515	GT:AD:DP:GQ:PL	0/0:49,0:49:99:0,147,1522	0/1:15,23:38:99:669,0,328
+1	70764079	1:70764079_G/A	G	A	492.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.72;DP=77;Dels=0;FS=0;HaplotypeScore=2.9838;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.224;QD=12;ReadPosRankSum=0.324	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1226	0/1:21,19:40:99:522,0,591
+1	71863000	1:71863000_G/C	G	C	387.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.344;DP=80;Dels=0;FS=13.75;HaplotypeScore=1.4313;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.581;QD=11.73;ReadPosRankSum=-1.019	GT:AD:DP:GQ:PL	0/0:46,0:46:99:0,135,1557	0/1:18,15:33:99:417,0,507
+1	74319036	1:74319036_T/A	T	A	484.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-2.396;DP=72;Dels=0;FS=7.442;HaplotypeScore=0.4993;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.318;QD=13.45;ReadPosRankSum=-0.11	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1250	0/1:16,19:35:99:514,0,437
+1	74445987	1:74445987_C/T	C	T	224.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.719;DP=74;Dels=0;FS=1.309;HaplotypeScore=2.9309;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.482;QD=7.73;ReadPosRankSum=0.609	GT:AD:DP:GQ:PL	0/0:45,0:45:99:0,132,1499	0/1:19,10:29:99:254,0,556
+1	75135446	1:75135446_C/A	C	A	522.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.569;DP=87;Dels=0;FS=2.093;HaplotypeScore=2.9865;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.498;QD=12.43;ReadPosRankSum=-1.004	GT:AD:DP:GQ:PL	0/0:45,0:45:99:0,132,1521	0/1:22,20:42:99:552,0,632
+1	76808448	1:76808448_C/T	C	T	840.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.035;DP=72;Dels=0;FS=10.148;HaplotypeScore=2.4308;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.432;QD=16.8;ReadPosRankSum=0.648	GT:AD:DP:GQ:PL	0/0:22,0:22:66:0,66,749	0/1:19,31:50:99:870,0,495
+1	79888263	1:79888263_G/A	G	A	351.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.817;DP=85;Dels=0;FS=3.924;HaplotypeScore=0.9986;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.624;QD=7.63;ReadPosRankSum=-1.501	GT:AD:DP:GQ:PL	0/0:39,0:39:99:0,111,1085	0/1:30,16:46:99:381,0,782
+1	81724539	1:81724539_C/T	C	T	771.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.502;DP=84;Dels=0;FS=1.933;HaplotypeScore=1.4981;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.172;QD=17.53;ReadPosRankSum=-0.891	GT:AD:DP:GQ:PL	0/0:40,0:40:99:0,120,1238	0/1:17,27:44:99:801,0,389
+1	85987326	1:85987326_G/A	G	A	827.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.8;DP=178;Dels=0;FS=0.739;HaplotypeScore=4.2897;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.446;QD=9.19;ReadPosRankSum=-1.64	GT:AD:DP:GQ:PL	0/0:87,0:88:99:0,249,2538	0/1:57,33:90:99:857,0,1473
+1	86373377	1:86373377_C/T	C	T	547.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=1.994;DP=60;Dels=0;FS=10.118;HaplotypeScore=9.9694;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.264;QD=18.87;ReadPosRankSum=1.177	GT:AD:DP:GQ:PL	0/0:31,0:31:87:0,87,977	0/1:8,20:28:99:577,0,191
+1	90910941	1:90910941_G/A	G	A	425.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.419;DP=65;Dels=0;FS=1.112;HaplotypeScore=1.3656;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-1.881;QD=14.17;ReadPosRankSum=-2.033	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1193	0/1:14,16:30:99:455,0,396
+1	95275701	1:95275701_C/T	C	T	379.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.466;DP=73;Dels=0;FS=10.659;HaplotypeScore=4.7182;MLEAC=1;MLEAF=0.25;MQ=59.65;MQ0=0;MQRankSum=1.122;QD=9.48;ReadPosRankSum=0.86	GT:AD:DP:GQ:PL	0/0:32,0:33:96:0,96,1094	0/1:24,16:40:99:409,0,655
+1	97465250	1:97465250_T/A	T	A	315.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.959;DP=66;Dels=0;FS=1.189;HaplotypeScore=3.4059;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-1.468;QD=10.51;ReadPosRankSum=1.829	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1182	0/1:17,13:30:99:345,0,470
+1	97628750	1:97628750_G/A	G	A	297.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.444;DP=85;Dels=0;FS=6.414;HaplotypeScore=1.4983;MLEAC=1;MLEAF=0.25;MQ=47.9;MQ0=3;MQRankSum=-4.775;QD=7.62;ReadPosRankSum=0.511	GT:AD:DP:GQ:PL	0/0:46,0:46:99:0,135,1342	0/1:22,17:39:99:327,0,527
+1	99392437	1:99392437_C/T	C	T	484.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.959;DP=69;Dels=0;FS=0;HaplotypeScore=1.4955;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.188;QD=17.93;ReadPosRankSum=0.592	GT:AD:DP:GQ:PL	0/0:42,0:42:99:0,126,1323	0/1:10,17:27:99:514,0,248
+1	101869604	1:101869604_C/T	C	T	895.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-2.182;DP=107;Dels=0;FS=1.701;HaplotypeScore=9.0591;MLEAC=1;MLEAF=0.25;MQ=59.74;MQ0=0;MQRankSum=-0.03;QD=16.28;ReadPosRankSum=-0.685	GT:AD:DP:GQ:PL	0/0:52,0:52:99:0,147,1684	0/1:22,33:55:99:925,0,600
+1	102258625	1:102258625_G/A	G	A	513.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.791;DP=82;Dels=0;FS=0.974;HaplotypeScore=3.4777;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.977;QD=11.93;ReadPosRankSum=0.729	GT:AD:DP:GQ:PL	0/0:39,0:39:99:0,117,1183	0/1:23,20:43:99:543,0,598
+1	106074285	1:106074285_G/A	G	A	493.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.963;DP=80;Dels=0;FS=2.218;HaplotypeScore=4.9764;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.43;QD=11.21;ReadPosRankSum=-0.656	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1105	0/1:25,19:44:99:523,0,660
+1	107009060	1:107009060_T/C	T	C	525.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.761;DP=78;Dels=0;FS=2.128;HaplotypeScore=0.8609;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-2.294;QD=12.5;ReadPosRankSum=1.024	GT:AD:DP:GQ:PL	0/0:36,0:36:99:0,108,1202	0/1:22,20:42:99:555,0,614
+1	107445215	1:107445215_C/T	C	T	313.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.563;DP=53;Dels=0;FS=4.676;HaplotypeScore=0.9989;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.648;QD=13.62;ReadPosRankSum=-0.244	GT:AD:DP:GQ:PL	0/0:30,0:30:90:0,90,1030	0/1:11,12:23:99:343,0,318
+1	107445291	1:107445291_A/T	A	T	366.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.025;DP=60;Dels=0;FS=1.194;HaplotypeScore=4.9827;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.116;QD=14.08;ReadPosRankSum=1.452	GT:AD:DP:GQ:PL	0/0:33,0:33:96:0,96,1116	0/1:12,14:26:99:396,0,336
+1	110205870	1:110205870_C/G	C	G	391.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.643;DP=58;Dels=0;FS=4.279;HaplotypeScore=0.9975;MLEAC=1;MLEAF=0.25;MQ=43.11;MQ0=0;MQRankSum=-1.749;QD=11.51;ReadPosRankSum=1.43	GT:AD:DP:GQ:PL	0/0:23,0:23:69:0,69,801	0/1:18,16:34:99:421,0,536
+1	110205871	1:110205871_T/G	T	G	390.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.583;DP=61;Dels=0;FS=4.225;HaplotypeScore=1.9964;MLEAC=1;MLEAF=0.25;MQ=43.01;MQ0=0;MQRankSum=-2.497;QD=11.15;ReadPosRankSum=1.592	GT:AD:DP:GQ:PL	0/0:23,0:23:69:0,69,799	0/1:19,16:35:99:420,0,547
+1	112386550	1:112386550_C/T	C	T	861.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.004;DP=81;Dels=0;FS=3.254;HaplotypeScore=3.1465;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.547;QD=21;ReadPosRankSum=-0.872	GT:AD:DP:GQ:PL	0/0:40,0:40:99:0,114,1231	0/1:12,29:41:99:891,0,255
+1	116320499	1:116320499_G/T	G	T	512.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.429;DP=87;Dels=0;FS=5.287;HaplotypeScore=2.4882;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.994;QD=13.48;ReadPosRankSum=1.105	GT:AD:DP:GQ:PL	0/0:49,0:49:99:0,144,1620	0/1:18,20:38:99:542,0,499
+1	120215730	1:120215730_G/A	G	A	460.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.769;DP=61;Dels=0;FS=4.307;HaplotypeScore=0.4992;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.153;QD=13.95;ReadPosRankSum=1.794	GT:AD:DP:GQ:PL	0/0:28,0:28:78:0,78,793	0/1:16,17:33:99:490,0,385
+1	152685527	1:152685527_C/T	C	T	378.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.933;DP=90;Dels=0;FS=0;HaplotypeScore=0.9985;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.401;QD=9.45;ReadPosRankSum=-0.518	GT:AD:DP:GQ:PL	0/0:50,0:50:99:0,141,1527	0/1:23,16:39:99:408,0,590
+1	153176749	1:153176749_G/A	G	A	711.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.638;DP=87;Dels=0;FS=3.144;HaplotypeScore=2.9901;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.542;QD=14.51;ReadPosRankSum=1.136	GT:AD:DP:GQ:PL	0/0:38,0:38:99:0,114,1237	0/1:23,26:49:99:741,0,560
+1	155301114	1:155301114_G/A	G	A	584.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.558;DP=94;Dels=0;FS=3.321;HaplotypeScore=4.9799;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.362;QD=12.7;ReadPosRankSum=0.853	GT:AD:DP:GQ:PL	0/0:48,0:48:99:0,144,1638	0/1:24,22:46:99:614,0,693
+1	156199507	1:156199507_G/A	G	A	249.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.343;DP=56;Dels=0;FS=10.358;HaplotypeScore=1.3655;MLEAC=1;MLEAF=0.25;MQ=58.97;MQ0=0;MQRankSum=-2;QD=11.87;ReadPosRankSum=-0.374	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1088	0/1:11,10:21:99:279,0,298
+1	156279579	1:156279579_T/C	T	C	403.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.742;DP=63;Dels=0;FS=2.444;HaplotypeScore=1.9679;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.436;QD=10.34;ReadPosRankSum=-1.752	GT:AD:DP:GQ:PL	0/0:23,0:23:69:0,69,788	0/1:22,17:39:99:433,0,660
+1	157602252	1:157602252_G/A	G	A	559.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.308;DP=87;Dels=0;FS=8.539;HaplotypeScore=13.3285;MLEAC=1;MLEAF=0.25;MQ=59.83;MQ0=0;MQRankSum=-0.991;QD=13;ReadPosRankSum=1.44	GT:AD:DP:GQ:PL	0/0:44,0:44:99:0,129,1406	0/1:21,22:43:99:589,0,602
+1	159244332	1:159244332_T/C	T	C	412.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.271;DP=72;Dels=0;FS=1.082;HaplotypeScore=1.2876;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.537;QD=11.14;ReadPosRankSum=-0.223	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1153	0/1:21,16:37:99:442,0,564
+1	159509330	1:159509330_C/T	C	T	667.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.086;DP=78;Dels=0;FS=0;HaplotypeScore=6.0859;MLEAC=1;MLEAF=0.25;MQ=53.94;MQ0=0;MQRankSum=2.128;QD=16.27;ReadPosRankSum=-1.094	GT:AD:DP:GQ:PL	0/0:36,0:37:99:0,105,1098	0/1:17,24:41:99:697,0,346
+1	162124052	1:162124052_C/A	C	A	749.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.921;DP=76;Dels=0;FS=0;HaplotypeScore=1.4984;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=2.041;QD=18.27;ReadPosRankSum=0.145	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,105,1183	0/1:13,28:41:99:779,0,333
+1	163063726	1:163063726_C/T	C	T	751.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.144;DP=99;Dels=0;FS=7.642;HaplotypeScore=0.9655;MLEAC=1;MLEAF=0.25;MQ=58.78;MQ0=3;MQRankSum=0.287;QD=14.17;ReadPosRankSum=0.774	GT:AD:DP:GQ:PL	0/0:46,0:46:99:0,126,1315	0/1:24,29:53:99:781,0,545
+1	163479806	1:163479806_G/A	G	A	641.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=0.608;DP=83;Dels=0;FS=3.439;HaplotypeScore=0.4995;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.477;QD=13.94;ReadPosRankSum=0.206	GT:AD:DP:GQ:PL	0/0:37,0:37:99:0,111,1236	0/1:22,24:46:99:671,0,600
+1	165907860	1:165907860_G/A	G	A	613.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.361;DP=78;Dels=0;FS=5.17;HaplotypeScore=0.8993;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.438;QD=16.14;ReadPosRankSum=0.329	GT:AD:DP:GQ:PL	0/0:40,0:40:99:0,117,1158	0/1:15,23:38:99:643,0,325
+1	170399086	1:170399086_A/C	A	C	677.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.265;DP=81;Dels=0.01;FS=4.988;HaplotypeScore=6.2599;MLEAC=1;MLEAF=0.25;MQ=52.15;MQ0=0;MQRankSum=-1.359;QD=15.05;ReadPosRankSum=-2.041	GT:AD:DP:GQ:PL	0/0:35,0:36:99:0,105,1151	0/1:20,24:44:99:707,0,513
+1	170950406	1:170950406_T/A	T	A	615.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.31;DP=98;Dels=0;FS=4.857;HaplotypeScore=3.4848;MLEAC=1;MLEAF=0.25;MQ=59.72;MQ0=0;MQRankSum=-0.987;QD=11.39;ReadPosRankSum=0.756	GT:AD:DP:GQ:PL	0/0:44,0:44:99:0,129,1455	0/1:30,24:54:99:645,0,841
+1	174402708	1:174402708_T/A	T	A	395.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.043;DP=78;Dels=0;FS=1.055;HaplotypeScore=3.1646;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.59;QD=11.98;ReadPosRankSum=-1.479	GT:AD:DP:GQ:PL	0/0:45,0:45:99:0,135,1524	0/1:17,16:33:99:425,0,480
+1	174402710	1:174402710_A/G	A	G	367.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.094;DP=78;Dels=0;FS=0;HaplotypeScore=3.1646;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.52;QD=11.47;ReadPosRankSum=-1.002	GT:AD:DP:GQ:PL	0/0:46,0:46:99:0,138,1518	0/1:17,15:32:99:397,0,475
+1	176382137	1:176382137_G/A	G	A	801.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=4.676;DP=91;Dels=0;FS=3.605;HaplotypeScore=2.6295;MLEAC=1;MLEAF=0.25;MQ=59.82;MQ0=0;MQRankSum=0.153;QD=19.54;ReadPosRankSum=-1.599	GT:AD:DP:GQ:PL	0/0:50,0:50:99:0,144,1543	0/1:12,28:41:99:831,0,235
+1	176846331	1:176846331_C/T	C	T	491.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.867;DP=91;Dels=0;FS=0.964;HaplotypeScore=2.8233;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=1.327;QD=11.69;ReadPosRankSum=-1.318	GT:AD:DP:GQ:PL	0/0:49,0:49:99:0,144,1457	0/1:22,20:42:99:521,0,558
+1	178579533	1:178579533_G/T	G	T	352.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-1.272;DP=54;Dels=0;FS=1.215;HaplotypeScore=5.2005;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.303;QD=11.01;ReadPosRankSum=-0.828	GT:AD:DP:GQ:PL	0/0:22,0:22:66:0,66,746	0/1:15,15:30:99:382,0,429
+1	178596227	1:178596227_T/A	T	A	284.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.977;DP=87;Dels=0;FS=14.775;HaplotypeScore=0.9975;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.543;QD=7.68;ReadPosRankSum=0.663	GT:AD:DP:GQ:PL	0/0:49,0:49:99:0,144,1590	0/1:24,13:37:99:314,0,683
+1	178680223	1:178680223_C/G	C	G	330.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.326;DP=61;Dels=0;FS=12.323;HaplotypeScore=4.8121;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.572;QD=12.7;ReadPosRankSum=0.942	GT:AD:DP:GQ:PL	0/0:35,0:35:99:0,102,1148	0/1:13,13:26:99:360,0,376
+1	181176494	1:181176494_C/T	C	T	257.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-2.657;DP=64;Dels=0;FS=31.076;HaplotypeScore=0.4995;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.456;QD=8.57;ReadPosRankSum=-0.353	GT:AD:DP:GQ:PL	0/0:34,0:34:99:0,99,1136	0/1:18,12:30:99:287,0,523
+1	181920596	1:181920596_G/A	G	A	520.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=3.813;DP=68;Dels=0;FS=10.248;HaplotypeScore=1.9885;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.615;QD=14.86;ReadPosRankSum=-0.027	GT:AD:DP:GQ:PL	0/0:33,0:33:96:0,96,957	0/1:16,19:35:99:550,0,408
+1	187248598	1:187248598_C/T	C	T	392.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=2.757;DP=60;Dels=0;FS=0;HaplotypeScore=2.6621;MLEAC=1;MLEAF=0.25;MQ=57.73;MQ0=2;MQRankSum=-0.185;QD=13.07;ReadPosRankSum=0.056	GT:AD:DP:GQ:PL	0/0:30,0:30:84:0,84,909	0/1:13,15:29:99:422,0,308
+1	187846381	1:187846381_G/T	G	T	479.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-0.861;DP=63;Dels=0;FS=7.524;HaplotypeScore=0.9985;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=0.906;QD=13.69;ReadPosRankSum=-1.026	GT:AD:DP:GQ:PL	0/0:28,0:28:84:0,84,959	0/1:16,19:35:99:509,0,455
+1	191448046	1:191448046_C/T	C	T	475.19	PASS	AC=1;AF=0.25;AN=4;BaseQRankSum=-2.321;DP=62;Dels=0;FS=1.189;HaplotypeScore=1.7875;MLEAC=1;MLEAF=0.25;MQ=60;MQ0=0;MQRankSum=-0.687;QD=13.2;ReadPosRankSum=1.374	GT:AD:DP:GQ:PL	0/0:26,0:26:75:0,75,853	0/1:17,19:36:99:505,0,462

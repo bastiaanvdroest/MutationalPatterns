@@ -8,9 +8,9 @@
 
 get_muts = function(vcf) 
 {
-  ref = as.character(vcf$REF)
-  alt = as.character(unlist(vcf$ALT))
-  muts = paste(ref, alt, sep=">")
-  return(muts)
+    ref = as.character(vcf$REF)
+    alt = as.character(unlist(vcf$ALT))
+    muts = paste(ref, alt, sep=">")
+    return(muts)
 }
 

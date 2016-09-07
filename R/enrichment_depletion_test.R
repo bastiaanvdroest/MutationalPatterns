@@ -10,31 +10,36 @@
 
 enrichment_depletion_test = function(x, by = c())
 {
-  # if by parameter is provided, aggregate x
-  if(length(by) > 0){
-    x$by = by
-    # sum the columns while aggregating rows based on unique values in by and region
-    res2 = stats::aggregate(cbind(n_muts, surveyed_length, surveyed_region_length, observed) ~ by + region, data = x, sum)
-  }
-  # else without aggregation
-  else{
-    res2 = x
-    # by variable is sample variable
-    res2$by = res2$sample
-    # select output columns
-    res2 = res2[,c(9,1,3,4,6,8)]
-  }
-  # calculate probability and expected number of mutations
-  res2$prob = res2$n_muts / res2$surveyed_length
-  res2$expected = res2$prob * res2$surveyed_region_length
-  # perform enrichment depletion test for each row
-  res3 = data.frame()
-  for(i in 1:nrow(res2))
-  {
-    x = res2[i,]
-    res3 = rbind(res3, binomial_test(x$prob, x$surveyed_region_length,  x$observed))
-  }
-  # combine results into one data frame
-  df = cbind(res2, res3)
-  return(df)
+    # if by parameter is provided, aggregate x
+    if (length(by) > 0){
+        x$by = by
+        # sum the columns while aggregating rows based on unique values in 'by'
+        # and 'region'.
+        res2 = stats::aggregate(cbind(n_muts,
+                                      surveyed_length,
+                                      surveyed_region_length,
+                                      observed) ~ by + region,
+                                data = x, sum)
+    }
+    # else without aggregation
+    else {
+        res2 = x
+        # by variable is sample variable
+        res2$by = res2$sample
+        # select output columns
+        res2 = res2[,c(9,1,3,4,6,8)]
+    }
+    # calculate probability and expected number of mutations
+    res2$prob = res2$n_muts / res2$surveyed_length
+    res2$expected = res2$prob * res2$surveyed_region_length
+    # perform enrichment depletion test for each row
+    res3 = data.frame()
+    for(i in 1:nrow(res2))
+    {
+        x = res2[i,]
+        res3 = rbind(res3, binomial_test(x$prob, x$surveyed_region_length,  x$observed))
+    }
+    # combine results into one data frame
+    df = cbind(res2, res3)
+    return(df)
 }

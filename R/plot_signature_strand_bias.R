@@ -21,73 +21,81 @@
 
 plot_signature_strand_bias = function(signatures_strand_bias)
 {
-  # check if there are 192 features in the signatures
-  if(dim(signatures_strand_bias)[1] != 192){stop("Input signature matrix does not have 192 features (96 trinucleotide * 2 strands).")}
+    # check if there are 192 features in the signatures
+    if (dim(signatures_strand_bias)[1] != 192)
+        stop("Input signature matrix does not have 192 features (96 trinucleotide * 2 strands).")
 
-  # aggregate by strand and type
-  sum_per_type = aggregate(signatures_strand_bias, by=list(STRAND, SUBSTITUTIONS_192), FUN=sum)
-  sum_per_strand = aggregate(signatures_strand_bias, by=list(STRAND), FUN=sum)
-  # melt data frames
-  sum_per_strand =  melt(sum_per_strand)
-  colnames(sum_per_strand) = c("strand", "Signature", "value")
-  sum_per_type =  melt(sum_per_type)
-  colnames(sum_per_type) = c("strand", "type", "Signature", "value")
-  # ratio per signature per type
-  ratio = as.matrix(subset(sum_per_type,strand == "T")$value / subset(sum_per_type,strand == "U")$value)
-  ratio_per_type_per_signature = cbind(subset(sum_per_type,strand == "T")[,2:3], ratio)
-  
-  # binomial test per type per signature
-  size = c()
-  observed = c()
-  transcribed = c()
-  untranscribed = c()
-  for(s in unique(sum_per_type$Signature))
-  {
-    for(t in unique(sum_per_type$type))
+    # aggregate by strand and type
+    sum_per_type = aggregate(signatures_strand_bias, by=list(STRAND, SUBSTITUTIONS_192), FUN=sum)
+    sum_per_strand = aggregate(signatures_strand_bias, by=list(STRAND), FUN=sum)
+
+    # melt data frames
+    sum_per_strand =  melt(sum_per_strand)
+    colnames(sum_per_strand) = c("strand", "Signature", "value")
+    sum_per_type =  melt(sum_per_type)
+    colnames(sum_per_type) = c("strand", "type", "Signature", "value")
+
+    # ratio per signature per type
+    ratio = as.matrix(subset(sum_per_type,strand == "T")$value / subset(sum_per_type,strand == "U")$value)
+    ratio_per_type_per_signature = cbind(subset(sum_per_type,strand == "T")[,2:3], ratio)
+    
+    # binomial test per type per signature
+    size = c()
+    observed = c()
+    transcribed = c()
+    untranscribed = c()
+    for(s in unique(sum_per_type$Signature))
     {
-      sub = subset(sum_per_type, Signature==s & type==t)
-      size = c(size, sum(sub$value))
-      observed = c(observed, subset(sub, strand == "T")$value)
-      transcribed = c(transcribed, subset(sub, strand == "T")$value)
-      untranscribed = c(untranscribed, subset(sub, strand == "U")$value)
+        for(t in unique(sum_per_type$type))
+        {
+            sub = subset(sum_per_type, Signature==s & type==t)
+            size = c(size, sum(sub$value))
+            observed = c(observed, subset(sub, strand == "T")$value)
+            transcribed = c(transcribed, subset(sub, strand == "T")$value)
+            untranscribed = c(untranscribed, subset(sub, strand == "U")$value)
+        }
     }
-  }
-  
-  # names of signatures
-  signatures = colnames(signatures_strand_bias)
-  # No. signatures
-  n = length(signatures)
-  # Observed: observed no. mutations on transcribed strand rounded to integer
-  # Combine counts in one data.frame
-  stats_per_type = data.frame(Signature = rep(signatures, each=6), type = rep(SUBSTITUTIONS,n), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
-  # Perform binomial test
-  stats_per_type = plyr::adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
-  # Calculate ratio 
-  ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
-  strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
-  # Find maximum y value for plotting
-  max = round(max(abs(log2(strand_bias_per_type_df$value))))
+    
+    # names of signatures
+    signatures = colnames(signatures_strand_bias)
 
-  # These variables will be available at run-time, but not at compile-time.
-  # To avoid compiling trouble, we initialize them to NULL.
-  Signature = NULL
-  type = NULL
-  value = NULL
-  significant = NULL
+    # No. signatures
+    n = length(signatures)
 
-  # Plot
-  plot = ggplot(strand_bias_per_type_df, aes(x=type, y=log2(value), fill=type)) +
-    geom_bar(stat="identity", position="dodge", color="black") +
-    scale_y_continuous(limits=c(-max,max)) +
-    scale_fill_manual(values=COLORS6) +
-    facet_grid(Signature ~ .) +
-    ylab("log2(transcribed/untranscribed)") +
-    theme_bw() + 
-    scale_x_discrete(breaks=NULL) +
-    xlab("") +
-    geom_text(aes(x = type, y = log2(value), ymax = log2(value), 
-                  label=significant, vjust=ifelse(sign(log2(value)) > 0, 0.5, 1)), 
-              size = 8, position = ggplot2::position_dodge(width=1)) 
-  
-  return(plot)
+    # Observed: observed no. mutations on transcribed strand rounded to integer
+    # Combine counts in one data.frame
+    stats_per_type = data.frame(Signature = rep(signatures, each=6), type = rep(SUBSTITUTIONS,n), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
+
+    # Perform binomial test
+    stats_per_type = plyr::adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
+
+    # Calculate ratio 
+    ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
+    strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
+
+    # Find maximum y value for plotting
+    max = round(max(abs(log2(strand_bias_per_type_df$value))))
+
+    # These variables will be available at run-time, but not at compile-time.
+    # To avoid compiling trouble, we initialize them to NULL.
+    Signature = NULL
+    type = NULL
+    value = NULL
+    significant = NULL
+
+                                        # Plot
+    plot = ggplot(strand_bias_per_type_df, aes(x=type, y=log2(value), fill=type)) +
+        geom_bar(stat="identity", position="dodge", color="black") +
+        scale_y_continuous(limits=c(-max,max)) +
+        scale_fill_manual(values=COLORS6) +
+        facet_grid(Signature ~ .) +
+        ylab("log2(transcribed/untranscribed)") +
+        theme_bw() + 
+        scale_x_discrete(breaks=NULL) +
+        xlab("") +
+        geom_text(aes(x = type, y = log2(value), ymax = log2(value), 
+                      label=significant, vjust=ifelse(sign(log2(value)) > 0, 0.5, 1)), 
+                  size = 8, position = ggplot2::position_dodge(width=1)) 
+    
+    return(plot)
 }

@@ -10,16 +10,25 @@
 
 strand_bias_test = function(strand_occurences)
 {
-  # These variables will be available at run-time, but not at compile-time.
-  # To avoid compiling trouble, we initialize them to NULL.
-  variable = NULL
-  U = NULL
+    # These variables will be available at run-time, but not at compile-time.
+    # To avoid compiling trouble, we initialize them to NULL.
+    variable = NULL
 
-  # statistical test for strand ratio
-  # poisson test
-  df_strand = reshape2::dcast(melt(strand_occurences), type + group ~ strand, sum, subset = plyr::.(variable == "no_mutations"))
-  df_strand = plyr::ddply(df_strand, c("group", "type", "T", "U"), summarise, total = "T"+"U", ratio = "T"/"U",  p_poisson = poisson.test(c(U,T), r=1)$p.value)
-  df_strand$significant[df_strand$p_poisson < 0.05] = "*"
-  df_strand$significant[df_strand$p_poisson >= 0.05] = " "
-  return(df_strand)
+    # statistical test for strand ratio
+    # poisson test
+    df_strand = reshape2::dcast(melt(strand_occurences),
+                                type + group ~ strand,
+                                sum,
+                                subset = plyr::.(variable == "no_mutations"))
+    df_strand = plyr::ddply(df_strand,
+                            c("group", "type", "T", "U"),
+                            summarise,
+                            total = T+U,
+                            ratio = T/U,
+                            p_poisson = poisson.test(c(U,T), r=1)$p.value)
+
+    df_strand$significant[df_strand$p_poisson < 0.05] = "*"
+    df_strand$significant[df_strand$p_poisson >= 0.05] = " "
+
+    return(df_strand)
 }
