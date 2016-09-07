@@ -62,7 +62,7 @@ plot_spectrum = function(type_occurences, CT = FALSE, by, colors, legend = TRUE)
   x$total_mutations = prettyNum(x$total_mutations, big.mark = ",")
   x$total_mutations = paste("No. mutations =", as.character(x$total_mutations))
   # define colors for plotting
-  if(CT == F){colors = colors[c(1,2,3,5:7)]}
+  if(CT == FALSE){colors = colors[c(1,2,3,5:7)]}
   # define positioning of error bars
   x$error_pos = x$mean
   # if C>T stacked bar (distinction between CpG sites and other)
