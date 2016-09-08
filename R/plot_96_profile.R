@@ -41,7 +41,7 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
     rownames(norm_mut_matrix) = NULL
     df2 = cbind(df, as.data.frame(norm_mut_matrix))
     df3 = melt(df2, id.vars = c("substitution", "context"))
-    
+
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
     value = NULL
@@ -59,12 +59,12 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
         theme_bw() +
         # format text
         theme(axis.title.y=element_text(size=12,vjust=1),
-              axis.text.y=element_text(size=8),
-              axis.title.x=element_text(size=12),
-              axis.text.x=element_text(size=5,angle=90,vjust=0.4),
-              strip.text.x=element_text(size=9),
-              strip.text.y=element_text(size=9),
-              panel.grid.major.x = element_blank())
+                axis.text.y=element_text(size=8),
+                axis.title.x=element_text(size=12),
+                axis.text.x=element_text(size=5,angle=90,vjust=0.4),
+                strip.text.x=element_text(size=9),
+                strip.text.y=element_text(size=9),
+                panel.grid.major.x = element_blank())
 
     return(plot)
 }

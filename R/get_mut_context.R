@@ -1,6 +1,7 @@
 #' Retrieve context of base substitutions
-#' 
-#' A function to extract the bases 3' upstream and 5' downstream of the base substitutions from the reference genome
+#'
+#' A function to extract the bases 3' upstream and 5' downstream of the base
+#' substitutions from the reference genome
 #' @param vcf A Granges object
 #' @param ref_genome Reference genome
 #' @return Character vector with the context of the base substitutions

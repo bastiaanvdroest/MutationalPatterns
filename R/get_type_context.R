@@ -1,6 +1,7 @@
 #' Retrieve context of base substitution types
 #' 
-#' A function to extract the bases 3' upstream and 5' downstream of the base substitution types
+#' A function to extract the bases 3' upstream and 5' downstream of the base
+#' substitution types
 #' @param vcf A CollapsedVCF object
 #' @param ref_genome Reference genome
 #' @return Mutation types and context character vectors in a named list
@@ -18,7 +19,8 @@ get_type_context = function(vcf, ref_genome)
     # subset mut_context
     y = mut_context[x]
 
-    # change the context of these mutations to reverse complement of the context
+    # Change the context of these mutations to reverse complement
+    # of the context
     y = reverse(chartr('ATGC', 'TACG', y))
 
     # replace subset with reverse complement

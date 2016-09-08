@@ -96,8 +96,14 @@ plot_rainfall = function(vcf, ref_genome, chromosomes, title = "", colors, cex =
         scale_x_continuous(expand = c(0,0), limits=c(0, max(chr_cum))) +
         ggtitle(title) +
         theme_bw() +
-        theme(legend.position="bottom", legend.title=element_blank(), legend.key = element_blank(), panel.grid.minor.x=element_blank(),
-              panel.grid.major.x=element_blank(), axis.ticks.x =element_blank(), axis.text.x = element_blank()) + 
+        theme(
+            legend.position = "bottom",
+            legend.title = element_blank(),
+            legend.key = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            panel.grid.major.x = element_blank(),
+            axis.ticks.x = element_blank(),
+            axis.text.x = element_blank()) + 
         guides(colour = guide_legend(nrow = 1))
 
     return(plot)

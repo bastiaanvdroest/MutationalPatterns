@@ -17,8 +17,6 @@
 #' @importFrom plyr adply
 #' @export
 
-
-
 plot_signature_strand_bias = function(signatures_strand_bias)
 {
     # check if there are 192 features in the signatures
@@ -38,7 +36,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     # ratio per signature per type
     ratio = as.matrix(subset(sum_per_type,strand == "T")$value / subset(sum_per_type,strand == "U")$value)
     ratio_per_type_per_signature = cbind(subset(sum_per_type,strand == "T")[,2:3], ratio)
-    
+
     # binomial test per type per signature
     size = c()
     observed = c()
@@ -55,7 +53,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
             untranscribed = c(untranscribed, subset(sub, strand == "U")$value)
         }
     }
-    
+
     # names of signatures
     signatures = colnames(signatures_strand_bias)
 
@@ -64,13 +62,24 @@ plot_signature_strand_bias = function(signatures_strand_bias)
 
     # Observed: observed no. mutations on transcribed strand rounded to integer
     # Combine counts in one data.frame
-    stats_per_type = data.frame(Signature = rep(signatures, each=6), type = rep(SUBSTITUTIONS,n), size = as.integer(size), transcribed = transcribed, untranscribed = untranscribed, observed = as.integer(observed))
+    stats_per_type = data.frame(
+        Signature = rep(signatures, each=6),
+        type = rep(SUBSTITUTIONS,n),
+        size = as.integer(size),
+        transcribed = transcribed,
+        untranscribed = untranscribed,
+        observed = as.integer(observed))
 
     # Perform binomial test
-    stats_per_type = plyr::adply(stats_per_type, 1, function(x) binomial_test(0.5, x$size, x$observed))
+    stats_per_type = plyr::adply(
+        stats_per_type,
+        1,
+        function(x) binomial_test(0.5, x$size, x$observed))
 
     # Calculate ratio 
-    ratio_per_type_per_signature = cbind(ratio_per_type_per_signature, stats_per_type)
+    ratio_per_type_per_signature = cbind(ratio_per_type_per_signature,
+                                            stats_per_type)
+
     strand_bias_per_type_df = melt(ratio_per_type_per_signature[,c(1,2,3,12)])
 
     # Find maximum y value for plotting
@@ -83,8 +92,9 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     value = NULL
     significant = NULL
 
-                                        # Plot
-    plot = ggplot(strand_bias_per_type_df, aes(x=type, y=log2(value), fill=type)) +
+    # Plot
+    plot = ggplot(strand_bias_per_type_df,
+                    aes(x=type, y=log2(value), fill=type)) +
         geom_bar(stat="identity", position="dodge", color="black") +
         scale_y_continuous(limits=c(-max,max)) +
         scale_fill_manual(values=COLORS6) +
@@ -93,9 +103,13 @@ plot_signature_strand_bias = function(signatures_strand_bias)
         theme_bw() + 
         scale_x_discrete(breaks=NULL) +
         xlab("") +
-        geom_text(aes(x = type, y = log2(value), ymax = log2(value), 
-                      label=significant, vjust=ifelse(sign(log2(value)) > 0, 0.5, 1)), 
-                  size = 8, position = ggplot2::position_dodge(width=1)) 
-    
+        geom_text(
+            aes(x = type,
+                y = log2(value),
+                ymax = log2(value), 
+                label = significant,
+                vjust = ifelse(sign(log2(value)) > 0, 0.5, 1)), 
+            size = 8, position = ggplot2::position_dodge(width=1))
+
     return(plot)
 }

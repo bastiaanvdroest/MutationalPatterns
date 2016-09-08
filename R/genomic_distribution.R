@@ -4,6 +4,7 @@
 #' @param vcf_list A list with vcf Granges objects
 #' @param surveyed_list A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)
 #' @param region_list List with GRanges objects containing locations of genomic regions
+#' @return A Data.frame containing the number observed and number of expected mutations in each genomic region.
 #' @export
 
 genomic_distribution = function(vcf_list, surveyed_list, region_list)

@@ -22,7 +22,7 @@ fit_to_signatures = function(mut_matrix, signatures)
     lsq_reconstructed = matrix(NA, nrow=96, ncol=n_samples)
 
     # Process each sample
-    for(i in 1:ncol(mut_matrix))
+    for (i in 1:ncol(mut_matrix))
     {
         y = mut_matrix[,i]
         lsq = lsqnonneg(signatures, y)

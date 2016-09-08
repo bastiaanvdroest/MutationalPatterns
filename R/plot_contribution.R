@@ -42,16 +42,16 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
         # Plot contribution
         m_contribution = melt(contribution)
         colnames(m_contribution) = c("Signature", "Sample", "Contribution")
-        
+
         plot = ggplot(m_contribution,
-                      aes(x = factor(Sample),
-                          y = Contribution,
-                          fill = factor(Signature),
-                          order = Sample)) +
+                        aes(x = factor(Sample),
+                            y = Contribution,
+                            fill = factor(Signature),
+                            order = Sample)) +
             geom_bar(position = "fill", stat="identity", colour="black")  +  
             # make sure sample ordering is correct
             xlim(rev(levels(factor(m_contribution$Sample)))) +
-                                        # ylabel
+            # ylabel
             labs(x = "", y = "Relative contribution") +  
             scale_fill_discrete(name="Signature") +
             # white background
@@ -77,15 +77,22 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
         m_contribution = melt(abs_contribution)
         colnames(m_contribution) = c("Signature", "Sample", "Contribution")
 
-        plot = ggplot(m_contribution, aes(x = factor(Sample), y = Contribution, fill = factor(Signature), order = Sample)) + 
+        plot = ggplot(m_contribution, aes(x = factor(Sample),
+                                            y = Contribution,
+                                            fill = factor(Signature),
+                                            order = Sample)) + 
             geom_bar(stat="identity", colour = "black")  +  
+
             # make sure sample ordering is correct
             xlim(rev(levels(factor(m_contribution$Sample)))) +
+
             # ylabel
             labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
             scale_fill_discrete(name="Signature") +
+
             # white background
             theme_bw() +
+
             # no gridlines
             theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())

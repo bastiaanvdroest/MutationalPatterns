@@ -29,8 +29,8 @@ mut_type_occurences = function(vcf_list, ref_genome)
     }
 
     row.names(df) = names(vcf_list)
-    colnames(df) = c("C>A", "C>G", "C>T",
-                     "T>A", "T>C", "T>G",
-                     "C>T at CpG", "C>T other")
+    colnames(df) = c(   "C>A", "C>G", "C>T",
+                        "T>A", "T>C", "T>G",
+                        "C>T at CpG", "C>T other")
     return(df)
 }
