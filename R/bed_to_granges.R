@@ -6,6 +6,15 @@
 #' @return granges_list List of Granges objects
 #' @import GenomicRanges
 #' @import IRanges
+#'
+#' @examples
+#' surveyed_file = list.files(system.file("extdata",
+#'                                        package="MutationalPatterns"),
+#'                            pattern = ".bed",
+#'                            full.names = T)
+#' surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+#'
+#' @seealso \code{\link{genomic_distribution}}
 #' @export
 
 bed_to_granges = function(bed_files, region_names)

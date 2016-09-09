@@ -8,6 +8,12 @@
 #' @param x Observed number of successes
 #' @return A Data.frame with direction of effect (enrichment/depletion),
 #' P-value and significance asterisks
+#'
+#' @examples
+#' binomial_test (0.5, 1200, 543)
+#'
+#' binomial_test (0.2, 800, 150)
+#'
 #' @export
 
 binomial_test = function(p, n, x)

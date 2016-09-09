@@ -8,6 +8,52 @@
 #' genomic region per group (by) or sample
 #' @importFrom BiocGenerics cbind
 #' @importFrom BiocGenerics rbind
+#'
+#' @examples
+#' library(biomaRt)
+#' mart="ensemble"
+#' regulation_segmentation = useEnsembl(biomart="regulation",
+#'                                      dataset="hsapiens_segmentation_feature",
+#'                                      GRCh = 37)
+#' regulation_regulatory = useEnsembl(biomart="regulation",
+#'                                    dataset="hsapiens_regulatory_feature",
+#'                                    GRCh = 37)
+#' regulation_annotated = useEnsembl(biomart="regulation",
+#'                                   dataset="hsapiens_annotated_feature",
+#'                                   GRCh = 37)
+#' CTCF = getBM(attributes = c('chromosome_name',
+#'                             'chromosome_start',
+#'                             'chromosome_end',
+#'                             'feature_type_name',
+#'                             'cell_type_name'),
+#'              filters = "regulatory_feature_type_name", 
+#'              values = "CTCF Binding Site", 
+#'              mart = regulation_regulatory)
+#' # Make a GRanges object.
+#' CTCF_g = reduce(GRanges(CTCF$chromosome_name,
+#'                 IRanges(CTCF$chromosome_start,
+#'                 CTCF$chromosome_end)))
+#'
+#' # Get the filename with surveyed/callable regions
+#' surveyed_file = list.files(system.file("extdata",
+#'                                        package="MutationalPatterns"),
+#'                            pattern = ".bed",
+#'                            full.names = T)
+#' # Read the file as a GRanges object.
+#' surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+#'
+#' # For this example we use the same surveyed file for each sample.
+#' surveyed_list= rep(surveyed_list, 9)
+#' 
+#' # Calculate the number of observed and expected number of mutations in
+#' # each genomic regions for each sample.
+#' distr = genomic_distribution(vcfs, surveyed_list, regions)
+#'
+#' distr_test = enrichment_depletion_test(distr, by = tissue)
+#' distr_test2 = enrichment_depletion_test(distr)
+#'
+#' @seealso \code{\link{genomic_distribution}}
+#'
 #' @export
 
 enrichment_depletion_test = function(x, by = c())
