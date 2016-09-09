@@ -15,6 +15,7 @@ get_type_context(vcf, ref_genome)
 Mutation types and context character vectors in a named list
 }
 \description{
-A function to extract the bases 3' upstream and 5' downstream of the base substitution types
+A function to extract the bases 3' upstream and 5' downstream of the base
+substitution types
 }
 

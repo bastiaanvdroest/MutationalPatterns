@@ -7,12 +7,15 @@
 strand_bias_test(strand_occurences)
 }
 \arguments{
-\item{strand_occurences}{Dataframe with mutation count per strand, result from strand_occurences()}
+\item{strand_occurences}{Dataframe with mutation count per strand, result
+from strand_occurences()}
 }
 \value{
-Dataframe with poisson test P value for the ratio between the transcribed and untrascribed strand per group per base substitution type
+Dataframe with poisson test P value for the ratio between the
+transcribed and untrascribed strand per group per base substitution type.
 }
 \description{
-Performs a Poisson test for the ratio between mutations on the transcribed and untranscribed strand
+This function performs a Poisson test for the ratio between mutations on the
+transcribed and untranscribed strand
 }
 

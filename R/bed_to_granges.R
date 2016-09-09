@@ -11,7 +11,7 @@
 #' surveyed_file = list.files(system.file("extdata",
 #'                                        package="MutationalPatterns"),
 #'                            pattern = ".bed",
-#'                            full.names = T)
+#'                            full.names = TRUE)
 #' surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
 #'
 #' @seealso \code{\link{genomic_distribution}}

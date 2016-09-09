@@ -10,6 +10,28 @@
 #' @importFrom BiocGenerics rbind
 #'
 #' @examples
+#' vcf_files = list.files(system.file("extdata",
+#'                                    package="MutationalPatterns"),
+#'                                    pattern = ".vcf",
+#'                                    full.names = TRUE)
+#' sample_names = c("colon1", "colon2", "colon3",
+#'                  "intestine1", "intestine2", "intestine3",
+#'                  "liver1", "liver2", "liver3")
+#'
+#' tissue = c("colon", "colon", "colon",
+#'            "intestine", "intestine", "intestine",
+#'            "liver", "liver", "liver")
+#' 
+#' vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
+#' vcfs = lapply(vcfs, function(x) rename_chrom(x))
+#'
+#' # only select autosomal chromosomes, mt dna length is different for vcf and
+#' # ref genome, why??
+#' auto = extractSeqlevelsByGroup(species="Homo_sapiens",
+#'                                style="UCSC",
+#'                                group="auto")
+#' vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
+#'
 #' library(biomaRt)
 #' mart="ensemble"
 #' regulation_segmentation = useEnsembl(biomart="regulation",
@@ -33,12 +55,15 @@
 #' CTCF_g = reduce(GRanges(CTCF$chromosome_name,
 #'                 IRanges(CTCF$chromosome_start,
 #'                 CTCF$chromosome_end)))
+#' regions = list(CTCF_g)
+#' names(regions) = c("CTCF")
+#' regions = lapply(regions, function(x) rename_chrom(x))
 #'
 #' # Get the filename with surveyed/callable regions
 #' surveyed_file = list.files(system.file("extdata",
 #'                                        package="MutationalPatterns"),
 #'                            pattern = ".bed",
-#'                            full.names = T)
+#'                            full.names = TRUE)
 #' # Read the file as a GRanges object.
 #' surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
 #'

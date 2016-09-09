@@ -12,9 +12,83 @@ enrichment_depletion_test(x, by = c())
 \item{by}{Optional grouping variable, e.g. tissue type}
 }
 \value{
-Data.frame with the observed and expected number of mutations per genomic region per group (by) or sample
+Data.frame with the observed and expected number of mutations per
+genomic region per group (by) or sample
 }
 \description{
-Aggregates mutations per group (optional) and performs enrichment depletion test
+This function aggregates mutations per group (optional) and performs an
+enrichment depletion test.
+}
+\examples{
+vcf_files = list.files(system.file("extdata",
+                                   package="MutationalPatterns"),
+                                   pattern = ".vcf",
+                                   full.names = TRUE)
+sample_names = c("colon1", "colon2", "colon3",
+                 "intestine1", "intestine2", "intestine3",
+                 "liver1", "liver2", "liver3")
+
+tissue = c("colon", "colon", "colon",
+           "intestine", "intestine", "intestine",
+           "liver", "liver", "liver")
+
+vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
+vcfs = lapply(vcfs, function(x) rename_chrom(x))
+
+# only select autosomal chromosomes, mt dna length is different for vcf and
+# ref genome, why??
+auto = extractSeqlevelsByGroup(species="Homo_sapiens",
+                               style="UCSC",
+                               group="auto")
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
+
+library(biomaRt)
+mart="ensemble"
+regulation_segmentation = useEnsembl(biomart="regulation",
+                                     dataset="hsapiens_segmentation_feature",
+                                     GRCh = 37)
+regulation_regulatory = useEnsembl(biomart="regulation",
+                                   dataset="hsapiens_regulatory_feature",
+                                   GRCh = 37)
+regulation_annotated = useEnsembl(biomart="regulation",
+                                  dataset="hsapiens_annotated_feature",
+                                  GRCh = 37)
+CTCF = getBM(attributes = c('chromosome_name',
+                            'chromosome_start',
+                            'chromosome_end',
+                            'feature_type_name',
+                            'cell_type_name'),
+             filters = "regulatory_feature_type_name", 
+             values = "CTCF Binding Site", 
+             mart = regulation_regulatory)
+# Make a GRanges object.
+CTCF_g = reduce(GRanges(CTCF$chromosome_name,
+                IRanges(CTCF$chromosome_start,
+                CTCF$chromosome_end)))
+regions = list(CTCF_g)
+names(regions) = c("CTCF")
+regions = lapply(regions, function(x) rename_chrom(x))
+
+# Get the filename with surveyed/callable regions
+surveyed_file = list.files(system.file("extdata",
+                                       package="MutationalPatterns"),
+                           pattern = ".bed",
+                           full.names = TRUE)
+# Read the file as a GRanges object.
+surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+
+# For this example we use the same surveyed file for each sample.
+surveyed_list= rep(surveyed_list, 9)
+
+# Calculate the number of observed and expected number of mutations in
+# each genomic regions for each sample.
+distr = genomic_distribution(vcfs, surveyed_list, regions)
+
+distr_test = enrichment_depletion_test(distr, by = tissue)
+distr_test2 = enrichment_depletion_test(distr)
+
+}
+\seealso{
+\code{\link{genomic_distribution}}
 }
 

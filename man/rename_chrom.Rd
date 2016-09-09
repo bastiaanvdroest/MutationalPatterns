@@ -12,7 +12,7 @@ rename_chrom(granges, style = "UCSC")
 \item{style}{"UCSC", NCBI" or "Ensembl", default = "UCSC"}
 }
 \value{
-granges Granges object with renamed chromosomes according to style
+A GRanges object with renamed chromosomes according to style.
 }
 \description{
 Rename chromosome names to standard
