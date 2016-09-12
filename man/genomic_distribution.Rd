@@ -20,64 +20,135 @@ A Data.frame containing the number observed and number of expected mutations in 
 Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account
 }
 \examples{
-vcf_files = list.files(system.file("extdata",
-                                   package="MutationalPatterns"),
-                                   pattern = ".vcf",
-                                   full.names = TRUE)
-sample_names = c("colon1", "colon2", "colon3",
-                 "intestine1", "intestine2", "intestine3",
-                 "liver1", "liver2", "liver3")
-vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
-vcfs = lapply(vcfs, function(x) rename_chrom(x))
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
 
-# only select autosomal chromosomes, mt dna length is different for vcf and
-# ref genome, why??
-auto = extractSeqlevelsByGroup(species="Homo_sapiens",
-                               style="UCSC",
-                               group="auto")
-vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
 
+## Exclude mitochondrial and allosomal chromosomes.
+autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
+                                    style="UCSC",
+                                    group="auto")
+
+vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Use biomaRt to obtain data.
+# mart="ensemble"
 library(biomaRt)
-mart="ensemble"
-regulation_segmentation = useEnsembl(biomart="regulation",
-                                     dataset="hsapiens_segmentation_feature",
-                                     GRCh = 37)
-regulation_regulatory = useEnsembl(biomart="regulation",
-                                   dataset="hsapiens_regulatory_feature",
-                                   GRCh = 37)
-regulation_annotated = useEnsembl(biomart="regulation",
-                                  dataset="hsapiens_annotated_feature",
-                                  GRCh = 37)
-CTCF = getBM(attributes = c('chromosome_name',
-                            'chromosome_start',
-                            'chromosome_end',
-                            'feature_type_name',
-                            'cell_type_name'),
-             filters = "regulatory_feature_type_name", 
-             values = "CTCF Binding Site", 
-             mart = regulation_regulatory)
-# Make a GRanges object.
-CTCF_g = reduce(GRanges(CTCF$chromosome_name,
-                IRanges(CTCF$chromosome_start,
-                CTCF$chromosome_end)))
+segmentation <- useEnsembl(biomart="regulation",
+                          dataset="hsapiens_segmentation_feature",
+                          GRCh = 37)
+regulatory <- useEnsembl(biomart="regulation",
+                        dataset="hsapiens_regulatory_feature",
+                        GRCh = 37)
+annotated <- useEnsembl(biomart="regulation",
+                       dataset="hsapiens_annotated_feature",
+                       GRCh = 37)
 
-# Get the filename with surveyed/callable regions
-surveyed_file = list.files(system.file("extdata",
-                                       package="MutationalPatterns"),
+## We can query the BioMart database, but this may take a long time
+## though, so we take some shortcuts by loading the results from our
+## examples.  The corresponding code for downloading data can be
+## found above the command we run.
+
+## Download the regulatory CTCF binding sites and convert them to
+## a GRanges object.
+# CTCF <- getBM(attributes = c('chromosome_name',
+#                             'chromosome_start',
+#                             'chromosome_end',
+#                             'feature_type_name',
+#                             'cell_type_name'),
+#              filters = "regulatory_feature_type_name", 
+#              values = "CTCF Binding Site", 
+#              mart = regulatory)
+#
+# CTCF_g <- reduce(GRanges(CTCF$chromosome_name,
+#                 IRanges(CTCF$chromosome_start,
+#                 CTCF$chromosome_end)))
+
+CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
+                  package="MutationalPatterns"))
+
+## Download the promoter regions and conver them to a GRanges object.
+# promoter = getBM(attributes = c('chromosome_name', 'chromosome_start',
+#                                 'chromosome_end', 'feature_type_name'),
+#                  filters = "regulatory_feature_type_name", 
+#                  values = "Promoter", 
+#                  mart = regulatory)
+# promoter_g = reduce(GRanges(promoter$chromosome_name,
+#                     IRanges(promoter$chromosome_start,
+#                             promoter$chromosome_end)))
+
+promoter_g <- readRDS(system.file("states/promoter_g_data.R",
+                      package="MutationalPatterns"))
+
+# open = getBM(attributes = c('chromosome_name', 'chromosome_start',
+#                             'chromosome_end', 'feature_type_name'),
+#               filters = "regulatory_feature_type_name",
+#               values = "Open chromatin",
+#               mart = regulatory)
+# open_g = reduce(GRanges(open$chromosome_name,
+#                 IRanges(open$chromosome_start,
+#                         open$chromosome_end)))
+
+open_g <- readRDS(system.file("states/open_g_data.R",
+                  package="MutationalPatterns"))
+
+# promoter_flanking = getBM(attributes = c('chromosome_name',
+#                                          'chromosome_start',
+#                                          'chromosome_end',
+#                                          'feature_type_name'),
+#                     filters = "regulatory_feature_type_name", 
+#                     values = "Promoter Flanking Region", 
+#                     mart = regulatory)
+# promoter_flanking_g = reduce(GRanges(
+#                           promoter_flanking$chromosome_name,
+#                           IRanges(promoter_flanking$chromosome_start,
+#                           promoter_flanking$chromosome_end)))
+
+promoter_flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
+                                           package="MutationalPatterns"))
+
+# TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start',
+#                                   'chromosome_end', 'feature_type_name'), 
+#                      filters = "regulatory_feature_type_name", 
+#                      values = "TF binding site", 
+#                      mart = regulatory)
+# TF_binding_g = reduce(GRanges(TF_binding$chromosome_name,
+#                               IRanges(TF_binding$chromosome_start,
+#                               TF_binding$chromosome_end)))
+
+TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.R",
+                                    package="MutationalPatterns"))
+
+regions <- list(promoter_g, promoter_flanking_g,
+                CTCF_g, open_g, TF_binding_g)
+
+names(regions) <- c("Promoter", "Promoter flanking", "CTCF",
+                    "Open chromatin", "TF binding")
+
+## Rename chromosomes to UCSC standard
+regions = lapply(regions, rename_chrom)
+
+## Get the filename with surveyed/callable regions
+surveyed_file <- list.files(system.file("extdata",
+                           package="MutationalPatterns"),
                            pattern = ".bed",
                            full.names = TRUE)
-# Read the file as a GRanges object.
-surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
 
-# For this example we use the same surveyed file for each sample.
-surveyed_list= rep(surveyed_list, 9)
+## Read the file as a GRanges object.
+surveyed_list <- bed_to_granges(surveyed_file, "surveyed_all")
 
-# Calculate the number of observed and expected number of mutations in
-# each genomic regions for each sample.
-distr = genomic_distribution(vcfs, surveyed_list, regions)
+## For this example we use the same surveyed file for each sample.
+surveyed_list <- rep(surveyed_list, 9)
+
+## Calculate the number of observed and expected number of mutations in
+## each genomic regions for each sample.
+distr <- genomic_distribution(vcfs, surveyed_list, regions)
 
 }
 \seealso{
-\code{\link{bed_to_granges}}
+\code{\link{read_vcf}}, \code{\link{bed_to_granges}}
 }
 

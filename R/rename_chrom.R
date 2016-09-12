@@ -6,6 +6,24 @@
 #' @importFrom GenomeInfoDb seqlevels<-
 #' @importFrom GenomeInfoDb mapSeqlevels
 #' @importFrom GenomeInfoDb renameSeqlevels
+#'
+#' @examples
+#' # After loading VCF files using 'read_vcf()', the chromosome names
+#' # may differ between the reference genome and your samples.  See the
+#' # 'read_vcf()' example for how we obtain the following data.
+#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#'                 package="MutationalPatterns"))
+#'
+#' # You can standardize the naming of your VCF samples loaded into R.
+#' # Notice how the seqnames change from:
+#' vcfs$liver1
+#'
+#' # To the UCSC (default) standardized format:
+#' rename_chrom(vcfs$liver1)
+#'
+#' # You can also rename all objects returned by 'read_vcf()' using:
+#' vcfs <- lapply(vcfs, rename_chrom)
+#' @seealso read_vcf
 #' @export
 
 rename_chrom = function(granges, style = "UCSC")

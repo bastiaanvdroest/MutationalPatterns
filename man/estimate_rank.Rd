@@ -20,27 +20,29 @@ NMF rank survey plot
 Find optimal number of signatures for NMF decomposition
 }
 \examples{
-vcf_files = list.files(system.file("extdata", package="MutationalPatterns"),
-                                   pattern = ".vcf",
-                                   full.names = TRUE)
-sample_names = c("colon1", "colon2", "colon3",
-                 "intestine1", "intestine2", "intestine3",
-                 "liver1", "liver2", "liver3")
-vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
 
-# only select autosomal chromosomes, mt dna length is different for vcf and
-# ref genome, why??
-auto = extractSeqlevelsByGroup(species="Homo_sapiens",
-                               style="UCSC",
-                               group="auto")
-vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
+# Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
 
+# Exclude mitochondrial and allosomal chromosomes.
+autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
+                                    style="UCSC",
+                                    group="auto")
+
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Define the reference genome we are going to use.
 ref_genome = "BSgenome.Hsapiens.UCSC.hg19" 
+
+## If neccessary, download it from Bioconductor.
+# source("http://bioconductor.org/biocLite.R")
+# biocLite(ref_genome)
+
+## Load the reference genome.
 library(ref_genome, character.only = TRUE)
-tissue = c("colon", "colon", "colon",
-           "intestine", "intestine", "intestine",
-           "liver", "liver", "liver")
-vcfs = lapply(vcfs, function(x) rename_chrom(x))
 
 test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)

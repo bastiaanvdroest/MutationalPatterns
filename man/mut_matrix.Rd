@@ -17,4 +17,31 @@ mut_matrix(vcf_list, ref_genome)
 \description{
 Make 96 trinucleotide mutation count matrix
 }
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+## Exclude mitochondrial and allosomal chromosomes.
+autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
+                                     style="UCSC",
+                                     group="auto")
+
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Load the corresponding reference genome.
+ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+## Construct a mutation matrix from the loaded VCFs in comparison to the
+## ref_genome.
+my_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+
+## Et voila
+my_matrix
+
+}
 
