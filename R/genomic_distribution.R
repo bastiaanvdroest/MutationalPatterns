@@ -1,10 +1,16 @@
-#' Find overlaps between mutations and a genomic region
+#' Find overlaps between mutations and a genomic region.
 #' 
-#' Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account
-#' @param vcf_list A list with vcf Granges objects
-#' @param surveyed_list A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)
-#' @param region_list List with GRanges objects containing locations of genomic regions
-#' @return A data.frame containing the number observed and number of expected mutations in each genomic region.
+#' Function finds the number of mutations that reside in genomic region and
+#' takes surveyed area of genome into account.
+#' 
+#' @param vcf_list A list with VCF GRanges objects
+#' @param surveyed_list A list with Granges of regions of the genome that have
+#'                      been surveyed (e.g. determined using GATK CallableLoci)
+#' @param region_list List with GRanges objects containing locations of
+#'                    genomic regions
+#'
+#' @return A data.frame containing the number observed and number of expected
+#'         mutations in each genomic region.
 #'
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:
@@ -90,25 +96,25 @@
 #' open_g <- readRDS(system.file("states/open_g_data.R",
 #'                   package="MutationalPatterns"))
 #'
-#' # promoter_flanking = getBM(attributes = c('chromosome_name',
-#' #                                          'chromosome_start',
-#' #                                          'chromosome_end',
-#' #                                          'feature_type_name'),
-#' #                     filters = "regulatory_feature_type_name", 
-#' #                     values = "Promoter Flanking Region", 
-#' #                     mart = regulatory)
-#' # promoter_flanking_g = reduce(GRanges(
-#' #                           promoter_flanking$chromosome_name,
-#' #                           IRanges(promoter_flanking$chromosome_start,
-#' #                           promoter_flanking$chromosome_end)))
+#' # flanking = getBM(attributes = c('chromosome_name',
+#' #                                 'chromosome_start',
+#' #                                 'chromosome_end',
+#' #                                 'feature_type_name'),
+#' #                  filters = "regulatory_feature_type_name", 
+#' #                  values = "Promoter Flanking Region", 
+#' #                  mart = regulatory)
+#' # flanking_g = reduce(GRanges(
+#' #                        flanking$chromosome_name,
+#' #                        IRanges(flanking$chromosome_start,
+#' #                        flanking$chromosome_end)))
 #' 
-#' promoter_flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
-#'                                            package="MutationalPatterns"))
+#' flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
+#'                                   package="MutationalPatterns"))
 #'
 #' # TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start',
-#' #                                   'chromosome_end', 'feature_type_name'), 
-#' #                      filters = "regulatory_feature_type_name", 
-#' #                      values = "TF binding site", 
+#' #                                   'chromosome_end', 'feature_type_name'),
+#' #                      filters = "regulatory_feature_type_name",
+#' #                      values = "TF binding site",
 #' #                      mart = regulatory)
 #' # TF_binding_g = reduce(GRanges(TF_binding$chromosome_name,
 #' #                               IRanges(TF_binding$chromosome_start,
@@ -117,7 +123,7 @@
 #' TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.R",
 #'                                     package="MutationalPatterns"))
 #'
-#' regions <- list(promoter_g, promoter_flanking_g,
+#' regions <- list(promoter_g, flanking_g,
 #'                 CTCF_g, open_g, TF_binding_g)
 #'
 #' names(regions) <- c("Promoter", "Promoter flanking", "CTCF",
@@ -159,7 +165,9 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
         for(i in 1:length(vcf_list) )
         {
             print(paste("Sample:", names(vcf_list)[i]))
-            res = intersect_with_region(vcf_list[[i]], surveyed_list[[i]], region_list[[j]])
+            res = intersect_with_region(vcf_list[[i]],
+                                        surveyed_list[[i]],
+                                        region_list[[j]])
             res$region = names(region_list)[j]
             res$sample = names(vcf_list)[i]
             res = res[,c(7,8,1:6)]
@@ -167,7 +175,7 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
         }
     }
 
-    # region as factor
+    # Region as factor
     # make sure level order is the same as in region_list input (important for
     # plotting later)
     df$region = factor(df$region, levels = names(region_list))

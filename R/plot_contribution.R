@@ -6,8 +6,11 @@
 #' @param signatures Signature matrix
 #' @param index optional sample subset parameter
 #' @param coord_flip Flip X and Y coordinates, default = FALSE
-#' @param mode "relative" or "absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"
+#' @param mode "relative" or "absolute"; to plot the relative contribution or
+#'             absolute number of mutations, default = "relative"
+#'
 #' @return Stacked barplot with contribution of each signatures for each sample
+#'
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes
@@ -19,10 +22,52 @@
 #' @importFrom ggplot2 theme_bw
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_blank
-#' @export
+#'
+#' @examples
+#' ## See the 'mut_matrix()' example for how we obtained the following
+#' ## mutation matrix.
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#'                                package="MutationalPatterns"))
+#'
+#' ## Extracting signatures can be computationally intensive, so
+#' ## we use pre-computed data generated with the following command:
+#' # nmf_res <- extract_signatures(mut_mat, rank = 2)
+#'
+#' nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+#'                    package="MutationalPatterns"))
+#'
+#' ## Optionally set column and row names.
+#' colnames(nmf_res$signatures) = c("Signature A", "Signature B")
+#' rownames(nmf_res$contribution) = c("Signature A", "Signature B")
+#'
+#' ## The following are examples of contribution plots.
+#' plot_contribution(nmf_res$contribution,
+#'                   nmf_res$signature,
+#'                   mode = "relative")
 #' 
+#' plot_contribution(nmf_res$contribution,
+#'                   nmf_res$signature,
+#'                   mode = "absolute")
+#' 
+#' plot_contribution(nmf_res$contribution,
+#'                   nmf_res$signature,
+#'                   mode = "absolute",
+#'                   index = c(1,2))
+#' 
+#' plot_contribution(nmf_res$contribution,
+#'                   nmf_res$signature,
+#'                   mode = "absolute",
+#'                   coord_flip = TRUE)
+#'
+#' @seealso \code{\link{extract_signatures}}, \code{\link{mut_matrix}}
+#'
+#' @export
 
-plot_contribution = function(contribution, signatures, index=c(), coord_flip = FALSE, mode = "relative")
+plot_contribution = function(contribution,
+                             signatures,
+                             index=c(),
+                             coord_flip = FALSE,
+                             mode = "relative")
 {
     # check mode parameter
     if(!(mode == "relative" | mode == "absolute"))
@@ -48,24 +93,27 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
                             y = Contribution,
                             fill = factor(Signature),
                             order = Sample)) +
-            geom_bar(position = "fill", stat="identity", colour="black")  +  
+            geom_bar(position = "fill", stat="identity", colour="black")  +
             # make sure sample ordering is correct
             xlim(rev(levels(factor(m_contribution$Sample)))) +
             # ylabel
-            labs(x = "", y = "Relative contribution") +  
+            labs(x = "", y = "Relative contribution") +
             scale_fill_discrete(name="Signature") +
             # white background
             theme_bw() +
             # no gridlines
-            theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
-            theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
+            theme(panel.grid.minor.x=element_blank(),
+                  panel.grid.major.x=element_blank()) +
+            theme(panel.grid.minor.y=element_blank(),
+                  panel.grid.major.y=element_blank())
     }
 
     # Handle the absolute mode.
     else 
     {
         if(missing(signatures))
-            stop("For contribution plotting in mode 'absolute': also provide signatures matrix")
+            stop(paste("For contribution plotting in mode 'absolute':",
+                       "also provide signatures matrix"))
 
         # total number of mutations per siganture
         total_signatures = colSums(signatures) 
@@ -94,8 +142,10 @@ plot_contribution = function(contribution, signatures, index=c(), coord_flip = F
             theme_bw() +
 
             # no gridlines
-            theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank()) +
-            theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank())
+            theme(panel.grid.minor.x=element_blank(),
+                  panel.grid.major.x=element_blank()) +
+            theme(panel.grid.minor.y=element_blank(),
+                  panel.grid.major.y=element_blank())
     }
 
     if (coord_flip == TRUE)

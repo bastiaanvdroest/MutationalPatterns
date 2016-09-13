@@ -1,15 +1,24 @@
-#' Find optimal nonnegative linear combination of mutation signatures to reconstruct the mutation matrix
+#' Find optimal nonnegative linear combination of mutation signatures to
+#' reconstruct the mutation matrix.
 #' 
-#' @description Find linear combination of mutation signatures that most closely reconstructs the mutation matrix by solving nonnegative least-squares constraints problem
-#' @param mut_matrix 96 mutation count matrix (dimensions: 96 mutations X n samples)
-#' @param signatures Signature matrix (dimensions: 96 mutations X n signatures)
-#' @return Named list with signature contributions and reconstructed mutation matrix
+#' Find linear combination of mutation signatures that most closely
+#' reconstructs the mutation matrix by solving nonnegative least-squares
+#' constraints problem.
+#' 
+#' @param mut_matrix 96 mutation count matrix
+#'                   (dimensions: 96 mutations X n samples)
+#' @param signatures Signature matrix
+#'                   (dimensions: 96 mutations X n signatures)
+#'
+#' @return Named list with signature contributions and reconstructed
+#'         mutation matrix
+#'
 #' @importFrom pracma lsqnonneg
 #'
 #' @examples
 #' ## You can download the signatures from the pan-cancer study by
 #' ## Alexandrov et al:
-#' # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' #http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 #' ## We copied the file into our package for your convenience.
 #' filename <- system.file("extdata/signatures_probabilities.txt",
 #'                         package="MutationalPatterns")
@@ -38,7 +47,8 @@ fit_to_signatures = function(mut_matrix, signatures)
 {
     # make sure dimensions of input matrix are correct
     if (dim(mut_matrix)[1] != 96)
-        stop("Mutation count matrix input should have dimensions 96 X n samples")
+        stop(paste("Mutation count matrix input should have",
+                   "dimensions 96 X n samples"))
 
     if (dim(signatures)[1] != 96)
         stop("Signatures input should have dimensions 96 X n signatures")

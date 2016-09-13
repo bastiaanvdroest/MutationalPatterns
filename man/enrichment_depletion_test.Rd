@@ -25,12 +25,15 @@ enrichment depletion test.
 distr <- readRDS(system.file("states/distr_data.R",
                  package="MutationalPatterns"))
 
-tissue = c("colon", "colon", "colon",
-           "intestine", "intestine", "intestine",
-           "liver", "liver", "liver")
+tissue <- c("colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
 
-distr_test = enrichment_depletion_test(distr, by = tissue)
-distr_test2 = enrichment_depletion_test(distr)
+## Perform the enrichment/depletion test by tissue type.
+distr_test <- enrichment_depletion_test(distr, by = tissue)
+
+## Or without specifying the 'by' parameter.
+distr_test2 <- enrichment_depletion_test(distr)
 
 }
 \seealso{

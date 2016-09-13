@@ -16,7 +16,7 @@ Mutation types and context character vectors in a named list
 }
 \description{
 A function to extract the bases 3' upstream and 5' downstream of the base
-substitution types
+substitution types.
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:

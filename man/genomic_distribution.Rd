@@ -2,22 +2,26 @@
 % Please edit documentation in R/genomic_distribution.R
 \name{genomic_distribution}
 \alias{genomic_distribution}
-\title{Find overlaps between mutations and a genomic region}
+\title{Find overlaps between mutations and a genomic region.}
 \usage{
 genomic_distribution(vcf_list, surveyed_list, region_list)
 }
 \arguments{
-\item{vcf_list}{A list with vcf Granges objects}
+\item{vcf_list}{A list with VCF GRanges objects}
 
-\item{surveyed_list}{A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)}
+\item{surveyed_list}{A list with Granges of regions of the genome that have
+been surveyed (e.g. determined using GATK CallableLoci)}
 
-\item{region_list}{List with GRanges objects containing locations of genomic regions}
+\item{region_list}{List with GRanges objects containing locations of
+genomic regions}
 }
 \value{
-A data.frame containing the number observed and number of expected mutations in each genomic region.
+A data.frame containing the number observed and number of expected
+        mutations in each genomic region.
 }
 \description{
-Function finds the number of mutations that reside in genomic region and takes surveyed area of genome into account
+Function finds the number of mutations that reside in genomic region and
+takes surveyed area of genome into account.
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:
@@ -103,25 +107,25 @@ promoter_g <- readRDS(system.file("states/promoter_g_data.R",
 open_g <- readRDS(system.file("states/open_g_data.R",
                   package="MutationalPatterns"))
 
-# promoter_flanking = getBM(attributes = c('chromosome_name',
-#                                          'chromosome_start',
-#                                          'chromosome_end',
-#                                          'feature_type_name'),
-#                     filters = "regulatory_feature_type_name", 
-#                     values = "Promoter Flanking Region", 
-#                     mart = regulatory)
-# promoter_flanking_g = reduce(GRanges(
-#                           promoter_flanking$chromosome_name,
-#                           IRanges(promoter_flanking$chromosome_start,
-#                           promoter_flanking$chromosome_end)))
+# flanking = getBM(attributes = c('chromosome_name',
+#                                 'chromosome_start',
+#                                 'chromosome_end',
+#                                 'feature_type_name'),
+#                  filters = "regulatory_feature_type_name", 
+#                  values = "Promoter Flanking Region", 
+#                  mart = regulatory)
+# flanking_g = reduce(GRanges(
+#                        flanking$chromosome_name,
+#                        IRanges(flanking$chromosome_start,
+#                        flanking$chromosome_end)))
 
-promoter_flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
-                                           package="MutationalPatterns"))
+flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
+                                  package="MutationalPatterns"))
 
 # TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start',
-#                                   'chromosome_end', 'feature_type_name'), 
-#                      filters = "regulatory_feature_type_name", 
-#                      values = "TF binding site", 
+#                                   'chromosome_end', 'feature_type_name'),
+#                      filters = "regulatory_feature_type_name",
+#                      values = "TF binding site",
 #                      mart = regulatory)
 # TF_binding_g = reduce(GRanges(TF_binding$chromosome_name,
 #                               IRanges(TF_binding$chromosome_start,
@@ -130,7 +134,7 @@ promoter_flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
 TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.R",
                                     package="MutationalPatterns"))
 
-regions <- list(promoter_g, promoter_flanking_g,
+regions <- list(promoter_g, flanking_g,
                 CTCF_g, open_g, TF_binding_g)
 
 names(regions) <- c("Promoter", "Promoter flanking", "CTCF",

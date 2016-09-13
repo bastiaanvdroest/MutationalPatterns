@@ -38,8 +38,8 @@ get_mut_context = function(vcf, ref_genome)
     # Make sure that the chromosome names are compatible with each other.
     if (!(all(seqlevels(vcf) %in% seqlevels(get(ref_genome)))))
         stop(paste("The chromosome names (seqlevels) of the VCF and the",
-                   "reference genome object do not match. Use 'rename_chrom()'",
-                   "function to rename chromosome names."))
+                   "reference genome object do not match. Use the",
+                   "'rename_chrom()' function to rename chromosome names."))
 
     ranges = resize(vcf, 3, fix = "center")
 

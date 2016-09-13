@@ -1,6 +1,7 @@
 #' Plot signature strand bias
 #' 
-#' @description Plot strand bias per mutation type for each signature
+#' Plot strand bias per mutation type for each signature.
+#' 
 #' @param signatures_strand_bias Signature matrix with 192 features
 #' @return Barplot
 #' @importFrom ggplot2 ggplot
@@ -15,17 +16,44 @@
 #' @importFrom ggplot2 facet_grid
 #' @importFrom ggplot2 position_dodge
 #' @importFrom plyr adply
+#'
+#' @examples
+#' ## See the 'mut_matrix()' example for how we obtained the following
+#' ## mutation matrix.
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#'                                  package="MutationalPatterns"))
+#'
+#' ## Extracting signatures can be computationally intensive, so
+#' ## we use pre-computed data generated with the following command:
+#' # nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
+#'
+#' nmf_res_strand <- readRDS(system.file("states/nmf_res_strand_data.R",
+#'                                       package="MutationalPatterns"))
+#'
+#' ## Provide column names for the plot.
+#' colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
+#'
+#' plot_signature_strand_bias(nmf_res_strand$signatures) 
+#'
+#' @seealso \code{link{extract_signatures}}, \code{link{mut_matrix()}}
+#'
 #' @export
 
 plot_signature_strand_bias = function(signatures_strand_bias)
 {
     # check if there are 192 features in the signatures
     if (dim(signatures_strand_bias)[1] != 192)
-        stop("Input signature matrix does not have 192 features (96 trinucleotide * 2 strands).")
+        stop(paste("Input signature matrix does not have 192 features (96",
+                    "trinucleotide * 2 strands)."))
 
     # aggregate by strand and type
-    sum_per_type = aggregate(signatures_strand_bias, by=list(STRAND, SUBSTITUTIONS_192), FUN=sum)
-    sum_per_strand = aggregate(signatures_strand_bias, by=list(STRAND), FUN=sum)
+    sum_per_type = aggregate(signatures_strand_bias,
+                             by=list(STRAND, SUBSTITUTIONS_192),
+                             FUN=sum)
+
+    sum_per_strand = aggregate(signatures_strand_bias,
+                               by=list(STRAND),
+                               FUN=sum)
 
     # melt data frames
     sum_per_strand =  melt(sum_per_strand)
@@ -34,17 +62,21 @@ plot_signature_strand_bias = function(signatures_strand_bias)
     colnames(sum_per_type) = c("strand", "type", "Signature", "value")
 
     # ratio per signature per type
-    ratio = as.matrix(subset(sum_per_type,strand == "T")$value / subset(sum_per_type,strand == "U")$value)
-    ratio_per_type_per_signature = cbind(subset(sum_per_type,strand == "T")[,2:3], ratio)
+    ratio = as.matrix(subset(sum_per_type, strand == "T")$value /
+                      subset(sum_per_type, strand == "U")$value)
+
+    ratio_per_type_per_signature = cbind(subset(sum_per_type,
+                                                strand == "T")[,2:3],
+                                         ratio)
 
     # binomial test per type per signature
     size = c()
     observed = c()
     transcribed = c()
     untranscribed = c()
-    for(s in unique(sum_per_type$Signature))
+    for (s in unique(sum_per_type$Signature))
     {
-        for(t in unique(sum_per_type$type))
+        for (t in unique(sum_per_type$type))
         {
             sub = subset(sum_per_type, Signature==s & type==t)
             size = c(size, sum(sub$value))

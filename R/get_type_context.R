@@ -1,7 +1,7 @@
 #' Retrieve context of base substitution types
 #' 
 #' A function to extract the bases 3' upstream and 5' downstream of the base
-#' substitution types
+#' substitution types.
 #'
 #' @param vcf A CollapsedVCF object
 #' @param ref_genome Reference genome

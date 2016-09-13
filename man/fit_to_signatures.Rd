@@ -2,25 +2,31 @@
 % Please edit documentation in R/fit_to_signatures.R
 \name{fit_to_signatures}
 \alias{fit_to_signatures}
-\title{Find optimal nonnegative linear combination of mutation signatures to reconstruct the mutation matrix}
+\title{Find optimal nonnegative linear combination of mutation signatures to
+reconstruct the mutation matrix.}
 \usage{
 fit_to_signatures(mut_matrix, signatures)
 }
 \arguments{
-\item{mut_matrix}{96 mutation count matrix (dimensions: 96 mutations X n samples)}
+\item{mut_matrix}{96 mutation count matrix
+(dimensions: 96 mutations X n samples)}
 
-\item{signatures}{Signature matrix (dimensions: 96 mutations X n signatures)}
+\item{signatures}{Signature matrix
+(dimensions: 96 mutations X n signatures)}
 }
 \value{
-Named list with signature contributions and reconstructed mutation matrix
+Named list with signature contributions and reconstructed
+        mutation matrix
 }
 \description{
-Find linear combination of mutation signatures that most closely reconstructs the mutation matrix by solving nonnegative least-squares constraints problem
+Find linear combination of mutation signatures that most closely
+reconstructs the mutation matrix by solving nonnegative least-squares
+constraints problem.
 }
 \examples{
 ## You can download the signatures from the pan-cancer study by
 ## Alexandrov et al:
-# http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 ## We copied the file into our package for your convenience.
 filename <- system.file("extdata/signatures_probabilities.txt",
                         package="MutationalPatterns")

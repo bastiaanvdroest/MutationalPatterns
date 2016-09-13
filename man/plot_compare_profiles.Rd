@@ -38,7 +38,7 @@ mut_mat <- readRDS(system.file("states/mut_mat_data.R",
 
 ## Extracting signatures can be computationally intensive, so
 ## we use pre-computed data generated with the following command:
-# nmf_res <- extract_signatures(my_matrix, rank = 2)
+# nmf_res <- extract_signatures(mut_mat, rank = 2)
 
 nmf_res <- readRDS(system.file("states/nmf_res_data.R",
                    package="MutationalPatterns"))

@@ -12,7 +12,8 @@ plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
 
 \item{ref_genome}{BSgenome reference genome object}
 
-\item{chromosomes}{Vector of chromosome/contig names of the reference genome to be plotted}
+\item{chromosomes}{Vector of chromosome/contig names of the reference
+genome to be plotted}
 
 \item{title}{Optional plot title}
 
@@ -31,9 +32,53 @@ Rainfall plot
 Rainfall plot visualizes the types of mutations and intermutation distance
 }
 \details{
-Rainfall plots can be used to visualize the distribution of mutations along the genome or a subset of chromosomes. 
-The distance of a mutation with the mutation prior to it (the intermutation distance) is plotted on the y-axis on a log scale. 
+Rainfall plots can be used to visualize the distribution of mutations
+along the genome or a subset of chromosomes. The distance of a mutation
+with the mutation prior to it (the intermutation distance) is plotted on
+the y-axis on a log scale.
+
 The colour of the points indicates the base substitution type.
-Clusters of mutations with lower intermutation distance represent mutation hotspots.
+Clusters of mutations with lower intermutation distance represent mutation
+hotspots.
+}
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+## Exclude mitochondrial and allosomal chromosomes.
+autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
+                                    style="UCSC",
+                                    group="auto")
+
+vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Load a reference genome.
+ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+# Take the chromosomes of interest.
+chromosomes = seqnames(get(ref_genome))[1:22]
+
+## Do a rainfall plot for all chromosomes:
+plot_rainfall(vcfs[[1]],
+              title = names(vcfs[1]),
+              ref_genome = ref_genome,
+              chromosomes = chromosomes,
+              cex = 1)
+
+## Or for a single chromosome (chromosome 1):
+plot_rainfall(vcfs[[1]],
+              title = names(vcfs[1]),
+              ref_genome = ref_genome,
+              chromosomes = chromosomes[1],
+              cex = 2)
+
+}
+\seealso{
+\code{\link{read_vcf}}
 }
 
