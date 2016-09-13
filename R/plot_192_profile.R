@@ -16,10 +16,26 @@
 #' @importFrom ggplot2 scale_y_continuous
 #' @importFrom ggplot2 guides
 #' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 theme element_blank
 #' @importFrom ggplot2 element_text
 #' @importFrom BiocGenerics cbind
+#'
+#' @examples
+#' ## See the 'mut_matrix_stranded()' example for how we obtained the
+#' ## mutation matrix with transcriptional strand information:
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#'                                  package="MutationalPatterns"))
+#'
+#' ## Extract the signatures.
+#' nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
+#'
+#' ## Optionally, provide signature names
+#' colnames(nmf_res_strand$signatures) <- c("Signature A", "Signature B")
+#'
+#' ## Generate the plot
+#' plot_192_profile(nmf_res_strand$signatures)
+#'
+#' @seealso \code{\link{mut_matrix_stranded}}, \code{\link{extract_signatures}}
 #' @export
 
 plot_192_profile = function(mut_matrix, colors, ymax = 0.15)
@@ -38,8 +54,12 @@ plot_192_profile = function(mut_matrix, colors, ymax = 0.15)
     substring(context, 2, 2) = "."
 
     # Construct dataframe
-    df = data.frame(substitution = substitution, context = context, strand = STRAND)
+    df = data.frame(substitution = substitution,
+                    context = context,
+                    strand = STRAND)
+
     rownames(norm_mut_matrix) = NULL
+
     df2 = cbind(df, as.data.frame(norm_mut_matrix))
     df3 = melt(df2, id.vars = c("substitution", "context", "strand"))
 

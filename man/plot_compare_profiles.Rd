@@ -12,11 +12,14 @@ plot_compare_profiles(profile1, profile2, profile_names = c("profile 1",
 
 \item{profile2}{Second 96 mutation profile}
 
-\item{profile_names}{Character vector with names of the mutations profiles used for plotting, default = c("profile 1", "profile 2")}
+\item{profile_names}{Character vector with names of the mutations profiles
+used for plotting, default = c("profile 1", "profile 2")}
 
-\item{profile_ymax}{Maximum value of y-axis (relative contribution) for profile plotting, default = 0.15}
+\item{profile_ymax}{Maximum value of y-axis (relative contribution) for
+profile plotting, default = 0.15}
 
-\item{diff_ylim}{Y-axis limits for profile difference plot, default = c(-0.02, 0.02)}
+\item{diff_ylim}{Y-axis limits for profile difference plot,
+default = c(-0.02, 0.02)}
 
 \item{colors}{6 value color vector}
 }
@@ -24,6 +27,29 @@ plot_compare_profiles(profile1, profile2, profile_names = c("profile 1",
 96 spectrum plot of profile 1, profile 2 and their difference
 }
 \description{
-Plots two 96 mutation profiles and their difference, reports the residual sum of squares (RSS)
+Plots two 96 mutation profiles and their difference, reports the residual
+sum of squares (RSS).
+}
+\examples{
+## See the 'mut_matrix()' example for how we obtained the following
+## mutation matrix.
+mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+                               package="MutationalPatterns"))
+
+## Extracting signatures can be computationally intensive, so
+## we use pre-computed data generated with the following command:
+# nmf_res <- extract_signatures(my_matrix, rank = 2)
+
+nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+                   package="MutationalPatterns"))
+
+## Compare the reconstructed 96-profile of sample 1 with orignal profile
+plot_compare_profiles(mut_mat[,1],
+                      nmf_res$reconstructed[,1],
+                      profile_names = c("Original", "Reconstructed"))
+
+}
+\seealso{
+\code{\link{mut_matrix}}, \code{\link{extract_signatures}}
 }
 

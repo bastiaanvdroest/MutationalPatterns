@@ -2,7 +2,11 @@
 % Please edit documentation in R/mut_matrix_stranded.R
 \name{mut_matrix_stranded}
 \alias{mut_matrix_stranded}
-\title{Make mutation count matrix of 96 trinucleotides with transcriptional strand information}
+\title{Make mutation count matrix of 96 trinucleotides with transcriptional
+strand information
+ 
+Make a mutation count matrix for 96 trinucleotides, for both the
+transcribed and untranscribed strand of gene bodies.}
 \usage{
 mut_matrix_stranded(vcf_list, ref_genome, genes)
 }
@@ -11,13 +15,48 @@ mut_matrix_stranded(vcf_list, ref_genome, genes)
 
 \item{ref_genome}{BSGenome reference genome object}
 
-\item{genes}{Granges with definition of gene bodies, should include strand information}
+\item{genes}{GRanges object with definition of gene bodies, including
+strand information}
 }
 \value{
 192 mutation count matrix (96 * 2 strands)
 }
 \description{
-Make mutation count matrix for 96 trinucleotides for both transcribed and untranscribed strand of gene bodies. 
 Mutations outside gene bodies are not counted.
+}
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+## Exclude mitochondrial and allosomal chromosomes.
+autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
+                                     style="UCSC",
+                                     group="auto")
+
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Load the corresponding reference genome.
+ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+## You can obtain the known genes from the UCSC hg19 dataset using
+## Bioconductor:
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
+# library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+
+## For this example, we preloaded the data for you:
+genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
+                      package="MutationalPatterns"))
+
+mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+
+}
+\seealso{
+\code{\link{read_vcf}}, \code{link{mut_matrix}}
 }
 

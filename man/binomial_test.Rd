@@ -14,7 +14,7 @@ binomial_test(p, n, x)
 \item{x}{Observed number of successes}
 }
 \value{
-A Data.frame with direction of effect (enrichment/depletion),
+A data.frame with direction of effect (enrichment/depletion),
         P-value and significance asterisks
 }
 \description{

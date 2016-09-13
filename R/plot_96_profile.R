@@ -19,6 +19,18 @@
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 element_text
 #' @importFrom BiocGenerics cbind
+#'
+#' @examples
+#' ## See the 'mut_matrix_stranded()' example for how we obtained the
+#' ## mutation matrix with transcriptional strand information:
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#'                                package="MutationalPatterns"))
+#'
+#' ## Plot the 96-profile of three samples
+#' plot_96_profile(mut_mat[,c(1,4,7)])
+#'
+#' @seealso \code{\link{mut_matrix}}
+#'
 #' @export
 
 plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
@@ -46,7 +58,10 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
     # To avoid compiling trouble, we initialize them to NULL.
     value = NULL
 
-    plot = ggplot(data=df3, aes(x=context, y=value, fill=substitution, width=0.6)) +  
+    plot = ggplot(data=df3, aes(x=context,
+                                y=value,
+                                fill=substitution,
+                                width=0.6)) +
         geom_bar(stat="identity", colour="black", size=.2) + 
         scale_fill_manual(values=colors) + 
         facet_grid(variable ~ substitution) + 

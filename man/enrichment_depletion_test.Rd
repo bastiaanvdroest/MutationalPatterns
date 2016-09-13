@@ -7,12 +7,12 @@
 enrichment_depletion_test(x, by = c())
 }
 \arguments{
-\item{x}{Data.frame result from genomic_distribution()}
+\item{x}{data.frame result from genomic_distribution()}
 
 \item{by}{Optional grouping variable, e.g. tissue type}
 }
 \value{
-Data.frame with the observed and expected number of mutations per
+data.frame with the observed and expected number of mutations per
 genomic region per group (by) or sample
 }
 \description{
@@ -20,63 +20,10 @@ This function aggregates mutations per group (optional) and performs an
 enrichment depletion test.
 }
 \examples{
-# See the 'read_vcf()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
-                package="MutationalPatterns"))
-
-# Rename the seqlevels to the UCSC standard.
-vcfs <- lapply(vcfs, rename_chrom)
-
-# Exclude mitochondrial and allosomal chromosomes.
-autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
-                                    style="UCSC",
-                                    group="auto")
-
-vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
-
-# We need to retrieve data using biomaRt to do a sensible genomic
-# distribution analysis.
-library(biomaRt)
-#segmentation = useEnsembl(biomart="regulation",
-#                          dataset="hsapiens_segmentation_feature",
-#                          GRCh = 37)
-regulatory = useEnsembl(biomart="regulation",
-                        dataset="hsapiens_regulatory_feature",
-                        GRCh = 37)
-#annotated = useEnsembl(biomart="regulation",
-#                       dataset="hsapiens_annotated_feature",
-#                       GRCh = 37)
-CTCF = getBM(attributes = c('chromosome_name',
-                            'chromosome_start',
-                            'chromosome_end',
-                            'feature_type_name',
-                            'cell_type_name'),
-             filters = "regulatory_feature_type_name", 
-             values = "CTCF Binding Site", 
-             mart = regulatory)
-
-# Make a GRanges object.
-CTCF_g = reduce(GRanges(CTCF$chromosome_name,
-                IRanges(CTCF$chromosome_start,
-                CTCF$chromosome_end)))
-regions = list(CTCF_g)
-names(regions) = c("CTCF")
-regions = lapply(regions, function(x) rename_chrom(x))
-
-# Get the filename with surveyed/callable regions
-surveyed_file = list.files(system.file("extdata",
-                                       package="MutationalPatterns"),
-                           pattern = ".bed",
-                           full.names = TRUE)
-# Read the file as a GRanges object.
-surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
-
-# For this example we use the same surveyed file for each sample.
-surveyed_list= rep(surveyed_list, 9)
-
-# Calculate the number of observed and expected number of mutations in
-# each genomic regions for each sample.
-distr = genomic_distribution(vcfs, surveyed_list, regions)
+## See the 'genomic_distribution()' example for how we obtained the
+## following data:
+distr <- readRDS(system.file("states/distr_data.R",
+                 package="MutationalPatterns"))
 
 tissue = c("colon", "colon", "colon",
            "intestine", "intestine", "intestine",
@@ -87,7 +34,6 @@ distr_test2 = enrichment_depletion_test(distr)
 
 }
 \seealso{
-\code{\link{read_vcf}}, \code{\link{rename_chrom}},
-         \code{\link{genomic_distribution}}
+\code{\link{genomic_distribution}}
 }
 

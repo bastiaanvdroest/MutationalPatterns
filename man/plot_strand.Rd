@@ -7,7 +7,7 @@
 plot_strand(strand_bias_df, mode = "relative", colors)
 }
 \arguments{
-\item{strand_bias_df}{Data.frame, result from strand_bias function}
+\item{strand_bias_df}{data.frame, result from strand_bias function}
 
 \item{mode}{Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"}
 

@@ -7,7 +7,7 @@
 plot_strand_bias(strand_bias, colors)
 }
 \arguments{
-\item{strand_bias}{Data.frame, result from strand_bias function}
+\item{strand_bias}{data.frame, result from strand_bias function}
 
 \item{colors}{Optional color vector for plotting with 6 values}
 }

@@ -4,7 +4,7 @@
 #' @param vcf_list A list with vcf Granges objects
 #' @param surveyed_list A list with Granges of regions of the genome that have been surveyed (e.g. determined using GATK CallableLoci)
 #' @param region_list List with GRanges objects containing locations of genomic regions
-#' @return A Data.frame containing the number observed and number of expected mutations in each genomic region.
+#' @return A data.frame containing the number observed and number of expected mutations in each genomic region.
 #'
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:
@@ -22,22 +22,30 @@
 #' vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 #'
 #' ## Use biomaRt to obtain data.
-#' # mart="ensemble"
-#' library(biomaRt)
-#' segmentation <- useEnsembl(biomart="regulation",
-#'                           dataset="hsapiens_segmentation_feature",
-#'                           GRCh = 37)
-#' regulatory <- useEnsembl(biomart="regulation",
-#'                         dataset="hsapiens_regulatory_feature",
-#'                         GRCh = 37)
-#' annotated <- useEnsembl(biomart="regulation",
-#'                        dataset="hsapiens_annotated_feature",
-#'                        GRCh = 37)
-#'
 #' ## We can query the BioMart database, but this may take a long time
 #' ## though, so we take some shortcuts by loading the results from our
 #' ## examples.  The corresponding code for downloading data can be
 #' ## found above the command we run.
+#'
+#' # mart="ensemble"
+#' # library(biomaRt)
+#' # segmentation <- useEnsembl(biomart="regulation",
+#' #                            dataset="hsapiens_segmentation_feature",
+#' #                            GRCh = 37)
+#' # segmentation <- readRDS(system.file("states/segmentation_data.R",
+#' #                         package="MutationalPatterns"))
+#'
+#' # regulatory <- useEnsembl(biomart="regulation",
+#' #                          dataset="hsapiens_regulatory_feature",
+#' #                          GRCh = 37)
+#' regulatory <- readRDS(system.file("states/regulatory_data.R",
+#'                                   package="MutationalPatterns"))
+#'
+#' # annotated <- useEnsembl(biomart="regulation",
+#' #                         dataset="hsapiens_annotated_feature",
+#' #                         GRCh = 37)
+#' # annotated <- readRDS(system.file("states/annotated_data.R",
+#' #                      package="MutationalPatterns"))
 #'
 #' ## Download the regulatory CTCF binding sites and convert them to
 #' ## a GRanges object.

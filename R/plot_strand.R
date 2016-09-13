@@ -2,7 +2,7 @@
 #' 
 #' @description For each base substitution type and transcriptional strand the total number of mutations
 #' and the relative contribution within a group is returned
-#' @param strand_bias_df Data.frame, result from strand_bias function
+#' @param strand_bias_df data.frame, result from strand_bias function
 #' @param mode Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"
 #' @param colors Optional color vector for plotting with 6 values
 #' @return Barplot

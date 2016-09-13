@@ -12,7 +12,8 @@ mut_type_occurences(vcf_list, ref_genome)
 \item{ref_genome}{Reference genome}
 }
 \value{
-Dataframe with counts of each base substitution type for each sample in vcf_list
+data.frame with counts of each base substitution type for
+        each sample in vcf_list
 }
 \description{
 Count the occurences of each base substitution type

@@ -6,7 +6,7 @@
 #' @param p Probability of success
 #' @param n Number of trials
 #' @param x Observed number of successes
-#' @return A Data.frame with direction of effect (enrichment/depletion),
+#' @return A data.frame with direction of effect (enrichment/depletion),
 #'         P-value and significance asterisks
 #'
 #' @examples

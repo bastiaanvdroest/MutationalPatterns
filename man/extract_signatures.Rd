@@ -22,10 +22,10 @@ those signatures to the spectra of the samples/vcf files.
 }
 \examples{
 ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-my_matrix <- readRDS(system.file("states/mutation_matrix.R",
-                     package="MutationalPatterns"))
+mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+                   package="MutationalPatterns"))
 
-nmf_res = extract_signatures(test_matrix, rank = 2)
+nmf_res = extract_signatures(mut_mat, rank = 2)
 
 }
 \seealso{

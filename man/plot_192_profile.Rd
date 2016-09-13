@@ -23,4 +23,23 @@ Plot 192 trinucleotide profile
  
 Plot relative contribution of 192 trinucleotides
 }
+\examples{
+## See the 'mut_matrix_stranded()' example for how we obtained the
+## mutation matrix with transcriptional strand information:
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+                                 package="MutationalPatterns"))
+
+## Extract the signatures.
+nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
+
+## Optionally, provide signature names
+colnames(nmf_res_strand$signatures) <- c("Signature A", "Signature B")
+
+## Generate the plot
+plot_192_profile(nmf_res_strand$signatures)
+
+}
+\seealso{
+\code{\link{mut_matrix_stranded}}, \code{\link{extract_signatures}}
+}
 

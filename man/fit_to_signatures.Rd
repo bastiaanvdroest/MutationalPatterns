@@ -22,10 +22,10 @@ Find linear combination of mutation signatures that most closely reconstructs th
 ## Alexandrov et al:
 # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 ## We copied the file into our package for your convenience.
-file <- system.file("extdata/signature_propabilities.txt",
-                    package="MutationalPatterns")
+filename <- system.file("extdata/signatures_probabilities.txt",
+                        package="MutationalPatterns")
 
-cancer_signatures <- read.table(file, sep = "\\t", header = TRUE)
+cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
 
 ## We should now reorder the columns to make the order of the
 ## trinucleotide changes the same.
@@ -35,7 +35,7 @@ cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
 cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 
 ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-my_matrix <- readRDS(system.file("states/mutation_matrix.R",
+my_matrix <- readRDS(system.file("states/mut_mat_data.R",
                      package="MutationalPatterns"))
 
 ## Perform the fitting.
