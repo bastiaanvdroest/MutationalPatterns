@@ -1,5 +1,5 @@
 #' Significance test for transcriptional strand asymmetry
-#' 
+#'
 #' This function performs a Poisson test for the ratio between mutations on the
 #' transcribed and untranscribed strand
 #' @param strand_occurences Dataframe with mutation count per strand, result
@@ -9,6 +9,29 @@
 #' @importFrom reshape2 dcast
 #' @importFrom plyr .
 #' @importFrom plyr ddply
+#' @importFrom plyr summarise
+#'
+#' @examples
+#' ## See the 'mut_matrix_stranded()' example for how we obtained the
+#' ## following mutation matrix.
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#'                                  package="MutationalPatterns"))
+#'
+#' ## Load a reference genome.
+#' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+#' library(ref_genome, character.only = TRUE)
+#'
+#' tissue <- c("colon", "colon", "colon",
+#'             "intestine", "intestine", "intestine",
+#'             "liver", "liver", "liver")
+#'
+#' ## Perform the strand bias test.
+#' strand_counts = strand_occurences(mut_mat_s, by=tissue)
+#' strand_bias = strand_bias_test(strand_counts)
+#'
+#' @seealso \code{\link{mut_matrix_stranded}}, \code{\link{strand_occurences}}
+#'          \code{\link{plot_strand_bias}}
+#'
 #' @export
 
 strand_bias_test = function(strand_occurences)
@@ -25,9 +48,10 @@ strand_bias_test = function(strand_occurences)
                                 type + group ~ strand,
                                 sum,
                                 subset = plyr::.(variable == "no_mutations"))
+
     df_strand = plyr::ddply(df_strand,
                             c("group", "type", "T", "U"),
-                            summarise,
+                            plyr::summarise,
                             total = T+U,
                             ratio = T/U,
                             p_poisson = poisson.test(c(U,T), r=1)$p.value)

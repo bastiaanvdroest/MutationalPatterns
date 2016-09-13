@@ -15,7 +15,34 @@ plot_strand_bias(strand_bias, colors)
 Barplot
 }
 \description{
-For each base substitution type and transcriptional strand the total number of mutations
-and the relative contribution within a group is returned
+For each base substitution type and transcriptional strand the total
+number of mutations and the relative contribution within a group is
+returned.
+}
+\examples{
+## See the 'mut_matrix_stranded()' example for how we obtained the
+## following mutation matrix.
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+                                 package="MutationalPatterns"))
+
+## Load a reference genome.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+tissue <- c("colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
+
+## Perform the strand bias test.
+strand_counts = strand_occurences(mut_mat_s, by=tissue)
+strand_bias = strand_bias_test(strand_counts)
+
+## Plot the strand bias.
+plot_strand_bias(strand_bias)
+
+}
+\seealso{
+\code{\link{mut_matrix_stranded}}, \code{\link{strand_occurences}}
+         \code{\link{strand_bias_test}}
 }
 
