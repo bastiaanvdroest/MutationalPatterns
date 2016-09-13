@@ -32,7 +32,9 @@
 #' ## Et voila.
 #' my_matrix
 #'
-#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{\link{rename_chrom}}
 #'
 #' @export
 

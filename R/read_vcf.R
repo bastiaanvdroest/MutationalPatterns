@@ -14,8 +14,8 @@
 #' # samples and three liver samples.  So, to map each file to its appropriate
 #' # sample name, we create a vector containing the sample names:
 #' sample_names <- c("colon1", "colon2", "colon3",
-#'                   "intestine1", "intestine2", "intestine3",
-#'                   "liver1", "liver2", "liver3")
+#'                     "intestine1", "intestine2", "intestine3",
+#'                     "liver1", "liver2", "liver3")
 #'
 #' # We assemble a list of files we want to load.  These files match the sample
 #' # names defined above.

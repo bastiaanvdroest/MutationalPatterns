@@ -19,14 +19,14 @@
 #' ## See the 'read_vcf()' example for how we obtained the following data:
 #' vcfs <- readRDS(system.file("states/read_vcf_output.R",
 #'                 package="MutationalPatterns"))
-#' 
+#'
 #' ## Rename the seqlevels to the UCSC standard.
 #' vcfs <- lapply(vcfs, rename_chrom)
 #'
 #' ## Exclude mitochondrial and allosomal chromosomes.
 #' autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
-#'                                      style="UCSC",
-#'                                      group="auto")
+#'                                     style="UCSC",
+#'                                     group="auto")
 #'
 #' vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 #'
@@ -42,11 +42,13 @@
 #'
 #' ## For this example, we preloaded the data for you:
 #' genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
-#'                       package="MutationalPatterns"))
+#'                         package="MutationalPatterns"))
 #'
 #' mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 #'
-#' @seealso \code{\link{read_vcf}}, \code{link{mut_matrix}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{link{mut_matrix}}
 #'
 #' @export
 

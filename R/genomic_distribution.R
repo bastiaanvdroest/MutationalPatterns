@@ -148,7 +148,9 @@
 #' ## each genomic regions for each sample.
 #' distr <- genomic_distribution(vcfs, surveyed_list, regions)
 #' 
-#' @seealso \code{\link{read_vcf}}, \code{\link{bed_to_granges}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{\link{bed_to_granges}}
 #'
 #' @export
 

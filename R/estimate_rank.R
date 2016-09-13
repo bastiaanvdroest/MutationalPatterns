@@ -34,7 +34,9 @@
 #' test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 #' estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
 #'
-#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{\link{rename_chrom}}
 #'
 #' @export
 

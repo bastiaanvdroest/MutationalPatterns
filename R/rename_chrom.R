@@ -24,7 +24,8 @@
 #' ## You can also rename all objects returned by 'read_vcf()' using:
 #' vcfs <- lapply(vcfs, rename_chrom)
 #'
-#' @seealso \code{\link{read_vcf}}
+#' @seealso
+#' \code{\link{read_vcf}}
 #'
 #' @export
 

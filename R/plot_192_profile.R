@@ -24,7 +24,7 @@
 #' ## See the 'mut_matrix_stranded()' example for how we obtained the
 #' ## mutation matrix with transcriptional strand information:
 #' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
-#'                                  package="MutationalPatterns"))
+#'                                 package="MutationalPatterns"))
 #'
 #' ## Extract the signatures.
 #' nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
@@ -35,7 +35,10 @@
 #' ## Generate the plot
 #' plot_192_profile(nmf_res_strand$signatures)
 #'
-#' @seealso \code{\link{mut_matrix_stranded}}, \code{\link{extract_signatures}}
+#' @seealso
+#' \code{\link{mut_matrix_stranded}},
+#' \code{\link{extract_signatures}}
+#'
 #' @export
 
 plot_192_profile = function(mut_matrix, colors, ymax = 0.15)

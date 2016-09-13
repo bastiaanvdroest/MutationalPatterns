@@ -34,22 +34,23 @@ sum of squares (RSS).
 ## See the 'mut_matrix()' example for how we obtained the following
 ## mutation matrix.
 mut_mat <- readRDS(system.file("states/mut_mat_data.R",
-                               package="MutationalPatterns"))
+                                package="MutationalPatterns"))
 
 ## Extracting signatures can be computationally intensive, so
 ## we use pre-computed data generated with the following command:
 # nmf_res <- extract_signatures(mut_mat, rank = 2)
 
 nmf_res <- readRDS(system.file("states/nmf_res_data.R",
-                   package="MutationalPatterns"))
+                    package="MutationalPatterns"))
 
 ## Compare the reconstructed 96-profile of sample 1 with orignal profile
 plot_compare_profiles(mut_mat[,1],
-                      nmf_res$reconstructed[,1],
-                      profile_names = c("Original", "Reconstructed"))
+                        nmf_res$reconstructed[,1],
+                        profile_names = c("Original", "Reconstructed"))
 
 }
 \seealso{
-\code{\link{mut_matrix}}, \code{\link{extract_signatures}}
+\code{\link{mut_matrix}},
+\code{\link{extract_signatures}}
 }
 

@@ -39,7 +39,8 @@
 #' ## Perform the fitting.
 #' fit_res <- fit_to_signatures(my_matrix, cancer_signatures)
 #'
-#' @seealso \code{\link{mut_matrix}}
+#' @seealso
+#' \code{\link{mut_matrix}}
 #'
 #' @export
 

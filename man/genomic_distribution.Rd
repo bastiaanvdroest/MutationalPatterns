@@ -161,6 +161,7 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 
 }
 \seealso{
-\code{\link{read_vcf}}, \code{\link{bed_to_granges}}
+\code{\link{read_vcf}},
+\code{\link{bed_to_granges}}
 }
 

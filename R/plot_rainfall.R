@@ -64,19 +64,20 @@
 #'
 #' ## Do a rainfall plot for all chromosomes:
 #' plot_rainfall(vcfs[[1]],
-#'               title = names(vcfs[1]),
-#'               ref_genome = ref_genome,
-#'               chromosomes = chromosomes,
-#'               cex = 1)
+#'                 title = names(vcfs[1]),
+#'                 ref_genome = ref_genome,
+#'                 chromosomes = chromosomes,
+#'                 cex = 1)
 #'
 #' ## Or for a single chromosome (chromosome 1):
 #' plot_rainfall(vcfs[[1]],
-#'               title = names(vcfs[1]),
-#'               ref_genome = ref_genome,
-#'               chromosomes = chromosomes[1],
-#'               cex = 2)
+#'                 title = names(vcfs[1]),
+#'                 ref_genome = ref_genome,
+#'                 chromosomes = chromosomes[1],
+#'                 cex = 2)
 #'
-#' @seealso \code{\link{read_vcf}}
+#' @seealso
+#' \code{\link{read_vcf}}
 #'
 #' @export
 

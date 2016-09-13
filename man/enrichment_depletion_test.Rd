@@ -37,6 +37,7 @@ distr_test2 <- enrichment_depletion_test(distr)
 
 }
 \seealso{
-\code{\link{genomic_distribution}}
+\code{\link{genomic_distribution}},
+\code{\link{plot_enrichment_depletion}}
 }
 

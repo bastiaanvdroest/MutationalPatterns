@@ -13,7 +13,8 @@
 #'
 #' get_types(vcfs[[1]])
 #'
-#' @seealso \code{\link{read_vcf}}
+#' @seealso
+#' \code{\link{read_vcf}}
 #'
 #' @export
 

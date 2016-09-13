@@ -49,6 +49,7 @@ estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
 
 }
 \seealso{
-\code{\link{read_vcf}}, \code{\link{rename_chrom}}
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}}
 }
 

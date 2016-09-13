@@ -63,17 +63,18 @@ plot_spectrum(type_occurences, by = tissue, CT = TRUE)
 
 ## You can also set custom colors.
 my_colors = c("pink", "orange", "blue", "lightblue",
-              "green", "red", "purple")
+                "green", "red", "purple")
 
 ## And use them in a plot.
 plot_spectrum(type_occurences,
-              CT = TRUE,
-              legend = TRUE,
-              colors = my_colors)
+                CT = TRUE,
+                legend = TRUE,
+                colors = my_colors)
 
 }
 \seealso{
-\code{\link{read_vcf}}, \code{\link{rename_chrom}}
-         \code{\link{mut_type_occurences}}
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}},
+\code{\link{mut_type_occurences}}
 }
 

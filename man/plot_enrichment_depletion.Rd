@@ -21,11 +21,11 @@ Plot enrichment/depletion of mutations in genomic regions
 ## See the 'genomic_distribution()' example for how we obtained the
 ## following data:
 distr <- readRDS(system.file("states/distr_data.R",
-                 package="MutationalPatterns"))
+                    package="MutationalPatterns"))
 
-tissue = c("colon", "colon", "colon",
-           "intestine", "intestine", "intestine",
-           "liver", "liver", "liver")
+tissue = c( "colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver" )
 
 ## Perform the enrichment/depletion test.
 distr_test = enrichment_depletion_test(distr, by = tissue)
@@ -35,5 +35,9 @@ distr_test2 = enrichment_depletion_test(distr)
 plot_enrichment_depletion(distr_test)
 plot_enrichment_depletion(distr_test2)
 
+}
+\seealso{
+\code{\link{enrichment_depletion_test}},
+\code{\link{genomic_distribution}}
 }
 

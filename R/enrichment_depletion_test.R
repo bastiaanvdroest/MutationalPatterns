@@ -26,7 +26,9 @@
 #' ## Or without specifying the 'by' parameter.
 #' distr_test2 <- enrichment_depletion_test(distr)
 #'
-#' @seealso \code{\link{genomic_distribution}}
+#' @seealso
+#' \code{\link{genomic_distribution}},
+#' \code{\link{plot_enrichment_depletion}}
 #'
 #' @export
 

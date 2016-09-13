@@ -63,6 +63,7 @@ get_strand(vcfs[[1]], genes_hg19)
 
 }
 \seealso{
-\code{\link{read_vcf}}, \code{\link{rename_chrom}}
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}}
 }
 

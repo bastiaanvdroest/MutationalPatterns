@@ -18,7 +18,9 @@
 #'
 #' nmf_res = extract_signatures(mut_mat, rank = 2)
 #'
-#' @seealso \code{\link{mut_matrix}}
+#' @seealso
+#' \code{\link{mut_matrix}}
+#'
 #' @export
 
 extract_signatures = function(mut_matrix, rank, nrun = 200)

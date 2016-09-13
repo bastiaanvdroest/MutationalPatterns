@@ -22,7 +22,7 @@ transcribed and untranscribed strand
 ## See the 'mut_matrix_stranded()' example for how we obtained the
 ## following mutation matrix.
 mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
-                                 package="MutationalPatterns"))
+                                package="MutationalPatterns"))
 
 ## Load a reference genome.
 ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
@@ -38,7 +38,8 @@ strand_bias = strand_bias_test(strand_counts)
 
 }
 \seealso{
-\code{\link{mut_matrix_stranded}}, \code{\link{strand_occurences}}
-         \code{\link{plot_strand_bias}}
+\code{\link{mut_matrix_stranded}},
+\code{\link{strand_occurences}},
+\code{\link{plot_strand_bias}}
 }
 

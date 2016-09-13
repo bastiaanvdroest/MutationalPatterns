@@ -15,7 +15,9 @@
 #'                            full.names = TRUE)
 #' surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
 #'
-#' @seealso \code{\link{genomic_distribution}}
+#' @seealso
+#' \code{\link{genomic_distribution}}
+#'
 #' @export
 
 bed_to_granges = function(bed_files, region_names)

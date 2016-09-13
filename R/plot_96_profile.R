@@ -24,12 +24,13 @@
 #' ## See the 'mut_matrix_stranded()' example for how we obtained the
 #' ## mutation matrix with transcriptional strand information:
 #' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
-#'                                package="MutationalPatterns"))
+#'                                 package="MutationalPatterns"))
 #'
 #' ## Plot the 96-profile of three samples
 #' plot_96_profile(mut_mat[,c(1,4,7)])
 #'
-#' @seealso \code{\link{mut_matrix}}
+#' @seealso
+#' \code{\link{mut_matrix}}
 #'
 #' @export
 

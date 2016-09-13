@@ -12,7 +12,8 @@
 #'
 #' muts = get_muts(vcfs[[1]])
 #'
-#' @seealso \code{\link{read_vcf}}
+#' @seealso
+#' \code{\link{read_vcf}}
 #'
 #' @export
 

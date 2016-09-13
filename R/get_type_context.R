@@ -28,8 +28,10 @@
 #'
 #' mut_context = get_type_context(vcfs[[1]], ref_genome)
 #'
-#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}},
-#'          \code{\link{get_mut_context}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{\link{rename_chrom}},
+#' \code{\link{get_mut_context}}
 #'
 #' @export
 

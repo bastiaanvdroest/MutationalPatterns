@@ -9,7 +9,7 @@
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:
 #' vcfs <- readRDS(system.file("states/read_vcf_output.R",
-#'                 package="MutationalPatterns"))
+#'                  package="MutationalPatterns"))
 #' 
 #' ## Rename the seqlevels to the UCSC standard.
 #' vcfs <- lapply(vcfs, rename_chrom)
@@ -28,7 +28,9 @@
 #' ## Get the type occurrences for all VCF objects.
 #' type_occurences = mut_type_occurences(vcfs, ref_genome)
 #'
-#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}}
+#' @seealso
+#' \code{\link{read_vcf}},
+#' \code{\link{rename_chrom}}
 #'
 #' @export
 
