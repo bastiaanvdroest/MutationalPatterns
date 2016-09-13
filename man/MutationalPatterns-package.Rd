@@ -15,7 +15,7 @@ The package provides functionalities for both extracting mutational signatures d
 \author{
 Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
 Maintainers: Francis Blokzijl, UMC Utrecht <f.blokzijl@umcutrecht.nl>
-Roel Janssen, UMC Utrecht <roel@gnu.org>
+Roel Janssen, UMC Utrecht <R.R.E.Janssen-10@umcutrecht.nl>
 }
 \references{
 Alexandrov,L.B. et al. (2013) Signatures of mutational processes in human cancer. Nature, 500, 415–21.
