@@ -1,6 +1,7 @@
 #' Read bed files as a list of GRanges objects
 #' 
 #' Read bed files as a list of GRanges objects
+#'
 #' @param bed_files Character vector with bed files
 #' @param region_names Character vector with names of regions in bed files
 #' @return granges_list List of Granges objects

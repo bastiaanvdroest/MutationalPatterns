@@ -87,6 +87,7 @@ distr_test2 = enrichment_depletion_test(distr)
 
 }
 \seealso{
-\code{\link{genomic_distribution}}
+\code{\link{read_vcf}}, \code{\link{rename_chrom}},
+         \code{\link{genomic_distribution}}
 }
 

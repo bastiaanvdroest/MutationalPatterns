@@ -17,4 +17,32 @@ Named list with signature contributions and reconstructed mutation matrix
 \description{
 Find linear combination of mutation signatures that most closely reconstructs the mutation matrix by solving nonnegative least-squares constraints problem
 }
+\examples{
+## You can download the signatures from the pan-cancer study by
+## Alexandrov et al:
+# http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+## We copied the file into our package for your convenience.
+file <- system.file("extdata/signature_propabilities.txt",
+                    package="MutationalPatterns")
+
+cancer_signatures <- read.table(file, sep = "\\t", header = TRUE)
+
+## We should now reorder the columns to make the order of the
+## trinucleotide changes the same.
+cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
+
+## Reduce the data set to signatures only in the matrix.
+cancer_signatures <- as.matrix(cancer_signatures[,4:33])
+
+## See the 'mut_matrix()' example for how we obtained the mutation matrix:
+my_matrix <- readRDS(system.file("states/mutation_matrix.R",
+                     package="MutationalPatterns"))
+
+## Perform the fitting.
+fit_res <- fit_to_signatures(my_matrix, cancer_signatures)
+
+}
+\seealso{
+\code{\link{mut_matrix}}
+}
 

@@ -34,6 +34,8 @@
 #' test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 #' estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
 #'
+#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}}
+#'
 #' @export
 
 estimate_rank = function(mut_matrix, rank_range, nrun=100)
@@ -45,11 +47,15 @@ estimate_rank = function(mut_matrix, rank_range, nrun=100)
 
     # Check if rank_range is appropriate
     if (ncol(mut_matrix) < max(rank_range))
-        stop("Maximum rank should be smaller than the number of samples")
+        stop("The maximum rank should be smaller than the number of samples")
 
     # Estimate ranks
     print("Estimating ranks...")
-    estim.r = nmf(mut_matrix, rank = rank_range, method = "brunet", nrun = nrun, seed = 123456)
+    estim.r = nmf(mut_matrix,
+                  rank = rank_range,
+                  method = "brunet",
+                  nrun = nrun,
+                  seed = 123456)
 
     # Plot result
     plot = plot(estim.r)

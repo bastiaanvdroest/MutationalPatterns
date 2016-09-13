@@ -17,6 +17,18 @@ extract_signatures(mut_matrix, rank, nrun = 200)
 Named list of mutation matrix, signatures and signature contribution
 }
 \description{
-Decomposes trinucleotide count matrix into signatures and contribution of those signatures to the spectra of the samples/vcf files
+Decomposes trinucleotide count matrix into signatures and contribution of
+those signatures to the spectra of the samples/vcf files.
+}
+\examples{
+## See the 'mut_matrix()' example for how we obtained the mutation matrix:
+my_matrix <- readRDS(system.file("states/mutation_matrix.R",
+                     package="MutationalPatterns"))
+
+nmf_res = extract_signatures(test_matrix, rank = 2)
+
+}
+\seealso{
+\code{\link{mut_matrix}}
 }
 

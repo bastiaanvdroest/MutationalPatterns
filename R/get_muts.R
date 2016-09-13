@@ -4,6 +4,16 @@
 #' @param vcf A CollapsedVCF object
 #' @return Character vector with base substitutions
 #' @import GenomicRanges
+#'
+#' @examples
+#' ## See the 'read_vcf()' example for how we obtained the following data:
+#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#'                 package="MutationalPatterns"))
+#'
+#' muts = get_muts(vcfs[[1]])
+#'
+#' @seealso \code{\link{read_vcf}}
+#'
 #' @export
 
 get_muts = function(vcf) 

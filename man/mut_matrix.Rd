@@ -40,8 +40,11 @@ library(ref_genome, character.only = TRUE)
 ## ref_genome.
 my_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 
-## Et voila
+## Et voila.
 my_matrix
 
+}
+\seealso{
+\code{\link{read_vcf}}, \code{\link{rename_chrom}}
 }
 

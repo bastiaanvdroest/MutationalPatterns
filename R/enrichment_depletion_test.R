@@ -2,6 +2,7 @@
 #'
 #' This function aggregates mutations per group (optional) and performs an
 #' enrichment depletion test.
+#'
 #' @param x Data.frame result from genomic_distribution() 
 #' @param by Optional grouping variable, e.g. tissue type
 #' @return Data.frame with the observed and expected number of mutations per
@@ -75,28 +76,31 @@
 #' distr_test = enrichment_depletion_test(distr, by = tissue)
 #' distr_test2 = enrichment_depletion_test(distr)
 #'
-#' @seealso \code{\link{genomic_distribution}}
+#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}},
+#'          \code{\link{genomic_distribution}}
 #'
 #' @export
 
 enrichment_depletion_test = function(x, by = c())
 {
     # Handle the 'by' parameter when necessary by aggregating x
-    if (length(by) > 0){
+    if (length(by) > 0)
+    {
         x$by = by
-        # sum the columns while aggregating rows based on unique values in 'by'
-        # and 'region'.
+        # Sum the columns while aggregating rows based on unique values
+        # in 'by' and 'region'.
         res2 = stats::aggregate(cbind(n_muts,
                                         surveyed_length,
                                         surveyed_region_length,
                                         observed) ~ by + region,
                                 data = x, sum)
     }
-    else {
+    else
+    {
         res2 = x
-        # by variable is sample variable
+        # In this case, the 'by' variable is 'sample' variable.
         res2$by = res2$sample
-        # select output columns
+        # Select output columns
         res2 = res2[,c(9,1,3,4,6,8)]
     }
 
@@ -109,7 +113,9 @@ enrichment_depletion_test = function(x, by = c())
     for(i in 1:nrow(res2))
     {
         x = res2[i,]
-        res3 = rbind(res3, binomial_test(x$prob, x$surveyed_region_length,  x$observed))
+        res3 = rbind(res3, binomial_test(x$prob,
+                                         x$surveyed_region_length,
+                                         x$observed))
     }
 
     # Combine results into one data frame

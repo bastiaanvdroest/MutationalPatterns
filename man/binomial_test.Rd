@@ -15,7 +15,7 @@ binomial_test(p, n, x)
 }
 \value{
 A Data.frame with direction of effect (enrichment/depletion),
-P-value and significance asterisks
+        P-value and significance asterisks
 }
 \description{
 This function performs lower-tail binomial test for depletion and

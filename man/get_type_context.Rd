@@ -18,4 +18,23 @@ Mutation types and context character vectors in a named list
 A function to extract the bases 3' upstream and 5' downstream of the base
 substitution types
 }
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+## Load the corresponding reference genome.
+ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+mut_context = get_type_context(vcfs[[1]], ref_genome)
+
+}
+\seealso{
+\code{\link{read_vcf}}, \code{\link{rename_chrom}},
+         \code{\link{get_mut_context}}
+}
 

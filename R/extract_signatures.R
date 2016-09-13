@@ -1,6 +1,8 @@
 #' Extract mutational signatures from 96 mutation matrix using NMF
-#' 
-#' Decomposes trinucleotide count matrix into signatures and contribution of those signatures to the spectra of the samples/vcf files
+#'
+#' Decomposes trinucleotide count matrix into signatures and contribution of
+#' those signatures to the spectra of the samples/vcf files.
+#'
 #' @param mut_matrix 96 mutation count matrix 
 #' @param rank Number of signatures to extract
 #' @param nrun Number of iterations, default = 200
@@ -8,21 +10,31 @@
 #' @importFrom NMF nmf
 #' @importFrom NMF basis
 #' @importFrom NMF coef
+#'
+#' @examples
+#' ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
+#' my_matrix <- readRDS(system.file("states/mutation_matrix.R",
+#'                      package="MutationalPatterns"))
+#'
+#' nmf_res = extract_signatures(test_matrix, rank = 2)
+#'
+#' @seealso \code{\link{mut_matrix}}
 #' @export
 
 extract_signatures = function(mut_matrix, rank, nrun = 200)
 {
     mut_matrix = as.matrix(mut_matrix)
 
-    # add small pseudocount to avoid features with zero counts
+    # Add a small pseudocount to avoid features with zero counts.
     mut_matrix = mut_matrix + 0.0001
 
-    # Check if rank_range is appropriate
+    # Make sure the rank_range is valid.
     if (!(rank > 0 & rank == round(rank)))
         stop("Rank should be a positive integer")
 
     if (ncol(mut_matrix) < max(rank))
-        stop("Rank should be smaller than the number of samples in the input matrix")
+        stop(paste("The rank should be smaller than the number of",
+                   "samples in the input matrix."))
 
     # Calculate NMF
     print("Decomposing matrix using NMF...")

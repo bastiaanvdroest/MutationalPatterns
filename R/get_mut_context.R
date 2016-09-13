@@ -7,15 +7,35 @@
 #' @return Character vector with the context of the base substitutions
 #' @importFrom GenomeInfoDb seqlevels
 #' @importFrom Biostrings getSeq
+#'
+#' @examples
+#' ## See the 'read_vcf()' example for how we obtained the following data:
+#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#'                 package="MutationalPatterns"))
+#'
+#' ## Rename the seqlevels to the UCSC standard.
+#' vcfs <- lapply(vcfs, rename_chrom)
+#'
+#' ## Load the corresponding reference genome.
+#' ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+#' library(ref_genome, character.only = TRUE)
+#'
+#' mut_context = get_mut_context(vcfs[[1]], ref_genome)
+#'
+#' @seealso \code{\link{read_vcf}}, \code{\link{rename_chrom}}
+#'
 #' @export
 
 get_mut_context = function(vcf, ref_genome) 
 {
-    # check if chromosome names are the same
-    if (!(all( seqlevels(vcf) %in% seqlevels(get(ref_genome)) )))
-        stop("Chromosome names (seqlevels) of vcf and reference genome object do not match. Use rename_chrom() function to rename chromosome names.")
+    # Make sure that the chromosome names are compatible with each other.
+    if (!(all(seqlevels(vcf) %in% seqlevels(get(ref_genome)))))
+        stop(paste("The chromosome names (seqlevels) of the VCF and the",
+                   "reference genome object do not match. Use 'rename_chrom()'",
+                   "function to rename chromosome names."))
 
     ranges = resize(vcf, 3, fix = "center")
+
     vcf_context = getSeq(get(ref_genome), ranges)
     return(vcf_context)
 }
