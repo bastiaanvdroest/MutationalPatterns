@@ -13,11 +13,8 @@ NEW FUNCTIONALITIES
 * Signature extraction (NMF) with transcriptional strand information
 * Enrichment/depletion test for genomic annotations
 
-Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. For information on how to cite this package in your publication execute:
-
-  ```{r}
-  citation("MutationalPatterns")
-  ```
+Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. 
+A preprint of the article can be found on [bioRxiv](http://dx.doi.org/10.1101/071761).
 
 # Table of Contents
 
