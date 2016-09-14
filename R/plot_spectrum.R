@@ -2,7 +2,7 @@
 #'    
 #' @param type_occurences Type occurences matrix
 #' @param CT Distinction between C>T at CpG and C>T at other
-#'           sites, default = FALSE
+#' sites, default = FALSE
 #' @param by Optional grouping variable
 #' @param colors Optional color vector with 7 values
 #' @param legend Plot legend, default = TRUE
@@ -79,10 +79,10 @@
 #' @export
 
 plot_spectrum = function(type_occurences,
-                         CT = FALSE,
-                         by,
-                         colors,
-                         legend = TRUE)
+                           CT = FALSE,
+                           by,
+                           colors,
+                           legend = TRUE)
 {
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
@@ -128,10 +128,10 @@ plot_spectrum = function(type_occurences,
     # Calculate the mean and the stdev on the value for each group broken
     # down by type + variable
     x = ddply(df4, c("by", "variable"), summarise,
-              mean = mean(value), stdev = sd(value))
+                mean = mean(value), stdev = sd(value))
 
     info_x = ddply(df4, c("by"), summarise, total_individuals = sum(value),
-                   total_mutations = sum(nmuts))
+                    total_mutations = sum(nmuts))
 
     x = merge(x, info_x)
     info_type = data.frame(sub_type = c("C>A", "C>G", "C>T", "C>T",
@@ -140,7 +140,8 @@ plot_spectrum = function(type_occurences,
                                         "C>T other", "T>A", "T>C", "T>G"))
     x = merge(x,info_type)
     x$total_mutations = prettyNum(x$total_mutations, big.mark = ",")
-    x$total_mutations = paste("No. mutations =", as.character(x$total_mutations))
+    x$total_mutations = paste("No. mutations =",
+                                as.character(x$total_mutations))
 
     # Define positioning of error bars
     x$error_pos = x$mean
@@ -168,20 +169,20 @@ plot_spectrum = function(type_occurences,
 
     # Make barplot
     plot = ggplot(data=x, aes(x=sub_type,
-                              y=mean,
-                              fill=variable,
-                              group=sub_type)) +
+                                y=mean,
+                                fill=variable,
+                                group=sub_type)) +
         geom_bar(stat="identity") +
         geom_errorbar(aes(ymin=error_pos-stdev,
-                          ymax=error_pos+stdev),
-                      width=0.2) +
+                            ymax=error_pos+stdev),
+                        width=0.2) +
         scale_fill_manual(values=colors, name="Point mutation type") +
         theme_bw() +
         xlab("") +
         ylab("Relative contribution") +
         theme(axis.ticks = element_blank(),
-              axis.text.x = element_blank(),
-              panel.grid.major.x = element_blank())
+                axis.text.x = element_blank(),
+                panel.grid.major.x = element_blank())
 
     # Facetting
     if (length(by) == 1)

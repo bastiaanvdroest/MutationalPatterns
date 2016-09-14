@@ -70,7 +70,7 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
         coord_cartesian(ylim=c(0,ymax)) +
         scale_y_continuous(breaks=seq(0, ymax, 0.1)) +
         # no legend
-        guides(fill=FALSE) + 
+        guides(fill=FALSE) +
         # white background
         theme_bw() +
         # format text

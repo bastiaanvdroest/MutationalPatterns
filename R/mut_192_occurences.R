@@ -3,11 +3,10 @@
 #'  
 #' @param type_context result from get_type_context function
 #' @param strand character vector with strand information for each
-#'               position, "U" for untranscribed, "T" for
-#'               transcribed, "-" for unknown or positions outside
-#'               gene bodies
+#' position, "U" for untranscribed, "T" for transcribed, "-" for
+#' unknown or positions outside gene bodies
 #' @return A vector with 192 mutation occurences and 96 trinucleotides
-#'         for both transcribed and untranscribed strand
+#' for both transcribed and untranscribed strand
 
 mut_192_occurences = function(type_context, strand)
 {

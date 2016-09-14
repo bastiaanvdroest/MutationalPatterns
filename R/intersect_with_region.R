@@ -8,7 +8,7 @@
 #' @param region GRanges object with genomic region(s)
 #' @importFrom GenomeInfoDb seqlevelsStyle
 #' @return A data.frame containing the overlapping mutations for a
-#'         genomic region.
+#' genomic region.
 
 intersect_with_region = function(vcf, surveyed, region)
 {
@@ -21,11 +21,11 @@ intersect_with_region = function(vcf, surveyed, region)
     # check if chromosome names are the same in the objects
     if (seqlevelsStyle(vcf) != seqlevelsStyle(surveyed))
         stop(paste("The chromosome names (seqlevels) of the VCF and the",
-                   "surveyed GRanges object do not match."))
+                    "surveyed GRanges object do not match."))
 
     if (seqlevelsStyle(region) != seqlevelsStyle(surveyed))
         stop(paste("Chromosome names (seqlevels) of surveyed and region",
-                   "granges object do not match."))
+                    "granges object do not match."))
 
     # Intersect genomic region and surveyed region
     surveyed_region = intersect(surveyed, region, ignore.strand = TRUE)

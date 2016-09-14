@@ -2,8 +2,8 @@
 #' 
 #' @param df Dataframe result from enrichment_depletion_test()
 #' @return Plot with two parts. 1: Barplot with no. mutations expected and
-#'         observed per region. 2: Effect size of enrichment/depletion
-#'         (log2ratio) with results significance test.
+#' observed per region. 2: Effect size of enrichment/depletion
+#' (log2ratio) with results significance test.
 #'
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes

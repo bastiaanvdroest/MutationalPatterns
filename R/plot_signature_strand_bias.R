@@ -50,12 +50,12 @@ plot_signature_strand_bias = function(signatures_strand_bias)
 
     # aggregate by strand and type
     sum_per_type = aggregate(signatures_strand_bias,
-                             by=list(STRAND, SUBSTITUTIONS_192),
-                             FUN=sum)
+                                by=list(STRAND, SUBSTITUTIONS_192),
+                                FUN=sum)
 
     sum_per_strand = aggregate(signatures_strand_bias,
-                               by=list(STRAND),
-                               FUN=sum)
+                                by=list(STRAND),
+                                FUN=sum)
 
     # melt data frames
     sum_per_strand =  melt(sum_per_strand)
@@ -65,7 +65,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
 
     # ratio per signature per type
     ratio = as.matrix(subset(sum_per_type, strand == "T")$value /
-                      subset(sum_per_type, strand == "U")$value)
+                        subset(sum_per_type, strand == "U")$value)
 
     ratio_per_type_per_signature = cbind(subset(sum_per_type,
                                                 strand == "T")[,2:3],

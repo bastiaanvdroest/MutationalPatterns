@@ -15,7 +15,7 @@ intersect_with_region(vcf, surveyed, region)
 }
 \value{
 A data.frame containing the overlapping mutations for a
-        genomic region.
+genomic region.
 }
 \description{
 Find the number of mutations that reside in genomic region and take

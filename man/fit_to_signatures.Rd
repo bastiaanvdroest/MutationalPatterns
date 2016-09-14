@@ -8,15 +8,15 @@ reconstruct the mutation matrix.}
 fit_to_signatures(mut_matrix, signatures)
 }
 \arguments{
-\item{mut_matrix}{96 mutation count matrix
-(dimensions: 96 mutations X n samples)}
+\item{mut_matrix}{96 mutation count matrix (dimensions: 96 mutations
+X n samples)}
 
-\item{signatures}{Signature matrix
-(dimensions: 96 mutations X n signatures)}
+\item{signatures}{Signature matrix (dimensions: 96 mutations
+X n signatures)}
 }
 \value{
 Named list with signature contributions and reconstructed
-        mutation matrix
+mutation matrix
 }
 \description{
 Find linear combination of mutation signatures that most closely
@@ -41,11 +41,11 @@ cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
 cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 
 ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-my_matrix <- readRDS(system.file("states/mut_mat_data.R",
-                     package="MutationalPatterns"))
+mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+                    package="MutationalPatterns"))
 
 ## Perform the fitting.
-fit_res <- fit_to_signatures(my_matrix, cancer_signatures)
+fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 
 }
 \seealso{

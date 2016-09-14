@@ -14,12 +14,12 @@
 #' 
 #' @param vcf GRanges containing the VCF object
 #' @param genes GRanges with gene bodies definitions including strand
-#'              information
+#' information
 #'
 #' @return Character vector with transcriptional strand information with
-#'         length of vcf: "-" for positions outside gene bodies, "U" for
-#'         untranscribed/sense/coding strand, "T" for
-#'         transcribed/anti-sense/non-coding strand.
+#' length of vcf: "-" for positions outside gene bodies, "U" for
+#' untranscribed/sense/coding strand, "T" for
+#' transcribed/anti-sense/non-coding strand.
 #'
 #' @examples
 #' ## For this example we need our variants from the VCF samples, and
@@ -46,7 +46,7 @@
 #'
 #' ## For this example, we preloaded the data for you:
 #' genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
-#'                       package="MutationalPatterns"))
+#'                         package="MutationalPatterns"))
 #'
 #' get_strand(vcfs[[1]], genes_hg19)
 #'

@@ -14,7 +14,7 @@
 #' @param vcf CollapsedVCF object
 #' @param ref_genome BSgenome reference genome object
 #' @param chromosomes Vector of chromosome/contig names of the reference
-#'                    genome to be plotted
+#' genome to be plotted
 #' @param title Optional plot title
 #' @param colors Vector of 6 colors used for plotting
 #' @param cex Point size
@@ -82,13 +82,13 @@
 #' @export
 
 plot_rainfall = function(vcf,
-                         ref_genome,
-                         chromosomes,
-                         title = "",
-                         colors,
-                         cex = 2.5,
-                         cex_text = 3,
-                         ylim = 1e+08)
+                            ref_genome,
+                            chromosomes,
+                            title = "",
+                            colors,
+                            cex = 2.5,
+                            cex_text = 3,
+                            ylim = 1e+08)
 {
     # If colors parameter not provided, set to default colors
     if (missing(colors))

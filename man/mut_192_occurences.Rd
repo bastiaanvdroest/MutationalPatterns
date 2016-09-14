@@ -11,13 +11,12 @@ mut_192_occurences(type_context, strand)
 \item{type_context}{result from get_type_context function}
 
 \item{strand}{character vector with strand information for each
-position, "U" for untranscribed, "T" for
-transcribed, "-" for unknown or positions outside
-gene bodies}
+position, "U" for untranscribed, "T" for transcribed, "-" for
+unknown or positions outside gene bodies}
 }
 \value{
 A vector with 192 mutation occurences and 96 trinucleotides
-        for both transcribed and untranscribed strand
+for both transcribed and untranscribed strand
 }
 \description{
 Count 96 trinucleotide mutation occurences with transcriptional strand

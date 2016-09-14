@@ -18,9 +18,9 @@ information}
 }
 \value{
 Character vector with transcriptional strand information with
-        length of vcf: "-" for positions outside gene bodies, "U" for
-        untranscribed/sense/coding strand, "T" for
-        transcribed/anti-sense/non-coding strand.
+length of vcf: "-" for positions outside gene bodies, "U" for
+untranscribed/sense/coding strand, "T" for
+transcribed/anti-sense/non-coding strand.
 }
 \description{
 Base substitions on the same strand as the gene definitions are considered
@@ -57,7 +57,7 @@ vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 
 ## For this example, we preloaded the data for you:
 genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
-                      package="MutationalPatterns"))
+                        package="MutationalPatterns"))
 
 get_strand(vcfs[[1]], genes_hg19)
 

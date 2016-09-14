@@ -17,7 +17,7 @@ genomic regions}
 }
 \value{
 A data.frame containing the number observed and number of expected
-        mutations in each genomic region.
+mutations in each genomic region.
 }
 \description{
 Function finds the number of mutations that reside in genomic region and
@@ -56,7 +56,7 @@ vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 #                          dataset="hsapiens_regulatory_feature",
 #                          GRCh = 37)
 regulatory <- readRDS(system.file("states/regulatory_data.R",
-                                  package="MutationalPatterns"))
+                                    package="MutationalPatterns"))
 
 # annotated <- useEnsembl(biomart="regulation",
 #                         dataset="hsapiens_annotated_feature",
@@ -80,7 +80,7 @@ regulatory <- readRDS(system.file("states/regulatory_data.R",
 #                 CTCF$chromosome_end)))
 
 CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
-                  package="MutationalPatterns"))
+                    package="MutationalPatterns"))
 
 ## Download the promoter regions and conver them to a GRanges object.
 # promoter = getBM(attributes = c('chromosome_name', 'chromosome_start',
@@ -93,7 +93,7 @@ CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
 #                             promoter$chromosome_end)))
 
 promoter_g <- readRDS(system.file("states/promoter_g_data.R",
-                      package="MutationalPatterns"))
+                        package="MutationalPatterns"))
 
 # open = getBM(attributes = c('chromosome_name', 'chromosome_start',
 #                             'chromosome_end', 'feature_type_name'),
@@ -105,7 +105,7 @@ promoter_g <- readRDS(system.file("states/promoter_g_data.R",
 #                         open$chromosome_end)))
 
 open_g <- readRDS(system.file("states/open_g_data.R",
-                  package="MutationalPatterns"))
+                    package="MutationalPatterns"))
 
 # flanking = getBM(attributes = c('chromosome_name',
 #                                 'chromosome_start',
@@ -120,7 +120,7 @@ open_g <- readRDS(system.file("states/open_g_data.R",
 #                        flanking$chromosome_end)))
 
 flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
-                                  package="MutationalPatterns"))
+                                    package="MutationalPatterns"))
 
 # TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start',
 #                                   'chromosome_end', 'feature_type_name'),
@@ -145,9 +145,9 @@ regions = lapply(regions, rename_chrom)
 
 ## Get the filename with surveyed/callable regions
 surveyed_file <- list.files(system.file("extdata",
-                           package="MutationalPatterns"),
-                           pattern = ".bed",
-                           full.names = TRUE)
+                            package="MutationalPatterns"),
+                            pattern = ".bed",
+                            full.names = TRUE)
 
 ## Read the file as a GRanges object.
 surveyed_list <- bed_to_granges(surveyed_file, "surveyed_all")

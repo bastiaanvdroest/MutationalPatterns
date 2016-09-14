@@ -9,7 +9,7 @@
 #' @param vcf_list List of collapsed vcf objects
 #' @param ref_genome BSGenome reference genome object 
 #' @param genes GRanges object with definition of gene bodies, including
-#'              strand information
+#' strand information
 #'
 #' @return 192 mutation count matrix (96 * 2 strands)
 #'

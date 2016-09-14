@@ -3,7 +3,7 @@
 #' @param vcf_list A list of CollapsedVCF object
 #' @param ref_genome Reference genome
 #' @return data.frame with counts of each base substitution type for
-#'         each sample in vcf_list
+#' each sample in vcf_list
 #' @import BiocGenerics
 #'
 #' @examples

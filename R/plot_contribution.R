@@ -7,7 +7,7 @@
 #' @param index optional sample subset parameter
 #' @param coord_flip Flip X and Y coordinates, default = FALSE
 #' @param mode "relative" or "absolute"; to plot the relative contribution or
-#'             absolute number of mutations, default = "relative"
+#' absolute number of mutations, default = "relative"
 #'
 #' @return Stacked barplot with contribution of each signatures for each sample
 #'
@@ -66,10 +66,10 @@
 #' @export
 
 plot_contribution = function(contribution,
-                             signatures,
-                             index=c(),
-                             coord_flip = FALSE,
-                             mode = "relative")
+                                signatures,
+                                index=c(),
+                                coord_flip = FALSE,
+                                mode = "relative")
 {
     # check mode parameter
     if(!(mode == "relative" | mode == "absolute"))
@@ -105,9 +105,9 @@ plot_contribution = function(contribution,
             theme_bw() +
             # no gridlines
             theme(panel.grid.minor.x=element_blank(),
-                  panel.grid.major.x=element_blank()) +
+                    panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
-                  panel.grid.major.y=element_blank())
+                    panel.grid.major.y=element_blank())
     }
 
     # Handle the absolute mode.
@@ -115,7 +115,7 @@ plot_contribution = function(contribution,
     {
         if(missing(signatures))
             stop(paste("For contribution plotting in mode 'absolute':",
-                       "also provide signatures matrix"))
+                        "also provide signatures matrix"))
 
         # total number of mutations per siganture
         total_signatures = colSums(signatures) 
@@ -145,9 +145,9 @@ plot_contribution = function(contribution,
 
             # no gridlines
             theme(panel.grid.minor.x=element_blank(),
-                  panel.grid.major.x=element_blank()) +
+                    panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
-                  panel.grid.major.y=element_blank())
+                    panel.grid.major.y=element_blank())
     }
 
     if (coord_flip == TRUE)

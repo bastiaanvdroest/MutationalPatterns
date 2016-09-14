@@ -11,8 +11,8 @@ plot_enrichment_depletion(df)
 }
 \value{
 Plot with two parts. 1: Barplot with no. mutations expected and
-        observed per region. 2: Effect size of enrichment/depletion
-        (log2ratio) with results significance test.
+observed per region. 2: Effect size of enrichment/depletion
+(log2ratio) with results significance test.
 }
 \description{
 Plot enrichment/depletion of mutations in genomic regions

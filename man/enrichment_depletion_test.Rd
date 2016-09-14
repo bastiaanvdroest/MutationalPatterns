@@ -23,7 +23,7 @@ enrichment depletion test.
 ## See the 'genomic_distribution()' example for how we obtained the
 ## following data:
 distr <- readRDS(system.file("states/distr_data.R",
-                 package="MutationalPatterns"))
+                    package="MutationalPatterns"))
 
 tissue <- c("colon", "colon", "colon",
             "intestine", "intestine", "intestine",

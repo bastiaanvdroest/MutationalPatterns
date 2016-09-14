@@ -7,16 +7,41 @@
 strand_occurences(mut_mat_s, by)
 }
 \arguments{
-\item{mut_mat_s}{192 feature mutation count matrix, result from mut_matrix_stranded()}
+\item{mut_mat_s}{192 feature mutation count matrix, result from
+'mut_matrix_stranded()'}
 
 \item{by}{Character vector with grouping info, optional}
 }
 \value{
-Dataframe with the total number of mutations and relative contribution within group per base substitution 
-type and transcriptional strand (T = transcribed strand, U = untranscribed strand)
+A data.frame with the total number of mutations and relative
+contribution within group per base substitution type and
+transcriptional strand (T = transcribed strand,
+U = untranscribed strand).
 }
 \description{
-For each base substitution type and transcriptional strand the total number of mutations
-and the relative contribution within a group is returned
+For each base substitution type and transcriptional strand the total number
+of mutations and the relative contribution within a group is returned.
+}
+\examples{
+## See the 'mut_matrix_stranded()' example for how we obtained the
+## following mutation matrix.
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+                                    package="MutationalPatterns"))
+
+## Load a reference genome.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+tissue <- c("colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
+
+strand_counts = strand_occurences(mut_mat_s, by=tissue)
+
+}
+\seealso{
+\code{\link{mut_matrix_stranded}},
+\code{\link{strand_plot}},
+\code{\link{strand_bias_plot}}
 }
 

@@ -7,6 +7,7 @@
 #' @param by Optional grouping variable, e.g. tissue type
 #' @return data.frame with the observed and expected number of mutations per
 #' genomic region per group (by) or sample
+#'
 #' @importFrom BiocGenerics cbind
 #' @importFrom BiocGenerics rbind
 #'
@@ -14,7 +15,7 @@
 #' ## See the 'genomic_distribution()' example for how we obtained the
 #' ## following data:
 #' distr <- readRDS(system.file("states/distr_data.R",
-#'                  package="MutationalPatterns"))
+#'                     package="MutationalPatterns"))
 #' 
 #' tissue <- c("colon", "colon", "colon",
 #'             "intestine", "intestine", "intestine",

@@ -5,13 +5,13 @@
 #' reconstructs the mutation matrix by solving nonnegative least-squares
 #' constraints problem.
 #' 
-#' @param mut_matrix 96 mutation count matrix
-#'                   (dimensions: 96 mutations X n samples)
-#' @param signatures Signature matrix
-#'                   (dimensions: 96 mutations X n signatures)
+#' @param mut_matrix 96 mutation count matrix (dimensions: 96 mutations
+#' X n samples)
+#' @param signatures Signature matrix (dimensions: 96 mutations
+#' X n signatures)
 #'
 #' @return Named list with signature contributions and reconstructed
-#'         mutation matrix
+#' mutation matrix
 #'
 #' @importFrom pracma lsqnonneg
 #'
@@ -33,11 +33,11 @@
 #' cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 #'
 #' ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-#' my_matrix <- readRDS(system.file("states/mut_mat_data.R",
-#'                      package="MutationalPatterns"))
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#'                     package="MutationalPatterns"))
 #'
 #' ## Perform the fitting.
-#' fit_res <- fit_to_signatures(my_matrix, cancer_signatures)
+#' fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 #'
 #' @seealso
 #' \code{\link{mut_matrix}}

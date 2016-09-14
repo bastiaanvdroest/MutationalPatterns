@@ -17,7 +17,8 @@ read_vcf(vcf_files, sample_names, genome = "-")
 List of GRanges objects
 }
 \description{
-Function reads Variant Call Format VCF files into a GRanges object and combines them in a list object
+Function reads Variant Call Format VCF files into a GRanges object and
+combines them in a list object.
 }
 \examples{
 # The example data set consists of three colon samples, three intestine
