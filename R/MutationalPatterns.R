@@ -31,7 +31,4 @@ TRIPLETS_96 = c(rep(C_TRIPLETS, 3), rep(T_TRIPLETS, 3))
 STRAND = rep(c("U","T"), 96)
 DNA_BASES = c("A", "C", "G", "T")
 
-# Display the MutationalPatterns version upon loading the package.
-.onLoad <- function(libname, pkgname) {
-    packageStartupMessage("MutationalPatterns version 0.99.0")
-}
+packageStartupMessage("MutationalPatterns version 0.99.0")

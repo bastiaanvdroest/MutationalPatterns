@@ -45,6 +45,7 @@
 #' \code{\link{mut_matrix_stranded}},
 #' \code{\link{strand_occurences}},
 #' \code{\link{strand_bias_test}}
+#' \code{\link{plot_strand}}
 #'
 #' @export
 

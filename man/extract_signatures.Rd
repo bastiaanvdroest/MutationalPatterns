@@ -25,7 +25,8 @@ those signatures to the spectra of the samples/vcf files.
 mut_mat <- readRDS(system.file("states/mut_mat_data.R",
                     package="MutationalPatterns"))
 
-nmf_res = extract_signatures(mut_mat, rank = 2)
+## This function is computational intensive.
+# nmf_res <- extract_signatures(mut_mat, rank = 2)
 
 }
 \seealso{

@@ -44,7 +44,7 @@
 #' @seealso
 #' \code{\link{mut_matrix_stranded}},
 #' \code{\link{strand_occurences}},
-#' \code{\link{strand_bias_plot}}
+#' \code{\link{plot_strand_bias}}
 #'
 #' @export
 

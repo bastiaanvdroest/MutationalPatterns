@@ -47,6 +47,6 @@ strand_plot = plot_strand(strand_counts, mode = "absolute")
 \seealso{
 \code{\link{mut_matrix_stranded}},
 \code{\link{strand_occurences}},
-\code{\link{strand_bias_plot}}
+\code{\link{plot_strand_bias}}
 }
 
