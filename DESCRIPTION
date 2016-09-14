@@ -16,7 +16,7 @@ Imports: BiocGenerics (>= 0.18.0), VariantAnnotation (>= 1.18.1),
         GenomeInfoDb (>= 1.8.1), Biostrings (>= 2.40.0), gridExtra (>= 2.2.1)
 Depends: R (>= 3.3.0), graphics, stats, GenomicRanges (>= 1.24.0),
         NMF (>= 0.20.6)
-Suggests: BSgenome (>= 1.40.0), BiocStyle (>= 2.0.3),
+Suggests: BSgenome (>= 1.40.0), BiocStyle (>= 2.0.3), biomaRt (>= 2.28.0),
         BSgenome.Hsapiens.UCSC.hg19 (>= 1.4.0),
         TxDb.Hsapiens.UCSC.hg19.knownGene
 biocViews: Genetics, SomaticMutation
