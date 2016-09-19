@@ -16,10 +16,10 @@
 #'
 #' ## Exclude mitochondrial and allosomal chromosomes.
 #' autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
-#'                                      style="UCSC",
-#'                                      group="auto")
+#'                                         style="UCSC",
+#'                                         group="auto")
 #'
-#' vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+#' vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 #'
 #' ## Load the corresponding reference genome.
 #' ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
@@ -27,10 +27,10 @@
 #'
 #' ## Construct a mutation matrix from the loaded VCFs in comparison to the
 #' ## ref_genome.
-#' my_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+#' mut_mat <- mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 #'
 #' ## Et voila.
-#' my_matrix
+#' mut_mat
 #'
 #' @seealso
 #' \code{\link{read_vcf}},

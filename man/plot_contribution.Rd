@@ -4,8 +4,8 @@
 \alias{plot_contribution}
 \title{Plot signature contribution}
 \usage{
-plot_contribution(contribution, signatures, index = c(), coord_flip = FALSE,
-  mode = "relative")
+plot_contribution(contribution, signatures, index=c(), coord_flip=FALSE,
+    mode="relative")
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}

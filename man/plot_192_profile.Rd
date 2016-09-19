@@ -2,9 +2,7 @@
 % Please edit documentation in R/plot_192_profile.R
 \name{plot_192_profile}
 \alias{plot_192_profile}
-\title{Plot 192 trinucleotide profile
- 
-Plot relative contribution of 192 trinucleotides}
+\title{Plot 192 trinucleotide profile}
 \usage{
 plot_192_profile(mut_matrix, colors, ymax = 0.15)
 }
@@ -19,8 +17,6 @@ plot_192_profile(mut_matrix, colors, ymax = 0.15)
 192 trinucleotide profile plot
 }
 \description{
-Plot 192 trinucleotide profile
- 
 Plot relative contribution of 192 trinucleotides
 }
 \examples{

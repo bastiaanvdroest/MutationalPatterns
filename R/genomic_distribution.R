@@ -35,23 +35,12 @@
 #'
 #' # mart="ensemble"
 #' # library(biomaRt)
-#' # segmentation <- useEnsembl(biomart="regulation",
-#' #                            dataset="hsapiens_segmentation_feature",
-#' #                            GRCh = 37)
-#' # segmentation <- readRDS(system.file("states/segmentation_data.R",
-#' #                         package="MutationalPatterns"))
 #'
 #' # regulatory <- useEnsembl(biomart="regulation",
 #' #                          dataset="hsapiens_regulatory_feature",
 #' #                          GRCh = 37)
 #' regulatory <- readRDS(system.file("states/regulatory_data.R",
 #'                                     package="MutationalPatterns"))
-#'
-#' # annotated <- useEnsembl(biomart="regulation",
-#' #                         dataset="hsapiens_annotated_feature",
-#' #                         GRCh = 37)
-#' # annotated <- readRDS(system.file("states/annotated_data.R",
-#' #                      package="MutationalPatterns"))
 #'
 #' ## Download the regulatory CTCF binding sites and convert them to
 #' ## a GRanges object.

@@ -36,8 +36,8 @@ extract_signatures = function(mut_matrix, rank, nrun = 200)
         stop("Rank should be a positive integer")
 
     if (ncol(mut_matrix) < max(rank))
-        stop(paste("The rank should be smaller than the number of",
-                   "samples in the input matrix."))
+        stop(paste( "The rank should be smaller than the number of",
+                    "samples in the input matrix.") )
 
     # Calculate NMF
     print("Decomposing matrix using NMF...")

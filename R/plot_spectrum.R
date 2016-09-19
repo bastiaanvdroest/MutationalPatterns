@@ -78,11 +78,7 @@
 #'
 #' @export
 
-plot_spectrum = function(type_occurences,
-                           CT = FALSE,
-                           by,
-                           colors,
-                           legend = TRUE)
+plot_spectrum = function(type_occurences, CT=FALSE, by, colors, legend=TRUE)
 {
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.

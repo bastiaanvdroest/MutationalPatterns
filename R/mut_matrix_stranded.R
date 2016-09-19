@@ -1,6 +1,6 @@
 #' Make mutation count matrix of 96 trinucleotides with transcriptional
 #' strand information
-#'  
+#'
 #' Make a mutation count matrix for 96 trinucleotides, for both the
 #' transcribed and untranscribed strand of gene bodies.
 #'

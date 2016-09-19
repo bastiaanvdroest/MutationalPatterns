@@ -1,5 +1,5 @@
 #' Plot 96 trinucleotide profile
-#'  
+#'
 #' Plot relative contribution of 96 trinucleotides      
 #' @param mut_matrix 96 trinucleotide profile matrix
 #' @param ymax Y axis maximum value, default = 0.015

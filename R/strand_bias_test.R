@@ -7,6 +7,7 @@
 #' @return Dataframe with poisson test P value for the ratio between the
 #' transcribed and untrascribed strand per group per base substitution type.
 #' @importFrom reshape2 dcast
+#' @importFrom reshape2 melt
 #' @importFrom plyr .
 #' @importFrom plyr ddply
 #' @importFrom plyr summarise
@@ -41,8 +42,8 @@ strand_bias_test = function(strand_occurences)
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
     variable = NULL
-    T = NULL
-    U = NULL
+    Ts = NULL
+    Us = NULL
 
     # statistical test for strand ratio
     # poisson test
@@ -51,12 +52,16 @@ strand_bias_test = function(strand_occurences)
                                 sum,
                                 subset = plyr::.(variable == "no_mutations"))
 
+    ## Prevent using 'T' as a variable name to avoid confusion with TRUE.
+    ## Rename the columns 'T' and 'U' to 'Ts' and 'Us'.
+    colnames(df_strand) <- c("type", "group", "Ts", "Us")
+
     df_strand = plyr::ddply(df_strand,
-                            c("group", "type", "T", "U"),
+                            c("group", "type", "Ts", "Us"),
                             plyr::summarise,
-                            total = T+U,
-                            ratio = T/U,
-                            p_poisson = poisson.test(c(U,T), r=1)$p.value)
+                            total = Ts+Us,
+                            ratio = Ts/Us,
+                            p_poisson = poisson.test(c(Us,Ts), r=1)$p.value)
 
     df_strand$significant[df_strand$p_poisson < 0.05] = "*"
     df_strand$significant[df_strand$p_poisson >= 0.05] = " "

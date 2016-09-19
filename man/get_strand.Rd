@@ -2,11 +2,7 @@
 % Please edit documentation in R/get_strand.R
 \name{get_strand}
 \alias{get_strand}
-\title{Find transcriptional strand of base substitutions in vcf
- 
-For the positions that are within gene bodies it is determined whether
-the "C" or "T" base is on the same strand as the gene definition. (Since
-by convention we regard base substitutions as C>X or T>X.)}
+\title{Find transcriptional strand of base substitutions in vcf}
 \usage{
 get_strand(vcf, genes)
 }
@@ -23,12 +19,16 @@ untranscribed/sense/coding strand, "T" for
 transcribed/anti-sense/non-coding strand.
 }
 \description{
+For the positions that are within gene bodies it is determined whether
+the "C" or "T" base is on the same strand as the gene definition. (Since
+by convention we regard base substitutions as C>X or T>X.)
+}
+\details{
 Base substitions on the same strand as the gene definitions are considered
 untranscribed, and on the opposite strand of gene bodies as transcribed,
 since the gene definitions report the coding or sense strand, which is
 untranscribed.
-}
-\details{
+
 No strand information "-" is returned for base substitutions outside gene
 bodies, or base substitutions that overlap with more than one gene body.
 }

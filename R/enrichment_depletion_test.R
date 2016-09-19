@@ -66,8 +66,8 @@ enrichment_depletion_test = function(x, by = c())
     {
         x = res2[i,]
         res3 = rbind(res3, binomial_test(x$prob,
-                                         x$surveyed_region_length,
-                                         x$observed))
+                                            x$surveyed_region_length,
+                                            x$observed))
     }
 
     # Combine results into one data frame

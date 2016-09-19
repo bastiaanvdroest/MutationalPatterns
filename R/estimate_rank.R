@@ -7,7 +7,8 @@
 #' @return NMF rank survey plot
 #'
 #' @examples
-#' ## See the 'read_vcf()' example for how we obtained the following data:
+#' ## See the 'read_vcf()' example for how we obtained the
+#' ## following data:
 #' vcfs <- readRDS(system.file("states/read_vcf_output.R",
 #'                 package="MutationalPatterns"))
 #' 
@@ -15,14 +16,14 @@
 #' vcfs <- lapply(vcfs, rename_chrom)
 #'
 #' # Exclude mitochondrial and allosomal chromosomes.
-#' autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
+#' autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
 #'                                     style="UCSC",
 #'                                     group="auto")
 #'
 #' vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 #'
 #' ## Define the reference genome we are going to use.
-#' ref_genome = "BSgenome.Hsapiens.UCSC.hg19" 
+#' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 #'
 #' ## If neccessary, download it from Bioconductor.
 #' # source("http://bioconductor.org/biocLite.R")
@@ -31,8 +32,12 @@
 #' ## Load the reference genome.
 #' library(ref_genome, character.only = TRUE)
 #'
-#' test_matrix = mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
-#' estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
+#' ## See the 'mut_matrix()' example for how we obtained the
+#' ## following data:
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#'                     package="MutationalPatterns"))
+#'
+#' estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)
 #'
 #' @seealso
 #' \code{\link{read_vcf}},
@@ -54,10 +59,9 @@ estimate_rank = function(mut_matrix, rank_range, nrun=100)
     # Estimate ranks
     print("Estimating ranks...")
     estim.r = nmf(mut_matrix,
-                  rank = rank_range,
-                  method = "brunet",
-                  nrun = nrun,
-                  seed = 123456)
+                    rank = rank_range, method = "brunet",
+                    nrun = nrun,
+                    seed = 123456)
 
     # Plot result
     plot = plot(estim.r)

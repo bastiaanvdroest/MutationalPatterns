@@ -1,5 +1,5 @@
 #' Find transcriptional strand of base substitutions in vcf
-#'  
+#'
 #' For the positions that are within gene bodies it is determined whether
 #' the "C" or "T" base is on the same strand as the gene definition. (Since
 #' by convention we regard base substitutions as C>X or T>X.)
@@ -8,10 +8,10 @@
 #' untranscribed, and on the opposite strand of gene bodies as transcribed,
 #' since the gene definitions report the coding or sense strand, which is
 #' untranscribed.
-#' 
+#'
 #' No strand information "-" is returned for base substitutions outside gene
 #' bodies, or base substitutions that overlap with more than one gene body.
-#' 
+#'
 #' @param vcf GRanges containing the VCF object
 #' @param genes GRanges with gene bodies definitions including strand
 #' information
@@ -60,9 +60,9 @@ get_strand = function(vcf, genes)
 {
     # Check consistency of chromosome names.
     if (!(all(seqlevels(vcf) %in% seqlevels(genes))))
-        stop(paste("Chromosome names (seqlevels) of vcf and genes Granges",
-                   "object do not match. Use rename_chrom() function to",
-                   "rename chromosome names."))
+        stop(paste( "Chromosome names (seqlevels) of vcf and genes Granges",
+                    "object do not match. Use rename_chrom() function to",
+                    "rename chromosome names.") )
 
     # Determine overlap between vcf positions and genes.
     overlap = findOverlaps(vcf, genes)

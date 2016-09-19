@@ -69,7 +69,7 @@ plot_signature_strand_bias = function(signatures_strand_bias)
 
     ratio_per_type_per_signature = cbind(subset(sum_per_type,
                                                 strand == "T")[,2:3],
-                                         ratio)
+                                            ratio)
 
     # binomial test per type per signature
     size = c()

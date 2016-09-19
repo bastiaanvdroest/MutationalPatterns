@@ -1,5 +1,5 @@
 #' Plot genomic rainfall 
-#' 
+#'
 #' Rainfall plot visualizes the types of mutations and intermutation distance
 #' @details
 #' Rainfall plots can be used to visualize the distribution of mutations
@@ -39,6 +39,10 @@
 #' @importFrom ggplot2 guide_legend
 #' @importFrom GenomeInfoDb seqlengths
 #' @importFrom GenomeInfoDb seqnames
+#'
+#' @usage
+#' plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
+#'     cex_text = 3, ylim = 1e+08)
 #'
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:

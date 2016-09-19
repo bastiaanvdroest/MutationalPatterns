@@ -3,10 +3,7 @@
 \name{mut_matrix_stranded}
 \alias{mut_matrix_stranded}
 \title{Make mutation count matrix of 96 trinucleotides with transcriptional
-strand information
- 
-Make a mutation count matrix for 96 trinucleotides, for both the
-transcribed and untranscribed strand of gene bodies.}
+strand information}
 \usage{
 mut_matrix_stranded(vcf_list, ref_genome, genes)
 }
@@ -22,6 +19,10 @@ strand information}
 192 mutation count matrix (96 * 2 strands)
 }
 \description{
+Make a mutation count matrix for 96 trinucleotides, for both the
+transcribed and untranscribed strand of gene bodies.
+}
+\details{
 Mutations outside gene bodies are not counted.
 }
 \examples{

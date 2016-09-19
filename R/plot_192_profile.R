@@ -1,5 +1,5 @@
 #' Plot 192 trinucleotide profile
-#'  
+#'
 #' Plot relative contribution of 192 trinucleotides      
 #' @param mut_matrix 192 trinucleotide profile matrix
 #' @param ymax Y axis maximum value, default = 0.015

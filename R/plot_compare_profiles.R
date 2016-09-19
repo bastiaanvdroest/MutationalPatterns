@@ -1,8 +1,8 @@
 #' Compare two 96 mutation profiles
-#' 
+#'
 #' Plots two 96 mutation profiles and their difference, reports the residual
 #' sum of squares (RSS).
-#' 
+#'
 #' @param profile1 First 96 mutation profile
 #' @param profile2 Second 96 mutation profile
 #' @param profile_names Character vector with names of the mutations profiles
@@ -27,6 +27,10 @@
 #' @importFrom ggplot2 ggtitle
 #' @importFrom ggplot2 element_blank
 #' @importFrom BiocGenerics cbind
+#'
+#' @usage
+#' plot_compare_profiles(profile1, profile2, profile_names = c("profile 1",
+#'     "profile 2"), profile_ymax = 0.15, diff_ylim = c(-0.02, 0.02), colors)
 #'
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the following
@@ -53,11 +57,11 @@
 #' @export
 
 plot_compare_profiles = function(profile1,
-                                  profile2,
-                                  profile_names = c("profile 1", "profile 2"),
-                                  profile_ymax = 0.15,
-                                  diff_ylim = c(-0.02, 0.02),
-                                  colors)
+                                    profile2,
+                                    profile_names = c("profile 1", "profile 2"),
+                                    profile_ymax = 0.15,
+                                    diff_ylim = c(-0.02, 0.02),
+                                    colors)
 {
     # if colors parameter not provided, set to default colors
     if(missing(colors)){colors = COLORS6}
@@ -98,9 +102,9 @@ plot_compare_profiles = function(profile1,
 
     # Add dummy non_visible data points to force y axis limits per facet
     df4 = data.frame(substitution = rep("C>A", 4),
-                       context = rep("A.A",4),
-                       variable = c(profile_names, "Difference", "Difference"),
-                       value = c(profile_ymax,
+                        context = rep("A.A",4),
+                        variable = c(profile_names, "Difference", "Difference"),
+                        value = c(profile_ymax,
                                     profile_ymax,
                                     diff_ylim[1],
                                     diff_ylim[2]))

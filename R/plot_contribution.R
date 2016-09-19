@@ -23,6 +23,10 @@
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_blank
 #'
+#' @usage
+#' plot_contribution(contribution, signatures, index=c(), coord_flip=FALSE,
+#'     mode="relative")
+#'
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the following
 #' ## mutation matrix.
@@ -68,8 +72,8 @@
 plot_contribution = function(contribution,
                                 signatures,
                                 index=c(),
-                                coord_flip = FALSE,
-                                mode = "relative")
+                                coord_flip=FALSE,
+                                mode="relative")
 {
     # check mode parameter
     if(!(mode == "relative" | mode == "absolute"))

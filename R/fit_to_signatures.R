@@ -48,8 +48,8 @@ fit_to_signatures = function(mut_matrix, signatures)
 {
     # make sure dimensions of input matrix are correct
     if (dim(mut_matrix)[1] != 96)
-        stop(paste("Mutation count matrix input should have",
-                   "dimensions 96 X n samples"))
+        stop( paste("Mutation count matrix input should have",
+                    "dimensions 96 X n samples") )
 
     if (dim(signatures)[1] != 96)
         stop("Signatures input should have dimensions 96 X n signatures")

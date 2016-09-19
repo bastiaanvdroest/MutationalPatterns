@@ -2,9 +2,7 @@
 % Please edit documentation in R/plot_96_profile.R
 \name{plot_96_profile}
 \alias{plot_96_profile}
-\title{Plot 96 trinucleotide profile
- 
-Plot relative contribution of 96 trinucleotides}
+\title{Plot 96 trinucleotide profile}
 \usage{
 plot_96_profile(mut_matrix, colors, ymax = 0.15)
 }
@@ -19,8 +17,6 @@ plot_96_profile(mut_matrix, colors, ymax = 0.15)
 96 trinucleotide profile plot
 }
 \description{
-Plot 96 trinucleotide profile
- 
 Plot relative contribution of 96 trinucleotides
 }
 \examples{
