@@ -61,7 +61,9 @@ strand_bias_test = function(strand_occurences)
                             plyr::summarise,
                             total = transcribed+untranscribed,
                             ratio = transcribed/untranscribed,
-                            p_poisson = poisson.test(c(untranscribed,transcribed), r=1)$p.value)
+                            p_poisson = poisson.test(c(untranscribed,
+                                                        transcribed),
+                                                    r=1)$p.value)
 
     df_strand$significant[df_strand$p_poisson < 0.05] = "*"
     df_strand$significant[df_strand$p_poisson >= 0.05] = " "
