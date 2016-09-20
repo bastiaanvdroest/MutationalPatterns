@@ -7,9 +7,10 @@
 plot_strand(strand_bias_df, mode = "relative", colors)
 }
 \arguments{
-\item{strand_bias_df}{Data.frame, result from strand_bias function}
+\item{strand_bias_df}{data.frame, result from strand_bias function}
 
-\item{mode}{Either "absolute" for absolute number of mutations, or "relative" for relative contribution, default = "relative"}
+\item{mode}{Either "absolute" for absolute number of mutations, or
+"relative" for relative contribution, default = "relative"}
 
 \item{colors}{Optional color vector for plotting with 6 values}
 }
@@ -17,7 +18,35 @@ plot_strand(strand_bias_df, mode = "relative", colors)
 Barplot
 }
 \description{
-For each base substitution type and transcriptional strand the total number of mutations
-and the relative contribution within a group is returned
+For each base substitution type and transcriptional strand the total number
+of mutations and the relative contribution within a group is returned.
+}
+\examples{
+## See the 'mut_matrix_stranded()' example for how we obtained the
+## following mutation matrix.
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+                                    package="MutationalPatterns"))
+
+## Load a reference genome.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+tissue <- c("colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
+
+strand_counts = strand_occurences(mut_mat_s, by=tissue)
+
+#' ## Plot the strand in relative mode.
+strand_plot = plot_strand(strand_counts)
+
+#' ## Or absolute mode.
+strand_plot = plot_strand(strand_counts, mode = "absolute")
+
+}
+\seealso{
+\code{\link{mut_matrix_stranded}},
+\code{\link{strand_occurences}},
+\code{\link{plot_strand_bias}}
 }
 

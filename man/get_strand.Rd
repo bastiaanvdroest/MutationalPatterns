@@ -7,18 +7,63 @@
 get_strand(vcf, genes)
 }
 \arguments{
-\item{vcf}{Granges vcf object}
+\item{vcf}{GRanges containing the VCF object}
 
-\item{genes}{Granges with definition of gene bodies, should include strand information}
+\item{genes}{GRanges with gene bodies definitions including strand
+information}
 }
 \value{
-Character vector with transcriptional strand information with length of vcf: "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand
+Character vector with transcriptional strand information with
+length of vcf: "-" for positions outside gene bodies, "U" for
+untranscribed/sense/coding strand, "T" for
+transcribed/anti-sense/non-coding strand.
 }
 \description{
-For the positions that are within gene bodies it is determined whether the "C" or "T" base 
-(since by convention we regard base substitutions as C>X or T>X) is on the same strand as the gene definition.
-Base substitions on the same strand as the gene definitions are considered "untranscribed", and on the opposite strand of gene bodies as transcribed, 
-since the gene definitions report the coding or sense strand, which is untranscribed.  
-No strand information "-" is returned for base substitutions outside gene bodies, or base substitutions that overlap with more than one gene body.
+For the positions that are within gene bodies it is determined whether
+the "C" or "T" base is on the same strand as the gene definition. (Since
+by convention we regard base substitutions as C>X or T>X.)
+}
+\details{
+Base substitions on the same strand as the gene definitions are considered
+untranscribed, and on the opposite strand of gene bodies as transcribed,
+since the gene definitions report the coding or sense strand, which is
+untranscribed.
+
+No strand information "-" is returned for base substitutions outside gene
+bodies, or base substitutions that overlap with more than one gene body.
+}
+\examples{
+## For this example we need our variants from the VCF samples, and
+## a known genes dataset.  See the 'read_vcf()' example for how to
+## load the VCF samples.
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+# Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+# Exclude mitochondrial and allosomal chromosomes.
+autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
+                                    style="UCSC",
+                                    group="auto")
+
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## You can obtain the known genes from the UCSC hg19 dataset using
+## Bioconductor:
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
+# library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+
+## For this example, we preloaded the data for you:
+genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
+                        package="MutationalPatterns"))
+
+get_strand(vcfs[[1]], genes_hg19)
+
+}
+\seealso{
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}}
 }
 

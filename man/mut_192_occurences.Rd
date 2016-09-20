@@ -2,19 +2,24 @@
 % Please edit documentation in R/mut_192_occurences.R
 \name{mut_192_occurences}
 \alias{mut_192_occurences}
-\title{Count 96 trinucleotide mutation occurences with transcriptional strand information}
+\title{Count 96 trinucleotide mutation occurences with transcriptional strand
+information}
 \usage{
 mut_192_occurences(type_context, strand)
 }
 \arguments{
 \item{type_context}{result from get_type_context function}
 
-\item{strand}{character vector with strand information for each position, "U" for untranscribed, "T" for transcribed, "-" for unknown or positions outside gene bodies}
+\item{strand}{character vector with strand information for each
+position, "U" for untranscribed, "T" for transcribed, "-" for
+unknown or positions outside gene bodies}
 }
 \value{
-vector with 192 mutation occurences, 96 trinucleotides for both transcribed and untranscribed strand
+A vector with 192 mutation occurences and 96 trinucleotides
+for both transcribed and untranscribed strand
 }
 \description{
-Count 96 trinucleotide mutation occurences with transcriptional strand information
+Count 96 trinucleotide mutation occurences with transcriptional strand
+information
 }
 

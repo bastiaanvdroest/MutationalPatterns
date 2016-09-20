@@ -4,8 +4,8 @@
 \alias{plot_contribution}
 \title{Plot signature contribution}
 \usage{
-plot_contribution(contribution, signatures, index = c(), coord_flip = F,
-  mode = "relative")
+plot_contribution(contribution, signatures, index=c(), coord_flip=FALSE,
+    mode="relative")
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
@@ -14,14 +14,56 @@ plot_contribution(contribution, signatures, index = c(), coord_flip = F,
 
 \item{index}{optional sample subset parameter}
 
-\item{coord_flip}{Flip X and Y coordinates, default = F}
+\item{coord_flip}{Flip X and Y coordinates, default = FALSE}
 
-\item{mode}{"relative" or "absolute"; to plot the relative contribution or absolute number of mutations, default = "relative"}
+\item{mode}{"relative" or "absolute"; to plot the relative contribution or
+absolute number of mutations, default = "relative"}
 }
 \value{
 Stacked barplot with contribution of each signatures for each sample
 }
 \description{
 Plot contribution of signatures
+}
+\examples{
+## See the 'mut_matrix()' example for how we obtained the following
+## mutation matrix.
+mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+                                package="MutationalPatterns"))
+
+## Extracting signatures can be computationally intensive, so
+## we use pre-computed data generated with the following command:
+# nmf_res <- extract_signatures(mut_mat, rank = 2)
+
+nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+                    package="MutationalPatterns"))
+
+## Optionally set column and row names.
+colnames(nmf_res$signatures) = c("Signature A", "Signature B")
+rownames(nmf_res$contribution) = c("Signature A", "Signature B")
+
+## The following are examples of contribution plots.
+plot_contribution(nmf_res$contribution,
+                    nmf_res$signature,
+                    mode = "relative")
+
+plot_contribution(nmf_res$contribution,
+                    nmf_res$signature,
+                    mode = "absolute")
+
+plot_contribution(nmf_res$contribution,
+                    nmf_res$signature,
+                    mode = "absolute",
+                    index = c(1,2))
+
+plot_contribution(nmf_res$contribution,
+                    nmf_res$signature,
+                    mode = "absolute",
+                    coord_flip = TRUE)
+
+}
+\seealso{
+\code{\link{extract_signatures}},
+\code{\link{mut_matrix}}
 }
 

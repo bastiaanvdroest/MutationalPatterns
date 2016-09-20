@@ -12,9 +12,37 @@ mut_type_occurences(vcf_list, ref_genome)
 \item{ref_genome}{Reference genome}
 }
 \value{
-Dataframe with counts of each base substitution type for each sample in vcf_list
+data.frame with counts of each base substitution type for
+each sample in vcf_list
 }
 \description{
 Count the occurences of each base substitution type
+}
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                    package="MutationalPatterns"))
+
+## Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+## Exclude mitochondrial and allosomal chromosomes.
+autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
+                                        style="UCSC",
+                                        group="auto")
+
+vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Load a reference genome.
+ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+## Get the type occurrences for all VCF objects.
+type_occurences = mut_type_occurences(vcfs, ref_genome)
+
+}
+\seealso{
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}}
 }
 

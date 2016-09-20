@@ -1,36 +1,47 @@
 #' Binomial test for enrichment or depletion testing
-#' 
-#' Performs lower.tail binomial test for depletion and upper tail test for enrichment
-#' 
+#'
+#' This function performs lower-tail binomial test for depletion and
+#' upper-tail test for enrichment
+#'
 #' @param p Probability of success
 #' @param n Number of trials
 #' @param x Observed number of successes
-#' @return data.frame With direction of effect (enrichment/depletion), P value and significance asterisks
+#' @return A data.frame with direction of effect (enrichment/depletion),
+#' P-value and significance asterisks
+#'
+#' @examples
+#' binomial_test (0.5, 1200, 543)
+#' binomial_test (0.2, 800, 150)
+#'
 #' @export
-
 
 binomial_test = function(p, n, x)
 {
-  # calculate expected number of successes
-  expected = p * n
-  # if observed is less than expected
-  if(x < expected)
-  {
-    # For depletion
-    # do lower tail test
-    pval = pbinom(x, n, p, lower.tail=TRUE)
-    effect = "depletion"
-  }else{
-    # For enrichment
-    # do upper tail test
-    pval = pbinom(x-1, n, p, lower.tail=FALSE)
-    effect = "enrichment"
-  }
-  # add significance asteriks
-  if(pval < 0.05){
-    significant="*"
-  }else{significant=""} 
-  
-  res = data.frame(effect, pval, significant)
-  return(res)
+    # Calculate expected number of successes
+    expected = p * n
+
+    # Handle depletion
+    if (x < expected)
+    {
+        # do lower tail test
+        pval = pbinom(x, n, p, lower.tail=TRUE)
+        effect = "depletion"
+    }
+
+    # Handle enrichment
+    else
+    {
+        # do upper tail test
+        pval = pbinom(x-1, n, p, lower.tail=FALSE)
+        effect = "enrichment"
+    }
+
+    # Add significance asteriks
+    if (pval < 0.05)
+        significant = "*"
+    else
+        significant = ""
+
+    res = data.frame(effect, pval, significant)
+    return(res)
 }

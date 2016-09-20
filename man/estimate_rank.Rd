@@ -19,4 +19,42 @@ NMF rank survey plot
 \description{
 Find optimal number of signatures for NMF decomposition
 }
+\examples{
+## See the 'read_vcf()' example for how we obtained the
+## following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+# Rename the seqlevels to the UCSC standard.
+vcfs <- lapply(vcfs, rename_chrom)
+
+# Exclude mitochondrial and allosomal chromosomes.
+autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
+                                    style="UCSC",
+                                    group="auto")
+
+vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
+
+## Define the reference genome we are going to use.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+
+## If neccessary, download it from Bioconductor.
+# source("http://bioconductor.org/biocLite.R")
+# biocLite(ref_genome)
+
+## Load the reference genome.
+library(ref_genome, character.only = TRUE)
+
+## See the 'mut_matrix()' example for how we obtained the
+## following data:
+mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+                    package="MutationalPatterns"))
+
+estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)
+
+}
+\seealso{
+\code{\link{read_vcf}},
+\code{\link{rename_chrom}}
+}
 

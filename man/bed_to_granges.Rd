@@ -17,4 +17,15 @@ granges_list List of Granges objects
 \description{
 Read bed files as a list of GRanges objects
 }
+\examples{
+surveyed_file = list.files(system.file("extdata",
+                                        package="MutationalPatterns"),
+                            pattern = ".bed",
+                            full.names = TRUE)
+surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
+
+}
+\seealso{
+\code{\link{genomic_distribution}}
+}
 

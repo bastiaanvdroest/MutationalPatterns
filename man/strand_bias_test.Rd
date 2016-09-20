@@ -7,12 +7,39 @@
 strand_bias_test(strand_occurences)
 }
 \arguments{
-\item{strand_occurences}{Dataframe with mutation count per strand, result from strand_occurences()}
+\item{strand_occurences}{Dataframe with mutation count per strand, result
+from strand_occurences()}
 }
 \value{
-Dataframe with poisson test P value for the ratio between the transcribed and untrascribed strand per group per base substitution type
+Dataframe with poisson test P value for the ratio between the
+transcribed and untrascribed strand per group per base substitution type.
 }
 \description{
-Performs a Poisson test for the ratio between mutations on the transcribed and untranscribed strand
+This function performs a Poisson test for the ratio between mutations on the
+transcribed and untranscribed strand
+}
+\examples{
+## See the 'mut_matrix_stranded()' example for how we obtained the
+## following mutation matrix.
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+                                    package="MutationalPatterns"))
+
+## Load a reference genome.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+library(ref_genome, character.only = TRUE)
+
+tissue <- c("colon", "colon", "colon",
+            "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
+
+## Perform the strand bias test.
+strand_counts = strand_occurences(mut_mat_s, by=tissue)
+strand_bias = strand_bias_test(strand_counts)
+
+}
+\seealso{
+\code{\link{mut_matrix_stranded}},
+\code{\link{strand_occurences}},
+\code{\link{plot_strand_bias}}
 }
 

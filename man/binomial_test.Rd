@@ -14,9 +14,16 @@ binomial_test(p, n, x)
 \item{x}{Observed number of successes}
 }
 \value{
-data.frame With direction of effect (enrichment/depletion), P value and significance asterisks
+A data.frame with direction of effect (enrichment/depletion),
+P-value and significance asterisks
 }
 \description{
-Performs lower.tail binomial test for depletion and upper tail test for enrichment
+This function performs lower-tail binomial test for depletion and
+upper-tail test for enrichment
+}
+\examples{
+binomial_test (0.5, 1200, 543)
+binomial_test (0.2, 800, 150)
+
 }
 

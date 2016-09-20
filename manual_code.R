@@ -1,6 +1,8 @@
 # USER MANUAL
 library(MutationalPatterns)
 library("gridExtra")
+
+## There's a shortcut below.
 vcf_files = list.files(system.file("extdata", package="MutationalPatterns"), full.names = T)
 sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
 vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
@@ -31,8 +33,13 @@ tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "li
 
 # check if chromosome names in your vcfs(s) and reference genomes are the same
 all(seqlevels(vcfs[[1]]) %in% seqlevels(get(ref_genome)))
-# rename the seqlevels of all vcfs in list to UCSC standara
-vcfs = lapply(vcfs, function(x) rename_chrom(x))
+
+
+## Or just take the shortcut here..
+vcfs <- readRDS("/home/cog/rjanssen2/sources/MutationalPatterns/inst/states/read_vcf_output.R")
+
+# rename the seqlevels of all vcfs in list to UCSC standard
+vcfs = lapply(vcfs, rename_chrom)
 
 # only select autosomal chromosomes, mt dna length is different for vcf and ref genome, why??
 auto = extractSeqlevelsByGroup(species="Homo_sapiens", style="UCSC", group="auto")
@@ -212,7 +219,6 @@ CTCF = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_e
 
 CTCF_g = reduce(GRanges(CTCF$chromosome_name, IRanges(CTCF$chromosome_start, CTCF$chromosome_end))) 
 
-
 promoter = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromosome_end', 'feature_type_name'), 
                  filters = "regulatory_feature_type_name", 
                  values = "Promoter", 
@@ -236,8 +242,6 @@ TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start', 'chromo
                           values = "TF binding site", 
                           mart = regulation_regulatory)
 TF_binding_g = reduce(GRanges(TF_binding$chromosome_name, IRanges(TF_binding$chromosome_start, TF_binding$chromosome_end))) 
-
-
 
 regions = list(promoter_g, promoter_flanking_g, CTCF_g, open_g, TF_binding_g)
 names(regions) = c("Promoter", "Promoter flanking", "CTCF", "Open chromatin", "TF binding")

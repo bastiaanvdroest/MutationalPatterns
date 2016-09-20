@@ -15,4 +15,15 @@ Character vector with base substitutions
 \description{
 A function to extract base substitutions of each position in vcf
 }
+\examples{
+## See the 'read_vcf()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcf_output.R",
+                package="MutationalPatterns"))
+
+muts = get_muts(vcfs[[1]])
+
+}
+\seealso{
+\code{\link{read_vcf}}
+}
 

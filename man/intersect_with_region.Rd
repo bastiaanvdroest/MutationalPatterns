@@ -13,7 +13,12 @@ intersect_with_region(vcf, surveyed, region)
 
 \item{region}{GRanges object with genomic region(s)}
 }
+\value{
+A data.frame containing the overlapping mutations for a
+genomic region.
+}
 \description{
-Find the number of mutations that reside in genomic region and take surveyed area of genome into account
+Find the number of mutations that reside in genomic region and take
+surveyed area of genome into account.
 }
 
