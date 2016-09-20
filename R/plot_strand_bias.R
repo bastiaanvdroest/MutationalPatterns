@@ -56,26 +56,40 @@ plot_strand_bias = function(strand_bias, colors)
         colors=COLORS6
 
     # determine max y value for plotting
-    # = log2 ratio with pseudo counts
-    max = round( max(abs(log2(strand_bias$ratio))), digits = 1) + 0.1
+    # = log2 ratio with pseudo counts of 0.1
+    log2_ratio = log2( (strand_bias$transcribed+0.1) / (strand_bias$untranscribed+0.1))
+    # max yvalue for plotting plus
+    max = round(max(abs(log2_ratio)), digits = 1) + 0.1
 
     type = NULL
     ratio = NULL
     significant = NULL
-
+    # add label for infinite values
+    label2 = log2(strand_bias$ratio)
+    select = which(is.finite(label2))
+    label2[select] = " "
+    
     # plot strand bias with poisson test results
-    plot = ggplot(strand_bias, aes(x = type, y = log2(ratio), fill = type)) +
+    plot = ggplot(strand_bias, aes(x = type, y = log2( (transcribed+0.1) / (untranscribed+0.1)), fill = type)) +
         scale_fill_manual(values = COLORS6) +
         geom_bar(colour = "black", stat ="identity", position = "identity") +
-        scale_y_continuous(limits = c(-max, max), breaks = seq(-1, 1, 0.2)) +
+        scale_y_continuous(limits = c(-max, max)) +
         geom_text(
             aes(x = type,
-                y = log2(ratio),
-                ymax = log2(ratio), 
+                y = log2((transcribed+0.1) / (untranscribed+0.1)),
+                ymax = log2((transcribed+0.1) / (untranscribed+0.1)), 
                 label = significant,
-                vjust = ifelse(sign(log2(ratio)) > 0, 0.5, 1)),
+                vjust = ifelse(sign(log2((transcribed+0.1) / (untranscribed+0.1))) > 0, 0.5, 1)),
             size = 8,
             position = ggplot2::position_dodge(width = 1)) +
+        # geom_text(
+        #     aes(x = type,
+        #         y = log2((transcribed+0.1) / (untranscribed+0.1)),
+        #         ymax = log2((transcribed+0.1) / (untranscribed+0.1)), 
+        #         label = label2,
+        #         vjust = ifelse(sign(log2((transcribed+0.1) / (untranscribed+0.1))) > 0, 0.5, 1)),
+        #     size = 3,
+        #     position = ggplot2::position_dodge(width = 1)) +
         facet_grid(. ~ group) +
         theme_bw()  +
         theme(axis.ticks = element_blank(),
