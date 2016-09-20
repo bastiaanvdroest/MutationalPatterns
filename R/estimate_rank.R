@@ -4,6 +4,13 @@
 #' @param mut_matrix 96 mutation count matrix
 #' @param rank_range Range of ranks one would like to test 
 #' @param nrun Number of runs to perform, default=100
+#'
+#' @importFrom NMF nmf
+#' @importFrom NMF nmfEstimateRank
+#' @importFrom NMF compare
+#' @importFrom NMF nrun
+#' @importFrom NMF nmf_update.brunet
+#'
 #' @return NMF rank survey plot
 #'
 #' @examples
@@ -58,10 +65,11 @@ estimate_rank = function(mut_matrix, rank_range, nrun=100)
 
     # Estimate ranks
     print("Estimating ranks...")
-    estim.r = nmf(mut_matrix,
-                    rank = rank_range, method = "brunet",
-                    nrun = nrun,
-                    seed = 123456)
+    estim.r = NMF::nmf(mut_matrix,
+                        rank = rank_range,
+                        method = "brunet",
+                        nrun = nrun,
+                        seed = 123456)
 
     # Plot result
     plot = plot(estim.r)

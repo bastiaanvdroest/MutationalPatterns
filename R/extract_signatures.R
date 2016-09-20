@@ -7,9 +7,14 @@
 #' @param rank Number of signatures to extract
 #' @param nrun Number of iterations, default = 200
 #' @return Named list of mutation matrix, signatures and signature contribution
+#'
 #' @importFrom NMF nmf
 #' @importFrom NMF basis
 #' @importFrom NMF coef
+#' @importFrom NMF nmfEstimateRank
+#' @importFrom NMF compare
+#' @importFrom NMF nrun
+#' @importFrom NMF nmf_update.brunet
 #'
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
@@ -40,18 +45,15 @@ extract_signatures = function(mut_matrix, rank, nrun = 200)
                     "samples in the input matrix.") )
 
     # Calculate NMF
-    print("Decomposing matrix using NMF...")
-    res = nmf(mut_matrix,
-                rank = rank,
-                method = "brunet",
-                nrun=nrun,
-                seed = 123456)
-
-    print(paste("Number of iterations:", nrun))
+    res = NMF::nmf(mut_matrix,
+                    rank = rank,
+                    method = "brunet",
+                    nrun = nrun,
+                    seed = 123456)
 
     # Find signatures and contribution of signatures
-    signatures = basis(res)
-    contribution = coef(res)
+    signatures = NMF::basis(res)
+    contribution = NMF::coef(res)
 
     # Reconstruct mutation matrix
     reconstructed = signatures %*% contribution

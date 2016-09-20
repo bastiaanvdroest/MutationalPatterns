@@ -39,11 +39,8 @@ mut_type_occurences = function(vcf_list, ref_genome)
     n_samples = length(vcf_list)
     df = data.frame()
 
-    print("Counting base substitution type occurrences for sample:")
-
     for(i in 1:n_samples)
     {
-        print(i)
         vcf = vcf_list[[i]]
         types = get_types(vcf)
         CT_muts = which(types == "C>T")

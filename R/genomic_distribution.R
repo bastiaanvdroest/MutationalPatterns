@@ -151,11 +151,8 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
     df = data.frame()
     for(j in 1:length(region_list) )
     {
-        print(paste("Region:", names(region_list)[j]))
-
         for(i in 1:length(vcf_list) )
         {
-            print(paste("Sample:", names(vcf_list)[i]))
             res = intersect_with_region(vcf_list[[i]],
                                         surveyed_list[[i]],
                                         region_list[[j]])

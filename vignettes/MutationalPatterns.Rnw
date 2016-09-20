@@ -1,6 +1,6 @@
 %\VignetteIndexEntry{Introduction to MutationalPatterns}
-
 \documentclass{article}
+\usepackage{float}
 
 <<style, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
@@ -42,9 +42,6 @@ This package provides a comprehensive set of flexible functions for easy
 finding and plotting of such mutational patterns in base substitution
 catalogues.
 
-This package is freely available for download at 
-\url{https://github.com/CuppenResearch/MutationalPatterns}.
-
 \section{Data for use with this package}
 
 One of the first thing you will want to do is load a reference genome.
@@ -53,21 +50,23 @@ example data set with the package.
 
 \subsection{List all available reference genomes (BSgenome)}
 
-<<Loading reference data, eval=FALSE>>=
+<<loading_reference_data>>=
 library(BSgenome)
-available.genomes()
+
+# Let's display the first five entries only to save space.
+available.genomes()[1:5]
 @
 
 \subsection{Load your data}
 
-<<Loading reference data>>=
+<<loading_reference_data>>=
 ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
 library(ref_genome, character.only = TRUE)
 @
 
 \subsection{Load example data}
 
-<<Load package>>=
+<<load_package>>=
 library(MutationalPatterns)
 @
 
@@ -88,8 +87,7 @@ vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
 # This function loads the files as CollapsedVCF objects
 vcfs <- read_vcf(vcf_files, sample_names, genome = "hg19")
 
-# Individual samples can be accessed in the familiar way
-vcfs$colon1
+summary(vcfs)
 @
 
 \section{Convert to uniform naming conventions}
@@ -112,7 +110,7 @@ vcfs = lapply(vcfs, rename_chrom)
 @
 
 If you want to use a subset of the chromosomes, like all chromosomes except
-the X, Y or MT, you can use the following snippet.
+the X, Y or MT, you can use the following snippet:
 
 <<select_subset_of_chromosomes>>=
 auto = extractSeqlevelsByGroup(species="Homo_sapiens", 
@@ -147,32 +145,42 @@ as a C>A mutation:
 get_types(vcfs[[1]])
 @
 
-Retrieve the context (1 base upstream and 1 base downstream) of the
-positions in the vcf object from the reference genome:
+To retrieve the context (one base upstream and one base downstream) of the
+positions in the VCF object from the reference genome, you can use the
+\Rfunction{get\_mut\_context} function:
 
 <<get_mut_context>>=
 get_mut_context(vcfs[[1]], ref_genome)
 @
 
-Retrieve the types and context of the base substitution types for all
-positions in the vcf object.  For the base substitutions that are converted
-to the conventional base substitution types, the reverse complement of
-the context is returned.
+With \Rfunction{get\_type\_context}, you can retrieve the types and context
+of the base substitution types for all positions in the VCF object.  For
+the base substitutions that are converted to the conventional base
+substitution types, the reverse complement of the context is returned.
 
 <<get_type_context>>=
 get_type_context(vcfs[[1]], ref_genome)
 @
 
-Count mutation type occurences for all samples in a list of vcf objects:
+Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
+occurences for the loaded samples in a list of VCF objects:
 
 <<mut_type_occurrences>>=
+# We will use the output of this function later to make plots a little
+# bit later.
 type_occurences = mut_type_occurences(vcfs, ref_genome)
+type_occurences
 @
 
 \subsection{Mutation spectrum}
 
-Plot mutation spectrum over all samples. Plots the mean relative contribution
-of each of the 6 base substitution types. Error bars indicate standard
+A mutation spectrum shows the rate of mutation occurrences at different sites.
+The following functions provide insight into the mutation spectrum of your
+samples using plotting functions and mutation matrices.
+
+Using the \Rfunction{plot\_spectrum} function, you can plot the mutation
+spectrum over all samples.  This function plots the mean relative contribution
+of each of the 6 base substitution types.  Error bars indicate standard
 deviation over all samples.  The $n$ indicates the total number of mutations in
 the set.
 
@@ -180,34 +188,34 @@ the set.
 plot_spectrum(type_occurences)
 @
 
-Plot mutation spectrum with distinction between C>T at CpG sites:
-<<plot_spectrum>>=
+Using the same function, you can plot the mutation spectrum with distinction
+between C>T at CpG sites:
+
+<<plot_spectrum_2>>=
 plot_spectrum(type_occurences, CT = TRUE)
 @
 
-Plot spectrum without legend:
-<<plot_spectrum>>=
-plot_spectrum(type_occurences, CT = TRUE, legend = FALSE)
-@
+% Plot spectrum without legend:
+% <<plot_spectrum_3>>=
+% plot_spectrum(type_occurences, CT = TRUE, legend = FALSE)
+% @
 
 Plot spectrum for each tissue separately:
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-<<plot_spectrum, fig=TRUE,height=3>>=
-tissue = c(
-    "colon", "colon", "colon",
-    "intestine", "intestine", "intestine",
-    "liver", "liver", "liver")
+<<plot_spectrum_4, fig=TRUE,width=10,height=4>>=
+tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine",
+            "liver", "liver", "liver")
 
-plot_spectrum(type_occurences, by = tissue, CT = TRUE)
+plot_spectrum(type_occurences, by = tissue, CT = TRUE, legend = FALSE)
 @
 \end{center}
 \end{figure}
 
-Specify 7 colors for spectrum plotting
-\begin{figure}
+Specify 7 colors for spectrum plotting:
+\begin{figure}[H]
 \begin{center}
-<<plot_spectrum, fig=TRUE>>=
+<<plot_spectrum, fig=TRUE,width=3, height=4>>=
 my_colors = c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
 plot_spectrum(type_occurences, CT = TRUE, legend = TRUE, colors = my_colors)
 @
@@ -222,9 +230,9 @@ mut_mat= mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 @
 
 Plot 96 profile of three samples:
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-<<plot_96_profile, fig=TRUE>>=
+<<plot_96_profile, fig=TRUE, width=10, height=4>>=
 plot_96_profile(mut_mat[,c(1,4,7)])
 @
 \end{center}
@@ -244,9 +252,9 @@ cophenetic correlation coefficient starts decreasing. Another approach is to
 choose the rank for which the plot of the residual sum of squares (RSS) between
 the input matrix and its estimate shows an inflection point.''
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-<<estimate_rank, fig=TRUE>>=
+<<estimate_rank, fig=TRUE, width=10, height=5>>=
 # Plot various quality criteria for a specific range of ranks
 estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)
 @
@@ -265,36 +273,31 @@ plot_96_profile(nmf_res$signatures)
 @
 
 Plot signature contribution:
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
-<<plot_contribution, fig=TRUE,width=8>>=
+<<plot_contribution, fig=TRUE,width=10,height=3>>=
 # Provide signature names (optional)
 rownames(nmf_res$contribution) = c("Signature A", "Signature B")
 
 # Plot relative signature contribution
-plot_contribution(nmf_res$contribution, 
-                    nmf_res$signature, 
-                    mode = "relative")
+plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
+@ 
+\end{center}
+\end{figure}
 
+Other contribution plot examples:
+<<plot_contribution_2>>=
 # Plot absolute signature contribution
-plot_contribution(nmf_res$contribution, 
-                    nmf_res$signature, 
-                    mode = "absolute")
+plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
 
 # Plot contribution of signatures for subset of samples with index parameter
-plot_contribution(nmf_res$contribution, 
-                    nmf_res$signature, 
-                    mode = "absolute", 
+plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
                     index = c(1,2))
 
 # flip X and Y coordinates
-plot_contribution(nmf_res$contribution, 
-                    nmf_res$signature, 
-                    mode = "absolute", 
+plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
                     coord_flip = TRUE)
 @
-\end{center}
-\end{figure}
 
 Compare reconstructed mutation profile with original mutation profile:
 <<plot_compare_profiles>>=
@@ -307,7 +310,7 @@ plot_compare_profiles(mut_mat[,1],
 
 Download signatures from pan-cancer study (Alexandrov et al. 2013)
 
-<<download_caner_signatures>>=
+<<download_cancer_signatures>>=
 sp_url = paste("http://cancer.sanger.ac.uk/cancergenome/assets/",
                 "signatures_probabilities.txt", sep = "")
 
@@ -326,7 +329,9 @@ the mutation matrix by solving non-negative least-squares constraints problem.
 fit_res = fit_to_signatures(mut_mat, cancer_signatures)
 @ 
 
-<<plot_contribution, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_3, fig=TRUE, width=10, height=4>>=
 # select signatures with some contribution
 select = which(rowSums(fit_res$contribution) > 0)
 # plot contribution
@@ -335,17 +340,21 @@ plot_contribution(fit_res$contribution[select,],
                     coord_flip = FALSE, 
                     mode = "absolute")
 @
+\end{center}
+\end{figure}
 
 Compare reconstructed mutation profile of sample 1 using cancer signatures
 with original profile
 
-<<plot_compare_profiles, fig=TRUE>>=
-plot_compare_profiles(mut_mat[,1], 
-                        fit_res$reconstructed[,1], 
-                        profile_names = c(
-                            "Original", 
+\begin{figure}[H]
+\begin{center}
+<<plot_compare_profiles_2, fig=TRUE, width=10, height=5>>=
+plot_compare_profiles(mut_mat[,1], fit_res$reconstructed[,1],
+                        profile_names = c("Original", 
                             "Reconstructed \n cancer signatures"))
 @
+\end{center}
+\end{figure}
 
 \section{Transcriptional strand bias}
 
@@ -387,48 +396,65 @@ located within gene bodies are counted.
 
 <<mut_matrix_stranded>>=
 mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+mut_mat_s
 @ 
 
-Perform strand bias analysis
+Perform strand bias analysis:
 
 <<strand_occurrences>>=
-tissue <- c("colon", "colon", "colon",
-            "intestine", "intestine", "intestine",
+tissue <- c("colon", "colon", "colon", "intestine", "intestine", "intestine",
             "liver", "liver", "liver")
 
 strand_counts = strand_occurences(mut_mat_s, by=tissue)
 @ 
 
-<<plot_strand, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_strand, fig=TRUE, width=10, height=4>>=
 plot_strand(strand_counts, mode = "relative")
 @ 
+\end{center}
+\end{figure}
 
-Perform poisson test for strand asymmetry significance testing
+Perform poisson test for strand asymmetry significance testing:
 
 <<strand_bias_test>>=
 strand_bias = strand_bias_test(strand_counts)
 @ 
 
-<<plot_strand_bias, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_strand_bias, fig=TRUE, width=10, height=4>>=
 plot_strand_bias(strand_bias)
 @ 
+\end{center}
+\end{figure}
 
 \subsection{Extract signatures with strand bias}
 
 <<extract_signatures>>=
-# extract 2 signatures
+# Extract 2 signatures
 nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
-@ 
 
-<<plot_signature_strand_bias, fig=TRUE>>=
 # Provide signature names
 colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
+@ 
+
+\begin{figure}[H]
+\begin{center}
+<<plot_192_profile, fig=TRUE, width=8, height=4>>=
 # Plot signatures with 192 features
-plot_192_profile(nmf_res_strand$signatures)
+a <- plot_192_profile(nmf_res_strand$signatures)
 
 # Plot strand bias per mutation type for each signature with significance test
-plot_signature_strand_bias(nmf_res_strand$signatures)
+b <- plot_signature_strand_bias(nmf_res_strand$signatures)
+
+# Load the gridExtra library for combining plots.
+library(gridExtra)
+grid.arrange(a, b)
 @
+\end{center}
+\end{figure}
 
 \section{Genomic distribution}
 
@@ -441,28 +467,30 @@ mutation with the previous mutation and is log10 transformed. Drop-downs from
 the plots indicate clusters or ``hotspots'' of mutations.
 
 Make rainfall plot of sample 1 over all autosomal chromosomes
-<<plot_rainfall, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_rainfall, fig=TRUE, width=10, height=4>>=
 # Define autosomal chromosomes
 chromosomes = seqnames(get(ref_genome))[1:22]
 
 # Make a rainfall plot
-plot_rainfall(vcfs[[1]],
-                title = names(vcfs[1]), 
-                ref_genome = ref_genome, 
-                chromosomes = chromosomes, 
-                cex = 1.5)
+plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome,
+                chromosomes = chromosomes, cex = 1.5)
 @
+\end{center}
+\end{figure}
 
-Make rainfall plot of the first sample over chromosome 1
+Make rainfall plot of the first sample over chromosome 1:
 
-<<plot_rainfall_2, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_rainfall_2, fig=TRUE, width=10, height=4>>=
 chromosomes = seqnames(get(ref_genome))[1]
-plot_rainfall(vcfs[[1]], 
-                title = names(vcfs[1]), 
-                ref_genome = ref_genome, 
-                chromosomes = chromosomes[1], 
-                cex = 2)
+plot_rainfall(vcfs[[1]], title = names(vcfs[1]), ref_genome = ref_genome,
+                chromosomes = chromosomes[1], cex = 2)
 @ 
+\end{center}
+\end{figure}
 
 \subsection{Enrichment or depletion of mutations in genomic regions}
 
@@ -574,7 +602,7 @@ TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.R",
 
 Combine all genomic regions (GRanges objects) in a named list.
 
-<<combina_genomic_regions>>=
+<<combine_genomic_regions>>=
 regions <- list(promoter_g, flanking_g,
                 CTCF_g, open_g, TF_binding_g)
 
@@ -633,7 +661,9 @@ distr_test <- enrichment_depletion_test(distr, by = tissue)
 distr_test2 <- enrichment_depletion_test(distr)
 @ 
 
-<<plot_enrichment_depletion, fig=TRUE>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_enrichment_depletion, fig=TRUE, width=10, height=4>>=
 # Test for significant enrichment or depletion in the genomic regions
 # samples can be collapsed into groups, here the analysis is performed
 # per tissue type
@@ -642,6 +672,8 @@ distr_test = enrichment_depletion_test(distr, by = tissue)
 # Plot enrichment depletion test results
 plot_enrichment_depletion(distr_test)
 @
+\end{center}
+\end{figure}
 
 \section{Session Information}
 <<sessionInfo, echo=FALSE>>=

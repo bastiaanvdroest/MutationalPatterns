@@ -42,8 +42,8 @@ strand_bias_test = function(strand_occurences)
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
     variable = NULL
-    Ts = NULL
-    Us = NULL
+    transcribed = NULL
+    untranscribed = NULL
 
     # statistical test for strand ratio
     # poisson test
@@ -54,14 +54,14 @@ strand_bias_test = function(strand_occurences)
 
     ## Prevent using 'T' as a variable name to avoid confusion with TRUE.
     ## Rename the columns 'T' and 'U' to 'Ts' and 'Us'.
-    colnames(df_strand) <- c("type", "group", "Ts", "Us")
+    colnames(df_strand) <- c("type", "group", "transcribed", "untranscribed")
 
     df_strand = plyr::ddply(df_strand,
-                            c("group", "type", "Ts", "Us"),
+                            c("group", "type", "transcribed", "untranscribed"),
                             plyr::summarise,
-                            total = Ts+Us,
-                            ratio = Ts/Us,
-                            p_poisson = poisson.test(c(Us,Ts), r=1)$p.value)
+                            total = transcribed+untranscribed,
+                            ratio = transcribed/untranscribed,
+                            p_poisson = poisson.test(c(untranscribed,transcribed), r=1)$p.value)
 
     df_strand$significant[df_strand$p_poisson < 0.05] = "*"
     df_strand$significant[df_strand$p_poisson >= 0.05] = " "
