@@ -25,7 +25,7 @@ takes surveyed area of genome into account.
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                 package="MutationalPatterns"))
 
 ## Rename the seqlevels to the UCSC standard.
@@ -50,7 +50,7 @@ vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 # regulatory <- useEnsembl(biomart="regulation",
 #                          dataset="hsapiens_regulatory_feature",
 #                          GRCh = 37)
-regulatory <- readRDS(system.file("states/regulatory_data.R",
+regulatory <- readRDS(system.file("states/regulatory_data.rds",
                                     package="MutationalPatterns"))
 
 ## Download the regulatory CTCF binding sites and convert them to
@@ -68,7 +68,7 @@ regulatory <- readRDS(system.file("states/regulatory_data.R",
 #                 IRanges(CTCF$chromosome_start,
 #                 CTCF$chromosome_end)))
 
-CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
+CTCF_g <- readRDS(system.file("states/CTCF_g_data.rds",
                     package="MutationalPatterns"))
 
 ## Download the promoter regions and conver them to a GRanges object.
@@ -81,7 +81,7 @@ CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
 #                     IRanges(promoter$chromosome_start,
 #                             promoter$chromosome_end)))
 
-promoter_g <- readRDS(system.file("states/promoter_g_data.R",
+promoter_g <- readRDS(system.file("states/promoter_g_data.rds",
                         package="MutationalPatterns"))
 
 # open = getBM(attributes = c('chromosome_name', 'chromosome_start',
@@ -93,7 +93,7 @@ promoter_g <- readRDS(system.file("states/promoter_g_data.R",
 #                 IRanges(open$chromosome_start,
 #                         open$chromosome_end)))
 
-open_g <- readRDS(system.file("states/open_g_data.R",
+open_g <- readRDS(system.file("states/open_g_data.rds",
                     package="MutationalPatterns"))
 
 # flanking = getBM(attributes = c('chromosome_name',
@@ -108,7 +108,7 @@ open_g <- readRDS(system.file("states/open_g_data.R",
 #                        IRanges(flanking$chromosome_start,
 #                        flanking$chromosome_end)))
 
-flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
+flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.rds",
                                     package="MutationalPatterns"))
 
 # TF_binding = getBM(attributes = c('chromosome_name', 'chromosome_start',
@@ -120,7 +120,7 @@ flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
 #                               IRanges(TF_binding$chromosome_start,
 #                               TF_binding$chromosome_end)))
 
-TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.R",
+TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.rds",
                                     package="MutationalPatterns"))
 
 regions <- list(promoter_g, flanking_g,
@@ -138,11 +138,13 @@ surveyed_file <- list.files(system.file("extdata",
                             pattern = ".bed",
                             full.names = TRUE)
 
-## Read the file as a GRanges object.
-surveyed_list <- bed_to_granges(surveyed_file, "surveyed_all")
+## Import the file using rtracklayer and use the UCSC naming standard
+library(rtracklayer)
+surveyed <- import(surveyed_file)
+seqlevelsStyle(surveyed) <- "UCSC"
 
 ## For this example we use the same surveyed file for each sample.
-surveyed_list <- rep(surveyed_list, 9)
+surveyed_list <- rep(list(surveyed), 9)
 
 ## Calculate the number of observed and expected number of mutations in
 ## each genomic regions for each sample.
@@ -150,7 +152,6 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 
 }
 \seealso{
-\code{\link{read_vcf}},
-\code{\link{bed_to_granges}}
+\code{\link{read_vcf}}
 }
 

@@ -33,7 +33,7 @@
 #' cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 #'
 #' ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
 #'                     package="MutationalPatterns"))
 #'
 #' ## Perform the fitting.

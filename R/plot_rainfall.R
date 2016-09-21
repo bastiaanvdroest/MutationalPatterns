@@ -20,22 +20,8 @@
 #' @param cex_text Text size
 #' @param ylim Maximum y value (genomic distance)
 #' @return Rainfall plot
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 geom_vline
-#' @importFrom ggplot2 annotate
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 scale_y_log10
-#' @importFrom ggplot2 scale_colour_manual
-#' @importFrom ggplot2 scale_x_continuous
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 element_blank
-#' @importFrom ggplot2 guides
-#' @importFrom ggplot2 guide_legend
+#'
+#' @import ggplot2
 #' @importFrom GenomeInfoDb seqlengths
 #' @importFrom GenomeInfoDb seqnames
 #'
@@ -45,7 +31,7 @@
 #'
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:
-#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#' vcfs <- readRDS(system.file("states/read_vcf_output.rds",
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Rename the seqlevels to the UCSC standard.

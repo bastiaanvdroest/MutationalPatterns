@@ -4,30 +4,21 @@
 #' 
 #' @param signatures_strand_bias Signature matrix with 192 features
 #' @return Barplot
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 geom_text
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 scale_y_continuous
-#' @importFrom ggplot2 scale_x_discrete
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 facet_grid
-#' @importFrom ggplot2 position_dodge
+#'
+#' @import ggplot2
 #' @importFrom plyr adply
 #'
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the following
 #' ## mutation matrix.
-#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
 #'                                     package="MutationalPatterns"))
 #'
 #' ## Extracting signatures can be computationally intensive, so
 #' ## we use pre-computed data generated with the following command:
 #' # nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
 #'
-#' nmf_res_strand <- readRDS(system.file("states/nmf_res_strand_data.R",
+#' nmf_res_strand <- readRDS(system.file("states/nmf_res_strand_data.rds",
 #'                                         package="MutationalPatterns"))
 #'
 #' ## Provide column names for the plot.

@@ -27,7 +27,7 @@ Mutations outside gene bodies are not counted.
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                 package="MutationalPatterns"))
 
 ## Rename the seqlevels to the UCSC standard.
@@ -51,7 +51,7 @@ library(ref_genome, character.only = TRUE)
 # library("TxDb.Hsapiens.UCSC.hg19.knownGene")
 
 ## For this example, we preloaded the data for you:
-genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
+genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
                         package="MutationalPatterns"))
 
 mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)

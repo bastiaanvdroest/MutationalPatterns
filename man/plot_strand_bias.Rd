@@ -22,7 +22,7 @@ returned.
 \examples{
 ## See the 'mut_matrix_stranded()' example for how we obtained the
 ## following mutation matrix.
-mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
                                     package="MutationalPatterns"))
 
 ## Load a reference genome.

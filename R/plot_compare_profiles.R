@@ -13,19 +13,9 @@
 #' default = c(-0.02, 0.02)
 #' @param colors 6 value color vector
 #' @return 96 spectrum plot of profile 1, profile 2 and their difference
+#'
+#' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 facet_grid
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 guides
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 element_blank
 #' @importFrom BiocGenerics cbind
 #'
 #' @usage
@@ -35,14 +25,14 @@
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the following
 #' ## mutation matrix.
-#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
 #'                                 package="MutationalPatterns"))
 #'
 #' ## Extracting signatures can be computationally intensive, so
 #' ## we use pre-computed data generated with the following command:
 #' # nmf_res <- extract_signatures(mut_mat, rank = 2)
 #'
-#' nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+#' nmf_res <- readRDS(system.file("states/nmf_res_data.rds",
 #'                     package="MutationalPatterns"))
 #'
 #' ## Compare the reconstructed 96-profile of sample 1 with orignal profile

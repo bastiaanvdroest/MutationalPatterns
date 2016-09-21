@@ -2,12 +2,12 @@ Package: MutationalPatterns
 Type: Package
 Title: Studying patterns in base substitution catalogues
 Description: An extensive toolset for the characterization and visualization
-        of a wide range of mutational patterns in base substitution data.
+    of a wide range of mutational patterns in base substitution data.
 Version: 0.99.0
 Date: 2016-08-24
 Author: Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>,
-        Roel Janssen <R.R.E.Janssen-10@umcutrecht.nl>
+    Roel Janssen <R.R.E.Janssen-10@umcutrecht.nl>
 License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
 Imports:
@@ -33,7 +33,8 @@ Suggests:
     BiocStyle (>= 2.0.3),
     biomaRt (>= 2.28.0),
     BSgenome.Hsapiens.UCSC.hg19 (>= 1.4.0),
-    TxDb.Hsapiens.UCSC.hg19.knownGene
+    TxDb.Hsapiens.UCSC.hg19.knownGene (>= 3.2.2),
+    rtracklayer (>= 1.32.2)
 biocViews: Genetics, SomaticMutation
 ZipData: NA
 LazyData: false

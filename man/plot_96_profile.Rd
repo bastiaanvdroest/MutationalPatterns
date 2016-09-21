@@ -22,7 +22,7 @@ Plot relative contribution of 96 trinucleotides
 \examples{
 ## See the 'mut_matrix_stranded()' example for how we obtained the
 ## mutation matrix with transcriptional strand information:
-mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                                 package="MutationalPatterns"))
 
 ## Plot the 96-profile of three samples

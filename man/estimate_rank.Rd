@@ -22,7 +22,7 @@ Find optimal number of signatures for NMF decomposition
 \examples{
 ## See the 'read_vcf()' example for how we obtained the
 ## following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                 package="MutationalPatterns"))
 
 # Rename the seqlevels to the UCSC standard.
@@ -47,7 +47,7 @@ library(ref_genome, character.only = TRUE)
 
 ## See the 'mut_matrix()' example for how we obtained the
 ## following data:
-mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                     package="MutationalPatterns"))
 
 estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)

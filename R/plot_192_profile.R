@@ -5,25 +5,14 @@
 #' @param ymax Y axis maximum value, default = 0.015
 #' @param colors 6 value color vector
 #' @return 192 trinucleotide profile plot
+#' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 facet_grid
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 coord_cartesian
-#' @importFrom ggplot2 scale_y_continuous
-#' @importFrom ggplot2 guides
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme element_blank
-#' @importFrom ggplot2 element_text
 #' @importFrom BiocGenerics cbind
 #'
 #' @examples
 #' ## See the 'mut_matrix_stranded()' example for how we obtained the
 #' ## mutation matrix with transcriptional strand information:
-#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
 #'                                     package="MutationalPatterns"))
 #'
 #' ## Extract the signatures.

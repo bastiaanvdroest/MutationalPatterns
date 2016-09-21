@@ -11,17 +11,8 @@
 #'
 #' @return Stacked barplot with contribution of each signatures for each sample
 #'
+#' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 coord_flip
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 xlim
-#' @importFrom ggplot2 labs
-#' @importFrom ggplot2 scale_fill_discrete
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 element_blank
 #'
 #' @usage
 #' plot_contribution(contribution, signatures, index=c(), coord_flip=FALSE,
@@ -30,14 +21,14 @@
 #' @examples
 #' ## See the 'mut_matrix()' example for how we obtained the following
 #' ## mutation matrix.
-#' mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
 #'                                 package="MutationalPatterns"))
 #'
 #' ## Extracting signatures can be computationally intensive, so
 #' ## we use pre-computed data generated with the following command:
 #' # nmf_res <- extract_signatures(mut_mat, rank = 2)
 #'
-#' nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+#' nmf_res <- readRDS(system.file("states/nmf_res_data.rds",
 #'                     package="MutationalPatterns"))
 #'
 #' ## Optionally set column and row names.

@@ -18,7 +18,7 @@ the 6 common base substitution types.
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                 package="MutationalPatterns"))
 
 get_types(vcfs[[1]])
