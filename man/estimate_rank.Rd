@@ -25,9 +25,6 @@ Find optimal number of signatures for NMF decomposition
 vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
                 package="MutationalPatterns"))
 
-# Rename the seqlevels to the UCSC standard.
-vcfs <- lapply(vcfs, rename_chrom)
-
 # Exclude mitochondrial and allosomal chromosomes.
 autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
                                     style="UCSC",
@@ -55,6 +52,5 @@ estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)
 }
 \seealso{
 \code{\link{vcf_to_granges}},
-\code{\link{rename_chrom}}
 }
 

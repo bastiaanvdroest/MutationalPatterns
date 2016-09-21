@@ -17,9 +17,6 @@
 #' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #' 
-#' ## Rename the seqlevels to the UCSC standard.
-#' vcfs <- lapply(vcfs, rename_chrom)
-#'
 #' ## Exclude mitochondrial and allosomal chromosomes.
 #' autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
 #'                                     style="UCSC",
@@ -117,9 +114,6 @@
 #'
 #' names(regions) <- c("Promoter", "Promoter flanking", "CTCF",
 #'                     "Open chromatin", "TF binding")
-#'
-#' ## Rename chromosomes to UCSC standard
-#' regions = lapply(regions, rename_chrom)
 #'
 #' ## Get the filename with surveyed/callable regions
 #' surveyed_file <- list.files(system.file("extdata",

@@ -100,15 +100,6 @@ genome.
 all(seqlevels(vcfs[[1]]) %in% seqlevels(get(ref_genome)))
 @
 
-When the names do not match (as in this case), you can use
-\Rfunction{rename\_chrom} function to rename the seqlevels to, for example,
-the UCSC standard.
-
-<<rename_chrom>>=
-# We use lapply to rename the chromosome names in each loaded VCF object.
-vcfs = lapply(vcfs, rename_chrom)
-@
-
 If you want to use a subset of the chromosomes, like all chromosomes except
 the X, Y or MT, you can use the following snippet:
 
@@ -585,12 +576,15 @@ flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.rds",
 Combine all genomic regions (GRanges objects) in a named list.
 
 <<combine_genomic_regions>>=
-regions <- list(promoter_g, flanking_g, CTCF_g)
+regions <- GRangesList(promoter_g, flanking_g, CTCF_g)
 
 names(regions) <- c("Promoter", "Promoter flanking", "CTCF")
+@ 
 
-## Rename chromosomes to UCSC standard
-regions = lapply(regions, rename_chrom)
+Don't forget to use the same naming standard consistently:
+
+<<combine_genomic_regions_2>>=
+seqlevelsStyle(regions) <- "UCSC"
 @ 
 
 \subsection{Test for significant depletion or enrichment in genomic regions}

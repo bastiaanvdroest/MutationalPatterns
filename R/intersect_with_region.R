@@ -12,20 +12,20 @@
 
 intersect_with_region = function(vcf, surveyed, region)
 {
-    # number of mutations in vcf file
+    # Number of mutations in vcf file
     n_muts = length(vcf)
 
-    # number of bp that was surveyed
+    # Number of base pairs that were surveyed
     surveyed_length = sum(as.numeric(width(surveyed)))
 
-    # check if chromosome names are the same in the objects
+    # Check if chromosome names are the same in the objects
     if (seqlevelsStyle(vcf) != seqlevelsStyle(surveyed))
         stop(paste("The chromosome names (seqlevels) of the VCF and the",
                     "surveyed GRanges object do not match."))
 
     if (seqlevelsStyle(region) != seqlevelsStyle(surveyed))
-        stop(paste("Chromosome names (seqlevels) of surveyed and region",
-                    "granges object do not match."))
+        stop(paste("The chromosome names (seqlevels) of the surveyed and",
+                    "the region GRanges object do not match."))
 
     # Intersect genomic region and surveyed region
     surveyed_region = intersect(surveyed, region, ignore.strand = TRUE)

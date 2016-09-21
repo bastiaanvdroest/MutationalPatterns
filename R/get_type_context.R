@@ -14,9 +14,6 @@
 #' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #'
-#' ## Rename the seqlevels to the UCSC standard.
-#' vcfs <- lapply(vcfs, rename_chrom)
-#'
 #' ## Exclude mitochondrial and allosomal chromosomes.
 #' autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
 #'                                     style="UCSC",
@@ -32,7 +29,6 @@
 #'
 #' @seealso
 #' \code{\link{vcf_to_granges}},
-#' \code{\link{rename_chrom}},
 #' \code{\link{get_mut_context}}
 #'
 #' @export

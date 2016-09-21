@@ -29,9 +29,6 @@ Plot point mutation spectrum
 vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
                 package="MutationalPatterns"))
 
-## Rename the seqlevels to the UCSC standard.
-vcfs <- lapply(vcfs, rename_chrom)
-
 ## Exclude mitochondrial and allosomal chromosomes.
 autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
                                     style="UCSC",
@@ -74,7 +71,6 @@ plot_spectrum(type_occurences,
 }
 \seealso{
 \code{\link{vcf_to_granges}},
-\code{\link{rename_chrom}},
 \code{\link{mut_type_occurences}}
 }
 

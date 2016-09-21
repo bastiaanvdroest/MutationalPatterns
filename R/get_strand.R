@@ -28,9 +28,6 @@
 #' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #'
-#' # Rename the seqlevels to the UCSC standard.
-#' vcfs <- lapply(vcfs, rename_chrom)
-#'
 #' # Exclude mitochondrial and allosomal chromosomes.
 #' autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
 #'                                     style="UCSC",
@@ -52,7 +49,6 @@
 #'
 #' @seealso
 #' \code{\link{vcf_to_granges}},
-#' \code{\link{rename_chrom}}
 #'
 #' @export
 
@@ -61,8 +57,8 @@ get_strand = function(vcf, genes)
     # Check consistency of chromosome names.
     if (!(all(seqlevels(vcf) %in% seqlevels(genes))))
         stop(paste( "Chromosome names (seqlevels) of vcf and genes Granges",
-                    "object do not match. Use rename_chrom() function to",
-                    "rename chromosome names.") )
+                    "object do not match. Use the seqlevelsStyle() function",
+                    "to rename chromosome names.") )
 
     # Determine overlap between vcf positions and genes.
     overlap = findOverlaps(vcf, genes)

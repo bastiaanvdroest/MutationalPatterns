@@ -13,9 +13,6 @@
 #' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #'
-#' ## Rename the seqlevels to the UCSC standard.
-#' vcfs <- lapply(vcfs, rename_chrom)
-#'
 #' ## Exclude mitochondrial and allosomal chromosomes.
 #' autosomal <- extractSeqlevelsByGroup(species="Homo_sapiens",
 #'                                     style="UCSC",
@@ -31,7 +28,6 @@
 #'
 #' @seealso
 #' \code{\link{vcf_to_granges}},
-#' \code{\link{rename_chrom}}
 #'
 #' @export
 
@@ -41,7 +37,8 @@ get_mut_context = function(vcf, ref_genome)
     if (!(all(seqlevels(vcf) %in% seqlevels(get(ref_genome)))))
         stop(paste( "The chromosome names (seqlevels) of the VCF and the",
                     "reference genome object do not match. Use the",
-                    "'rename_chrom()' function to rename chromosome names.") )
+                    "'seqlevelsStyle()' function to rename chromosome",
+                    "names.") )
 
     ranges = resize(vcf, 3, fix = "center")
 
