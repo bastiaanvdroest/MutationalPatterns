@@ -30,8 +30,8 @@
 #'     cex_text = 3, ylim = 1e+08)
 #'
 #' @examples
-#' ## See the 'read_vcf()' example for how we obtained the following data:
-#' vcfs <- readRDS(system.file("states/read_vcf_output.rds",
+#' ## See the 'vcf_to_granges()' example for how we obtained the following data:
+#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Rename the seqlevels to the UCSC standard.
@@ -60,17 +60,12 @@
 #'                 cex = 2)
 #'
 #' @seealso
-#' \code{\link{read_vcf}}
+#' \code{\link{vcf_to_granges}}
 #'
 #' @export
 
-plot_rainfall = function(vcf,
-                            chromosomes,
-                            title = "",
-                            colors,
-                            cex = 2.5,
-                            cex_text = 3,
-                            ylim = 1e+08)
+plot_rainfall <- function(vcf, chromosomes, title = "", colors, cex = 2.5,
+                            cex_text = 3, ylim = 1e+08)
 {
     # If colors parameter not provided, set to default colors
     if (missing(colors))

@@ -15,8 +15,8 @@
 #' @importFrom plyr summarise
 #'
 #' @examples
-#' ## See the 'read_vcf()' example for how we obtained the following data:
-#' vcfs <- readRDS(system.file("states/read_vcf_output.rds",
+#' ## See the 'vcf_to_granges()' example for how we obtained the following data:
+#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Rename the seqlevels to the UCSC standard.
@@ -63,7 +63,7 @@
 #'                 colors = my_colors)
 #'
 #' @seealso
-#' \code{\link{read_vcf}},
+#' \code{\link{vcf_to_granges}},
 #' \code{\link{rename_chrom}},
 #' \code{\link{mut_type_occurences}}
 #'

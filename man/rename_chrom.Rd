@@ -18,10 +18,10 @@ A GRanges object with renamed chromosomes according to style.
 Rename chromosome names to standard
 }
 \examples{
-## After loading VCF files using 'read_vcf()', the chromosome names
+## After loading VCF files using 'vcf_to_granges()', the chromosome names
 ## may differ between the reference genome and your samples.  See the
-## 'read_vcf()' example for how we obtain the following data.
-vcfs <- readRDS(system.file("states/read_vcf_output.rds",
+## 'vcf_to_granges()' example for how we obtain the following data.
+vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
                 package="MutationalPatterns"))
 
 ## You can standardize the naming of your VCF samples loaded into R.
@@ -31,11 +31,11 @@ vcfs$liver1
 ## To the UCSC (default) standardized format:
 rename_chrom(vcfs$liver1)
 
-## You can also rename all objects returned by 'read_vcf()' using:
+## You can also rename all objects returned by 'vcf_to_granges()' using:
 vcfs <- lapply(vcfs, rename_chrom)
 
 }
 \seealso{
-\code{\link{read_vcf}}
+\code{\link{vcf_to_granges}}
 }
 

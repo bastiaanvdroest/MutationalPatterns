@@ -1,12 +1,14 @@
-#' Read vcf files into list of CollapsedVCF objects
-#' 
+#' Read VCF files into a GRangesList
+#'
 #' Function reads Variant Call Format VCF files into a GRanges object and
 #' combines them in a list object.
 #'
 #' @param vcf_files Character vector of vcf file names
 #' @param sample_names Character vector of sample names
 #' @param genome A character or Seqinfo object
-#' @return List of GRanges objects
+#' @param style The naming standard to use for the GRanges. (default = "UCSC")
+#' @return A GRangesList containing the GRanges obtained from vcf_files
+#'
 #' @importFrom BiocGenerics match
 #' @importFrom VariantAnnotation readVcf
 #' @importFrom SummarizedExperiment rowRanges
@@ -16,40 +18,41 @@
 #' # samples and three liver samples.  So, to map each file to its appropriate
 #' # sample name, we create a vector containing the sample names:
 #' sample_names <- c("colon1", "colon2", "colon3",
-#'                     "intestine1", "intestine2", "intestine3",
-#'                     "liver1", "liver2", "liver3")
+#'                  "intestine1", "intestine2", "intestine3","intestine1",
+#'                  "intestine2", "intestine3", "liver1", "liver2", "liver3")
 #'
 #' # We assemble a list of files we want to load.  These files match the sample
 #' # names defined above.
 #' vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
 #'                                     pattern = ".vcf", full.names = TRUE)
 #'
-#' # This function loads the files as CollapsedVCF objects
-#' vcfs <- read_vcf(vcf_files, sample_names, genome = "hg19")
+#' # This function loads the files as GRanges objects
+#' vcfs <- vcf_to_granges(vcf_files, sample_names, genome = "hg19")
 #'
 #' @export
 
-read_vcf = function(vcf_files, sample_names, genome = "-")
+vcf_to_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
 {
-    # check sample names
+    # Check sample names
     if (length(vcf_files) != length(sample_names))
-        stop("Provide the same number of sample names as vcf files")
+        stop("Provide the same number of sample names as VCF files")
 
-    # make list with vcf objects
-    vcf_list = list()
-    for(i in 1:length(vcf_files))
+    vcf_list <- GRangesList(lapply (vcf_files, function (file)
     {
-        # parse vcf file with variantannotation
-        vcf = readVcf(vcf_files[i], genome)
+        # Use VariantAnnotation's readVcf, but only store the
+        # GRanges information in memory.  This speeds up the
+        # loading significantly.
+        vcf <- rowRanges(readVcf (file, genome))
 
-        # only store genomic ranges info (to reduce memory usage)
-        vcf = rowRanges(vcf)
+        # Convert to a single naming standard.
+        seqlevelsStyle(vcf) <- style
 
-        # find and exclude positions with indels or multiple alternative
-        # alleles
-        rem = which(all(!(  !is.na(match(vcf$ALT, DNA_BASES)) &
+        # Find and exclude positions with indels or multiple
+        # alternative alleles.
+        rem <- which(all(!( !is.na(match(vcf$ALT, DNA_BASES)) &
                             !is.na(match(vcf$REF, DNA_BASES)) &
                             (lengths(vcf$ALT) == 1) )))
+
         if (length(rem) > 0)
         {
             vcf = vcf[-rem]
@@ -58,10 +61,11 @@ read_vcf = function(vcf_files, sample_names, genome = "-")
                     " alternative alleles are removed.")
         }
 
-        vcf = list(vcf)
-        names(vcf) = sample_names[i]
-        vcf_list = c(vcf_list, vcf)
-    }
+        return(vcf)
+    }))
+
+    # Set the provided names for the samples.
+    names(vcf_list) <- sample_names
 
     return(vcf_list)
 }

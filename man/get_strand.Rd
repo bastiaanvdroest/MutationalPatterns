@@ -34,9 +34,9 @@ bodies, or base substitutions that overlap with more than one gene body.
 }
 \examples{
 ## For this example we need our variants from the VCF samples, and
-## a known genes dataset.  See the 'read_vcf()' example for how to
+## a known genes dataset.  See the 'vcf_to_granges()' example for how to
 ## load the VCF samples.
-vcfs <- readRDS(system.file("states/read_vcf_output.rds",
+vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
                 package="MutationalPatterns"))
 
 # Rename the seqlevels to the UCSC standard.
@@ -63,7 +63,7 @@ get_strand(vcfs[[1]], genes_hg19)
 
 }
 \seealso{
-\code{\link{read_vcf}},
+\code{\link{vcf_to_granges}},
 \code{\link{rename_chrom}}
 }
 
