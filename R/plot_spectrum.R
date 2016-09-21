@@ -7,25 +7,16 @@
 #' @param colors Optional color vector with 7 values
 #' @param legend Plot legend, default = TRUE
 #' @return Spectrum plot
+#'
+#' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 geom_errorbar
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 element_blank
-#' @importFrom ggplot2 facet_wrap
 #' @importFrom BiocGenerics cbind
 #' @importFrom plyr ddply
 #' @importFrom plyr summarise
 #'
 #' @examples
 #' ## See the 'read_vcf()' example for how we obtained the following data:
-#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#' vcfs <- readRDS(system.file("states/read_vcf_output.rds",
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Rename the seqlevels to the UCSC standard.

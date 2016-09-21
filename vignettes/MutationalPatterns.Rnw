@@ -550,7 +550,7 @@ Download data from Ensembl using biomaRt
 # CTCF_g <- reduce(GRanges(CTCF$chromosome_name,
 #                 IRanges(CTCF$chromosome_start,
 #                 CTCF$chromosome_end)))
-CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
+CTCF_g <- readRDS(system.file("states/CTCF_g_data.rds",
                     package="MutationalPatterns"))
 
 ## Download the promoter regions and conver them to a GRanges object.
@@ -562,7 +562,7 @@ CTCF_g <- readRDS(system.file("states/CTCF_g_data.R",
 # promoter_g = reduce(GRanges(promoter$chromosome_name,
 #                     IRanges(promoter$chromosome_start,
 #                             promoter$chromosome_end)))
-promoter_g <- readRDS(system.file("states/promoter_g_data.R",
+promoter_g <- readRDS(system.file("states/promoter_g_data.rds",
                         package="MutationalPatterns"))
 
 # flanking = getBM(attributes = c('chromosome_name',
@@ -577,7 +577,7 @@ promoter_g <- readRDS(system.file("states/promoter_g_data.R",
 #                        IRanges(flanking$chromosome_start,
 #                        flanking$chromosome_end)))
 
-flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.R",
+flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.rds",
                                     package="MutationalPatterns"))
 
 @ 
@@ -611,11 +611,13 @@ surveyed_file <- list.files(system.file("extdata",
                             pattern = ".bed",
                             full.names = TRUE)
 
-## Read the file as a GRanges object.
-surveyed_list <- bed_to_granges(surveyed_file, "surveyed_all")
+## Import the file using rtracklayer and use the UCSC naming standard
+library(rtracklayer)
+surveyed <- import(surveyed_file)
+seqlevelsStyle(surveyed) <- "UCSC"
 
 ## For this example we use the same surveyed file for each sample.
-surveyed_list <- rep(surveyed_list, 9)
+surveyed_list <- rep(list(surveyed), 9)
 @ 
 
 Test for an enrichment or depletion of mutations in your defined genomic

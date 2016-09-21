@@ -14,7 +14,7 @@
 #' @examples
 #' ## See the 'genomic_distribution()' example for how we obtained the
 #' ## following data:
-#' distr <- readRDS(system.file("states/distr_data.R",
+#' distr <- readRDS(system.file("states/distr_data.rds",
 #'                     package="MutationalPatterns"))
 #' 
 #' tissue <- c("colon", "colon", "colon",

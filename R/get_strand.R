@@ -25,7 +25,7 @@
 #' ## For this example we need our variants from the VCF samples, and
 #' ## a known genes dataset.  See the 'read_vcf()' example for how to
 #' ## load the VCF samples.
-#' vcfs <- readRDS(system.file("states/read_vcf_output.R",
+#' vcfs <- readRDS(system.file("states/read_vcf_output.rds",
 #'                 package="MutationalPatterns"))
 #'
 #' # Rename the seqlevels to the UCSC standard.
@@ -45,7 +45,7 @@
 #' # library("TxDb.Hsapiens.UCSC.hg19.knownGene")
 #'
 #' ## For this example, we preloaded the data for you:
-#' genes_hg19 <- readRDS(system.file("states/genes_hg19.R",
+#' genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
 #'                         package="MutationalPatterns"))
 #'
 #' get_strand(vcfs[[1]], genes_hg19)

@@ -28,14 +28,14 @@ Plot contribution of signatures
 \examples{
 ## See the 'mut_matrix()' example for how we obtained the following
 ## mutation matrix.
-mut_mat <- readRDS(system.file("states/mut_mat_data.R",
+mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                                 package="MutationalPatterns"))
 
 ## Extracting signatures can be computationally intensive, so
 ## we use pre-computed data generated with the following command:
 # nmf_res <- extract_signatures(mut_mat, rank = 2)
 
-nmf_res <- readRDS(system.file("states/nmf_res_data.R",
+nmf_res <- readRDS(system.file("states/nmf_res_data.rds",
                     package="MutationalPatterns"))
 
 ## Optionally set column and row names.

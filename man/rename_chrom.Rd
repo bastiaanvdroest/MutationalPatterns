@@ -21,7 +21,7 @@ Rename chromosome names to standard
 ## After loading VCF files using 'read_vcf()', the chromosome names
 ## may differ between the reference genome and your samples.  See the
 ## 'read_vcf()' example for how we obtain the following data.
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                 package="MutationalPatterns"))
 
 ## You can standardize the naming of your VCF samples loaded into R.

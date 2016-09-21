@@ -20,7 +20,7 @@ Count the occurences of each base substitution type
 }
 \examples{
 ## See the 'read_vcf()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/read_vcf_output.R",
+vcfs <- readRDS(system.file("states/read_vcf_output.rds",
                     package="MutationalPatterns"))
 
 ## Rename the seqlevels to the UCSC standard.

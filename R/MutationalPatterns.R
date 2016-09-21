@@ -30,5 +30,3 @@ TRIPLETS_96 = c(rep(C_TRIPLETS, 3), rep(T_TRIPLETS, 3))
 
 STRAND = rep(c("U","T"), 96)
 DNA_BASES = c("A", "C", "G", "T")
-
-packageStartupMessage("MutationalPatterns version 0.99.0")

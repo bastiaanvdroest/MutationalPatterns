@@ -7,23 +7,13 @@
 #' @param strand_bias data.frame, result from strand_bias function
 #' @param colors Optional color vector for plotting with 6 values
 #' @return Barplot
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 geom_text
-#' @importFrom ggplot2 scale_fill_manual
-#' @importFrom ggplot2 scale_alpha_discrete
-#' @importFrom ggplot2 scale_x_discrete
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 facet_grid
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 position_dodge
+#'
+#' @import ggplot2
 #'
 #' @examples
 #' ## See the 'mut_matrix_stranded()' example for how we obtained the
 #' ## following mutation matrix.
-#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+#' mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
 #'                                     package="MutationalPatterns"))
 #'
 #' ## Load a reference genome.

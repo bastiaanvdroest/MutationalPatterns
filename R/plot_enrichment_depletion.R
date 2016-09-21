@@ -5,24 +5,13 @@
 #' observed per region. 2: Effect size of enrichment/depletion
 #' (log2ratio) with results significance test.
 #'
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 scale_y_continuous
-#' @importFrom ggplot2 geom_text
-#' @importFrom ggplot2 facet_grid
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 scale_x_discrete
-#' @importFrom ggplot2 element_blank
-#' @importFrom ggplot2 position_dodge
+#' @import ggplot2
 #' @importFrom gridExtra grid.arrange
 #'
 #' @examples
 #' ## See the 'genomic_distribution()' example for how we obtained the
 #' ## following data:
-#' distr <- readRDS(system.file("states/distr_data.R",
+#' distr <- readRDS(system.file("states/distr_data.rds",
 #'                     package="MutationalPatterns"))
 #' 
 #' tissue = c( "colon", "colon", "colon",

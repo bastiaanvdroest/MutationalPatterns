@@ -22,7 +22,7 @@ Plot relative contribution of 192 trinucleotides
 \examples{
 ## See the 'mut_matrix_stranded()' example for how we obtained the
 ## mutation matrix with transcriptional strand information:
-mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.R",
+mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
                                     package="MutationalPatterns"))
 
 ## Extract the signatures.
