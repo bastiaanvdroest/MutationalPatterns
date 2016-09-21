@@ -4,13 +4,11 @@
 \alias{plot_rainfall}
 \title{Plot genomic rainfall}
 \usage{
-plot_rainfall(vcf, ref_genome, chromosomes, title = "", colors, cex = 2.5,
+plot_rainfall(vcf, chromosomes, title = "", colors, cex = 2.5,
     cex_text = 3, ylim = 1e+08)
 }
 \arguments{
 \item{vcf}{CollapsedVCF object}
-
-\item{ref_genome}{BSgenome reference genome object}
 
 \item{chromosomes}{Vector of chromosome/contig names of the reference
 genome to be plotted}
@@ -49,16 +47,12 @@ vcfs <- readRDS(system.file("states/read_vcf_output.R",
 ## Rename the seqlevels to the UCSC standard.
 vcfs <- lapply(vcfs, rename_chrom)
 
-## Exclude mitochondrial and allosomal chromosomes.
+## Exclude mitochondrial and autosomal chromosomes.
 autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
                                     style="UCSC",
                                     group="auto")
 
 vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
-
-## Load a reference genome.
-ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
-library(ref_genome, character.only = TRUE)
 
 # Take the chromosomes of interest.
 chromosomes = seqnames(get(ref_genome))[1:22]
@@ -66,14 +60,12 @@ chromosomes = seqnames(get(ref_genome))[1:22]
 ## Do a rainfall plot for all chromosomes:
 plot_rainfall(vcfs[[1]],
                 title = names(vcfs[1]),
-                ref_genome = ref_genome,
                 chromosomes = chromosomes,
                 cex = 1)
 
 ## Or for a single chromosome (chromosome 1):
 plot_rainfall(vcfs[[1]],
                 title = names(vcfs[1]),
-                ref_genome = ref_genome,
                 chromosomes = chromosomes[1],
                 cex = 2)
 
