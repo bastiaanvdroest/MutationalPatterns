@@ -60,7 +60,7 @@ available.genomes()[1:5]
 \subsection{Load your data}
 
 <<loading_reference_data>>=
-ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 library(ref_genome, character.only = TRUE)
 @
 
@@ -104,11 +104,11 @@ If you want to use a subset of the chromosomes, like all chromosomes except
 the X, Y or MT, you can use the following snippet:
 
 <<select_subset_of_chromosomes>>=
-auto = extractSeqlevelsByGroup(species="Homo_sapiens", 
+auto <- extractSeqlevelsByGroup(species="Homo_sapiens", 
                                 style="UCSC", 
                                 group="auto")
 
-vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
+vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, auto))
 @
 
 \section{Mutation characteristics}
@@ -159,7 +159,7 @@ occurences for the loaded samples in a list of VCF objects:
 <<mut_type_occurrences>>=
 # We will use the output of this function later to make plots a little
 # bit later.
-type_occurences = mut_type_occurences(vcfs, ref_genome)
+type_occurences <- mut_type_occurences(vcfs, ref_genome)
 type_occurences
 @
 
@@ -198,15 +198,13 @@ grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.8))
 
 Plot spectrum for each tissue separately:
 <<plot_spectrum_4>>=
-tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine",
-            "liver", "liver", "liver")
-
+tissue <- c(rep("colon", 3), rep("intestine", 3), rep("liver", 3))
 p4 <- plot_spectrum(type_occurences, by = tissue, CT = TRUE, legend = FALSE)
 @
 
 Specify 7 colors for spectrum plotting:
 <<plot_spectrum_5>>=
-my_colors = c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
+my_colors <- c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
 p5 <- plot_spectrum(type_occurences, CT = TRUE, legend = TRUE, 
                     colors = my_colors)
 @
@@ -223,7 +221,7 @@ grid.arrange(p4, p5, ncol=2, widths=c(3,2))
 
 Make 96 trinucleodide mutation count matrix:
 <<mut_matrix>>=
-mut_mat= mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
+mut_mat <- mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 @
 
 Plot 96 profile of three samples:
@@ -249,23 +247,37 @@ cophenetic correlation coefficient starts decreasing. Another approach is to
 choose the rank for which the plot of the residual sum of squares (RSS) between
 the input matrix and its estimate shows an inflection point.''
 
+We can use the NMF package to determine which rank we should use to extract
+signatures using \Rfunction{extract\_signatures}:
+
 \begin{figure}[H]
 \begin{center}
 <<estimate_rank, fig=TRUE, width=10, height=5>>=
-# Plot various quality criteria for a specific range of ranks
-estimate_rank(mut_mat, rank_range = 2:5, nrun = 50)
+# Add a tiny psuedocount to avoid a 0 in the matrix.
+mut_mat = mut_mat + 0.0001
+
+# Use the NMF package to generate an estimate plot.
+library("NMF")
+estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
+plot(estimate)
 @
 \end{center}
 \end{figure}
 
-Extract and plot 2-signatures:
+From the estimate plot we can attempt to determine a proper rank, which we
+then use the extract the signatures.
+
 <<extract_signatures>>=
-nmf_res = extract_signatures(mut_mat, rank = 2)
+nmf_res <- extract_signatures(mut_mat, rank = 2)
+@
 
-# Provide signature names (optional)
-colnames(nmf_res$signatures) = c("Signature A", "Signature B")
+Provide column names for the signatures.
+<<add_column_names>>=
+colnames(nmf_res$signatures) <- c("Signature A", "Signature B")
+@
 
-# Plot signatures
+Now we can plot 96-profile of the signatures:
+<<plot_96_profile>>=
 plot_96_profile(nmf_res$signatures)
 @
 
@@ -273,10 +285,7 @@ Plot signature contribution:
 \begin{figure}[H]
 \begin{center}
 <<plot_contribution, fig=TRUE,width=10,height=3>>=
-# Provide signature names (optional)
-rownames(nmf_res$contribution) = c("Signature A", "Signature B")
-
-# Plot relative signature contribution
+rownames(nmf_res$contribution) <- c("Signature A", "Signature B")
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 @ 
 \end{center}
@@ -308,7 +317,7 @@ plot_compare_profiles(mut_mat[,1],
 Download signatures from pan-cancer study (Alexandrov et al. 2013)
 
 <<download_cancer_signatures>>=
-sp_url = paste("http://cancer.sanger.ac.uk/cancergenome/assets/",
+sp_url <- paste("http://cancer.sanger.ac.uk/cancergenome/assets/",
                 "signatures_probabilities.txt", sep = "")
 
 cancer_signatures = read.table(sp_url, sep = "\t", header = TRUE)
@@ -323,14 +332,14 @@ linear combination of mutation signatures that most closely reconstructs
 the mutation matrix by solving non-negative least-squares constraints problem.
 
 <<fit_to_signatures>>=
-fit_res = fit_to_signatures(mut_mat, cancer_signatures)
+fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 @ 
 
 \begin{figure}[H]
 \begin{center}
 <<plot_contribution_3, fig=TRUE, width=10, height=4>>=
 # select signatures with some contribution
-select = which(rowSums(fit_res$contribution) > 0)
+select <- which(rowSums(fit_res$contribution) > 0)
 # plot contribution
 plot_contribution(fit_res$contribution[select,], 
                     cancer_signatures[,select], 
@@ -374,7 +383,7 @@ Find gene definitions for your reference genome.
 # Get ``known genes'' table from UCSC for hg19
 # biocLite("TxDb.Hsapiens.UCSC.hg19.knownGene")
 library("TxDb.Hsapiens.UCSC.hg19.knownGene")
-genes_hg19 = genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
+genes_hg19 <- genes(TxDb.Hsapiens.UCSC.hg19.knownGene)
 @
 
 Get transcriptional strand information for all positions in the first VCF
@@ -392,17 +401,14 @@ trinucleotides * 2 strands = 192 features). NB: only those mutations that are
 located within gene bodies are counted.
 
 <<mut_matrix_stranded>>=
-mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+mut_mat_s <- mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 head(mut_mat_s, 10)
 @ 
 
 Perform strand bias analysis:
 
 <<strand_occurrences>>=
-tissue <- c("colon", "colon", "colon", "intestine", "intestine", "intestine",
-            "liver", "liver", "liver")
-
-strand_counts = strand_occurences(mut_mat_s, by=tissue)
+strand_counts <- strand_occurences(mut_mat_s, by=tissue)
 @ 
 
 \begin{figure}[H]
@@ -416,7 +422,7 @@ plot_strand(strand_counts, mode = "relative")
 Perform poisson test for strand asymmetry significance testing:
 
 <<strand_bias_test>>=
-strand_bias = strand_bias_test(strand_counts)
+strand_bias <- strand_bias_test(strand_counts)
 @ 
 
 \begin{figure}[H]
@@ -431,10 +437,10 @@ plot_strand_bias(strand_bias)
 
 <<extract_signatures>>=
 # Extract 2 signatures
-nmf_res_strand = extract_signatures(mut_mat_s, rank = 2)
+nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
 
 # Provide signature names
-colnames(nmf_res_strand$signatures) = c("Signature A", "Signature B")
+colnames(nmf_res_strand$signatures) <- c("Signature A", "Signature B")
 @ 
 
 \begin{figure}[H]
@@ -467,7 +473,7 @@ Make rainfall plot of sample 1 over all autosomal chromosomes
 \begin{center}
 <<plot_rainfall, fig=TRUE, width=10, height=4>>=
 # Define autosomal chromosomes
-chromosomes = seqnames(get(ref_genome))[1:22]
+chromosomes <- seqnames(get(ref_genome))[1:22]
 
 # Make a rainfall plot
 plot_rainfall(vcfs[[1]], title = names(vcfs[1]),
@@ -481,7 +487,7 @@ Make rainfall plot of the first sample over chromosome 1:
 \begin{figure}[H]
 \begin{center}
 <<plot_rainfall_2, fig=TRUE, width=10, height=4>>=
-chromosomes = seqnames(get(ref_genome))[1]
+chromosomes <- seqnames(get(ref_genome))[1]
 plot_rainfall(vcfs[[1]], title = names(vcfs[1]),
                 chromosomes = chromosomes[1], cex = 2)
 @ 
@@ -601,7 +607,7 @@ of mutations.
 <<download_bed_data>>=
 ## Get the filename with surveyed/callable regions
 surveyed_file <- list.files(system.file("extdata",
-                            package="MutationalPatterns"),
+                            package = "MutationalPatterns"),
                             pattern = ".bed",
                             full.names = TRUE)
 
@@ -614,7 +620,7 @@ seqlevelsStyle(surveyed) <- "UCSC"
 surveyed_list <- rep(list(surveyed), 9)
 @ 
 
-Test for an enrichment or depletion of mutations in your defined genomic
+Test for enrichment or depletion of mutations in your defined genomic
 regions using a binomial test.  For this test, the chance of observing a
 mutation is calculated as the total number of mutations, divided by the
 total number of surveyed bases.
@@ -626,9 +632,6 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 @ 
 
 <<enrichment_depletion_test>>=
-tissue <- c("colon", "colon", "colon", "intestine", "intestine", "intestine",
-            "liver", "liver", "liver")
-
 ## Perform the enrichment/depletion test by tissue type.
 distr_test <- enrichment_depletion_test(distr, by = tissue)
 

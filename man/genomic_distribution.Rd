@@ -120,11 +120,13 @@ flanking_g <- readRDS(system.file("states/promoter_flanking_g_data.rds",
 TF_binding_g <- readRDS(system.file("states/TF_binding_g_data.rds",
                                     package="MutationalPatterns"))
 
-regions <- list(promoter_g, flanking_g,
-                CTCF_g, open_g, TF_binding_g)
+regions <- GRangesList(promoter_g, flanking_g, CTCF_g, open_g, TF_binding_g)
 
 names(regions) <- c("Promoter", "Promoter flanking", "CTCF",
                     "Open chromatin", "TF binding")
+
+# Use a naming standard consistently.
+seqlevelsStyle(regions) <- "UCSC"
 
 ## Get the filename with surveyed/callable regions
 surveyed_file <- list.files(system.file("extdata",
