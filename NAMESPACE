@@ -2,7 +2,6 @@
 
 export(binomial_test)
 export(enrichment_depletion_test)
-export(estimate_rank)
 export(extract_signatures)
 export(fit_to_signatures)
 export(genomic_distribution)
