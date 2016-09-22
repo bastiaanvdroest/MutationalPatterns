@@ -18,7 +18,7 @@ the 6 common base substitution types.
 }
 \examples{
 ## See the 'vcf_to_granges()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
+vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
                 package="MutationalPatterns"))
 
 get_types(vcfs[[1]])

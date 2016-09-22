@@ -16,7 +16,7 @@
 #' @examples
 #' ## See the 'vcf_to_granges()' example for how we obtained the
 #' ## following data:
-#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
+#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #'
 #' # Exclude mitochondrial and allosomal chromosomes.
@@ -60,7 +60,6 @@ estimate_rank = function(mut_matrix, rank_range, nrun=100)
         stop("The maximum rank should be smaller than the number of samples")
 
     # Estimate ranks
-    print("Estimating ranks...")
     estim.r = NMF::nmf(mut_matrix,
                         rank = rank_range,
                         method = "brunet",

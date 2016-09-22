@@ -25,7 +25,7 @@
 #' ## For this example we need our variants from the VCF samples, and
 #' ## a known genes dataset.  See the 'vcf_to_granges()' example for how to
 #' ## load the VCF samples.
-#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.R",
+#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #'
 #' # Exclude mitochondrial and allosomal chromosomes.
