@@ -88,9 +88,7 @@ plot_rainfall <- function(vcf, chromosomes, title = "", colors, cex = 2.5,
     # position of chromosome labels
     m=c()
     for(i in 2:length(chr_cum))
-    {
-      m = c(m,(chr_cum[i-1] + chr_cum[i]) / 2)      
-    }
+        m = c(m,(chr_cum[i-1] + chr_cum[i]) / 2)
 
 
     # mutation characteristics
