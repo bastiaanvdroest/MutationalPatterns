@@ -31,10 +31,8 @@
 
 extract_signatures = function(mut_matrix, rank, nrun = 200)
 {
-    mut_matrix = as.matrix(mut_matrix)
-
     # Add a small pseudocount to avoid features with zero counts.
-    mut_matrix = mut_matrix + 0.0001
+    mut_matrix = as.matrix(mut_matrix) + 0.0001
 
     # Make sure the rank_range is valid.
     if (!(rank > 0 & rank == round(rank)))
@@ -45,11 +43,7 @@ extract_signatures = function(mut_matrix, rank, nrun = 200)
                     "samples in the input matrix.") )
 
     # Calculate NMF
-    res = NMF::nmf(mut_matrix,
-                    rank = rank,
-                    method = "brunet",
-                    nrun = nrun,
-                    seed = 123456)
+    res = nmf(mut_matrix, rank=rank, method="brunet", nrun=nrun, seed=123456)
 
     # Find signatures and contribution of signatures
     signatures = NMF::basis(res)

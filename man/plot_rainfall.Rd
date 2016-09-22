@@ -52,7 +52,7 @@ autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
 vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 
 # Take the chromosomes of interest.
-chromosomes = seqnames(get(ref_genome))[1:22]
+chromosomes = names(genome(vcfs[[1]])[1:22])
 
 ## Do a rainfall plot for all chromosomes:
 plot_rainfall(vcfs[[1]],
