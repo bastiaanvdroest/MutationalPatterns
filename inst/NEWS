@@ -1,0 +1,15 @@
+MutationalPatterns v0.99.1 (Release date: 2016-09-13)
+=====================================================
+
+Changes:
+
+* Renamed functions: 'read_vcf' to 'vcf_to_granges'.
+* Removed functions: 'bed_to_granges', 'estimate_rank', 'rename_chrom'.
+* Parameter changes: 'plot_rainfall', 'vcf_to_granges'
+
+MutationalPatterns v0.99.0 (Release date: 2016-09-13)
+=====================================================
+
+Changes:
+
+* Package created
