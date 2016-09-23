@@ -30,8 +30,8 @@
 #'     cex_text = 3, ylim = 1e+08)
 #'
 #' @examples
-#' ## See the 'vcf_to_granges()' example for how we obtained the following data:
-#' vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
+#' ## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+#' vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Exclude mitochondrial and autosomal chromosomes.
@@ -57,7 +57,7 @@
 #'                 cex = 2)
 #'
 #' @seealso
-#' \code{\link{vcf_to_granges}}
+#' \code{\link{read_vcfs_as_granges}}
 #'
 #' @export
 

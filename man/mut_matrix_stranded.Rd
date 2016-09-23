@@ -26,8 +26,8 @@ transcribed and untranscribed strand of gene bodies.
 Mutations outside gene bodies are not counted.
 }
 \examples{
-## See the 'vcf_to_granges()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
+## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
                 package="MutationalPatterns"))
 
 ## Exclude mitochondrial and allosomal chromosomes.
@@ -55,7 +55,7 @@ mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 
 }
 \seealso{
-\code{\link{vcf_to_granges}},
+\code{\link{read_vcfs_as_granges}},
 \code{link{mut_matrix}}
 }
 

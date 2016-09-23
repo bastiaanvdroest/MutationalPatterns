@@ -28,11 +28,11 @@
 #'                                     pattern = ".vcf", full.names = TRUE)
 #'
 #' # This function loads the files as GRanges objects
-#' vcfs <- vcf_to_granges(vcf_files, sample_names, genome = "hg19")
+#' vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
 #'
 #' @export
 
-vcf_to_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
+read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))

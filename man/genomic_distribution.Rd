@@ -24,8 +24,8 @@ Function finds the number of mutations that reside in genomic region and
 takes surveyed area of genome into account.
 }
 \examples{
-## See the 'vcf_to_granges()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
+## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
                 package="MutationalPatterns"))
 
 ## Exclude mitochondrial and allosomal chromosomes.
@@ -148,6 +148,6 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 
 }
 \seealso{
-\code{\link{vcf_to_granges}}
+\code{\link{read_vcfs_as_granges}}
 }
 

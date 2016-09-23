@@ -40,8 +40,8 @@ Clusters of mutations with lower intermutation distance represent mutation
 hotspots.
 }
 \examples{
-## See the 'vcf_to_granges()' example for how we obtained the following data:
-vcfs <- readRDS(system.file("states/vcf_to_granges_output.rds",
+## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
                 package="MutationalPatterns"))
 
 ## Exclude mitochondrial and autosomal chromosomes.
@@ -68,6 +68,6 @@ plot_rainfall(vcfs[[1]],
 
 }
 \seealso{
-\code{\link{vcf_to_granges}}
+\code{\link{read_vcfs_as_granges}}
 }
 
