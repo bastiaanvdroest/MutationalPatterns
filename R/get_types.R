@@ -11,14 +11,14 @@
 #' vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #'
-#' get_types(vcfs[[1]])
+#' mutation_types(vcfs[[1]])
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}}
 #'
 #' @export
 
-get_types = function(vcf) 
+mutation_types = function(vcf) 
 {
     muts = get_muts(vcf)
     types = unlist(muts)

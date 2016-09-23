@@ -132,8 +132,8 @@ C>T, T>A, T>C, T>G.  For example, when the reference allele is G and the
 alternative allele is T (G>T), this functions returns the G:C>T:A mutation
 as a C>A mutation:
 
-<<get_types>>=
-get_types(vcfs[[1]])
+<<mutation_types>>=
+mutation_types(vcfs[[1]])
 @
 
 To retrieve the context (one base upstream and one base downstream) of the

@@ -39,7 +39,7 @@ mut_type_occurences = function(vcf_list, ref_genome)
     for(i in 1:n_samples)
     {
         vcf = vcf_list[[i]]
-        types = get_types(vcf)
+        types = mutation_types(vcf)
         CT_muts = which(types == "C>T")
         CT_context = get_type_context(vcf[CT_muts], ref_genome)[[2]]
         CpG = c("ACG", "CCG", "TCG", "GCG")
