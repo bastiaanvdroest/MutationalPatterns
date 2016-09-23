@@ -50,19 +50,7 @@ mut_type_occurences = function(vcf_list, ref_genome)
         column_names = c("C>A", "C>G", "C>T", "T>A", "T>C", "T>G",
                             "C>T at CpG", "C>T other")
 
-        types_table = table(types)
-        full_table = table(column_names)
-        for(i in 1:length(column_names) - 2)
-        {
-            value = as.vector(types_table[column_names[i]])[1]
-
-            # Set NA to 0
-            if (is.na(value))
-                value = 0
-
-            full_table[column_names[i]] = value
-        }
-
+        full_table = table(factor(types, levels = column_names))
         full_table["C>T at CpG"] = CT_at_CpG
         full_table["C>T other"] = CT_at_other
 
