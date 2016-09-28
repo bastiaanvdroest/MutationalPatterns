@@ -1,6 +1,6 @@
 #' Count 96 trinucleotide mutation occurences
 #'  
-#' @param type_context result from get_type_context function
+#' @param type_context result from type_context function
 #' @return vector with 96 trinucleotide mutation occurences
 
 mut_96_occurences = function(type_context)

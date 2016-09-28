@@ -26,18 +26,18 @@
 #' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 #' library(ref_genome, character.only = TRUE)
 #'
-#' type_context <- get_type_context(vcfs[[1]], ref_genome)
+#' type_context <- type_context(vcfs[[1]], ref_genome)
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
-#' \code{\link{get_mut_context}}
+#' \code{\link{mutation_context}}
 #'
 #' @export
 
-get_type_context = function(vcf, ref_genome)
+type_context = function(vcf, ref_genome)
 {
-    mut_context = get_mut_context(vcf, ref_genome)
-    muts = get_muts(vcf)
+    mut_context = mutation_context(vcf, ref_genome)
+    muts = mutations_from_vcf(vcf)
     types = mutation_types(vcf)
 
     # find the mutations for which the context needs to be adjusted

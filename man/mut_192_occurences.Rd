@@ -8,7 +8,7 @@ information}
 mut_192_occurences(type_context, strand)
 }
 \arguments{
-\item{type_context}{result from get_type_context function}
+\item{type_context}{result from type_context function}
 
 \item{strand}{character vector with strand information for each
 position, "U" for untranscribed, "T" for transcribed, "-" for

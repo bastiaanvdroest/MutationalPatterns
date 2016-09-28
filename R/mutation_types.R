@@ -21,7 +21,7 @@
 
 mutation_types = function(vcf) 
 {
-    muts = get_muts(vcf)
+    muts = mutations_from_vcf(vcf)
     types = unlist(muts)
     types = gsub('G>T', 'C>A', types)
     types = gsub('G>C', 'C>G', types)

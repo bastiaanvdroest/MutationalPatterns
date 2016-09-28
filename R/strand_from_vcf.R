@@ -45,14 +45,14 @@
 #' genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
 #'                         package="MutationalPatterns"))
 #'
-#' get_strand(vcfs[[1]], genes_hg19)
+#' strand_from_vcf(vcfs[[1]], genes_hg19)
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
 #'
 #' @export
 
-get_strand = function(vcf, genes)
+strand_from_vcf = function(vcf, genes)
 {
     # Check consistency of chromosome names.
     if (!(all(seqlevels(vcf) %in% seqlevels(genes))))

@@ -25,14 +25,14 @@
 #' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 #' library(ref_genome, character.only = TRUE)
 #'
-#' mut_context <- get_mut_context(vcfs[[1]], ref_genome)
+#' mut_context <- mutation_context(vcfs[[1]], ref_genome)
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
 #'
 #' @export
 
-get_mut_context = function(vcf, ref_genome) 
+mutation_context = function(vcf, ref_genome) 
 {
     # Make sure that the chromosome names are compatible with each other.
     if (!(all(seqlevels(vcf) %in% seqlevels(get(ref_genome)))))

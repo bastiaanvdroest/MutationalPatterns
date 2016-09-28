@@ -42,7 +42,7 @@ mut_type_occurences = function(vcf_list, ref_genome)
         vcf = vcf_list[[i]]
         types = mutation_types(vcf)
         CT_muts = which(types == "C>T")
-        CT_context = get_type_context(vcf[CT_muts], ref_genome)[[2]]
+        CT_context = type_context(vcf[CT_muts], ref_genome)[[2]]
         CpG = c("ACG", "CCG", "TCG", "GCG")
         CT_at_CpG = sum(!(is.na(BiocGenerics::match(CT_context,CpG))))
         CT_at_other = length(CT_muts) - CT_at_CpG

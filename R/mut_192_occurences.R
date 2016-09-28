@@ -1,7 +1,7 @@
 #' Count 96 trinucleotide mutation occurences with transcriptional strand
 #' information
 #'  
-#' @param type_context result from get_type_context function
+#' @param type_context result from type_context function
 #' @param strand character vector with strand information for each
 #' position, "U" for untranscribed, "T" for transcribed, "-" for
 #' unknown or positions outside gene bodies

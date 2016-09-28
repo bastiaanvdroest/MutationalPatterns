@@ -168,8 +168,8 @@ footprints.
 We can retrieve base substitutions from vcf object as "REF>ALT"
 using \Rfunction{get\_muts}.
 
-<<get_muts>>=
-get_muts(vcfs[[1]])
+<<mutations_from_vcf>>=
+mutations_from_vcf(vcfs[[1]])
 @
 
 We can retrieve base substitutions from vcf and convert to the 6 types of
@@ -186,8 +186,8 @@ To retrieve the context (one base upstream and one base downstream) of the
 positions in the VCF object from the reference genome, you can use the
 \Rfunction{get\_mut\_context} function:
 
-<<get_mut_context>>=
-get_mut_context(vcfs[[1]], ref_genome)
+<<mutation_context>>=
+mutation_context(vcfs[[1]], ref_genome)
 @
 
 With \Rfunction{get\_type\_context}, you can retrieve the types and context
@@ -195,8 +195,8 @@ of the base substitution types for all positions in the VCF object.  For
 the base substitutions that are converted to the conventional base
 substitution types, the reverse complement of the context is returned.
 
-<<get_type_context>>=
-get_type_context(vcfs[[1]], ref_genome)
+<<type_context>>=
+type_context(vcfs[[1]], ref_genome)
 @
 
 Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
@@ -438,8 +438,8 @@ considered. ``-'' for positions outside gene bodies, ``U'' for
 untranscribed/sense/coding strand, ``T'' for transcribed/anti-sense/non-coding
 strand.
 
-<<get_strand>>=
-get_strand(vcfs[[1]], genes_hg19)
+<<strand_from_vcf>>=
+strand_from_vcf(vcfs[[1]], genes_hg19)
 @ 
 
 Make mutation count matrix with transcriptional strand information (96

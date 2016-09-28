@@ -7,7 +7,7 @@
 mut_96_occurences(type_context)
 }
 \arguments{
-\item{type_context}{result from get_type_context function}
+\item{type_context}{result from type_context function}
 }
 \value{
 vector with 96 trinucleotide mutation occurences
