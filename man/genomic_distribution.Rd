@@ -24,7 +24,8 @@ Function finds the number of mutations that reside in genomic region and
 takes surveyed area of genome into account.
 }
 \examples{
-## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+## See the 'read_vcfs_as_granges()' example for how we obtained the
+## following data:
 vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
                 package="MutationalPatterns"))
 

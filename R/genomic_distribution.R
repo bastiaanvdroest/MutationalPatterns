@@ -13,7 +13,8 @@
 #' mutations in each genomic region.
 #'
 #' @examples
-#' ## See the 'read_vcfs_as_granges()' example for how we obtained the following data:
+#' ## See the 'read_vcfs_as_granges()' example for how we obtained the
+#' ## following data:
 #' vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #' 

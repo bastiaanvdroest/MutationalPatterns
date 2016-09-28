@@ -22,9 +22,10 @@
 #'                     "intestine1", "intestine2", "intestine3",
 #'                     "liver1", "liver2", "liver3")
 #'
-#' # We assemble a list of files we want to load.  These files match the sample
-#' # names defined above.
-#' vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
+#' # We assemble a list of files we want to load.  These files match the
+#' # sample names defined above.
+#' vcf_files <- list.files(system.file("extdata", 
+#'                                     package="MutationalPatterns"),
 #'                                     pattern = ".vcf", full.names = TRUE)
 #'
 #' # This function loads the files as GRanges objects
@@ -32,7 +33,8 @@
 #'
 #' @export
 
-read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
+read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-", 
+                                    style="UCSC")
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
