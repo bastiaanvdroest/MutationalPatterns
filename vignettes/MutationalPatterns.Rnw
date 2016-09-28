@@ -42,6 +42,52 @@ This package provides a comprehensive set of flexible functions for easy
 finding and plotting of such mutational patterns in base substitution
 catalogues.
 
+\section{Related packages}
+
+\subsection{Comparison to \Biocpkg{SomaticSignatures}}
+
+\subsubsection{Similar functionality}
+
+SomaticSignatures provides functions for genomic context determination and de
+novo signature extraction using NMF decomposition of 96 trinucleotide count
+matrices.  MutationalPatterns provides this functionality too but the plotting
+is different, because MutationalPatterns offers the functionality to extract
+signatures \emph{de novo} from a 192 feature matrix, with 96 trinucleotide
+X 2 transcriptional strands.  This allows assessment of transcriptional strand
+bias of mutational signatures, which is important to characterize the
+underlying mutational mechanism.
+
+\subsubsection{Unique functionality}
+
+The following functions can be found in MutationalPatterns, but not in
+SomaticSignatures.
+
+\begin{itemize}
+    \item \Rfunction{plot\_contribution}: A function to determine the optimal
+        contribution of previously identified signatures, e.g. cosmic cancer
+        signatures, to reconstruct the mutational profile of just a single
+        sample.  This is useful for two reasons:
+        \begin{enumerate}
+            \item for NMF you need many samples with distinct mutational
+            profiles, as it relies on dimensionality reduction.
+            \item In order to further characterize ``known'' mutational
+            signatures and find the underlying mutational mechanisms, this
+            function can be used to determine the contribution of these
+            signatures in different samples, e.g. normal cells, or cells with
+            defective DNA repair mechanisms etc.
+        \end{enumerate}
+    \item \Rfunction{plot\_enrichment\_depletion}: A plotting function and
+        statistical test for enrichment or depletion of mutations in any
+        (publicly available) annotated genomic region such as transcription
+        factor binding site or ``open chromatin''.  This is useful for the
+        characterization of mutational mechanisms.
+    \item \Rfunction{strand\_bias\_test}, \Rfunction{plot\_strand\_bias}: A
+        statistical test and a plotting function for transcriptional strand
+        bias in mutation catalogs.
+    \item \Rfunction{plot\_96\_profile}: A plotting function to visualize the
+        difference between two 96 mutational profiles and calculate RSS.
+\end{itemize}
+
 \section{Data for use with this package}
 
 One of the first thing you will want to do is load a reference genome.
