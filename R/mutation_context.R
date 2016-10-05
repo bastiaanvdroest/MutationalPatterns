@@ -43,6 +43,9 @@ mutation_context = function(vcf, ref_genome)
 
     ranges = resize(vcf, 3, fix = "center")
 
-    vcf_context = getSeq(get(ref_genome), ranges)
+    vcf_context = as.character(getSeq(get(ref_genome),
+                                        seqnames(vcf),
+                                        start(vcf) - 1,
+                                        end(vcf) + 1))
     return(vcf_context)
 }
