@@ -1,7 +1,9 @@
 #' Read VCF files into a GRangesList
 #'
-#' Function reads Variant Call Format VCF files into a GRanges object and
-#' combines them in a list object.
+#' Function reads Variant Call Format (VCF) files into a GRanges object and
+#' combines them in a GRangesList.  In addition to loading the files, this
+#' function applies a seqlevel style to the GRanges objects.  The default
+#' seqlevel style is "UCSC".
 #'
 #' @param vcf_files Character vector of vcf file names
 #' @param sample_names Character vector of sample names
