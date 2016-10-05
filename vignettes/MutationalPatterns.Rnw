@@ -116,35 +116,36 @@ library(ref_genome, character.only = TRUE)
 library(MutationalPatterns)
 @
 
+\subsection{Load data}
+
+Small data samples are included in the package.  You can download larger
+samples from the MutationalPatterns-data repository at 
+\url{https://github.com/CuppenResearch/MutationalPatterns-data/}.
+
+The data in that repository consists of somatic mutation catalogues of
+nine normal human adult stem cells from three tissues (Blokzijl et al., 2016).
+
+To load data, we need to locate it:
+<<locate_files>>=
+vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
+                        pattern = ".vcf", full.names = TRUE)
+@ 
+
+Now we can load it:
 <<read_vcfs_as_granges>>=
-# The example data set consists of three colon samples, three intestine
-# samples and three liver samples.  So, to map each file to its appropriate
-# sample name, we create a vector containing the sample names:
+vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
+summary(vcfs)
+@
+
+And define corresponding names for the datasets:
+<<set_sample_names>>=
 sample_names <- c(
     "colon1", "colon2", "colon3",
     "intestine1", "intestine2", "intestine3",
     "liver1", "liver2", "liver3")
-
-# We assemble a list of files we want to load.  These files match the sample
-# names defined above.
-vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
-                        pattern = ".vcf", full.names = TRUE)
-
-# This function loads the files as CollapsedVCF objects
-vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
-
-summary(vcfs)
 @
 
-\section{Convert to uniform naming conventions}
-
-Using the following snippet, you can check whether the chromosome names
-in your VCF objects are the same as the chromosome names in your reference
-genome.
-
-<<name_checking>>=
-all(seqlevels(vcfs[[1]]) %in% seqlevels(get(ref_genome)))
-@
+\section{Take a subset of the chromosomes}
 
 If you want to use a subset of the chromosomes, like all chromosomes except
 the X, Y or MT, you can use the following snippet:
@@ -166,7 +167,7 @@ footprints.
 \subsection{Base substitution types}
 
 We can retrieve base substitutions from vcf object as "REF>ALT"
-using \Rfunction{get\_muts}.
+using \Rfunction{mutations\_from\_muts}.
 
 <<mutations_from_vcf>>=
 mutations_from_vcf(vcfs[[1]])

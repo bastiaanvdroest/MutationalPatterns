@@ -1,20 +1,63 @@
 # MutationalPatterns
 
-The MutationalPatterns R package provides a comprehensive set of flexible functions for easy finding and plotting of mutational patterns in base substitution catalogues.
+The MutationalPatterns R package provides a comprehensive set of flexible
+functions for easy finding and plotting of mutational patterns in base
+substitution catalogues.
 
-NEW RELEASE: 
-* Faster vcf file loading
-* Automatic check and exclusion of positions in vcf with indels and/or multiple alternative alleles 
-* Default plotting colours to standard in the mutational signatures field
+## ChangeLog
 
-NEW FUNCTIONALITIES
-* Function to make chromosome names uniform according to e.g. UCSC standard
-* Transcriptional strand bias analysis
-* Signature extraction (NMF) with transcriptional strand information
-* Enrichment/depletion test for genomic annotations
+### v0.99.3
 
-Please give credit and cite MutationalPatterns R Package when you use it for your data analysis. 
-A preprint of the article can be found on [bioRxiv](http://dx.doi.org/10.1101/071761).
+#### Renamed functions
+
+  * `get_mut_context` to `mutation_context`
+  * `get_type_context` to `type_context`
+  * `get_muts` to `mutations_from_vcf`
+  * `get_strand` to `strand_from_vcf`
+
+#### Other changes
+
+  * Added an explanation for the difference between
+    SomaticSignatures and MutationalPatterns in the vignette.
+
+### v0.99.2
+
+#### Renamed functions
+
+  * `vcf_to_granges` to `read_vcfs_as_granges`
+  * `get_types` to `mutation_types`
+
+### v0.99.1
+
+#### Renamed functions
+  
+  * `read_vcf` to `vcf_to_granges`
+
+#### Removed functions
+  
+  * `bed_to_granges`, `estimate_rank`, `rename_chrom`
+
+#### Parameter changes
+  
+  * `plot_rainfall`, `vcf_to_granges`
+
+### v0.2.0-beta
+
+#### Updated functions
+  * Faster vcf file loading
+  * Automatic check and exclusion of positions in vcf with indels and/or
+    multiple alternative alleles 
+  * Default plotting colours to standard in the mutational signatures field
+
+#### New features
+  * Function to make chromosome names uniform according to e.g. UCSC standard
+  * Transcriptional strand bias analysis
+  * Signature extraction (NMF) with transcriptional strand information
+  * Enrichment/depletion test for genomic annotations
+
+Please give credit and cite MutationalPatterns R Package when you use it for
+your data analysis.  A preprint of the article can be found on 
+[bioRxiv](http://dx.doi.org/10.1101/071761).
 
 # Table of Contents
 
@@ -41,20 +84,25 @@ A preprint of the article can be found on [bioRxiv](http://dx.doi.org/10.1101/07
 
 ## Installation
 
-This package is dependent on R version 3.3.0
+For this package, you need R version 3.3.0 or higher.  Additionally,
+you need `BiocInstaller` and `devtools` to easily load this package.
 
-Install and load Devtools & BiocInstaller package
+Install `BiocInstaller`:
 
   ```{r}
-  # BiocInstaller
   source("https://bioconductor.org/biocLite.R")
   biocLite("BiocInstaller")
   library("BiocInstaller")
-  # Devtools
+  ```
+
+Install `devtools` to load this package:
+
+  ```{r}
   install.packages("devtools")
   library(devtools)
   ```
-Install and load MutationalPatterns package
+
+Install and load `MutationalPatterns`:
 
   ```{r}
   options(unzip = 'internal')
@@ -62,7 +110,7 @@ Install and load MutationalPatterns package
   library(MutationalPatterns)
   ```
 
-## Reference genome
+## Pick a reference genome
 
 1. List all available reference genomes (BSgenome)
 
@@ -74,81 +122,64 @@ Install and load MutationalPatterns package
 
   ```{r}
   ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
-  source("http://bioconductor.org/biocLite.R")
   biocLite(ref_genome)
-  library(ref_genome, character.only = T)
+  library(ref_genome, character.only = TRUE)
   ```
   
 ## Load data
 
-Example data for the package is provided in the MutationalPatterns data repository and consists of somatic mutation catalogues of 9 normal human adult stem cells from 3 tissues (Blokzijl et al., 2016).
+Small data samples are included in the package.  You can download larger
+samples from [the MutationalPatterns-data repository](https://github.com/CuppenResearch/MutationalPatterns-data/).
 
-Define a function to download the example data from the MutationalPatterns data repository
+The data in that repository consists of somatic mutation catalogues of
+nine normal human adult stem cells from three tissues (Blokzijl et al., 2016).
+
+To load data, we need to locate it:
   ```{r}
-  download_example_data <- function(data_dir) {
-    samples = c("colon1.vcf", "colon2.vcf", "colon3.vcf", 
-                "intestine1.vcf", "intestine2.vcf", "intestine3.vcf", 
-                "liver1.vcf", "liver2.vcf", "liver3.vcf")
-    dir.create(data_dir, recursive = TRUE, mode = "0755")
-    for (i in 1:length(samples)) {
-      download.file (paste("https://raw.githubusercontent.com/CuppenResearch/",
-                           "MutationalPatterns-data/master/", samples[i],
-                           sep=""), paste(data_dir, "/", samples[i], sep=""))
-    }
-  }
+  # Use the provides sample data
+  vcf_files <- list.files(system.file("extdata", package="MutationalPatterns"),
+                          pattern = ".vcf", full.names = TRUE)
+
+  # Or list your own vcf files
+  vcf_files = list.files(your_dir, pattern = ".vcf", full.names = TRUE)
   ```
 
-Download example data to your destination directory
+And define corresponding names for the datasets:
   ```{r}
-  dest_dir = "example_data"
-  download_example_data(dest_dir)
+  sample_names = c("colon1", "colon2", "colon3", 
+                   "intestine1", "intestine2", "intestine3",
+                   "liver1", "liver2", "liver3")
   ```
 
-List vcf files
+This package is for the analysis of patterns in base substitution data only,
+therefore indel positions and positions with multiple alternative alleles are
+discarded.
+
+Load a single VCF file:
   ```{r}
-  # List vcf files in the destination directory of the downloaded example data
-  vcf_files = list.files(dest_dir, pattern = ".vcf", full.names = T)
-  # Or to list your vcf files in your directory
-  vcf_files = list.files(your_dir, pattern = ".vcf", full.names = T)
+  vcf = read_vcfs_as_granges(vcf_files[1], sample_names[1], genome = "hg19")
   ```
 
-Define sample names
+Or load a list of VCF files:
   ```{r}
-  sample_names = c("colon1", "colon2", "colon3", "intestine1", "intestine2", "intestine3", "liver1", "liver2", "liver3")
-  ```
-  
-This package is for the analysis of patterns in base substitution data only, therefore indel positions and positions with multiple alternative alleles are discarded.
-
-Load a single vcf file
-  ```{r}
-  vcf = read_vcf(vcf_files[1], sample_names[1], genome = "hg19")
+  vcfs = read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
   ```
 
-Load a list of vcf files
+Include relevant metadata in your analysis, e.g. donor id, cell type, age,
+tissue type, mutant or wild type
   ```{r}
-  vcfs = read_vcf(vcf_files, sample_names, genome = "hg19")
+  tissue = c(rep("colon", 3), rep("intestine", 3), rep("liver", 3))
   ```
 
-Include relevant metadata in your analysis, e.g. donor id, cell type, age, tissue type, mutant or wild type
-  ```{r}
-  tissue = c("colon", "colon", "colon", "intestine", "intestine", "intestine", "liver", "liver", "liver")
-  ```
+## Take a subset of the chromosomes
 
-## Make chromosome names uniform
+You could, for example, select autosomal chromosomes:
 
-Check if chromosome names in vcf(s) and reference genome are the same
   ```{r}
-  all(seqlevels(vcfs[[1]]) %in% seqlevels(get(ref_genome)))
-  ```
+  auto = extractSeqlevelsByGroup(species="Homo_sapiens", 
+                                 style="UCSC",
+                                 group="auto")
 
-If not, rename the seqlevels to the UCSC standard
-  ```{r}
-  vcfs = lapply(vcfs, function(x) rename_chrom(x))
-  ```
-  
-Select autosomal chromosomes
-  ```{r}
-  auto = extractSeqlevelsByGroup(species="Homo_sapiens", style="UCSC", group="auto")
   vcfs = lapply(vcfs, function(x) keepSeqlevels(x, auto))
   ```
 
@@ -156,51 +187,71 @@ Select autosomal chromosomes
 
 ## Base substitution types
 
-Retrieve base substitutions from vcf object as "REF>ALT"
+Retrieve base substitutions from VCF object as "REF>ALT".
+
   ```{r}
-  get_muts(vcfs[[1]])
+  mutations_from_vcf(vcfs[[1]])
   ```
   
-Retrieve base substitutions from vcf and convert to the 6 types of base substitution types that are distinguished by convention: C>A, C>G, C>T, T>A, T>C, T>G. For example, if the reference allele is G and the alternative allele is T (G>T), this functions returns the G:C>T:A mutation as a C>A mutation.
+Retrieve base substitutions from vcf and convert to the 6 types of base
+substitution types that are distinguished by convention: `C>A`, `C>G`, `C>T`,
+`T>A`, `T>C`, `T>G`.  For example, if the reference allele is `G` and the
+alternative allele is `T` (`G>T`), this functions returns the `G:C>T:A`
+mutation as a `C>A` mutation.
+
   ```{r}
-  get_types(vcfs[[1]])
+  mutation_types(vcfs[[1]])
   ```
   
-Retrieve the context (1 base upstream and 1 base downstream) of the positions in the vcf object from the reference genome.
+Retrieve the context (1 base upstream and 1 base downstream) of the positions
+in the vcf object from the reference genome.
+
   ```{r}
-  get_mut_context(vcfs[[1]], ref_genome)
+  mutation_context(vcfs[[1]], ref_genome)
   ```
 
-Retrieve the types and context of the base substitution types for all positions in the vcf object. For the base substitutions that are converted to the conventional base substitution types, the reverse complement of the context is returned.
+Retrieve the types and context of the base substitution types for all positions
+in the vcf object. For the base substitutions that are converted to the
+conventional base substitution types, the reverse complement of the context is
+returned.
+
   ```{r}
-  get_type_context(vcfs[[1]], ref_genome)
+  type_context(vcfs[[1]], ref_genome)
   ```
 
 Count mutation type occurences for one vcf object
+
   ```{r}
   type_occurences = mut_type_occurences(vcfs[1], ref_genome)
   ```
 
 Count mutation type occurences for all samples in a list of vcf objects
+
   ```{r}
   type_occurences = mut_type_occurences(vcfs, ref_genome)
   ```
 
 ## Mutation spectrum
 
-Plot mutation spectrum over all samples. Plots the mean relative contribution of each of the 6 base substitution types. Error bars indicate standard deviation over all samples. The n indicates the total number of mutations in the set.
+Plot mutation spectrum over all samples. Plots the mean relative contribution
+of each of the 6 base substitution types. Error bars indicate standard
+deviation over all samples. The n indicates the total number of mutations in
+the set.
+
   ```{r}
   plot_spectrum(type_occurences)
   ```
 
 Plot mutation spectrum with distinction between C>T at CpG sites
+
   ```{r}
-  plot_spectrum(type_occurences, CT = T)
+  plot_spectrum(type_occurences, CT = TRUE)
   ```
 
 Plot spectrum without legend
+
   ```{r}
-  plot_spectrum(type_occurences, CT = T, legend = F)
+  plot_spectrum(type_occurences, CT = TRUE, legend = FALSE)
   ```
 
   ![spectra1](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/spectra1.png)
@@ -208,7 +259,7 @@ Plot spectrum without legend
 
 Plot spectrum for each tissue separately
   ```{r}
-  plot_spectrum(type_occurences, by = tissue, CT = T)
+  plot_spectrum(type_occurences, by = tissue, CT = TRUE)
   ```
 
 Specify 7 colors for spectrum plotting
@@ -236,11 +287,24 @@ Plot 96 profile of three samples
 
 ## De novo mutational signature extraction using NMF
 
-A critical parameter in NMF is the factorization rank, which is the number of mutational signatures. Determine the optimal factorization rank using the NMF package (Gaujoux and Seoighe, 2010). As described in their paper: "...a common way of deciding on the rank is to try different values, compute some quality measure of the results, and choose the best value according to this quality criteria. The most common approach is to choose the smallest rank for which cophenetic correlation coefficient starts decreasing. Another approach is to choose the rank for which the plot of the residual sum of squares (RSS) between the input matrix and its estimate shows an inflection point."
+A critical parameter in NMF is the factorization rank, which is the number of
+mutational signatures.  Determine the optimal factorization rank using the NMF
+package (Gaujoux and Seoighe, 2010). As described in their paper: "...a common
+way of deciding on the rank is to try different values, compute some quality
+measure of the results, and choose the best value according to this quality
+criteria. The most common approach is to choose the smallest rank for which
+cophenetic correlation coefficient starts decreasing. Another approach is to
+choose the rank for which the plot of the residual sum of squares (RSS) between
+the input matrix and its estimate shows an inflection point."
 
   ```{r}
-  # Plot various quality criteria for a specific range of ranks
-  estimate_rank(test_matrix, rank_range = 2:5, nrun = 50)
+  # Add a tiny psuedocount to avoid a 0 in the matrix.
+  mut_mat = mut_mat + 0.0001
+
+  # Use the NMF package to generate an estimate plot.
+  library("NMF")
+  estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
+  plot(estimate)
   ```
 
   ![estim_rank](https://github.com/CuppenResearch/MutationalPatterns/blob/develop/images/estim_rank.png)
@@ -341,7 +405,7 @@ Find gene definitions for your reference genome.
 Get transcriptional strand information for all positions in vcf 1. "Base substitions on the same strand as the gene definitions are considered. "-" for positions outside gene bodies, "U" for untranscribed/sense/coding strand, "T" for transcribed/anti-sense/non-coding strand.
 
   ```{r}
-  get_strand(vcfs[[1]], genes_hg19)
+  strand_from_vcf(vcfs[[1]], genes_hg19)
   ```
 
 Make mutation count matrix with transcriptional strand information (96 trinucleotides * 2 strands = 192 features). NB: only those mutations that are located within gene bodies are counted.
@@ -486,15 +550,11 @@ Download data from Ensembl using biomaRt
   TF_binding_g = reduce(GRanges(TF_binding$chromosome_name, IRanges(TF_binding$chromosome_start, TF_binding$chromosome_end))) 
   ```
 
-Combine all genomic regions (GRanges objects) in a named list.
+Combine all genomic regions (`GRanges` objects) in a `GRangesList`.
 
   ```{r}
-  # combine all genomic regions in one regions list object
   regions = list(promoter_g, promoter_flanking_g, CTCF_g, open_g, TF_binding_g)
-  # provide names
   names(regions) = c("Promoter", "Promoter flanking", "CTCF", "Open chromatin", "TF binding")
-  # rename chromosomes to UCSC standard
-  regions = lapply(regions, function(x) rename_chrom(x))
   ```
 
 ## Test for significant depletion or enrichment in genomic regions
@@ -502,14 +562,20 @@ Combine all genomic regions (GRanges objects) in a named list.
 It is necessary to include a list with Granges of regions that were surveyed in your analysis for each sample, that is: positions in the genome at which you have enough high quality reads to call a mutation. This can for example be determined using CallableLoci tool by GATK. If you would not include the surveyed area in your analysis, you might for example see a depletion of mutations in a certain genomic region that is solely a result from a low coverage in that region, and therefore does not represent an actual depletion of mutations.
 
   ```{r}
-  # Download sample data.
-  download.file("https://raw.githubusercontent.com/CuppenResearch/MutationalPatterns-data/master/callableloci.bed",
-                paste(dest_dir, "/callableloci.bed", sep=""))
-  # Read example file with surveyed/callable regions
-  surveyed_file = list.files(dest_dir, pattern = ".bed", full.names = T)
-  # read bed file as granges object
-  surveyed_list = bed_to_granges(surveyed_file, "surveyed_all")
-  # for this example we use the same surveyed file for each sample
+  # Locate the file with surveyed/callable regions
+  surveyed_file <- list.files(system.file("extdata",
+                            package = "MutationalPatterns"),
+                            pattern = ".bed",
+                            full.names = TRUE)
+
+  # Read BED file as GRanges object using rtracklayer
+  library(rtracklayer)
+  surveyed <- import(surveyed_file)
+
+  # Unify to a single seqlevel style
+  seqlevelsStyle(surveyed) <- "UCSC"
+
+  # For this example we use the same surveyed file for each sample
   surveyed_list= rep(surveyed_list, 9)
   ```
   
