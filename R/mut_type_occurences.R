@@ -37,25 +37,25 @@ mut_type_occurences = function(vcf_list, ref_genome)
     n_samples = length(vcf_list)
     df = data.frame()
 
+    CpG = c("ACG", "CCG", "TCG", "GCG")
+    column_names = c("C>A", "C>G", "C>T", "T>A", "T>C", "T>G",
+                        "C>T at CpG", "C>T other")
+
+    full_table = NULL
     for(i in 1:n_samples)
     {
         vcf = vcf_list[[i]]
         types = mutation_types(vcf)
         CT_muts = which(types == "C>T")
         CT_context = type_context(vcf[CT_muts], ref_genome)[[2]]
-        CpG = c("ACG", "CCG", "TCG", "GCG")
         CT_at_CpG = sum(!(is.na(BiocGenerics::match(CT_context,CpG))))
         CT_at_other = length(CT_muts) - CT_at_CpG
 
         # Construct a table and handle missing mutation types.
-        column_names = c("C>A", "C>G", "C>T", "T>A", "T>C", "T>G",
-                            "C>T at CpG", "C>T other")
-
         full_table = table(factor(types, levels = column_names))
         full_table["C>T at CpG"] = CT_at_CpG
         full_table["C>T other"] = CT_at_other
-
-        df = rbind(df,full_table)
+        df = BiocGenerics::rbind(df, full_table)
     }
 
     row.names(df) = names(vcf_list)
