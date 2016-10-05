@@ -6,6 +6,7 @@
 #' @return Barplot
 #'
 #' @import ggplot2
+#' @importFrom stats aggregate
 #' @importFrom plyr adply
 #'
 #' @examples
@@ -40,13 +41,13 @@ plot_signature_strand_bias = function(signatures_strand_bias)
                     "trinucleotide * 2 strands)."))
 
     # aggregate by strand and type
-    sum_per_type = aggregate(signatures_strand_bias,
-                                by=list(STRAND, SUBSTITUTIONS_192),
-                                FUN=sum)
+    sum_per_type = stats::aggregate(signatures_strand_bias,
+                                    by=list(STRAND, SUBSTITUTIONS_192),
+                                    FUN=sum)
 
-    sum_per_strand = aggregate(signatures_strand_bias,
-                                by=list(STRAND),
-                                FUN=sum)
+    sum_per_strand = stats::aggregate(signatures_strand_bias,
+                                        by=list(STRAND),
+                                        FUN=sum)
 
     # melt data frames
     sum_per_strand =  melt(sum_per_strand)

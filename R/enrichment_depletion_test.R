@@ -10,6 +10,7 @@
 #'
 #' @importFrom BiocGenerics cbind
 #' @importFrom BiocGenerics rbind
+#' @importFrom stats aggregate
 #'
 #' @examples
 #' ## See the 'genomic_distribution()' example for how we obtained the

@@ -12,6 +12,7 @@
 #' transcriptional strand (T = transcribed strand,
 #' U = untranscribed strand).
 #'
+#' @importFrom stats aggregate
 #' @importFrom reshape2 melt
 #'
 #' @examples
@@ -45,7 +46,7 @@ strand_occurences = function(mut_mat_s, by)
     if(missing(by)){by = rep("all", nrow(df))}
 
     # sum by group
-    x = aggregate(df, by=list(by), FUN=sum) 
+    x = stats::aggregate(df, by=list(by), FUN=sum) 
 
     # add group as rownames
     rownames(x) = x[,1]
