@@ -31,3 +31,14 @@ mutation_types = function(vcf)
     types = gsub('A>C', 'T>G', types)
     return(types)
 }
+
+##
+## Deprecated variants
+##
+
+get_types <- function(vcf)
+{
+    .Defunct("mutation_types", package="MutationalPatterns",
+                msg=paste("This function has been removed.  Use",
+                            "'mutation_types' instead."))
+}

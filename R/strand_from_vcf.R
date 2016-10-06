@@ -116,3 +116,14 @@ strand_from_vcf = function(vcf, genes)
     strand2[overlap$vcf_id] = strand
     return(strand2)
 }
+
+##
+## Deprecated variants
+##
+
+get_strand <- function(vcf, genes)
+{
+    .Defunct("strand_from_vcf", package="MutationalPatterns",
+                msg=paste("This function has been removed.  Use",
+                            "'strand_from_vcf' instead."))
+}

@@ -1,7 +1,7 @@
 #' Read VCF files into a GRangesList
 #'
-#' Function reads Variant Call Format (VCF) files into a GRanges object and
-#' combines them in a GRangesList.  In addition to loading the files, this
+#' This function reads Variant Call Format (VCF) files into a GRanges object
+#' and combines them in a GRangesList.  In addition to loading the files, this
 #' function applies a seqlevel style to the GRanges objects.  The default
 #' seqlevel style is "UCSC".
 #'
@@ -73,4 +73,29 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-",
     names(vcf_list) <- sample_names
 
     return(vcf_list)
+}
+
+##
+## Deprecated variants
+##
+
+read_vcf <- function(vcf_files, sample_names, genome="-", style="UCSC")
+{
+    .Defunct("read_vcfs_as_granges", package="MutationalPatterns",
+            msg=paste("This function has been removed.  Use",
+                        "'read_vcfs_as_granges' instead.  The new function",
+                        "automatically renames the seqlevel style for you,",
+                        "so you no longer need to run 'rename_chrom' either."))
+}
+
+vcf_to_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
+{
+    # Show the same error message as 'read_vcf()'.
+    read_vcf()
+}
+
+rename_chrom <- function(granges, style = "UCSC")
+{
+    .Defunct("rename_chrom", package="MutationalPatterns",
+            msg = paste("This function has been removed."))
 }

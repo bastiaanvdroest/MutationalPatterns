@@ -49,3 +49,14 @@ mutation_context = function(vcf, ref_genome)
                                         end(vcf) + 1))
     return(vcf_context)
 }
+
+##
+## Deprecated variants
+##
+
+get_mut_context <- function(vcf, ref_genome)
+{
+    .Defunct("mutation_context", package="MutationalPatterns",
+                msg=paste("This function has been removed.  Use",
+                            "'mutation_context' instead."))
+}
