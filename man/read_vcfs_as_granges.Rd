@@ -19,8 +19,10 @@ read_vcfs_as_granges(vcf_files, sample_names, genome = "-", style = "UCSC")
 A GRangesList containing the GRanges obtained from vcf_files
 }
 \description{
-Function reads Variant Call Format VCF files into a GRanges object and
-combines them in a list object.
+This function reads Variant Call Format (VCF) files into a GRanges object
+and combines them in a GRangesList.  In addition to loading the files, this
+function applies a seqlevel style to the GRanges objects.  The default
+seqlevel style is "UCSC".
 }
 \examples{
 # The example data set consists of three colon samples, three intestine
