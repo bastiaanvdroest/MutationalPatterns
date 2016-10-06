@@ -1,3 +1,21 @@
+MutationalPatterns v0.99.5 (Release date: 2016-10-06)
+=====================================================
+
+Changes:
+
+* Added deprecation and defunct messages to functions that have
+  changed since the v0.99.0.
+* Various small vignette and reference manual updates.
+
+
+MutationalPatterns v0.99.4 (Release date: 2016-10-05)
+=====================================================
+
+Changes:
+
+* Internal package loading changes.
+* Removed files that do not belong to the package.
+
 MutationalPatterns v0.99.3 (Release date: 2016-09-28)
 =====================================================
 
