@@ -6,6 +6,24 @@ substitution catalogues.
 
 ## ChangeLog
 
+### v0.99.6
+
+#### Renamed functions
+
+  * `mut_type_occurences` to `mut_type_occurrences`
+  * `strand_occurences` to `strand_occurrences`
+
+### v0.99.5
+
+  * Added deprecation and defunct messages to functions that have
+    changed since the `v0.99.0`.
+  * Various small vignette and reference manual updates.
+
+### v0.99.4
+
+  * Internal package loading changes.
+  * Removed files that do not belong to the package.
+
 ### v0.99.3
 
 #### Renamed functions
