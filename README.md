@@ -102,10 +102,22 @@ your data analysis.  A preprint of the article can be found on
 
 ## Installation
 
-For this package, you need R version 3.3.0 or higher.  Additionally,
-you need `BiocInstaller` and `devtools` to easily load this package.
+This package is part of Bioconductor release 3.4.  This means it can be
+installed by entering the following lines at your R prompt:
 
-Install `BiocInstaller`:
+  ```{r}
+  source("https://bioconductor.org/biocLite.R")
+  biocLite("MutationalPatterns")
+  ```
+
+Alternatively you can install it directly from Github using `devtools`:
+
+  ```{r}
+  install.packages("devtools")
+  library(devtools)
+  ```
+
+To load your reference genome data, you also need to install `BiocInstaller`:
 
   ```{r}
   source("https://bioconductor.org/biocLite.R")
@@ -113,14 +125,7 @@ Install `BiocInstaller`:
   library("BiocInstaller")
   ```
 
-Install `devtools` to load this package:
-
-  ```{r}
-  install.packages("devtools")
-  library(devtools)
-  ```
-
-Install and load `MutationalPatterns`:
+Then proceed to install and load `MutationalPatterns`:
 
   ```{r}
   options(unzip = 'internal')
