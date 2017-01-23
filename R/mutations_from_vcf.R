@@ -29,7 +29,11 @@ mutations_from_vcf = function(vcf)
 
     if (length(alt) == 0)
         alt = as.character(vcf$alt)
-    
+
+    # If these columns are still missing, there's nothing we can do.
+    if (length(ref) == 0 || length(alt) == 0)
+        warning("Some of your data is missing an ALT and/or a REF column.")
+
     muts = paste(ref, alt, sep=">")
     return(muts)
 }

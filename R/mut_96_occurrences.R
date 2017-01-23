@@ -8,6 +8,9 @@ mut_96_occurrences = function(type_context)
     vector = rep(0,96)
     names(vector) = TRIPLETS_96
 
+    if (is.null(type_context$types) || is.null(type_context$context))
+        return(vector)
+    
     # for all mutations in this sample
     for (i in 1:length(type_context[[1]]))
     {
