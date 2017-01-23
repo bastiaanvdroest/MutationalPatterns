@@ -22,7 +22,14 @@ mutations_from_vcf = function(vcf)
 {
     ref = as.character(vcf$REF)
     alt = as.character(unlist(vcf$ALT))
+
+    # Allow both uppercase and lowercase column names.
+    if (length(ref) == 0)
+        ref = as.character(vcf$ref)
+
+    if (length(alt) == 0)
+        alt = as.character(vcf$alt)
+    
     muts = paste(ref, alt, sep=">")
     return(muts)
 }
-
