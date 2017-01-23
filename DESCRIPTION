@@ -12,6 +12,7 @@ License: MIT + file LICENSE
 URL: https://github.com/CuppenResearch/MutationalPatterns
 Imports:
     stats,
+    parallel,
     BiocGenerics (>= 0.18.0),
     VariantAnnotation (>= 1.18.1),
     reshape2 (>= 1.4.1),

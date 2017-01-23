@@ -42,7 +42,13 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-",
     if (length(vcf_files) != length(sample_names))
         stop("Provide the same number of sample names as VCF files")
 
-    vcf_list <- GRangesList(lapply (vcf_files, function (file)
+    num_cores <- detectCores()
+
+    # On confined OS environments, this value can be NA.
+    if (is.na(num_cores))
+        num_cores = 1
+
+    vcf_list <- GRangesList(mclapply (vcf_files, function (file)
     {
         # Use VariantAnnotation's readVcf, but only store the
         # GRanges information in memory.  This speeds up the
@@ -67,7 +73,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-",
         }
 
         return(vcf)
-    }))
+    }, mc.cores = (num_cores - 1)))
 
     # Set the provided names for the samples.
     names(vcf_list) <- sample_names
