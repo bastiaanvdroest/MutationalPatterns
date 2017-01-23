@@ -53,7 +53,7 @@
 mut_matrix_stranded = function(vcf_list, ref_genome, genes)
 {
     df = data.frame()
-    for(i in length(vcf_list))
+    for(i in seq(vcf_list))
     {
         type_context = type_context(vcf_list[[i]], ref_genome)
         strand = strand_from_vcf(vcf_list[[i]], genes)
