@@ -45,8 +45,10 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome="-",
     num_cores <- detectCores()
 
     # On confined OS environments, this value can be NA.
+    # One core will be substracted from the total, so we
+    # set this to 2.
     if (is.na(num_cores))
-        num_cores = 1
+        num_cores = 2
 
     vcf_list <- GRangesList(mclapply (vcf_files, function (file)
     {
