@@ -38,9 +38,9 @@
 mut_matrix = function(vcf_list, ref_genome)
 {
     df = data.frame()
-    for(vcf in vcf_list)
+    for(i in length(vcf_list))
     {
-        type_context = type_context(vcf, ref_genome)
+        type_context = type_context(vcf_list[[i]], ref_genome)
         row = mut_96_occurrences(type_context)
         df = rbind(df, row)
     }
