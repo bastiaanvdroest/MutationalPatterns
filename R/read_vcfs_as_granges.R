@@ -15,6 +15,8 @@
 #' @importFrom VariantAnnotation readVcf
 #' @importFrom SummarizedExperiment rowRanges
 #' @importFrom GenomeInfoDb "seqlevelsStyle<-"
+#' @importFrom parallel detectCores
+#' @importFrom parallel mclapply
 #'
 #' @examples
 #' # The example data set consists of three colon samples, three intestine
