@@ -4,25 +4,30 @@
 \alias{read_vcfs_as_granges}
 \title{Read VCF files into a GRangesList}
 \usage{
-read_vcfs_as_granges(vcf_files, sample_names, genome = "-", style = "UCSC")
+read_vcfs_as_granges(vcf_files, sample_names, genome = "-",
+  convert_reference = TRUE)
 }
 \arguments{
-\item{vcf_files}{Character vector of vcf file names}
+\item{vcf_files}{Character vector of VCF file names}
 
 \item{sample_names}{Character vector of sample names}
 
-\item{genome}{A character or Seqinfo object}
+\item{genome}{A string matching the name of the BSgenome library
+corresponding to the reference genome of your VCFs}
 
-\item{style}{The naming standard to use for the GRanges. (default = "UCSC")}
+\item{convert_reference}{When TRUE, the function will make sure
+the seqlevel styles (chromosome naming) of the VCFs
+will be adjusted to that of the reference genome.
+This will also remove contigs from the VCFs.}
 }
 \value{
-A GRangesList containing the GRanges obtained from vcf_files
+A GRangesList containing the GRanges obtained from 'vcf_files'
 }
 \description{
 This function reads Variant Call Format (VCF) files into a GRanges object
 and combines them in a GRangesList.  In addition to loading the files, this
-function applies a seqlevel style to the GRanges objects.  The default
-seqlevel style is "UCSC".
+function applies the same seqlevel style to the GRanges objects as the
+reference genome passed in the 'genome' parameter.
 }
 \examples{
 # The example data set consists of three colon samples, three intestine
@@ -39,7 +44,8 @@ vcf_files <- list.files(system.file("extdata",
                                     pattern = ".vcf", full.names = TRUE)
 
 # This function loads the files as GRanges objects
-vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
+vcfs <- read_vcfs_as_granges(vcf_files, sample_names,
+                             "BSgenome.Hsapiens.UCSC.hg19")
 
 }
 
