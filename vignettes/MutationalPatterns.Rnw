@@ -141,7 +141,7 @@ sample_names <- c(
 
 Now we can load it:
 <<read_vcfs_as_granges>>=
-vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = "hg19")
+vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = ref_genome)
 summary(vcfs)
 @
 
@@ -241,7 +241,7 @@ p3 <- plot_spectrum(type_occurrences, CT = TRUE, legend = FALSE)
 <<combine_plot_spectrum, fig=TRUE, width=9, height=4>>=
 library("gridExtra")
 grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.8))
-@ 
+@
 
 Plot spectrum for each tissue separately:
 <<plot_spectrum_4>>=
@@ -260,7 +260,7 @@ p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE,
 \begin{center}
 <<combine_plot_spectrum_2, fig=TRUE, width=9, height=4>>=
 grid.arrange(p4, p5, ncol=2, widths=c(3,2))
-@ 
+@
 \end{center}
 \end{figure}
 
