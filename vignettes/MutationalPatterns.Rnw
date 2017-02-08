@@ -141,21 +141,8 @@ sample_names <- c(
 
 Now we can load it:
 <<read_vcfs_as_granges>>=
-vcfs <- read_vcfs_as_granges(vcf_files, sample_names, genome = ref_genome)
+vcfs <- read_vcfs_as_granges(vcf_files, sample_names, ref_genome)
 summary(vcfs)
-@
-
-\section{Take a subset of the chromosomes}
-
-If you want to use a subset of the chromosomes, like all chromosomes except
-the X, Y or MT, you can use the following snippet:
-
-<<select_subset_of_chromosomes>>=
-auto <- extractSeqlevelsByGroup(species="Homo_sapiens", 
-                                style="UCSC", 
-                                group="auto")
-
-vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, auto))
 @
 
 \section{Mutation characteristics}

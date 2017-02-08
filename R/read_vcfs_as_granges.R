@@ -7,12 +7,13 @@
 #'
 #' @param vcf_files Character vector of VCF file names
 #' @param sample_names Character vector of sample names
-#' @param genome A string matching the name of the BSgenome library
+#' @param genome A string matching the name of a BSgenome library
 #'               corresponding to the reference genome of your VCFs
-#' @param convert_reference  When TRUE, the function will make sure
-#'               the seqlevel styles (chromosome naming) of the VCFs
-#'               will be adjusted to that of the reference genome.
-#'               This will also remove contigs from the VCFs.
+#' @param group Selector for a seqlevel group.  All seqlevels outside
+#'              of this group will be removed.  Possible values:
+#'              "all", "auto", "sex", "auto+sex" (default), and "circular".
+#'              See 'extractSeqlevelsByGroup' for more information.
+#'
 #' @return A GRangesList containing the GRanges obtained from 'vcf_files'
 #'
 #' @importFrom BiocGenerics match
@@ -27,9 +28,9 @@
 #' # The example data set consists of three colon samples, three intestine
 #' # samples and three liver samples.  So, to map each file to its appropriate
 #' # sample name, we create a vector containing the sample names:
-#' sample_names <- c("colon1", "colon2", "colon3",
+#' sample_names <- c ( "colon1", "colon2", "colon3",
 #'                     "intestine1", "intestine2", "intestine3",
-#'                     "liver1", "liver2", "liver3")
+#'                     "liver1", "liver2", "liver3" )
 #'
 #' # We assemble a list of files we want to load.  These files match the
 #' # sample names defined above.
@@ -37,14 +38,18 @@
 #'                                     package="MutationalPatterns"),
 #'                                     pattern = ".vcf", full.names = TRUE)
 #'
+#' # Get a reference genome BSgenome object.
+#' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+#' library("BSgenome")
+#' library(ref_genome, character.only = TRUE)
+#'
 #' # This function loads the files as GRanges objects
-#' vcfs <- read_vcfs_as_granges(vcf_files, sample_names,
-#'                              "BSgenome.Hsapiens.UCSC.hg19")
+#' vcfs <- read_vcfs_as_granges(vcf_files, sample_names, ref_genome)
 #'
 #' @export
 
 read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
-                                 convert_reference= TRUE)
+                                 group = "auto+sex")
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
@@ -53,7 +58,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
     # Check whether the user has adapted to the new behavior of the function.
     if (genome == "-")
         stop(paste("Please pass a reference genome string in the 'genome'",
-                   "parameter. This string can be obtained using",
+                   "parameter.  This string can be obtained using",
                    "available.genomes() from the BSgenome package."))
 
     ref_genome <- base::get(genome)
@@ -74,7 +79,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
     # One core will be substracted from the total, so we
     # set this to 2.
     if (is.na(num_cores))
-        num_cores = 2
+        num_cores = 1
 
     vcf_list <- GRangesList(mclapply (vcf_files, function (file)
     {
@@ -83,19 +88,29 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
         # loading significantly.
         vcf <- rowRanges(readVcf (file, genome_name))
 
-        if (convert_reference)
-        {
-            # Convert to a single naming standard.
-            seqlevelsStyle(vcf) <- ref_style
+        # Convert to a single naming standard.
+        seqlevelsStyle(vcf) <- ref_style
 
+        groups <- c()
+        if (group == "auto+sex")
+        {
             # Remove contig regions.  The names of these cannot be automatically
             # converted.
-            without_contigs <- extractSeqlevelsByGroup( species = ref_organism,
-                                                        style = ref_style,
-                                                        group = "all" )
-
-            vcf <- keepSeqlevels(vcf, without_contigs)
+            groups <- c(extractSeqlevelsByGroup(species = ref_organism,
+                                                style = ref_style,
+                                                group = "auto"),
+                        extractSeqlevelsByGroup(species = ref_organism,
+                                                style = ref_style,
+                                                group = "sex"))
         }
+        else
+        {
+            groups <- extractSeqlevelsByGroup ( species = ref_organism,
+                                                style = ref_style,
+                                                group = group )
+        }
+
+        vcf <- keepSeqlevels(vcf, groups)
 
         # Find and exclude positions with indels or multiple
         # alternative alleles.
@@ -112,7 +127,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
         }
 
         return(vcf)
-    }, mc.cores = (num_cores - 1)))
+    }, mc.cores = num_cores))
 
     # Set the provided names for the samples.
     names(vcf_list) <- sample_names

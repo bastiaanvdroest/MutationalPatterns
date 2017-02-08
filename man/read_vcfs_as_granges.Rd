@@ -5,20 +5,20 @@
 \title{Read VCF files into a GRangesList}
 \usage{
 read_vcfs_as_granges(vcf_files, sample_names, genome = "-",
-  convert_reference = TRUE)
+  group = "auto+sex")
 }
 \arguments{
 \item{vcf_files}{Character vector of VCF file names}
 
 \item{sample_names}{Character vector of sample names}
 
-\item{genome}{A string matching the name of the BSgenome library
+\item{genome}{A string matching the name of a BSgenome library
 corresponding to the reference genome of your VCFs}
 
-\item{convert_reference}{When TRUE, the function will make sure
-the seqlevel styles (chromosome naming) of the VCFs
-will be adjusted to that of the reference genome.
-This will also remove contigs from the VCFs.}
+\item{group}{Selector for a seqlevel group.  All seqlevels outside
+of this group will be removed.  Possible values:
+"all", "auto", "sex", "auto+sex" (default), and "circular".
+See 'extractSeqlevelsByGroup' for more information.}
 }
 \value{
 A GRangesList containing the GRanges obtained from 'vcf_files'
@@ -33,19 +33,22 @@ reference genome passed in the 'genome' parameter.
 # The example data set consists of three colon samples, three intestine
 # samples and three liver samples.  So, to map each file to its appropriate
 # sample name, we create a vector containing the sample names:
-sample_names <- c("colon1", "colon2", "colon3",
+sample_names <- c ( "colon1", "colon2", "colon3",
                     "intestine1", "intestine2", "intestine3",
-                    "liver1", "liver2", "liver3")
+                    "liver1", "liver2", "liver3" )
 
 # We assemble a list of files we want to load.  These files match the
 # sample names defined above.
 vcf_files <- list.files(system.file("extdata", 
                                     package="MutationalPatterns"),
                                     pattern = ".vcf", full.names = TRUE)
+# Get a reference genome BSgenome object.
+ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
+library("BSgenome")
+library(ref_genome, character.only = TRUE)
 
 # This function loads the files as GRanges objects
-vcfs <- read_vcfs_as_granges(vcf_files, sample_names,
-                             "BSgenome.Hsapiens.UCSC.hg19")
+vcfs <- read_vcfs_as_granges(vcf_files, sample_names, ref_genome)
 
 }
 
