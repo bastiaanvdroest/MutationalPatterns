@@ -34,7 +34,8 @@ Suggests:
     biomaRt (>= 2.28.0),
     BSgenome.Hsapiens.UCSC.hg19 (>= 1.4.0),
     TxDb.Hsapiens.UCSC.hg19.knownGene (>= 3.2.2),
-    rtracklayer (>= 1.32.2)
+    rtracklayer (>= 1.32.2),
+    testthat
 biocViews: Genetics, SomaticMutation
 ZipData: NA
 LazyData: false
