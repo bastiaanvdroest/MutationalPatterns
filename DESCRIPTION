@@ -23,11 +23,11 @@ Imports:
     IRanges (>= 2.6.0),
     GenomeInfoDb (>= 1.8.1),
     Biostrings (>= 2.40.0),
-    gridExtra (>= 2.2.1),
-    NMF (>= 0.20.6)
+    gridExtra (>= 2.2.1)
 Depends:
     R (>= 3.3.0),
-    GenomicRanges (>= 1.24.0)
+    GenomicRanges (>= 1.24.0),
+    NMF (>= 0.20.6)
 Suggests:
     BSgenome (>= 1.40.0),
     BiocStyle (>= 2.0.3),

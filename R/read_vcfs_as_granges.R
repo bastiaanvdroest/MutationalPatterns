@@ -22,8 +22,11 @@
 #' @importFrom SummarizedExperiment rowRanges
 #' @importFrom GenomeInfoDb "seqlevelsStyle<-"
 #' @importFrom GenomeInfoDb "organism"
+#' @importFrom GenomeInfoDb keepSeqlevels
+#' @importFrom GenomeInfoDb extractSeqlevelsByGroup
 #' @importFrom parallel detectCores
 #' @importFrom parallel mclapply
+#' @importFrom plyr llply
 #'
 #' @examples
 #' # The example data set consists of three colon samples, three intestine
