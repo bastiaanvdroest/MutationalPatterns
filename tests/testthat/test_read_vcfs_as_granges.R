@@ -45,18 +45,15 @@ test_that("sex chromosomes filter works", {
     expect_that(seqlevels(input), equals(expected))
 })
 
-## test_that("unfiltered works", {
-##     ref_genome = "BSgenome.Hsapiens.1000genomes.hs37d5"
-##     library(ref_genome, character.only = TRUE)
+test_that("unfiltered works", {
+    # We use the reference genome that best fits the sample data here
+    # to make sure the contig names automatically match.
+    ref_genome = "BSgenome.Hsapiens.1000genomes.hs37d5"
+    library(ref_genome, character.only = TRUE)
 
-##     input <- read_vcfs_as_granges(vcfs, sample_names, ref_genome, "all")
-##     expected <- c(
-##         "chr1",  "chr2",  "chr3",  "chr4",  "chr5",  "chr6",  "chr7",
-##         "chr8",  "chr9",  "chr10", "chr11", "chr12", "chr13", "chr14",
-##         "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21",
-##         "chr22")
+    input <- read_vcfs_as_granges(vcfs, sample_names, ref_genome, "everything")
+    expected <- seqlevels(get(ref_genome))
 
-##     print(paste("all = ", seqlevels(input)))
-
-##     expect_that(seqlevels(input), equals(expected))
-## })
+    proper_subset <- all(seqlevels(input) %in% expected)
+    expect_equal(proper_subset, TRUE)
+})
