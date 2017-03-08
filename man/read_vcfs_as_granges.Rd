@@ -17,8 +17,9 @@ corresponding to the reference genome of your VCFs}
 
 \item{group}{Selector for a seqlevel group.  All seqlevels outside
 of this group will be removed.  Possible values:
-"all", "auto", "sex", "auto+sex" (default), and "circular".
-See 'extractSeqlevelsByGroup' for more information.}
+"all", "auto", "sex", "auto+sex" (default), "everything",
+and "circular".  See 'extractSeqlevelsByGroup' for more
+information.}
 }
 \value{
 A GRangesList containing the GRanges obtained from 'vcf_files'
@@ -42,6 +43,7 @@ sample_names <- c ( "colon1", "colon2", "colon3",
 vcf_files <- list.files(system.file("extdata", 
                                     package="MutationalPatterns"),
                                     pattern = ".vcf", full.names = TRUE)
+
 # Get a reference genome BSgenome object.
 ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 library("BSgenome")
