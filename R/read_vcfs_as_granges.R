@@ -11,8 +11,9 @@
 #'               corresponding to the reference genome of your VCFs
 #' @param group Selector for a seqlevel group.  All seqlevels outside
 #'              of this group will be removed.  Possible values:
-#'              "all", "auto", "sex", "auto+sex" (default), and "circular".
-#'              See 'extractSeqlevelsByGroup' for more information.
+#'              "all", "auto", "sex", "auto+sex" (default), "everything",
+#'              and "circular".  See 'extractSeqlevelsByGroup' for more
+#'              information.
 #'
 #' @return A GRangesList containing the GRanges obtained from 'vcf_files'
 #'
@@ -89,28 +90,47 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
         vcf <- rowRanges(readVcf (file, genome_name))
 
         # Convert to a single naming standard.
-        seqlevelsStyle(vcf) <- ref_style
+        seqlevelsStyle(vcf) <- ref_style[1]
 
         groups <- c()
-        if (group == "auto+sex")
+        if (group != "everything")
         {
-            # Remove contig regions.  The names of these cannot be automatically
-            # converted.
-            groups <- c(extractSeqlevelsByGroup(species = ref_organism,
-                                                style = ref_style,
-                                                group = "auto"),
-                        extractSeqlevelsByGroup(species = ref_organism,
-                                                style = ref_style,
-                                                group = "sex"))
-        }
-        else
-        {
-            groups <- extractSeqlevelsByGroup ( species = ref_organism,
-                                                style = ref_style,
-                                                group = group )
-        }
+            if (group == "auto+sex")
+            {
+                groups <- c(extractSeqlevelsByGroup(species = ref_organism,
+                                                    style = ref_style,
+                                                    group = "auto"),
+                            extractSeqlevelsByGroup(species = ref_organism,
+                                                    style = ref_style,
+                                                    group = "sex"))
 
-        vcf <- keepSeqlevels(vcf, groups)
+                # In some cases, the seqlevelsStyle returns multiple styles.
+                # In this case, we need to do a little more work to extract
+                # a vector of seqlevels from it.
+                groups_names <- names(groups)
+                if (! is.null(groups_names))
+                {
+                    # The seqlevels in the groups are now duplicated.
+                    # The following code deduplicates the list items, so that
+                    # creating a data frame will work as expected.
+                    unique_names <- unique(groups_names)
+                    groups <- llply(unique_names, function(x) groups[groups_names == x])
+                    groups <- llply(groups, unlist, recursive = F)
+
+                    # In case there are multiple styles applied, we only use the first.
+                    groups <- unique(as.vector(groups[[1]]))
+                }
+            }
+            else
+            {
+                groups <- extractSeqlevelsByGroup ( species = ref_organism,
+                                                   style = ref_style,
+                                                   group = group )
+                groups <- unique(as.vector(t(groups)))
+            }
+
+            vcf <- keepSeqlevels(vcf, groups)
+        }
 
         # Find and exclude positions with indels or multiple
         # alternative alleles.
