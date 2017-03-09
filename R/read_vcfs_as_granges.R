@@ -85,6 +85,12 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
     if (is.na(num_cores))
         num_cores = 1
 
+    # To be able to print warnings from within the mclapply call,
+    # we need to explicitly set this option. See:
+    # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=17122
+    original_warn_state = getOption("warn")
+    options(warn=1)
+
     vcf_list <- GRangesList(mclapply (vcf_files, function (file)
     {
         # Use VariantAnnotation's readVcf, but only store the
@@ -150,8 +156,11 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
         }
 
         return(vcf)
-    }, mc.cores = num_cores))
+    }, mc.cores = num_cores, mc.silent = FALSE))
 
+    # Reset the option.
+    options(warn=original_warn_state)
+    
     # Set the provided names for the samples.
     names(vcf_list) <- sample_names
 
