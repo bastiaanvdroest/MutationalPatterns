@@ -1,6 +1,6 @@
 #' Count the occurrences of each base substitution type
 #' 
-#' @param vcf_list A list of CollapsedVCF object
+#' @param vcf_list A GRangesList
 #' @param ref_genome Reference genome
 #' @return data.frame with counts of each base substitution type for
 #' each sample in vcf_list
