@@ -5,7 +5,7 @@
 \title{Read VCF files into a GRangesList}
 \usage{
 read_vcfs_as_granges(vcf_files, sample_names, genome = "-",
-  group = "auto+sex")
+  group = "auto+sex", check_alleles = TRUE)
 }
 \arguments{
 \item{vcf_files}{Character vector of VCF file names}
@@ -17,9 +17,20 @@ corresponding to the reference genome of your VCFs}
 
 \item{group}{Selector for a seqlevel group.  All seqlevels outside
 of this group will be removed.  Possible values:
-"all", "auto", "sex", "auto+sex" (default), "everything",
-and "circular".  See 'extractSeqlevelsByGroup' for more
-information.}
+* 'all' for all chromosomes;
+* 'auto' for autosomal chromosomes;
+* 'sex' for sex chromosomes;
+* 'auto+sex' for autosomal + sex chromosomes (default);
+* 'circular' for circular chromosomes;
+* 'none' for no filtering, which results in keeping all
+  seqlevels from the VCF file.}
+
+\item{check_alleles}{logical. If TRUE (default) positions with insertions,
+deletions and/or multiple alternative alleles are excluded
+from the vcf object, since these positions cannot be analysed
+with this package.  This setting can be set to FALSE to speed
+up processing time only if the input vcf does not contain any
+of such positions, as these will cause obscure errors.}
 }
 \value{
 A GRangesList containing the GRanges obtained from 'vcf_files'

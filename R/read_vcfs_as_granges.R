@@ -11,9 +11,19 @@
 #'               corresponding to the reference genome of your VCFs
 #' @param group Selector for a seqlevel group.  All seqlevels outside
 #'              of this group will be removed.  Possible values:
-#'              "all", "auto", "sex", "auto+sex" (default), "everything",
-#'              and "circular".  See 'extractSeqlevelsByGroup' for more
-#'              information.
+#'              * 'all' for all chromosomes;
+#'              * 'auto' for autosomal chromosomes;
+#'              * 'sex' for sex chromosomes;
+#'              * 'auto+sex' for autosomal + sex chromosomes (default);
+#'              * 'circular' for circular chromosomes;
+#'              * 'none' for no filtering, which results in keeping all
+#'                seqlevels from the VCF file.
+#' @param check_alleles logical. If TRUE (default) positions with insertions,
+#'              deletions and/or multiple alternative alleles are excluded
+#'              from the vcf object, since these positions cannot be analysed
+#'              with this package.  This setting can be set to FALSE to speed
+#'              up processing time only if the input vcf does not contain any
+#'              of such positions, as these will cause obscure errors.
 #'
 #' @return A GRangesList containing the GRanges obtained from 'vcf_files'
 #'
@@ -53,7 +63,7 @@
 #' @export
 
 read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
-                                 group = "auto+sex")
+                                 group = "auto+sex", check_alleles = TRUE)
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
@@ -91,6 +101,17 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
     original_warn_state = getOption("warn")
     options(warn=1)
 
+    # Show the warning once for all VCF files that are loaded with this
+    # call to read_vcfs_as_granges.
+    if (!check_alleles)
+    {
+        warning(paste("check_alleles is set to FALSE.  Make sure your input",
+                      "VCF does not contain any positions with insertions,",
+                      "deletions or multiple alternative alleles, as these",
+                      "positions cannot be analysed with MutationalPatterns",
+                      "and cause obscure errors."))
+    }
+
     vcf_list <- GRangesList(mclapply (vcf_files, function (file)
     {
         # Use VariantAnnotation's readVcf, but only store the
@@ -102,7 +123,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
         seqlevelsStyle(vcf) <- ref_style[1]
 
         groups <- c()
-        if (group != "everything")
+        if (group != "none")
         {
             if (group == "auto+sex")
             {
@@ -141,18 +162,21 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
             vcf <- keepSeqlevels(vcf, groups)
         }
 
-        # Find and exclude positions with indels or multiple
-        # alternative alleles.
-        rem <- which(all(!( !is.na(match(vcf$ALT, DNA_BASES)) &
-                            !is.na(match(vcf$REF, DNA_BASES)) &
-                            (lengths(vcf$ALT) == 1) )))
-
-        if (length(rem) > 0)
+        if (check_alleles)
         {
-            vcf = vcf[-rem]
-            warning(length(rem),
-                    " position(s) with indels and multiple",
-                    " alternative alleles are removed.")
+            # Find and exclude positions with indels or multiple
+            # alternative alleles.
+            rem <- which(all(!( !is.na(match(vcf$ALT, DNA_BASES)) &
+                                !is.na(match(vcf$REF, DNA_BASES)) &
+                                (lengths(vcf$ALT) == 1) )))
+
+            if (length(rem) > 0)
+            {
+                vcf = vcf[-rem]
+                warning(length(rem),
+                        " position(s) with indels and multiple",
+                        " alternative alleles are removed.")
+            }
         }
 
         return(vcf)

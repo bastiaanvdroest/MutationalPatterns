@@ -51,7 +51,7 @@ test_that("unfiltered works", {
     ref_genome = "BSgenome.Hsapiens.1000genomes.hs37d5"
     library(ref_genome, character.only = TRUE)
 
-    input <- read_vcfs_as_granges(vcfs, sample_names, ref_genome, "everything")
+    input <- read_vcfs_as_granges(vcfs, sample_names, ref_genome, "none")
     expected <- seqlevels(get(ref_genome))
 
     proper_subset <- all(seqlevels(input) %in% expected)
