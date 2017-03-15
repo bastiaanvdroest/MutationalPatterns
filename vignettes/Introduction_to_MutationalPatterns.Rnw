@@ -147,7 +147,10 @@ summary(vcfs)
 @
 
 Store relevant metadata on the samples, such as tissue type, in a character vector:
+<<store_tissue_variable>>=
 tissue <- c(rep("colon", 3), rep("intestine", 3), rep("liver", 3))
+@
+
 
 \section{Mutation characteristics}
 
@@ -192,7 +195,7 @@ substitution types, the reverse complement of the context is returned.
 
 <<type_context>>=
 type_context = type_context(vcfs[[1]], ref_genome)
-head(type)
+head(type_context)
 @
 
 Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
@@ -230,20 +233,24 @@ Plot spectrum without legend:
 p3 = plot_spectrum(type_occurrences, CT = TRUE, legend = FALSE)
 @
 
-<<combine_plot_spectrum, fig=TRUE, width=9, height=4>>=
+\begin{figure}[H]
+\begin{center}
+<<combine_plot_spectrum, fig=TRUE, width=9, height=2.7>>=
 library("gridExtra")
 grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.8))
 @
+\end{center}
+\end{figure}
 
 You can facet the per sample group, e.g. plot spectrum for each tissue separately:
 <<plot_spectrum_4>>=
-plot_spectrum(type_occurrences, by = tissue, CT = TRUE, legend = FALSE)
+p4 <- plot_spectrum(type_occurrences, by = tissue, CT = TRUE, legend = TRUE)
 @
 
 Define your own 7 colors for spectrum plotting:
 <<plot_spectrum_5>>=
 my_colors <- c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
-plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE, 
+p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE, 
                     colors = my_colors)
 @
 
@@ -251,8 +258,8 @@ plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE,
 
 \begin{figure}[H]
 \begin{center}
-<<combine_plot_spectrum_2, fig=TRUE, width=9, height=4>>=
-grid.arrange(p4, p5, ncol=2, widths=c(3,2))
+<<combine_plot_spectrum_2, fig=TRUE, width=11, height=4>>=
+grid.arrange(p4, p5, ncol=2, widths=c(4,2))
 @
 \end{center}
 \end{figure}
@@ -267,7 +274,7 @@ mut_mat <- mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 Plot 96 profile of three samples:
 \begin{figure}[H]
 \begin{center}
-<<plot_96_profile, fig=TRUE, width=10, height=6>>=
+<<plot_96_profile, fig=TRUE, width=9, height=7>>=
 plot_96_profile(mut_mat[,c(1,4,7)])
 @
 \end{center}
@@ -292,7 +299,7 @@ signatures using \Rfunction{extract\_signatures}:
 
 \begin{figure}[H]
 \begin{center}
-<<estimate_rank, fig=TRUE, width=10, height=7>>=
+<<estimate_rank, fig=TRUE, width=9, height=7>>=
 # Add a small psuedocount to avoid a 0 in the matrix.
 mut_mat = mut_mat + 0.0001
 
@@ -317,14 +324,18 @@ colnames(nmf_res$signatures) <- c("Signature A", "Signature B")
 
 % TODO: ik mis hier de plot van de signatures
 Plot the 96-profile of the signatures:
-<<plot_96_profile>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_96_profile, fig=TRUE, width=9, height=7>>=
 plot_96_profile(nmf_res$signatures)
 @
+\end{center}
+\end{figure}
 
 Plot the contribution of the signatures:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution, fig=TRUE,width=8,height=4>>=
+<<plot_contribution, fig=TRUE, width=9, height=3>>=
 rownames(nmf_res$contribution) <- c("Signature A", "Signature B")
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 @ 
@@ -334,7 +345,9 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 
 % TODO: ik mis hier de plot van de contributions, check markdown op github
 Plot the contribution of the signatures in absolute number of mutations:
-<<plot_contribution_2>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_2, fig=TRUE, with=9, height=3>>=
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
 
 # Plot contribution of signatures for subset of samples with index parameter
@@ -345,15 +358,21 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
                     coord_flip = TRUE)
 @
+\end{center}
+\end{figure}
 
 
 % TODO: ik mis ook deze plot
 Compare reconstructed mutation profile with original mutation profile:
-<<plot_compare_profiles>>=
+\begin{figure}[H]
+\begin{center}
+<<plot_compare_profiles, fig=TRUE, width=9, height=7>>=
 plot_compare_profiles(mut_mat[,1], 
                         nmf_res$reconstructed[,1], 
                         profile_names = c("Original", "Reconstructed"))
 @
+\end{center}
+\end{figure}
 
 \subsection{Fit 96 mutation profiles to known signatures}
 
@@ -505,11 +524,10 @@ Plot strand bias per mutation type for each signature with significance test:
 b <- plot_signature_strand_bias(nmf_res_strand$signatures)
 @
 
-
 % TODO: verhoudingen aanpassen plots, zie markdown, links is veel te klein, rechts te groot
 \begin{figure}[H]
 \begin{center}
-<<plot_192_profile, fig=TRUE, width=12, height=4>>=
+<<plot_192_profile, fig=TRUE, width=9, height=5>>=
 # combine plots
 grid.arrange(a, b, ncol=2, widths=c(3,1))
 @
@@ -706,7 +724,7 @@ distr_test2 <- enrichment_depletion_test(distr)
 
 \begin{figure}[H]
 \begin{center}
-<<plot_enrichment_depletion, fig=TRUE, width=15, height=4>>=
+<<plot_enrichment_depletion, fig=TRUE, width=9, height=6>>=
 plot_enrichment_depletion(distr_test)
 @
 \end{center}
