@@ -19,6 +19,8 @@ BiocStyle::latex()
 
 \tableofcontents
 
+\newpage{}
+
 <<options, echo=FALSE>>=
 options(width=72)
 @
@@ -195,7 +197,8 @@ substitution types, the reverse complement of the context is returned.
 
 <<type_context>>=
 type_context = type_context(vcfs[[1]], ref_genome)
-head(type_context)
+head(type_context$types, 50)
+head(type_context$context, 50)
 @
 
 Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
@@ -254,8 +257,6 @@ p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE,
                     colors = my_colors)
 @
 
-%TODO: Roel wil je ervoor zorgen dat de plots er zo uitzien als in de markdown op github?
-
 \begin{figure}[H]
 \begin{center}
 <<combine_plot_spectrum_2, fig=TRUE, width=11, height=4>>=
@@ -297,15 +298,21 @@ the input matrix and its estimate shows an inflection point.''
 We can use the NMF package to determine which rank we should use to extract
 signatures using \Rfunction{extract\_signatures}:
 
+Add a small psuedocount to avoid a 0 in the matrix:
+
+<<psuedo_count>>=
+mut_mat = mut_mat + 0.0001
+@ 
+
+Use the NMF package to generate an estimate plot.
+<<use_nmf>>=
+library("NMF")
+estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
+@ 
+
 \begin{figure}[H]
 \begin{center}
 <<estimate_rank, fig=TRUE, width=9, height=7>>=
-# Add a small psuedocount to avoid a 0 in the matrix.
-mut_mat = mut_mat + 0.0001
-
-# Use the NMF package to generate an estimate plot.
-library("NMF")
-estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
 plot(estimate)
 @
 \end{center}
@@ -322,7 +329,6 @@ Provide column names for the signatures:
 colnames(nmf_res$signatures) <- c("Signature A", "Signature B")
 @
 
-% TODO: ik mis hier de plot van de signatures
 Plot the 96-profile of the signatures:
 \begin{figure}[H]
 \begin{center}
@@ -338,31 +344,39 @@ Plot the contribution of the signatures:
 <<plot_contribution, fig=TRUE, width=9, height=3>>=
 rownames(nmf_res$contribution) <- c("Signature A", "Signature B")
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
-@ 
+@
 \end{center}
 \end{figure}
 
-
-% TODO: ik mis hier de plot van de contributions, check markdown op github
 Plot the contribution of the signatures in absolute number of mutations:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution_2, fig=TRUE, with=9, height=3>>=
+<<plot_contribution_2, fig=TRUE, height=2.5>>=
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
+@
+\end{center}
+\end{figure}
 
-# Plot contribution of signatures for subset of samples with index parameter
+Plot contribution of signatures for subset of samples with index parameter:
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_3, fig=TRUE, width=9, height=3>>=
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
                     index = c(1,2))
+@
+\end{center}
+\end{figure}
 
-# flip X and Y coordinates
+Flip X and Y coordinates:
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_4, fig=true, width=7, height=2>>=
 plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
                     coord_flip = TRUE)
 @
 \end{center}
 \end{figure}
 
-
-% TODO: ik mis ook deze plot
 Compare reconstructed mutation profile with original mutation profile:
 \begin{figure}[H]
 \begin{center}
@@ -524,11 +538,9 @@ Plot strand bias per mutation type for each signature with significance test:
 b <- plot_signature_strand_bias(nmf_res_strand$signatures)
 @
 
-% TODO: verhoudingen aanpassen plots, zie markdown, links is veel te klein, rechts te groot
 \begin{figure}[H]
 \begin{center}
 <<plot_192_profile, fig=TRUE, width=9, height=5>>=
-# combine plots
 grid.arrange(a, b, ncol=2, widths=c(3,1))
 @
 \end{center}
@@ -579,21 +591,21 @@ specify your genomic regions in a named list of GRanges objects.  Alternatively,
 use publically available genomic annotation data, like in the example below.
 
 \subsubsection{Example: regulation annotation data from Ensembl using 
-    \Rpackage{biomaRt}}
+    \Biocpkg{biomaRt}}
 
 The following example displays how to download promoter, CTCF binding sites and 
 transcription factor binding sites regions for
-genome build hg19 from Ensembl using biomaRt.  For other datasets, see the 
-\Rpackage{biomaRt} documentation (Durinck et al. 2005).
+genome build hg19 from Ensembl using \Biocpkg{biomaRt}.  For other datasets,
+see the  \Biocpkg{biomaRt} documentation (Durinck et al. 2005).
 
-Load biomaRt package
+To install \Biocpkg{biomaRt}, uncomment the following lines:
+<<install_biomaRt, eval=FALSE>>=
+source("https://bioconductor.org/biocLite.R")
+biocLite("biomaRt")
+@
 
-<<install_biomaRt>>=
-## To install biomaRt comment outthe following lines:
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("biomaRt")
-
-# Load the biomaRt package.
+Load the \Biocpkg{biomaRt} package.
+<<load_biomart>>=
 library(biomaRt)
 @ 
 
@@ -602,7 +614,6 @@ from our example data. The corresponding code for downloading this data can be
 found above the command we run:
 
 <<download_using_biomaRt>>=
-
 # regulatory <- useEnsembl(biomart="regulation",
 #                          dataset="hsapiens_regulatory_feature",
 #                          GRCh = 37)
