@@ -197,8 +197,8 @@ substitution types, the reverse complement of the context is returned.
 
 <<type_context>>=
 type_context = type_context(vcfs[[1]], ref_genome)
-head(type_context$types, 50)
-head(type_context$context, 50)
+head(type_context$types, 48)
+head(type_context$context, 48)
 @
 
 Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
@@ -238,9 +238,9 @@ p3 = plot_spectrum(type_occurrences, CT = TRUE, legend = FALSE)
 
 \begin{figure}[H]
 \begin{center}
-<<combine_plot_spectrum, fig=TRUE, width=9, height=2.7>>=
+<<combine_plot_spectrum, fig=TRUE, width=10, height=3>>=
 library("gridExtra")
-grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.8))
+grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.75))
 @
 \end{center}
 \end{figure}
@@ -259,8 +259,8 @@ p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE,
 
 \begin{figure}[H]
 \begin{center}
-<<combine_plot_spectrum_2, fig=TRUE, width=11, height=4>>=
-grid.arrange(p4, p5, ncol=2, widths=c(4,2))
+<<combine_plot_spectrum_2, fig=TRUE, width=10, height=3>>=
+grid.arrange(p4, p5, ncol=2, widths=c(4,2.3))
 @
 \end{center}
 \end{figure}
@@ -275,7 +275,7 @@ mut_mat <- mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 Plot 96 profile of three samples:
 \begin{figure}[H]
 \begin{center}
-<<plot_96_profile, fig=TRUE, width=9, height=7>>=
+<<plot_96_profile, fig=TRUE, width=6, height=6>>=
 plot_96_profile(mut_mat[,c(1,4,7)])
 @
 \end{center}
@@ -312,7 +312,7 @@ estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
 
 \begin{figure}[H]
 \begin{center}
-<<estimate_rank, fig=TRUE, width=9, height=7>>=
+<<estimate_rank, fig=TRUE, width=6, height=6>>=
 plot(estimate)
 @
 \end{center}
@@ -332,7 +332,7 @@ colnames(nmf_res$signatures) <- c("Signature A", "Signature B")
 Plot the 96-profile of the signatures:
 \begin{figure}[H]
 \begin{center}
-<<plot_96_profile, fig=TRUE, width=9, height=7>>=
+<<plot_96_profile, fig=TRUE, width=6, height=4.2>>=
 plot_96_profile(nmf_res$signatures)
 @
 \end{center}
@@ -341,9 +341,9 @@ plot_96_profile(nmf_res$signatures)
 Plot the contribution of the signatures:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution, fig=TRUE, width=9, height=3>>=
+<<plot_contribution>>=
 rownames(nmf_res$contribution) <- c("Signature A", "Signature B")
-plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
+pc1 <- plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 @
 \end{center}
 \end{figure}
@@ -351,8 +351,9 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "relative")
 Plot the contribution of the signatures in absolute number of mutations:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution_2, fig=TRUE, height=2.5>>=
-plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
+<<plot_contribution_2, fig=TRUE, width=9, height=5>>=
+pc2 <- plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
+grid.arrange(pc1, pc2)
 @
 \end{center}
 \end{figure}
@@ -360,9 +361,9 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute")
 Plot contribution of signatures for subset of samples with index parameter:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution_3, fig=TRUE, width=9, height=3>>=
-plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
-                    index = c(1,2))
+<<plot_contribution_3>>=
+pc3 <- plot_contribution(nmf_res$contribution, nmf_res$signature, 
+                         mode = "absolute", index = c(1,2))
 @
 \end{center}
 \end{figure}
@@ -370,9 +371,10 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
 Flip X and Y coordinates:
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution_4, fig=true, width=7, height=2>>=
-plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
-                    coord_flip = TRUE)
+<<plot_contribution_4, fig=true, width=8, height=4>>=
+pc4 <- plot_contribution(nmf_res$contribution, nmf_res$signature,
+                         mode = "absolute", coord_flip = TRUE)
+grid.arrange(pc3, pc4, ncol=2)
 @
 \end{center}
 \end{figure}
@@ -380,7 +382,7 @@ plot_contribution(nmf_res$contribution, nmf_res$signature, mode = "absolute",
 Compare reconstructed mutation profile with original mutation profile:
 \begin{figure}[H]
 \begin{center}
-<<plot_compare_profiles, fig=TRUE, width=9, height=7>>=
+<<plot_compare_profiles, fig=TRUE, width=6.5, height=6>>=
 plot_compare_profiles(mut_mat[,1], 
                         nmf_res$reconstructed[,1], 
                         profile_names = c("Original", "Reconstructed"))
@@ -413,14 +415,14 @@ fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 
 \begin{figure}[H]
 \begin{center}
-<<plot_contribution_3, fig=TRUE, width=10, height=4>>=
+<<plot_contribution_3, fig=TRUE, width=9, height=5>>=
 # select signatures with some contribution
 select <- which(rowSums(fit_res$contribution) > 0)
 # plot contribution
-plot_contribution(fit_res$contribution[select,], 
-                    cancer_signatures[,select], 
-                    coord_flip = FALSE, 
-                    mode = "absolute")
+plot_contribution ( fit_res$contribution[select,],
+                    cancer_signatures[,select],
+                    coord_flip = FALSE,
+                    mode = "absolute" )
 @
 \end{center}
 \end{figure}
@@ -430,10 +432,10 @@ with original profile
 
 \begin{figure}[H]
 \begin{center}
-<<plot_compare_profiles_2, fig=TRUE, width=10, height=7>>=
-plot_compare_profiles(mut_mat[,1], fit_res$reconstructed[,1],
+<<plot_compare_profiles_2, fig=TRUE, width=6.5, height=6>>=
+plot_compare_profiles ( mut_mat[,1], fit_res$reconstructed[,1],
                         profile_names = c("Original", 
-                            "Reconstructed \n cancer signatures"))
+                                          "Reconstructed\n cancer signatures") )
 @
 \end{center}
 \end{figure}
@@ -490,8 +492,8 @@ head(strand_counts)
 
 \begin{figure}[H]
 \begin{center}
-<<plot_strand, fig=TRUE, width=10, height=4>>=
-plot_strand(strand_counts, mode = "relative")
+<<plot_strand>>=
+ps1 <- plot_strand(strand_counts, mode = "relative")
 @ 
 \end{center}
 \end{figure}
@@ -507,8 +509,9 @@ Asteriks indicate significant strand bias.
 
 \begin{figure}[H]
 \begin{center}
-<<plot_strand_bias, fig=TRUE, width=10, height=4>>=
-plot_strand_bias(strand_bias)
+<<plot_strand_bias, fig=TRUE, width=7, height=6>>=
+ps2 <- plot_strand_bias(strand_bias)
+grid.arrange(ps1, ps2)
 @ 
 \end{center}
 \end{figure}
@@ -540,8 +543,8 @@ b <- plot_signature_strand_bias(nmf_res_strand$signatures)
 
 \begin{figure}[H]
 \begin{center}
-<<plot_192_profile, fig=TRUE, width=9, height=5>>=
-grid.arrange(a, b, ncol=2, widths=c(3,1))
+<<plot_192_profile, fig=TRUE, width=10, height=5>>=
+grid.arrange(a, b, ncol=2, widths=c(5,2))
 @
 \end{center}
 \end{figure}
@@ -559,13 +562,13 @@ the plots indicate clusters or ``hotspots'' of mutations.
 Make rainfall plot of sample 1 over all autosomal chromosomes
 \begin{figure}[H]
 \begin{center}
-<<plot_rainfall, fig=TRUE, width=10, height=4>>=
+<<plot_rainfall, fig=TRUE, width=9, height=3>>=
 # Define autosomal chromosomes
 chromosomes <- seqnames(get(ref_genome))[1:22]
 
 # Make a rainfall plot
-plot_rainfall(vcfs[[1]], title = names(vcfs[1]),
-                chromosomes = chromosomes, cex = 1.5)
+plot_rainfall ( vcfs[[1]], title = names(vcfs[1]),
+                chromosomes = chromosomes, cex = 1.5, ylim = 1e+09 )
 @
 \end{center}
 \end{figure}
@@ -574,10 +577,10 @@ Make rainfall plot of the first sample over chromosome 1:
 
 \begin{figure}[H]
 \begin{center}
-<<plot_rainfall_2, fig=TRUE, width=10, height=4>>=
+<<plot_rainfall_2, fig=TRUE, width=6, height=3>>=
 chromosomes <- seqnames(get(ref_genome))[1]
-plot_rainfall(vcfs[[1]], title = names(vcfs[1]),
-                chromosomes = chromosomes[1], cex = 2)
+plot_rainfall ( vcfs[[1]], title = names(vcfs[1]),
+                chromosomes = chromosomes[1], cex = 2, ylim = 1e+09 )
 @ 
 \end{center}
 \end{figure}
@@ -735,7 +738,7 @@ distr_test2 <- enrichment_depletion_test(distr)
 
 \begin{figure}[H]
 \begin{center}
-<<plot_enrichment_depletion, fig=TRUE, width=9, height=6>>=
+<<plot_enrichment_depletion, fig=TRUE, width=7, height=5>>=
 plot_enrichment_depletion(distr_test)
 @
 \end{center}
