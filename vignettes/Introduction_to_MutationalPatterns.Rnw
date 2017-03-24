@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{Introduction to MutationalPatterns}
-\documentclass{article}
+\documentclass{a4paper,article}
 \usepackage{float}
 
 <<style, eval=TRUE, echo=FALSE, results=tex>>=
@@ -9,7 +9,7 @@ BiocStyle::latex()
 \title{Introduction to \Biocpkg{MutationalPatterns}}
 \author{Francis Blokzijl 
     \and Roel Janssen 
-    \and Ruben Van Boxtel 
+    \and Ruben van Boxtel 
     \and Edwin Cuppen}
 \date{\today}
 
@@ -22,7 +22,8 @@ BiocStyle::latex()
 \newpage{}
 
 <<options, echo=FALSE>>=
-options(width=72)
+options(width=81)
+library(ggplot2)
 @
 
 \section{Introduction}
@@ -90,13 +91,12 @@ SomaticSignatures.
         difference between two 96 mutational profiles and calculate RSS.
 \end{itemize}
 
+\newpage{}
 \section{Data}
 
 To perform mutational pattern analyses you need your VCF datasets and the reference genome. 
  
-
 \subsection{List reference genome}
-
 
 List available genomes (BSgenome)
 
@@ -236,12 +236,21 @@ Plot spectrum without legend:
 p3 = plot_spectrum(type_occurrences, CT = TRUE, legend = FALSE)
 @
 
-\begin{figure}[H]
-\begin{center}
-<<combine_plot_spectrum, fig=TRUE, width=10, height=3>>=
+<<combine_plot_spectrum_noeval, eval=FALSE>>=
 library("gridExtra")
 grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.75))
 @
+<<combine_plot_spectrum, echo=FALSE>>=
+library("gridExtra")
+ggsave("combine_plot_spectrum.pdf",
+       grid.arrange(p1, p2, p3, ncol=3, widths=c(3,3,1.75)),
+       width=10,
+       height=3)
+@
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{combine_plot_spectrum}
 \end{center}
 \end{figure}
 
@@ -257,11 +266,20 @@ p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE,
                     colors = my_colors)
 @
 
-\begin{figure}[H]
-\begin{center}
-<<combine_plot_spectrum_2, fig=TRUE, width=10, height=3>>=
+<<combine_plot_spectrum_2_noeval, echo=FALSE>>=
+ggsave("combine_plot_spectrum_2.pdf", 
+       grid.arrange(p4, p5, ncol=2, widths=c(4,2.3)), 
+       width=10, 
+       height=3)
+@
+
+<<combine_plot_spectrum_2, eval=FALSE>>=
 grid.arrange(p4, p5, ncol=2, widths=c(4,2.3))
 @
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{combine_plot_spectrum_2}
 \end{center}
 \end{figure}
 
@@ -413,9 +431,7 @@ the mutation matrix by solving a non-negative least-squares constraints problem.
 fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 @ 
 
-\begin{figure}[H]
-\begin{center}
-<<plot_contribution_3, fig=TRUE, width=9, height=5>>=
+<<plot_contribution_3_noeval, eval=FALSE>>=
 # select signatures with some contribution
 select <- which(rowSums(fit_res$contribution) > 0)
 # plot contribution
@@ -424,6 +440,23 @@ plot_contribution ( fit_res$contribution[select,],
                     coord_flip = FALSE,
                     mode = "absolute" )
 @
+
+<<plot_contribution_3, echo=FALSE>>=
+# select signatures with some contribution
+select <- which(rowSums(fit_res$contribution) > 0)
+# plot contribution
+ggsave("plot_contribution_3.pdf",
+       plot_contribution(fit_res$contribution[select,],
+                         cancer_signatures[,select],
+                         coord_flip = FALSE,
+                         mode = "absolute"),
+       width=9,
+       height=5)
+@
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{plot_contribution_3}
 \end{center}
 \end{figure}
 
@@ -541,11 +574,20 @@ Plot strand bias per mutation type for each signature with significance test:
 b <- plot_signature_strand_bias(nmf_res_strand$signatures)
 @
 
-\begin{figure}[H]
-\begin{center}
-<<plot_192_profile, fig=TRUE, width=10, height=5>>=
+<<plot_192_profile_noeval, eval=FALSE>>=
 grid.arrange(a, b, ncol=2, widths=c(5,2))
 @
+
+<<plot_192_profile, echo=FALSE>>=
+ggsave("plot_192_profile.pdf", 
+       grid.arrange(a, b, ncol=2, widths=c(5,2)),
+       width = 10,
+       height = 5)
+@
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{plot_192_profile}
 \end{center}
 \end{figure}
 
@@ -560,9 +602,8 @@ mutation with the previous mutation and is log10 transformed. Drop-downs from
 the plots indicate clusters or ``hotspots'' of mutations.
 
 Make rainfall plot of sample 1 over all autosomal chromosomes
-\begin{figure}[H]
-\begin{center}
-<<plot_rainfall, fig=TRUE, width=9, height=3>>=
+
+<<plot_rainfall_noeval, eval=FALSE>>=
 # Define autosomal chromosomes
 chromosomes <- seqnames(get(ref_genome))[1:22]
 
@@ -570,6 +611,22 @@ chromosomes <- seqnames(get(ref_genome))[1:22]
 plot_rainfall ( vcfs[[1]], title = names(vcfs[1]),
                 chromosomes = chromosomes, cex = 1.5, ylim = 1e+09 )
 @
+
+<<plot_rainfall, echo=FALSE>>=
+# Define autosomal chromosomes
+chromosomes <- seqnames(get(ref_genome))[1:22]
+
+# Make a rainfall plot
+ggsave("plot_rainfall.pdf",
+       plot_rainfall(vcfs[[1]], title = names(vcfs[1]),
+                     chromosomes = chromosomes, cex = 1.5, ylim = 1e+09),
+       width=9,
+       height=3)
+@
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{plot_rainfall}
 \end{center}
 \end{figure}
 
@@ -743,6 +800,8 @@ plot_enrichment_depletion(distr_test)
 @
 \end{center}
 \end{figure}
+
+\references
 
 \section{Session Information}
 <<sessionInfo, echo=FALSE>>=
