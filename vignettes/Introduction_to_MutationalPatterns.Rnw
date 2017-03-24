@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{Introduction to MutationalPatterns}
-\documentclass{a4paper,article}
+\documentclass{article}
 \usepackage{float}
 
 <<style, eval=TRUE, echo=FALSE, results=tex>>=
