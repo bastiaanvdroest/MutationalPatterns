@@ -98,7 +98,7 @@ To perform mutational pattern analyses you need your VCF datasets and the refere
  
 \subsection{List reference genome}
 
-List available genomes (BSgenome)
+List available genomes using \Biocpkg{BSgenome}
 
 <<loading_reference_data>>=
 library(BSgenome)
@@ -788,9 +788,11 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 <<enrichment_depletion_test>>=
 ## Perform the enrichment/depletion test by tissue type.
 distr_test <- enrichment_depletion_test(distr, by = tissue)
+head(distr_test)
 
 ## Or without specifying the 'by' parameter.
 distr_test2 <- enrichment_depletion_test(distr)
+head(distr_test2)
 @ 
 
 \begin{figure}[H]
@@ -801,7 +803,7 @@ plot_enrichment_depletion(distr_test)
 \end{center}
 \end{figure}
 
-\references
+%\references
 
 \section{Session Information}
 <<sessionInfo, echo=FALSE>>=
