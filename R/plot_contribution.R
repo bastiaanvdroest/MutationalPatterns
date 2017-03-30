@@ -8,6 +8,9 @@
 #' @param coord_flip Flip X and Y coordinates, default = FALSE
 #' @param mode "relative" or "absolute"; to plot the relative contribution or
 #' absolute number of mutations, default = "relative"
+#' @param palette A color palette like c("#FF0000", "#00FF00", "9999CC") that
+#' will be used as colors in the plot.  By default, ggplot2's colors are used
+#' to generate a palette.
 #'
 #' @return Stacked barplot with contribution of each signatures for each sample
 #'
@@ -64,7 +67,8 @@ plot_contribution = function(contribution,
                                 signatures,
                                 index=c(),
                                 coord_flip=FALSE,
-                                mode="relative")
+                                mode="relative",
+                                palette=c())
 {
     # check mode parameter
     if(!(mode == "relative" | mode == "absolute"))
@@ -95,7 +99,6 @@ plot_contribution = function(contribution,
             xlim(rev(levels(factor(m_contribution$Sample)))) +
             # ylabel
             labs(x = "", y = "Relative contribution") +
-            scale_fill_discrete(name="Signature") +
             # white background
             theme_bw() +
             # no gridlines
@@ -103,6 +106,11 @@ plot_contribution = function(contribution,
                     panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
                     panel.grid.major.y=element_blank())
+
+        if (length(palette) > 0)
+            plot = plot + scale_fill_manual(name="Signature", values=palette)
+        else
+            plot = plot + scale_fill_discrete(name="Signature")
     }
 
     # Handle the absolute mode.
@@ -133,7 +141,6 @@ plot_contribution = function(contribution,
 
             # ylabel
             labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
-            scale_fill_discrete(name="Signature") +
 
             # white background
             theme_bw() +
@@ -143,6 +150,11 @@ plot_contribution = function(contribution,
                     panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
                     panel.grid.major.y=element_blank())
+
+        if (length(palette) > 0)
+            plot = plot + scale_fill_manual(name="Signature", values=palette)
+        else
+            plot = plot + scale_fill_discrete(name="Signature")
     }
 
     if (coord_flip == TRUE)
