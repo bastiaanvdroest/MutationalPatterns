@@ -1,6 +1,7 @@
 %\VignetteIndexEntry{Introduction to MutationalPatterns}
 \documentclass{article}
 \usepackage{float}
+%\usepackage{apacite}
 
 <<style, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
@@ -116,7 +117,7 @@ library(ref_genome, character.only = TRUE)
 
 
 We provided a small example data set with this package. The data consists of somatic mutation catalogues of
-9 normal human adult stem cells from 3 tissues (Blokzijl et al., 2016).  
+9 normal human adult stem cells from 3 tissues \cite{Blokzijl2016}.
 
 % You can download larger
 % sample datafrom the MutationalPatterns-data repository at 
@@ -305,7 +306,7 @@ plot_96_profile(mut_mat[,c(1,4,7)])
 
 A critical parameter in NMF is the factorization rank, which is the number of
 mutational signatures.  Determine the optimal factorization rank using the NMF
-package (Gaujoux and Seoighe, 2010). As described in their paper: ``...a common
+package \cite{Gaujoux2010}. As described in their paper: ``...a common
 way of deciding on the rank is to try different values, compute some quality
 measure of the results, and choose the best value according to this quality
 criteria. The most common approach is to choose the smallest rank for which
@@ -410,7 +411,7 @@ plot_compare_profiles(mut_mat[,1],
 
 \subsection{Fit 96 mutation profiles to known signatures}
 
-Download signatures from pan-cancer study (Alexandrov et al. 2013)
+Download signatures from pan-cancer study \cite{Alexandrov2013}
 
 <<download_cancer_signatures>>=
 sp_url <- paste("http://cancer.sanger.ac.uk/cancergenome/assets/",
@@ -656,7 +657,7 @@ use publically available genomic annotation data, like in the example below.
 The following example displays how to download promoter, CTCF binding sites and 
 transcription factor binding sites regions for
 genome build hg19 from Ensembl using \Biocpkg{biomaRt}.  For other datasets,
-see the  \Biocpkg{biomaRt} documentation (Durinck et al. 2005).
+see the  \Biocpkg{biomaRt} documentation \cite{Durinck2005}.
 
 To install \Biocpkg{biomaRt}, uncomment the following lines:
 <<install_biomaRt, eval=FALSE>>=
@@ -803,7 +804,7 @@ plot_enrichment_depletion(distr_test)
 \end{center}
 \end{figure}
 
-%\references
+\bibliography{references}
 
 \section{Session Information}
 <<sessionInfo, echo=FALSE>>=
