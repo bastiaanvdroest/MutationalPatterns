@@ -116,8 +116,9 @@ library(ref_genome, character.only = TRUE)
 \subsection{Load example data}
 
 
-We provided a small example data set with this package. The data consists of somatic mutation catalogues of
-9 normal human adult stem cells from 3 tissues \cite{Blokzijl2016}.
+We provided a small example data set with this package. The data consists of
+somatic mutation catalogues of 9 normal human adult stem cells from 3
+tissues \cite{Blokzijl2016}.
 
 % You can download larger
 % sample datafrom the MutationalPatterns-data repository at 
@@ -143,7 +144,10 @@ sample_names <- c(
     "liver1", "liver2", "liver3")
 @
 
-Load the example VCF files into a GRangesList:
+This package uses \texttt{GRanges} to represent the variant calls.  So, to
+work with data, we need to load it as such.
+
+Load the example VCF files into a \texttt{GRangesList}:
 <<read_vcfs_as_granges>>=
 vcfs <- read_vcfs_as_granges(vcf_files, sample_names, ref_genome)
 summary(vcfs)
@@ -163,7 +167,7 @@ we can start our search for characteristic mutational footprints.
 \subsection{Base substitution types}
 
 We can retrieve base substitutions from VCF object as "REF>ALT"
-using \Rfunction{mutations\_from\_muts}:
+using \Rfunction{mutations\_from\_vcf}:
 
 <<mutations_from_vcf>>=
 muts = mutations_from_vcf(vcfs[[1]])
@@ -184,14 +188,14 @@ head(types)
 
 To retrieve the context (one base upstream and one base downstream) of the
 positions in the VCF object from the reference genome, you can use the
-\Rfunction{get\_mut\_context} function:
+\Rfunction{mutation\_context} function:
 
 <<mutation_context>>=
 context = mutation_context(vcfs[[1]], ref_genome)
 head(context)
 @
 
-With \Rfunction{get\_type\_context}, you can retrieve the types and contexts
+With \Rfunction{type\_context}, you can retrieve the types and contexts
 for all positions in the VCF object.  For
 the base substitutions that are converted to the conventional base
 substitution types, the reverse complement of the context is returned.
