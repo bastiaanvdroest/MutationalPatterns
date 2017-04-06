@@ -95,8 +95,6 @@ plot_contribution = function(contribution,
                             fill = factor(Signature),
                             order = Sample)) +
             geom_bar(position = "fill", stat="identity", colour="black")  +
-            # make sure sample ordering is correct
-            xlim(rev(levels(factor(m_contribution$Sample)))) +
             # ylabel
             labs(x = "", y = "Relative contribution") +
             # white background
@@ -135,16 +133,10 @@ plot_contribution = function(contribution,
                                             fill = factor(Signature),
                                             order = Sample)) + 
             geom_bar(stat="identity", colour = "black")  +  
-
-            # make sure sample ordering is correct
-            xlim(rev(levels(factor(m_contribution$Sample)))) +
-
             # ylabel
             labs(x = "", y = "Absolute contribution \n (no. mutations)") +  
-
             # white background
             theme_bw() +
-
             # no gridlines
             theme(panel.grid.minor.x=element_blank(),
                     panel.grid.major.x=element_blank()) +
@@ -157,8 +149,11 @@ plot_contribution = function(contribution,
             plot = plot + scale_fill_discrete(name="Signature")
     }
 
-    if (coord_flip == TRUE)
-        plot = plot + coord_flip()
-
+    # Handle coord_flip.
+    if (coord_flip)
+        plot = plot + coord_flip() + xlim(rev(levels(factor(m_contribution$Sample))))
+    else
+        plot = plot + xlim(levels(factor(m_contribution$Sample)))
+                
     return(plot)
 }
