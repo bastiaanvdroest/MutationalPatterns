@@ -104,11 +104,6 @@ plot_contribution = function(contribution,
                     panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
                     panel.grid.major.y=element_blank())
-
-        if (length(palette) > 0)
-            plot = plot + scale_fill_manual(name="Signature", values=palette)
-        else
-            plot = plot + scale_fill_discrete(name="Signature")
     }
 
     # Handle the absolute mode.
@@ -142,12 +137,13 @@ plot_contribution = function(contribution,
                     panel.grid.major.x=element_blank()) +
             theme(panel.grid.minor.y=element_blank(),
                     panel.grid.major.y=element_blank())
-
-        if (length(palette) > 0)
-            plot = plot + scale_fill_manual(name="Signature", values=palette)
-        else
-            plot = plot + scale_fill_discrete(name="Signature")
     }
+
+    # Allow custom color palettes.
+    if (length(palette) > 0)
+        plot = plot + scale_fill_manual(name="Signature", values=palette)
+    else
+        plot = plot + scale_fill_discrete(name="Signature")
 
     # Handle coord_flip.
     if (coord_flip)
