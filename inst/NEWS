@@ -2,12 +2,15 @@ MutationalPatterns v1.1.0 (Release date: 2017-04-06)
 =====================================================
 
 Preparations for Bioconductor release 3.5.
+
 Interface changes:
 * 'read_vcfs_as_granges':  The 'genome' parameter
-  must now be the name of a BSgenome library.  The function
-  now accepts an optional 'group' parameter to use a
-  subset of chromosomes.  The function also accepts
-  the new optional 'check_alleles' parameter to significantly
+  must now be the name of a BSgenome library, to ensure that
+  the VCFs will be loaded in a compatible way with the
+  reference data.
+  The function now accepts an optional 'group' parameter to
+  use a subset of chromosomes.  It also accepts  the new
+  optional 'check_alleles' parameter to significantly
   speed up the reading of VCF files.
 * 'plot_contribution': This function now accepts an
   optional parameter 'palette' to specify custom colors.
