@@ -9,7 +9,7 @@ Author: Francis Blokzijl, Roel Janssen, Ruben van Boxtel, Edwin Cuppen
 Maintainer: Francis Blokzijl <F.Blokzijl@umcutrecht.nl>,
     Roel Janssen <R.R.E.Janssen-10@umcutrecht.nl>
 License: MIT + file LICENSE
-URL: https://github.com/CuppenResearch/MutationalPatterns
+URL: https://github.com/UMCUgenetics/MutationalPatterns
 Imports:
     stats,
     parallel,
