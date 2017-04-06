@@ -5,7 +5,7 @@
 \title{Plot signature contribution}
 \usage{
 plot_contribution(contribution, signatures, index=c(), coord_flip=FALSE,
-    mode="relative")
+    mode="relative", palette=c())
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
