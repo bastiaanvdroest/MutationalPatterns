@@ -24,7 +24,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \newpage{}
 
 <<options, echo=FALSE>>=
-options(width=81)
+options(width=96)
 library(ggplot2)
 @
 
@@ -100,7 +100,7 @@ To perform mutational pattern analyses you need your VCF datasets and the refere
  
 \subsection{List reference genome}
 
-List available genomes using \Biocpkg{BSgenome}
+List available genomes using \Biocpkg{BSgenome}:
 
 <<loading_reference_data>>=
 library(BSgenome)
@@ -172,7 +172,7 @@ using \Rfunction{mutations\_from\_vcf}:
 
 <<mutations_from_vcf>>=
 muts = mutations_from_vcf(vcfs[[1]])
-head(muts)
+head(muts, 12)
 @
 % alleen de head (eerste 5) outputten zodat de output wat kleiner wordt
 
@@ -184,7 +184,7 @@ as a C>A mutation:
 
 <<mutation_types>>=
 types = mutation_types(vcfs[[1]])
-head(types)
+head(types, 12)
 @
 
 To retrieve the context (one base upstream and one base downstream) of the
@@ -193,7 +193,7 @@ positions in the VCF object from the reference genome, you can use the
 
 <<mutation_context>>=
 context = mutation_context(vcfs[[1]], ref_genome)
-head(context)
+head(context, 12)
 @
 
 With \Rfunction{type\_context}, you can retrieve the types and contexts
@@ -203,8 +203,8 @@ substitution types, the reverse complement of the context is returned.
 
 <<type_context>>=
 type_context = type_context(vcfs[[1]], ref_genome)
-head(type_context$types, 48)
-head(type_context$context, 48)
+head(type_context$types, 12)
+head(type_context$context, 12)
 @
 
 Using \Rfunction{mut\_type\_occurrences}, you can count mutation type
@@ -219,12 +219,10 @@ type_occurrences
 \subsection{Mutation spectrum}
 
 A mutation spectrum shows the relative contribution of each mutation type in the 
-base substitution catalogs.
-
-The \Rfunction{plot\_spectrum} function plots the mean relative contribution
-of each of the 6 base substitution types over all samples.  Error bars indicate standard
-deviation over all samples.  The $n$ indicates the total number of mutations in
-the set.
+base substitution catalogs.  The \Rfunction{plot\_spectrum} function plots the
+mean relative contribution of each of the 6 base substitution types over all
+samples.  Error bars indicate standard deviation over all samples.  The $n$
+indicates the total number of mutations in the set.
 
 <<plot_spectrum>>=
 p1 = plot_spectrum(type_occurrences)
@@ -260,16 +258,16 @@ ggsave("combine_plot_spectrum.pdf",
 \end{center}
 \end{figure}
 
-You can facet the per sample group, e.g. plot spectrum for each tissue separately:
+You can facet the per sample group, e.g. plot spectrum for each tissue 
+separately:
 <<plot_spectrum_4>>=
 p4 <- plot_spectrum(type_occurrences, by = tissue, CT = TRUE, legend = TRUE)
 @
 
 Define your own 7 colors for spectrum plotting:
 <<plot_spectrum_5>>=
-my_colors <- c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
-p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE, 
-                    colors = my_colors)
+palette <- c("pink", "orange", "blue", "lightblue", "green", "red", "purple")
+p5 <- plot_spectrum(type_occurrences, CT = TRUE, legend = TRUE, colors = palette)
 @
 
 <<combine_plot_spectrum_2_noeval, echo=FALSE>>=
@@ -299,7 +297,7 @@ mut_mat <- mut_matrix(vcf_list = vcfs, ref_genome = ref_genome)
 Plot 96 profile of three samples:
 \begin{figure}[H]
 \begin{center}
-<<plot_96_profile, fig=TRUE, width=6, height=6>>=
+<<plot_96_profile_2, fig=TRUE, width=6, height=6>>=
 plot_96_profile(mut_mat[,c(1,4,7)])
 @
 \end{center}
@@ -327,13 +325,13 @@ Add a small psuedocount to avoid a 0 in the matrix:
 
 <<psuedo_count>>=
 mut_mat = mut_mat + 0.0001
-@ 
+@
 
 Use the NMF package to generate an estimate plot.
 <<use_nmf>>=
 library("NMF")
 estimate = nmf(mut_mat, rank=2:5, method="brunet", nrun=100, seed=123456)
-@ 
+@
 
 \begin{figure}[H]
 \begin{center}
@@ -468,14 +466,13 @@ ggsave("plot_contribution_3.pdf",
 \end{figure}
 
 Compare reconstructed mutation profile of sample 1 using cancer signatures
-with original profile
+with original profile:
 
 \begin{figure}[H]
 \begin{center}
 <<plot_compare_profiles_2, fig=TRUE, width=6.5, height=6>>=
 plot_compare_profiles ( mut_mat[,1], fit_res$reconstructed[,1],
-                        profile_names = c("Original", 
-                                          "Reconstructed\n cancer signatures") )
+                        profile_names = c("Original", "Reconstructed") )
 @
 \end{center}
 \end{figure}
