@@ -33,6 +33,7 @@ Suggests:
     BiocStyle (>= 2.0.3),
     biomaRt (>= 2.28.0),
     BSgenome.Hsapiens.UCSC.hg19 (>= 1.4.0),
+    BSgenome.Hsapiens.1000genomes.hs37d5 (>= 0.99.1),
     TxDb.Hsapiens.UCSC.hg19.knownGene (>= 3.2.2),
     rtracklayer (>= 1.32.2),
     testthat
