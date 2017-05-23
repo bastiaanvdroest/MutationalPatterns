@@ -4,3 +4,5 @@
 .Rapp.history
 .DS_Store
 .RDataTmp
+MutationalPatterns.Rproj
+vignettes/.build.timestamp
