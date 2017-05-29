@@ -16,6 +16,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \date{\today}
 
 \begin{document} 
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 
@@ -402,6 +403,28 @@ grid.arrange(pc3, pc4, ncol=2)
 \end{center}
 \end{figure}
 
+The relative contribution of each signature for each sample can also be plotted as a heatmap, which might be easier to interpret and compare than stacked barplots. The samples can be hierarchically clustered based on their euclidean distance. The signatures can be plotted in a user-specified order. 
+
+Plot signature contribution as a heatmap with sample clustering dendrogram and a specified signature order:
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_heatmap, fig=true, width=6, height=12>>=
+plot_contribution_heatmap(nmf_res$contribution, sig_order = c("Signature B", "Signature A"))
+@
+\end{center}
+\end{figure}
+
+When sig_order is not defined, the order of the signatures is used as it is in the contribution input matrix.
+
+Plot signature contribution as a heatmap without sample clustering:
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_heatmap2, fig=true, width=4, height=12>>=
+plot_contribution_heatmap(nmf_res$contribution, cluster_samples = F)
+@
+\end{center}
+\end{figure}
+
 Compare reconstructed mutation profile with original mutation profile:
 \begin{figure}[H]
 \begin{center}
@@ -436,10 +459,12 @@ the mutation matrix by solving a non-negative least-squares constraints problem.
 fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 @ 
 
+Plot contribution of the cancer signatures in each sample as a barplot.
+
 <<plot_contribution_3_noeval, eval=FALSE>>=
 # select signatures with some contribution
 select <- which(rowSums(fit_res$contribution) > 0)
-# plot contribution
+# plot contribution barplot
 plot_contribution ( fit_res$contribution[select,],
                     cancer_signatures[,select],
                     coord_flip = FALSE,
@@ -462,6 +487,16 @@ ggsave("plot_contribution_3.pdf",
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{plot_contribution_3}
+\end{center}
+\end{figure}
+
+Plot relative contribution of the cancer signatures in each sample as a heatmap with sample clustering:
+
+\begin{figure}[H]
+\begin{center}
+<<plot_contribution_heatmap3, fig=TRUE, width=12, height=7>>=
+plot_contribution_heatmap(fit_res$contribution)
+@
 \end{center}
 \end{figure}
 
