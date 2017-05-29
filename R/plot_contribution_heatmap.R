@@ -1,6 +1,6 @@
 #' Plot signature contribution heatmap
 #' 
-#' Plot relative contribution of signatures in heatmap
+#' Plot relative contribution of signatures in a heatmap
 #' 
 #' @param contribution Signature contribution matrix
 #' @param sig_order Character vector with the desired order of the signature names for plotting. Optional.
@@ -14,12 +14,42 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
+#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = T)
 #'
 #' @examples
+#'#' ## See the 'mut_matrix()' example for how we obtained the following
+#' ## mutation matrix.
+#' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
+#'                                 package="MutationalPatterns"))
+#'
+#' ## Extracting signatures can be computationally intensive, so
+#' ## we use pre-computed data generated with the following command:
+#' 
+#' # nmf_res <- extract_signatures(mut_mat, rank = 2)
+#'
+#' nmf_res <- readRDS(system.file("states/nmf_res_data.rds",
+#'                     package="MutationalPatterns"))
+#'
+#' ## Set signature names as row names in the contribution matrix
+#' rownames(nmf_res$contribution) = c("Signature A", "Signature B")
+#' 
+#' ## Define signature order for plotting
+#' sig_order = c("Signature B", "Signature A")
+#'
+#'
+#' ## Contribution heatmap with signatures in defined order
+#' plot_contribution_heatmap(nmf_res$contribution, 
+#'                           sig_order = c("Signature B", "Signature A"))
+#' 
+#' ## Contribution heatmap without sample clustering
+#' plot_contribution_heatmap(nmf_res$contribution, 
+#'                           sig_order = c("Signature B", "Signature A"), 
+#'                           cluster_samples = F)
 #'
 #' @seealso
 #' \code{\link{extract_signatures}},
 #' \code{\link{mut_matrix}}
+#' \code{\link{plot_contribution}}
 #'
 #' @export
 
