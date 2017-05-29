@@ -33,11 +33,10 @@ filename <- system.file("extdata/signatures_probabilities.txt",
 
 cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
 
-## We should now reorder the columns to make the order of the
-## trinucleotide changes the same.
+## Reorder the columns to make the order of the trinucleotide changes compatible.
 cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
 
-## Reduce the data set to signatures only in the matrix.
+## Include only the signatures in the matrix.
 cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 
 ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
