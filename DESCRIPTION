@@ -23,7 +23,9 @@ Imports:
     IRanges (>= 2.6.0),
     GenomeInfoDb (>= 1.12.0),
     Biostrings (>= 2.40.0),
-    gridExtra (>= 2.2.1)
+    gridExtra (>= 2.2.1),
+    ggdendro (>= 0.1-20),
+    cowplot (>= 0.7.0)
 Depends:
     R (>= 3.3.0),
     GenomicRanges (>= 1.24.0),
@@ -40,5 +42,5 @@ Suggests:
 biocViews: Genetics, SomaticMutation
 ZipData: NA
 LazyData: false
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Encoding: UTF-8
