@@ -38,4 +38,3 @@ mut_mat
 \seealso{
 \code{\link{read_vcfs_as_granges}},
 }
-

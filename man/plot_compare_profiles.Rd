@@ -53,4 +53,3 @@ plot_compare_profiles(mut_mat[,1],
 \code{\link{mut_matrix}},
 \code{\link{extract_signatures}}
 }
-

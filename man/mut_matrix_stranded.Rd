@@ -52,4 +52,3 @@ mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
 \code{\link{read_vcfs_as_granges}},
 \code{link{mut_matrix}}
 }
-

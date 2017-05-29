@@ -42,4 +42,3 @@ type_occurrences = mut_type_occurrences(vcfs, ref_genome)
 \seealso{
 \code{\link{read_vcfs_as_granges}},
 }
-

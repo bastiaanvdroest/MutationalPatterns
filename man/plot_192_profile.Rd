@@ -43,4 +43,3 @@ plot_192_profile(nmf_res_strand$signatures)
 \code{\link{mut_matrix_stranded}},
 \code{\link{extract_signatures}}
 }
-

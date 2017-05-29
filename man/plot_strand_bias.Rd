@@ -47,4 +47,3 @@ plot_strand_bias(strand_bias)
 \code{\link{strand_bias_test}}
 \code{\link{plot_strand}}
 }
-

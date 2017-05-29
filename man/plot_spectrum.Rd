@@ -74,4 +74,3 @@ plot_spectrum(type_occurrences,
 \code{\link{read_vcfs_as_granges}},
 \code{\link{mut_type_occurrences}}
 }
-

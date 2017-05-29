@@ -42,4 +42,3 @@ type_context <- type_context(vcfs[[1]], ref_genome)
 \code{\link{read_vcfs_as_granges}},
 \code{\link{mutation_context}}
 }
-

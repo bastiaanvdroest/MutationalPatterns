@@ -42,4 +42,3 @@ strand_bias = strand_bias_test(strand_counts)
 \code{\link{strand_occurrences}},
 \code{\link{plot_strand_bias}}
 }
-

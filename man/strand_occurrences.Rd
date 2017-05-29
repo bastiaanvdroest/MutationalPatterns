@@ -44,4 +44,3 @@ strand_counts = strand_occurrences(mut_mat_s, by=tissue)
 \code{\link{plot_strand}},
 \code{\link{plot_strand_bias}}
 }
-

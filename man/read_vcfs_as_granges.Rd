@@ -64,4 +64,3 @@ library(ref_genome, character.only = TRUE)
 vcfs <- read_vcfs_as_granges(vcf_files, sample_names, ref_genome)
 
 }
-

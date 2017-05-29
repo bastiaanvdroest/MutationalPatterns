@@ -144,4 +144,3 @@ distr <- genomic_distribution(vcfs, surveyed_list, regions)
 \seealso{
 \code{\link{read_vcfs_as_granges}}
 }
-

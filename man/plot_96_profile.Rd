@@ -32,4 +32,3 @@ plot_96_profile(mut_mat[,c(1,4,7)])
 \seealso{
 \code{\link{mut_matrix}}
 }
-

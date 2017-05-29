@@ -51,4 +51,3 @@ fit_res <- fit_to_signatures(mut_mat, cancer_signatures)
 \seealso{
 \code{\link{mut_matrix}}
 }
-
