@@ -62,7 +62,12 @@ plot_compare_profiles = function(profile1,
     # residual sum of squares
     RSS = sum(diff^2)
     RSS = format(RSS, scientific = TRUE, digits = 3)
-
+    
+    # calculate cosine similarity between the two profiles
+    cosine_sim = cos_sim(profile1, profile2)
+    # round
+    cosine_sim = round(cosine_sim, 3)
+    
     x = cbind(s1_relative, s2_relative, diff)
     colnames(x) = c(profile_names, "Difference")
 
@@ -116,7 +121,7 @@ plot_compare_profiles = function(profile1,
         guides(fill=FALSE) +
         # white background
         theme_bw() +
-        ggtitle(paste("RSS =", RSS)) +
+        ggtitle(paste("RSS = ", RSS, "; Cosine similarity = ", cosine_sim, sep = "")) +
         # format text
         theme(axis.title.y=element_text(size=12,vjust=1),
                 axis.text.y=element_text(size=8),
