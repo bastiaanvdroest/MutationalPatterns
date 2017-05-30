@@ -6,3 +6,10 @@
 .RDataTmp
 MutationalPatterns.Rproj
 vignettes/.build.timestamp
+*.pdf
+*.tex
+*.synctex.gz
+Introduction_to_MutationalPatterns.toc
+Introduction_to_MutationalPatterns.log
+Introduction_to_MutationalPatterns.bbl
+vignettes/NMF_*
