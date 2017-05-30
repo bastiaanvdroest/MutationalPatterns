@@ -8,7 +8,8 @@
 #' @examples
 #' ## You can download the signatures from the pan-cancer study by
 #' ## Alexandrov et al:
-#' #http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' 
 #' ## We copied the file into our package for your convenience.
 #' filename <- system.file("extdata/signatures_probabilities.txt",
 #'                         package="MutationalPatterns")

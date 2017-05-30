@@ -1,8 +1,8 @@
 #' Find optimal nonnegative linear combination of mutation signatures to
 #' reconstruct the mutation matrix.
 #' 
-#' Find linear combination of mutation signatures that most closely
-#' reconstructs the mutation matrix by solving nonnegative least-squares
+#' Find the linear combination of mutation signatures that most closely
+#' reconstructs the mutation matrix by solving the nonnegative least-squares
 #' constraints problem.
 #' 
 #' @param mut_matrix 96 mutation count matrix (dimensions: 96 mutations
@@ -18,7 +18,8 @@
 #' @examples
 #' ## You can download the signatures from the pan-cancer study by
 #' ## Alexandrov et al:
-#' #http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' 
 #' ## We copied the file into our package for your convenience.
 #' filename <- system.file("extdata/signatures_probabilities.txt",
 #'                         package="MutationalPatterns")

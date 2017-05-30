@@ -19,14 +19,15 @@ Named list with signature contributions and reconstructed
 mutation matrix
 }
 \description{
-Find linear combination of mutation signatures that most closely
-reconstructs the mutation matrix by solving nonnegative least-squares
+Find the linear combination of mutation signatures that most closely
+reconstructs the mutation matrix by solving the nonnegative least-squares
 constraints problem.
 }
 \examples{
 ## You can download the signatures from the pan-cancer study by
 ## Alexandrov et al:
-#http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+# http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+
 ## We copied the file into our package for your convenience.
 filename <- system.file("extdata/signatures_probabilities.txt",
                         package="MutationalPatterns")
