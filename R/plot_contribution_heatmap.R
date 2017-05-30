@@ -48,7 +48,7 @@
 #'
 #' @seealso
 #' \code{\link{extract_signatures}},
-#' \code{\link{mut_matrix}}
+#' \code{\link{mut_matrix}},
 #' \code{\link{plot_contribution}}
 #'
 #' @export
@@ -57,7 +57,7 @@
 plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = T)
 {
   # check contribution argument
-  if(class(nmf_res$contribution) != "matrix")
+  if(class(contribution) != "matrix")
     {stop("contribution must be a matrix")}
   # if no signature order is provided, use the order as in the input matrix
   if(missing(sig_order))
@@ -124,6 +124,5 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
     plot_final = heatmap
   }
 
-  # return combined plot
   return(plot_final)
 }

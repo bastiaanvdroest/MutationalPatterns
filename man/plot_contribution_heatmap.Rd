@@ -52,6 +52,6 @@ plot_contribution_heatmap(nmf_res$contribution,
 }
 \seealso{
 \code{\link{extract_signatures}},
-\code{\link{mut_matrix}}
+\code{\link{mut_matrix}},
 \code{\link{plot_contribution}}
 }
