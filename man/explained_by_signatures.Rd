@@ -26,14 +26,12 @@ mutation profile can be explained by an individual signature.
 # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 
 ## We copied the file into our package for your convenience.
+
 filename <- system.file("extdata/signatures_probabilities.txt",
                         package="MutationalPatterns")
-
 cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
-
 ## Reorder the columns to make the order of the trinucleotide changes compatible.
 cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
-
 ## Include only the signatures in the matrix.
 cancer_signatures <- as.matrix(cancer_signatures[,4:33])
 
