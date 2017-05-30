@@ -10,7 +10,7 @@
 #'
 #' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggdendro dendro_data
+#' @importFrom ggdendro dendro_data segment theme_dendro
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
@@ -99,9 +99,10 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   # plot heatmap
   heatmap = ggplot(contribution_norm.m, aes(x=Signature, y=Sample, fill=Contribution)) + 
     geom_tile(color = "white") +
-    scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Relative \ncontribution", limits = c(0,1) ) + 
+    scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Relative \ncontribution", limits = c(0,1) ) +
+    theme_bw() + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-    labs(x=NULL, y=NULL)
+    labs(x=NULL, y=NULL) 
   
   # if cluster samples is TRUE, make dendrogram
   if(cluster_samples == T)

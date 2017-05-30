@@ -13,7 +13,7 @@
 #'
 #' @import ggplot2
 #' @importFrom reshape2 melt
-#' @importFrom ggdendro dendro_data
+#' @importFrom ggdendro dendro_data segment theme_dendro
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
@@ -101,7 +101,8 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T)
   # plot heatmap
   heatmap = ggplot(explained_matrix.m, aes(x=Signature, y=Sample, fill=Cosine.sim)) + 
     geom_tile(color = "white") +
-    scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Cosine \nsimilarity", limits = c(0,1)) + 
+    scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Cosine \nsimilarity", limits = c(0,1)) +
+    theme_bw() + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(x=NULL, y=NULL)
   
