@@ -62,18 +62,12 @@
 #'
 #' @export
 
-read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
+read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                                  group = "auto+sex", check_alleles = TRUE)
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
         stop("Please provide the same number of sample names as VCF files")
-
-    # Check whether the user has adapted to the new behavior of the function.
-    if (genome == "-")
-        stop(paste("Please pass a reference genome string in the 'genome'",
-                   "parameter.  This string can be obtained using",
-                   "available.genomes() from the BSgenome package."))
 
     ref_genome <- base::get(genome)
     ref_organism <- GenomeInfoDb::organism(ref_genome)
