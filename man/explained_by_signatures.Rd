@@ -15,9 +15,8 @@ explained_by_signatures(mut_matrix, cancer_signatures)
 Matrix with pairwise cosine similarities (dimensions: n samples X n signatures)
 }
 \description{
-Calculates the cosine similarity for each pair of mutation profile and mutational signature. 
-The cosine similarity is a value between 0 (distinct) and 1 (identical). 
-The cosine similarity indicates how much of the 96 
+Calculates the cosine similarity between each mutation profile and mutational signature in the input matrices. 
+The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
 mutation profile can be explained by an individual signature.
 }
 \examples{
@@ -46,5 +45,6 @@ explained_by_signatures(mut_mat, cancer_signatures)
 }
 \seealso{
 \code{\link{mut_matrix}},
-\code{\link{fit_to_signatures}}
+\code{\link{fit_to_signatures}},
+\code{\link{plot_cosine_heatmap}}
 }

@@ -17,9 +17,13 @@ plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T)
 Heatmap with cosine similarity of each signature with each 96 mutational profile
 }
 \description{
-Plot cosine similarity between mutational profiles and signatures in a heatmap. The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
-mutation profile can be explained by an individual signature. Similar mutational signatures will be equally good at explaining a mutational profile. 
-For this reason it is recommended to cluster the signatures based on cosine similarity with \code{\link{cluster_signatures}} and plot the signatures in this order, see example.
+Plot cosine similarity between mutational profiles and signatures in a heatmap.
+}
+\details{
+The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
+mutation profile can be explained by an individual signature. Similar mutational signatures will be equally 
+good at explaining a mutational profile. For this reason it is recommended to cluster the signatures based 
+on cosine similarity with \code{\link{cluster_signatures}} and plot the signatures in this order, see example.
 }
 \examples{
 
@@ -59,5 +63,6 @@ plot_cosine_heatmap(explained, sig_order, cluster_samples = T)
 }
 \seealso{
 \code{\link{mut_matrix}},
-\code{\link{explained_by_signatures}}
+\code{\link{explained_by_signatures}},
+\code{\link{cluster_signatures}}
 }
