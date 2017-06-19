@@ -87,6 +87,13 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome = "-",
     if (!(class(ref_genome) == "BSgenome"))
         stop("Please provide the name of a BSgenome object.")
 
+    # Using the parallel version of 'apply' effectively disables proper
+    # error-reporting.  A common error turns out to be non-existent input
+    # files.  So, this check provides the right error reporting.
+    if (!all(sapply (vcf_files, file.exists)))
+        stop(paste("Not all VCF files exist.  Please verify the location of",
+                   "your input files."))
+
     # Detect the number of available cores.  Windows does not support forking,
     # only threading, so unfortunately, we have to set it to 1.
     # On confined OS environments, this value can be NA, and in such
