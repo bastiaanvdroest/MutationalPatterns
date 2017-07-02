@@ -11,6 +11,10 @@ plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T)
 
 \item{cluster_samples}{Hierarchically cluster samples based on eucledian distance. Default = T.}
 
+\item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
+"ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
+or "centroid" (= UPGMC). Default = "complete".}
+
 \item{explained}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). Result from \code{\link{explained_by_signatures}}}
 }
 \value{

@@ -3,6 +3,9 @@
 #' Hierarchical clustering of signatures based on cosine similarity
 #' 
 #' @param signatures Matrix with usually 96 trinucleotides (rows) and any number of signatures (columns)
+#' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
+#' "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
+#' or "centroid" (= UPGMC). Default = "complete".
 #' @return hclust object
 #' 
 #' @examples
@@ -37,14 +40,13 @@
 #' @export
 
 
-
-cluster_signatures = function(signatures)
+cluster_signatures = function(signatures, method = "complete")
 {
   # construct cosine similarity matrix
   sim = cos_sim_matrix(signatures)
   # transform to distance
   dist = as.dist(1 - sim)
   # perform hierarchical clustering
-  hc_sig_cos = hclust(dist)
+  hc_sig_cos = hclust(dist, method = method)
   return(hc_sig_cos)
 }

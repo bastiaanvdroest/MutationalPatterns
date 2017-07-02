@@ -6,6 +6,9 @@
 #' @param explained Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). Result from \code{\link{explained_by_signatures}}
 #' @param sig_order Character vector with the desired order of the signature names for plotting. Optional.
 #' @param cluster_samples Hierarchically cluster samples based on eucledian distance. Default = T.
+#' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
+#' "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
+#' or "centroid" (= UPGMC). Default = "complete".
 #'
 #' @return Heatmap with cosine similarity of each signature with each 96 mutational profile
 #'
@@ -65,7 +68,7 @@
 #' 
 #' @export
 
-plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T)
+plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T, method = "complete")
 {
   # check explained argument
   if(class(explained_matrix) != "matrix")
@@ -85,7 +88,7 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T)
   if(cluster_samples == T)
   {
   # cluster samples based on eucledian distance between relative contribution
-  hc.sample = hclust(dist(explained_matrix))
+  hc.sample = hclust(dist(explained_matrix), method = method)
   # order samples according to clustering
   sample_order = rownames(explained_matrix)[hc.sample$order]
   }
