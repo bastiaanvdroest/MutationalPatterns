@@ -59,6 +59,9 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   # check contribution argument
   if(class(contribution) != "matrix")
     {stop("contribution must be a matrix")}
+  # check if there are signatures names in the contribution matrix
+  if(is.null(row.names(contribution)))
+    {stop("contribution must have row.names (signature names)")}
   # if no signature order is provided, use the order as in the input matrix
   if(missing(sig_order))
   {
