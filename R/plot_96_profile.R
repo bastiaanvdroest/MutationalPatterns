@@ -33,7 +33,7 @@ plot_96_profile = function(mut_matrix, colors, ymax = 0.15)
     # Colors for plotting
     if(missing(colors)){colors=COLORS6}
     if(length(colors) != 6){stop("Provide colors vector with length 6")}
-    context = TRIPLETS_96
+    context = CONTEXTS_96
     substitution = rep(SUBSTITUTIONS, each=16)
 
     # Replace mutated base with dot to get context
