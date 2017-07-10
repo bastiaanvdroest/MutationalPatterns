@@ -46,6 +46,7 @@
 #'
 #' @export
 
+
 plot_compare_profiles = function(profile1,
                                     profile2,
                                     profile_names = c("profile 1", "profile 2"),
@@ -76,7 +77,7 @@ plot_compare_profiles = function(profile1,
                 rep(4,1,16), rep(5,1,16), rep(6,1,16))
 
     # Context
-    context = rownames(x)
+    context = CONTEXTS_96
 
     # Replace mutated base with dot
     substring(context,2,2) = "."
