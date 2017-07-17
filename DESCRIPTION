@@ -27,7 +27,7 @@ Imports:
     ggdendro (>= 0.1-20),
     cowplot (>= 0.7.0)
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.4.0),
     GenomicRanges (>= 1.24.0),
     NMF (>= 0.20.6)
 Suggests:
