@@ -74,6 +74,11 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
   # check explained argument
   if(class(explained_matrix) != "matrix")
   {stop("explained_matrix must be a matrix")}
+  # matrix should have row and colnames
+  if(length(colnames(explained_matrix)) == 0)
+  {stop("explained_matrix is missing colnames")}
+  if(length(rownames(explained_matrix)) == 0)
+  {stop("explained_matrix is missing rownames")}
   # if no signature order is provided, use the order as in the input matrix
   if(missing(sig_order))
   {
