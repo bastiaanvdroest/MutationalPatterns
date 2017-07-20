@@ -4,14 +4,16 @@
 \alias{plot_192_profile}
 \title{Plot 192 trinucleotide profile}
 \usage{
-plot_192_profile(mut_matrix, colors, ymax = 0.15)
+plot_192_profile(mut_matrix, colors, ymax = 0.2, condensed = F)
 }
 \arguments{
 \item{mut_matrix}{192 trinucleotide profile matrix}
 
 \item{colors}{6 value color vector}
 
-\item{ymax}{Y axis maximum value, default = 0.015}
+\item{ymax}{Y axis maximum value, default = 0.2}
+
+\item{condensed}{More condensed plotting format. Default = F.}
 }
 \value{
 192 trinucleotide profile plot
