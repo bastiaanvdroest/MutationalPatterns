@@ -9,6 +9,7 @@
 #' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
 #' "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
 #' or "centroid" (= UPGMC). Default = "complete".
+#' @param plot_values Plot cosine similarity values in heatmap. Default = F.
 #'
 #' @return Heatmap with cosine similarity of each signature with each 96 mutational profile
 #'
@@ -18,7 +19,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete")
+#' plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 #' 
 #' @details 
 #' The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
@@ -68,7 +69,7 @@
 #' 
 #' @export
 
-plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T, method = "complete")
+plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = F)
 {
   # check explained argument
   if(class(explained_matrix) != "matrix")
@@ -112,6 +113,11 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
     theme_bw() + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(x=NULL, y=NULL)
+  # if plot_values is TRUE, add values to heatmap
+  if(plot_values == T)
+  {
+    heatmap = heatmap + geom_text(aes(label = round(Cosine.sim, 2)), size = 3)
+  }
   
   # if cluster samples is TRUE, make dendrogram
   if(cluster_samples == T)

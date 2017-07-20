@@ -4,7 +4,7 @@
 \alias{plot_contribution_heatmap}
 \title{Plot signature contribution heatmap}
 \usage{
-plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete")
+plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
@@ -16,6 +16,8 @@ plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method =
 \item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
 "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
 or "centroid" (= UPGMC). Default = "complete".}
+
+\item{plot_values}{Plot relative contribution values in heatmap. Default = F.}
 }
 \value{
 Heatmap with relative contribution of each signature for each sample

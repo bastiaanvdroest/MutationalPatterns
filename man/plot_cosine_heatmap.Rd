@@ -4,7 +4,7 @@
 \alias{plot_cosine_heatmap}
 \title{Plot cosine similarity heatmap}
 \usage{
-plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete")
+plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 }
 \arguments{
 \item{sig_order}{Character vector with the desired order of the signature names for plotting. Optional.}
@@ -14,6 +14,8 @@ plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "
 \item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
 "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
 or "centroid" (= UPGMC). Default = "complete".}
+
+\item{plot_values}{Plot cosine similarity values in heatmap. Default = F.}
 
 \item{explained}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). Result from \code{\link{explained_by_signatures}}}
 }
