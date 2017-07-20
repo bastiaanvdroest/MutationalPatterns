@@ -5,7 +5,10 @@
 #' @param contribution Signature contribution matrix
 #' @param sig_order Character vector with the desired order of the signature names for plotting. Optional.
 #' @param cluster_samples Hierarchically cluster samples based on eucledian distance. Default = T.
-#'
+#' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
+#' "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
+#' or "centroid" (= UPGMC). Default = "complete".
+#' 
 #' @return Heatmap with relative contribution of each signature for each sample
 #'
 #' @import ggplot2
@@ -14,7 +17,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = T)
+#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete")
 #'
 #' @examples
 #'#' ## See the 'mut_matrix()' example for how we obtained the following
@@ -44,7 +47,7 @@
 #' ## Contribution heatmap without sample clustering
 #' plot_contribution_heatmap(nmf_res$contribution, 
 #'                           sig_order = c("Signature B", "Signature A"), 
-#'                           cluster_samples = F)
+#'                           cluster_samples = F, method = "complete")
 #'
 #' @seealso
 #' \code{\link{extract_signatures}},
@@ -54,7 +57,7 @@
 #' @export
 
 # plotting function for relative contribution of signatures in heatmap
-plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = T)
+plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = T, method = "complete")
 {
   # check contribution argument
   if(class(contribution) != "matrix")
@@ -82,7 +85,7 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   if(cluster_samples == T)
   {
     # hiearchically cluster samples based on eucledian distance between relative contribution
-    hc.sample = hclust(dist(contribution_norm))
+    hc.sample = hclust(dist(contribution_norm), method = method)
     # order of samples according to hierarchical clustering
     sample_order = rownames(contribution)[hc.sample$order]
   } 

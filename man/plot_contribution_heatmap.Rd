@@ -4,7 +4,7 @@
 \alias{plot_contribution_heatmap}
 \title{Plot signature contribution heatmap}
 \usage{
-plot_contribution_heatmap(contribution, sig_order, cluster_samples = T)
+plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete")
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
@@ -12,6 +12,10 @@ plot_contribution_heatmap(contribution, sig_order, cluster_samples = T)
 \item{sig_order}{Character vector with the desired order of the signature names for plotting. Optional.}
 
 \item{cluster_samples}{Hierarchically cluster samples based on eucledian distance. Default = T.}
+
+\item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
+"ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
+or "centroid" (= UPGMC). Default = "complete".}
 }
 \value{
 Heatmap with relative contribution of each signature for each sample
@@ -47,7 +51,7 @@ plot_contribution_heatmap(nmf_res$contribution,
 ## Contribution heatmap without sample clustering
 plot_contribution_heatmap(nmf_res$contribution, 
                           sig_order = c("Signature B", "Signature A"), 
-                          cluster_samples = F)
+                          cluster_samples = F, method = "complete")
 
 }
 \seealso{
