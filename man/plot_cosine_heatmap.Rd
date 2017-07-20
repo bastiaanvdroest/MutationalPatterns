@@ -4,7 +4,7 @@
 \alias{plot_cosine_heatmap}
 \title{Plot cosine similarity heatmap}
 \usage{
-plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T)
+plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete")
 }
 \arguments{
 \item{sig_order}{Character vector with the desired order of the signature names for plotting. Optional.}
@@ -61,7 +61,7 @@ sig_order = colnames(cancer_signatures)[sig_hclust$order]
 ## Plot the cosine similarity between each signature and each sample with hierarchical 
 ## sample clustering and signatures order based on similarity
 
-plot_cosine_heatmap(explained, sig_order, cluster_samples = T)
+plot_cosine_heatmap(explained, sig_order, cluster_samples = T, method = "complete")
 
 
 }

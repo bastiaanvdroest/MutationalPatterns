@@ -18,7 +18,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T)
+#' plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete")
 #' 
 #' @details 
 #' The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
@@ -58,7 +58,7 @@
 #' ## Plot the cosine similarity between each signature and each sample with hierarchical 
 #' ## sample clustering and signatures order based on similarity
 #' 
-#' plot_cosine_heatmap(explained, sig_order, cluster_samples = T)
+#' plot_cosine_heatmap(explained, sig_order, cluster_samples = T, method = "complete")
 #' 
 #' 
 #' @seealso
