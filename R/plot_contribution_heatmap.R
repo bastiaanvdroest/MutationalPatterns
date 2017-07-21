@@ -104,7 +104,7 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   contribution_norm.m$Signature = factor(contribution_norm.m$Signature, levels = sig_order)
   
   # plot heatmap
-  heatmap = ggplot(contribution_norm.m, aes(x=Signature, y=Sample, fill=Contribution)) + 
+  heatmap = ggplot(contribution_norm.m, aes(x=Signature, y=Sample, fill=Contribution, order=Sample)) + 
     geom_tile(color = "white") +
     scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Relative \ncontribution", limits = c(0,1) ) +
     theme_bw() + 
@@ -134,7 +134,9 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   } 
   else
   {
-    plot_final = heatmap
+    plot_final = heatmap +
+      # reverse order of the samples such that first is up
+      ylim(rev(levels(factor(contribution_norm.m$Sample))))
   }
 
   return(plot_final)

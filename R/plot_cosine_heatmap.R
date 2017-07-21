@@ -112,7 +112,7 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
   explained_matrix.m$Signature = factor(explained_matrix.m$Signature, levels = sig_order)
   explained_matrix.m$Sample = factor(explained_matrix.m$Sample, levels = sample_order)
   # plot heatmap
-  heatmap = ggplot(explained_matrix.m, aes(x=Signature, y=Sample, fill=Cosine.sim)) + 
+  heatmap = ggplot(explained_matrix.m, aes(x=Signature, y=Sample, fill=Cosine.sim, order=Sample)) + 
     geom_tile(color = "white") +
     scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Cosine \nsimilarity", limits = c(0,1)) +
     theme_bw() + 
@@ -142,7 +142,9 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
   }
   else
   {
-    plot_final = heatmap
+    plot_final = heatmap +
+      # reverse order of the samples such that first is up
+      ylim(rev(levels(factor(contribution_norm.m$Sample))))
   }
   
   return(plot_final)
