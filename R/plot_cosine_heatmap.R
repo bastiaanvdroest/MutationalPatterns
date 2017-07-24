@@ -144,7 +144,7 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
   {
     plot_final = heatmap +
       # reverse order of the samples such that first is up
-      ylim(rev(levels(factor(contribution_norm.m$Sample))))
+      ylim(rev(levels(factor(explained_matrix.m$Sample))))
   }
   
   return(plot_final)
