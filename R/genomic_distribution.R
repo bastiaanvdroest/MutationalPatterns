@@ -139,6 +139,11 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
     if (length(vcf_list) != length(surveyed_list))
         stop("vcf_list and surveyed_list must have the same length")
 
+    if (is.null(names(region_list)))
+        stop(paste( "Please set the names of region_list using:",
+                    "    names(region_list) <- list(\"regionA\", \"regionB\", ...)",
+                    sep="\n"))
+    
     df = data.frame()
     for(j in 1:length(region_list) )
     {
