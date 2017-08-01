@@ -3,11 +3,11 @@
 #' Function finds the number of mutations that reside in genomic region and
 #' takes surveyed area of genome into account.
 #' 
-#' @param vcf_list A list with VCF GRanges objects
-#' @param surveyed_list A list with Granges of regions of the genome that have
-#' been surveyed (e.g. determined using GATK CallableLoci)
-#' @param region_list List with GRanges objects containing locations of
-#' genomic regions
+#' @param vcf_list A GRangesList or a list with VCF GRanges objects.
+#' @param surveyed_list A GRangesList or a list with GRanges of regions of
+#' the genome that have been surveyed (e.g. determined using GATK CallableLoci).
+#' @param region_list A GRangesList or a list with GRanges objects containing
+#' locations of genomic regions.
 #'
 #' @return A data.frame containing the number observed and number of expected
 #' mutations in each genomic region.
