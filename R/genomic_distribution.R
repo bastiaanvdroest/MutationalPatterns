@@ -141,7 +141,7 @@ genomic_distribution = function(vcf_list, surveyed_list, region_list)
 
     if (is.null(names(region_list)))
         stop(paste( "Please set the names of region_list using:",
-                    "    names(region_list) <- list(\"regionA\", \"regionB\", ...)",
+                    "    names(region_list) <- c(\"regionA\", \"regionB\", ...)",
                     sep="\n"))
     
     df = data.frame()
