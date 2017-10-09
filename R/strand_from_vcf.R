@@ -54,6 +54,9 @@
 
 strand_from_vcf = function(vcf, genes)
 {
+    # reduce gene object to merge gene definitions that overlap on the same strand
+    genes = reduce(genes)
+  
     # Check consistency of chromosome names.
     if (!(all(seqlevels(vcf) %in% seqlevels(genes))))
         stop(paste( "Chromosome names (seqlevels) of vcf and genes Granges",
