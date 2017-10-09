@@ -48,7 +48,7 @@
 mut_matrix_stranded = function(vcf_list, ref_genome, genes)
 {
     df = data.frame()
-
+    
     num_cores = detectCores()
     if (!(.Platform$OS.type == "windows" || is.na(num_cores)))
         num_cores <- detectCores()
