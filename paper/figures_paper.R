@@ -73,7 +73,7 @@ sample_order = c(1:21, 32:45, 22:31)
 sample_levels = colnames(mut_mat_plus)[sample_order]
 plot_contribution_bar = plot_contribution(nmf_res$contribution[,sample_order], coord_flip = T)
 
-pdf(paste(out_dir, "contribution.pdf", sep = ""), width = 5, height = 8, useDingbats = F)
+pdf(paste(out_dir, "contribution.pdf", sep = ""), width = 4, height = 8, useDingbats = F)
 plot_contribution_bar
 dev.off()
 
@@ -82,12 +82,14 @@ dev.off()
 # download signatures from pan-cancer study Alexandrov et al.
 sp_url = "http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt"
 cancer_signatures = read.table(sp_url, sep = "\t", header = T)
-# reorder (to make the order of the trinucleotide changes the same)
-cancer_signatures = cancer_signatures[order(cancer_signatures[,1]),]
-# only signatures in matrix
+# match the order to MP standard in mut_matrix
+order = match(row.names(mut_matrix), cancer_signatures$Somatic.Mutation.Type)
+# reorder cancer signatures dataframe
+cancer_signatures = cancer_signatures[order,]
+# add trinucletiode changes names as row.names
+row.names(cancer_signatures) = cancer_signatures$Somatic.Mutation.Type
+# keep only 96 contributions of the signatures in matrix
 cancer_signatures = as.matrix(cancer_signatures[,4:33])
-# rename signatures to number only
-colnames(cancer_signatures) = as.character(1:30)
 
 # similarity of our signatures with cancer cosmic signatures
 cos_sim_signatures = cos_sim_matrix(nmf_res$signatures, cancer_signatures)
@@ -161,7 +163,7 @@ plot_cosine_ori_rec = ggplot(df, aes(y=reconstructed, x=sample)) +
   geom_hline(aes(yintercept=.95))
 
 # Fig 2B
-pdf(paste(out_dir, "cosine_barplot.pdf", sep = ""), width = 3, height = 7, useDingbats = F)
+pdf(paste(out_dir, "cosine_barplot.pdf", sep = ""), width = 2, height = 7, useDingbats = F)
 plot_cosine_ori_rec
 dev.off()
 
@@ -364,11 +366,10 @@ names(regions) = c("Promoter", "Genes", "Non-genic")
 # genomic distribution testing
 distr = genomic_distribution(MutPat_object$vcf, MutPat_object$surveyed, regions)
 distr_test = enrichment_depletion_test(distr, by = MutPat_object$tissue)
-plot_enrichment_depletion(distr_test)
 # change order for plotting
 distr_test$by = factor(distr_test$by, levels = c("Colon", "Small Intestine", "Liver"))
 
 # Fig 4
-pdf(paste(out_dir,"genomic_distribution.pdf", sep = ""), width = 8, height = 6, useDingbats = F)
+pdf(paste(out_dir,"genomic_distribution.pdf", sep = ""), width = 7, height = 6, useDingbats = F)
 plot_enrichment_depletion(distr_test)
 dev.off()
