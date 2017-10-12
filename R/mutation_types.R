@@ -36,6 +36,12 @@ mutation_types = function(vcf)
 ## Deprecated variants
 ##
 
+#'
+#' This function has been removed.  Use 'mutation_types' instead.
+#'
+#' @noRd
+#' @export
+
 get_types <- function(vcf)
 {
     .Defunct("mutation_types", package="MutationalPatterns",

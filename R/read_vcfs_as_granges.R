@@ -200,6 +200,14 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
 ## Deprecated variants
 ##
 
+#'
+#' This function has been removed.  Use 'read_vcfs_as_granges' instead.  The
+#' new function automatically renames the seqlevel style for you, so you no
+#' longer need to run 'rename_chrom' either.
+#'
+#' @noRd
+#' @export
+
 read_vcf <- function(vcf_files, sample_names, genome="-", style="UCSC")
 {
     .Defunct("read_vcfs_as_granges", package="MutationalPatterns",
@@ -209,11 +217,25 @@ read_vcf <- function(vcf_files, sample_names, genome="-", style="UCSC")
                         "so you no longer need to run 'rename_chrom' either."))
 }
 
+#'
+#' This function has been removed.  Use 'read_vcfs_as_granges' instead.  The
+#' new function automatically renames the seqlevel style for you, so you no
+#' longer need to run 'rename_chrom' either.
+#'
+#' @noRd
+#' @export
+
 vcf_to_granges <- function(vcf_files, sample_names, genome="-", style="UCSC")
 {
     # Show the same error message as 'read_vcf()'.
     read_vcf()
 }
+
+#'
+#' This function has been removed.
+#'
+#' @noRd
+#' @export
 
 rename_chrom <- function(granges, style = "UCSC")
 {

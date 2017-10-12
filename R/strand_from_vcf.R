@@ -124,6 +124,12 @@ strand_from_vcf = function(vcf, genes)
 ## Deprecated variants
 ##
 
+#'
+#' This function has been removed.  Use 'strand_from_vcf' instead.
+#'
+#' @noRd
+#' @export
+
 get_strand <- function(vcf, genes)
 {
     .Defunct("strand_from_vcf", package="MutationalPatterns",
