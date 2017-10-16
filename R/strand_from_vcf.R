@@ -20,6 +20,8 @@
 #' length of vcf: "-" for positions outside gene bodies, "U" for
 #' untranscribed/sense/coding strand, "T" for
 #' transcribed/anti-sense/non-coding strand.
+#' 
+#' @importFrom GenomicRanges reduce
 #'
 #' @examples
 #' ## For this example we need our variants from the VCF samples, and
@@ -55,7 +57,7 @@
 strand_from_vcf = function(vcf, genes)
 {
     # reduce gene object to merge gene definitions that overlap on the same strand
-    genes = reduce(genes)
+    genes = GenomicRanges::reduce(genes)
   
     # Check consistency of chromosome names.
     if (!(all(seqlevels(vcf) %in% seqlevels(genes))))
