@@ -53,12 +53,16 @@ strand_occurrences = function(mut_mat_s, by)
     x = x[,-1]
 
     # calculate relative contribution within group
-    x_r = x/ rowSums(x)
+    x_r = x / rowSums(x)
 
+    # get strand from rownames
+    strand = unlist(lapply( strsplit(rownames(mut_mat_s), "-") , function(x) x[2]))
+    # get substitutions from rownames
+    substitutions = substring(rownames(mut_mat_s), 3, 5)
+    
     # sum per substition per strand
-    substitutions = rep(SUBSTITUTIONS, each=32)
-    x2 = melt(aggregate(t(x), by = list(substitutions, STRAND), FUN=sum))
-    x2_r = melt(aggregate(t(x_r), by = list(substitutions, STRAND), FUN=sum))
+    x2 = melt(aggregate(t(x), by = list(substitutions, strand), FUN=sum))
+    x2_r = melt(aggregate(t(x_r), by = list(substitutions, strand), FUN=sum))
     colnames(x2) = c("type", "strand", "group", "no_mutations")
     colnames(x2_r) = c("type", "strand", "group", "relative_contribution")
 

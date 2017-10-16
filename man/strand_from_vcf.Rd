@@ -4,10 +4,12 @@
 \alias{strand_from_vcf}
 \title{Find transcriptional strand of base substitutions in vcf}
 \usage{
-strand_from_vcf(vcf, genes)
+strand_from_vcf(vcf, ranges, mode = "transcription")
 }
 \arguments{
 \item{vcf}{GRanges containing the VCF object}
+
+\item{mode}{"transcription" or "replication", default = "transcription"}
 
 \item{genes}{GRanges with gene bodies definitions including strand
 information}

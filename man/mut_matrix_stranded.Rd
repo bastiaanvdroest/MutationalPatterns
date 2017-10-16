@@ -2,28 +2,26 @@
 % Please edit documentation in R/mut_matrix_stranded.R
 \name{mut_matrix_stranded}
 \alias{mut_matrix_stranded}
-\title{Make mutation count matrix of 96 trinucleotides with transcriptional
+\title{Make mutation count matrix of 96 trinucleotides with 
 strand information}
 \usage{
-mut_matrix_stranded(vcf_list, ref_genome, genes)
+mut_matrix_stranded(vcf_list, ref_genome, ranges, mode = "transcription")
 }
 \arguments{
 \item{vcf_list}{List of collapsed vcf objects}
 
 \item{ref_genome}{BSGenome reference genome object}
 
-\item{genes}{GRanges object with definition of gene bodies, including
-strand information}
+\item{ranges}{GRanges object with the genomic ranges of the two strand}
+
+\item{mode}{"transcription" or "replication", default = "transcription"}
 }
 \value{
 192 mutation count matrix (96 * 2 strands)
 }
 \description{
-Make a mutation count matrix for 96 trinucleotides, for both the
-transcribed and untranscribed strand of gene bodies.
-}
-\details{
-Mutations outside gene bodies are not counted.
+Make a mutation count matrix with 192 features: 96 trinucleotides and 2 strands,
+these can be transcriptional strand
 }
 \examples{
 ## See the 'read_vcfs_as_granges()' example for how we obtained the
