@@ -4,9 +4,13 @@
 #' 
 #' @param x Vector 1
 #' @param y Vector 2
-#' @noRd
 #' @return Cosine similarity value
 #' 
+#' @example 
+#' 
+#' 
+#' @export
+
 
 cos_sim = function(x, y)
 {
