@@ -138,7 +138,8 @@ strand_from_vcf = function(vcf, ranges, mode = "transcription")
     # Check that only two different annotations 
     if(length(levels(ranges$strand_info)) != 2)
     {
-      stop("GRanges object metadata: 'strand_info' factor should contain exactly two different levels, such as 'left' and 'right'.")
+      stop("GRanges object metadata: 'strand_info' factor should contain exactly two different 
+           levels, such as 'left' and 'right'.")
     }
     
     # Determine overlap between vcf positions and genomic regions
@@ -157,7 +158,8 @@ strand_from_vcf = function(vcf, ranges, mode = "transcription")
       overlap = overlap[-dup_idx,]
       warning("Some variants overlap with multiple genomic regions in the GRanges object. 
               These variants are assigned '-', as the strand cannot be determined.
-              To avoid this, make sure no genomic regions are overlapping in your GRanges object.")
+              To avoid this, make sure no genomic regions are overlapping in your GRanges 
+              object.")
     }
     
     # get strand info of region
@@ -167,7 +169,7 @@ strand_from_vcf = function(vcf, ranges, mode = "transcription")
     strand2 = rep("-", length(vcf))
     strand2[overlap$vcf_id] = as.character(strand)
     # make factor, levels defines by levels in ranges object
-    levels = levels(ranges$strand_info)
+    levels = c(levels(ranges$strand_info), "-")
     strand2 = factor(strand2, levels = levels)
   }
  
