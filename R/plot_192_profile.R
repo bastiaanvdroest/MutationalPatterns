@@ -46,14 +46,16 @@ plot_192_profile = function(mut_matrix, colors, ymax = 0.2, condensed = F)
     if(length(colors) != 6){stop("Provide colors vector with length 6")}
     context = rep(CONTEXTS_96, each=2)
     substitution = rep(SUBSTITUTIONS, each=32)
-
+    # get strand from rownames of mut_matrix
+    strand = sapply(rownames(mut_matrix), function(x) strsplit(x, "-")[[1]][2])
+    
     # Replace mutated base with dot to get context
     substring(context, 2, 2) = "."
-
+    
     # Construct dataframe
     df = data.frame(substitution = substitution,
                     context = context,
-                    strand = STRAND)
+                    strand = strand)
 
     rownames(norm_mut_matrix) = NULL
 
