@@ -116,15 +116,15 @@ strand_from_vcf = function(vcf, ranges, mode = "transcription")
     # If mutation is on different strand than gene, then its transcribed.
     T_index = which(same_strand == FALSE)
     strand = rep(0, nrow(overlap))
-    strand[U_index] = "U"
-    strand[T_index] = "T"
+    strand[U_index] = "untranscribed"
+    strand[T_index] = "transcribed"
     
     # Make vector with all positions in input vcf for positions that do
     # not overlap with gene bodies, report "-".
     strand2 = rep("-", length(vcf))
     strand2[overlap$vcf_id] = strand
     # make factor 
-    strand2 = factor(strand2, levels = c("U", "T", "-"))
+    strand2 = factor(strand2, levels = c("untranscribed", "transcribed", "-"))
   }
   
   # Replication mode
