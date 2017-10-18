@@ -2,30 +2,29 @@
 #' 
 #' Hierarchical clustering of signatures based on cosine similarity
 #' 
-#' @param signatures Matrix with usually 96 trinucleotides (rows) and any number of signatures (columns)
+#' @param signatures Matrix with 96 trinucleotides (rows) and any number of signatures (columns)
 #' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
 #' "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
 #' or "centroid" (= UPGMC). Default = "complete".
 #' @return hclust object
 #' 
 #' @examples
-#' ## You can download the signatures from the pan-cancer study by
-#' ## Alexandrov et al:
-#' # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' ## You can download mutational signatures from the COSMIC database:
+#' # sp_url = http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
+#' # cancer_signatures = read.table(sp_url, sep = "\t", header = T)
 #' 
 #' ## We copied the file into our package for your convenience.
 #' filename <- system.file("extdata/signatures_probabilities.txt",
 #'                         package="MutationalPatterns")
-#'
 #' cancer_signatures <- read.table(filename, sep = "\t", header = TRUE)
-#'
-#' ## Reorder the columns to make the order of the trinucleotide changes compatible.
-#' cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
-#'
-#' ## Include only the signatures in the matrix.
-#' cancer_signatures <- as.matrix(cancer_signatures[,4:33])
-#'
-#' ## Hierarchically luster the cancer signatures based on cosine similarity
+#' ## Reorder (to make the order of the trinucleotide changes the same as MutationalPatterns standard)
+#' cancer_signatures = cancer_signatures[order(cancer_signatures[,1]),]
+#  ## Include only signatures in matrix
+#' cancer_signatures = as.matrix(cancer_signatures[,4:33])
+#' ## Rename signatures to number only
+#' colnames(cancer_signatures) = as.character(1:30)
+#' 
+#' ## Hierarchically cluster the cancer signatures based on cosine similarity
 #' hclust_cancer_signatures = cluster_signatures(cancer_signatures)
 #' 
 #' ## Plot dendrogram
@@ -43,7 +42,7 @@
 cluster_signatures = function(signatures, method = "complete")
 {
   # construct cosine similarity matrix
-  sim = cos_sim_matrix(signatures)
+  sim = cos_sim_matrix(signatures, signatures)
   # transform to distance
   dist = as.dist(1 - sim)
   # perform hierarchical clustering
