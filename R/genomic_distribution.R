@@ -19,9 +19,9 @@
 #'                 package="MutationalPatterns"))
 #' 
 #' ## Use biomaRt to obtain data.
-#' ## We can query the BioMart database, but this may take a long time
-#' ## though, so we take some shortcuts by loading the results from our
-#' ## examples.  The corresponding code for downloading data can be
+#' ## We can query the BioMart database, but this may take a long time,
+#' ## so we take some shortcuts by loading the results from our
+#' ## examples. The corresponding code for downloading the data can be
 #' ## found above the command we run.
 #'
 #' # mart="ensemble"

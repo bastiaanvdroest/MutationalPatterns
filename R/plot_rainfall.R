@@ -35,14 +35,7 @@
 #' vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #' 
-#' ## Exclude mitochondrial and autosomal chromosomes.
-#' autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
-#'                                     style="UCSC",
-#'                                     group="auto")
-#'
-#' vcfs <- lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
-#'
-#' # Take the chromosomes of interest.
+#' # Specify chromosomes of interest.
 #' chromosomes = names(genome(vcfs[[1]])[1:22])
 #'
 #' ## Do a rainfall plot for all chromosomes:

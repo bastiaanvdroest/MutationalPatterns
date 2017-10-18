@@ -28,7 +28,7 @@ mut_mat_s <- readRDS(system.file("states/mut_mat_s_data.rds",
                                     package="MutationalPatterns"))
 
 ## Extract the signatures.
-## This is a computational intensive task, so we load a precomputed
+## This is a computationally intensive task, so we load a precomputed
 ## version instead.
 # nmf_res_strand <- extract_signatures(mut_mat_s, rank = 2)
 nmf_res_strand <- readRDS(system.file("states/nmf_res_strand_data.rds",

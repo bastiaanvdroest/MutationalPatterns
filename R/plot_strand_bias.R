@@ -1,11 +1,7 @@
-#' Plot strand bias per base substitution type
-#'
-#' For each base substitution type and transcriptional strand the total
-#' number of mutations and the relative contribution within a group is
-#' returned.
+#' Plot strand bias per base substitution type per group
 #'
 #' @param strand_bias data.frame, result from strand_bias function
-#' @param colors Optional color vector for plotting with 6 values
+#' @param colors Optional color vector with 6 values for plotting
 #' @return Barplot
 #'
 #' @import ggplot2
