@@ -17,7 +17,8 @@ or "centroid" (= UPGMC). Default = "complete".}
 
 \item{plot_values}{Plot cosine similarity values in heatmap. Default = F.}
 
-\item{explained}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). Result from \code{\link{explained_by_signatures}}}
+\item{explained}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
+Result from \code{\link{cos_sim_matrix}}}
 }
 \value{
 Heatmap with cosine similarity of each signature with each 96 mutational profile
@@ -40,14 +41,18 @@ on cosine similarity with \code{\link{cluster_signatures}} and plot the signatur
 ## We copied the file into our package for your convenience.
 filename <- system.file("extdata/signatures_probabilities.txt",
                         package="MutationalPatterns")
-
 cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
 
-## Reorder the columns to make the order of the trinucleotide changes compatible.
-cancer_signatures <- cancer_signatures[order(cancer_signatures[,1]),]
-
-## Include only the signatures in the matrix.
-cancer_signatures <- as.matrix(cancer_signatures[,4:33])
+## Match the order to MutationalPatterns standard of mutation matrix
+order = match(row.names(mut_matrix), cancer_signatures$Somatic.Mutation.Type)
+## Reorder cancer signatures dataframe
+cancer_signatures = cancer_signatures[order,]
+## Use trinucletiode changes names as row.names
+## row.names(cancer_signatures) = cancer_signatures$Somatic.Mutation.Type
+## Keep only 96 contributions of the signatures in matrix
+cancer_signatures = as.matrix(cancer_signatures[,4:33])
+## Rename signatures to number only
+colnames(cancer_signatures) = as.character(1:30)
 
 ## See the 'mut_matrix()' example for how we obtained the mutation matrix:
 mut_mat <- readRDS(system.file("states/mut_mat_data.rds",

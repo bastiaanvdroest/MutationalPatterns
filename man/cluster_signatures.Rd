@@ -28,8 +28,14 @@ Hierarchical clustering of signatures based on cosine similarity
 filename <- system.file("extdata/signatures_probabilities.txt",
                         package="MutationalPatterns")
 cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
-## Reorder (to make the order of the trinucleotide changes the same as MutationalPatterns standard)
-cancer_signatures = cancer_signatures[order(cancer_signatures[,1]),]
+
+## Match the order to MutationalPatterns standard of mutation matrix
+order = match(row.names(mut_matrix), cancer_signatures$Somatic.Mutation.Type)
+## Reorder cancer signatures dataframe
+cancer_signatures = cancer_signatures[order,]
+## Use trinucletiode changes names as row.names
+## row.names(cancer_signatures) = cancer_signatures$Somatic.Mutation.Type
+## Keep only 96 contributions of the signatures in matrix
 cancer_signatures = as.matrix(cancer_signatures[,4:33])
 ## Rename signatures to number only
 colnames(cancer_signatures) = as.character(1:30)
