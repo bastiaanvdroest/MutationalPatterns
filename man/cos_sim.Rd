@@ -7,16 +7,21 @@
 cos_sim(x, y)
 }
 \arguments{
-\item{x}{Vector 1}
+\item{x}{Vector 1 of length n}
 
-\item{y}{Vector 2}
+\item{y}{Vector 2 of length n}
 }
 \value{
-Cosine similarity value
+Cosine similarity value; a value between 0 and 1
 }
 \description{
-Calculate the cosine similarity between two vectors
+Calculate the cosine similarity between two vectors of the same length.
+The cosine similarity is a value between 0 (distinct) and 1 (identical) 
+and indicates how much two vectors are alike.
 }
 \examples{
+x = c(1.1, 2.1, 0.2, 0.1, 2.9)
+y = c(0.9, 1.9, 0.5, 0.4, 3.1)
+cos_sim(x, y)
 
 }
