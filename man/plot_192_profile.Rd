@@ -4,7 +4,7 @@
 \alias{plot_192_profile}
 \title{Plot 192 trinucleotide profile}
 \usage{
-plot_192_profile(mut_matrix, colors, ymax = 0.2, condensed = F)
+plot_192_profile(mut_matrix, colors, ymax = 0.2, condensed = FALSE)
 }
 \arguments{
 \item{mut_matrix}{192 trinucleotide profile matrix}

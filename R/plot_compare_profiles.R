@@ -54,7 +54,7 @@ plot_compare_profiles = function(profile1,
                                     profile_ymax = 0.2,
                                     diff_ylim = c(-0.02, 0.02),
                                     colors,
-                                    condensed = F)
+                                    condensed = FALSE)
 {
     # if colors parameter not provided, set to default colors
     if(missing(colors)){colors = COLORS6}
@@ -106,7 +106,7 @@ plot_compare_profiles = function(profile1,
                                     profile_ymax,
                                     diff_ylim[1],
                                     diff_ylim[2]))
-    if(condensed == T)
+    if (condensed)
     {
       plot = ggplot(data=df3, aes(x=context,
                                   y=value,

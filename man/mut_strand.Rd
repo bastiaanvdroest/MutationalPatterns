@@ -73,14 +73,14 @@ vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
                         package="MutationalPatterns"))
 
-mut_strand(vcfs[[1]], genes_hg19, mode = "transcription)
+mut_strand(vcfs[[1]], genes_hg19, mode = "transcription")
 
 ## For replication strand:
 ## Read example bed file with replication direction annotation
 ## Read replistrand data
 repli_file = system.file("extdata/ReplicationDirectionRegions.bed", 
                           package = "MutationalPatterns")
-repli_strand = read.table(repli_file, header = T)
+repli_strand = read.table(repli_file, header = TRUE)
 repli_strand_granges = GRanges(seqnames = repli_strand$Chr, 
                                ranges = IRanges(start = repli_strand$Start + 1, 
                                end = repli_strand$Stop), 
@@ -88,7 +88,7 @@ repli_strand_granges = GRanges(seqnames = repli_strand$Chr,
 ## UCSC seqlevelsstyle
 seqlevelsStyle(repli_strand_granges) = "UCSC"
 
-mut_strand(vcfs[[1]], repli_strand_granges, mode = "transcription)
+mut_strand(vcfs[[1]], repli_strand_granges, mode = "transcription")
 
 }
 \seealso{

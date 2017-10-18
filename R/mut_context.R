@@ -49,7 +49,7 @@ mut_context = function(vcf, ref_genome)
 ##
 
 #'
-#' This function has been removed.  Use 'mutation_context' instead.
+#' This function has been removed.  Use 'mut_context' instead.
 #'
 #' @noRd
 #' @export
@@ -60,6 +60,12 @@ get_mut_context <- function(vcf, ref_genome)
                 msg=paste("This function has been renamed. Use",
                             "'mut_context' instead."))
 }
+
+#'
+#' This function has been removed.  Use 'mut_context' instead.
+#'
+#' @noRd
+#' @export
 
 mutation_context <- function(vcf, ref_genome)
 {

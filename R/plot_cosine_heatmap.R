@@ -3,7 +3,7 @@
 #' Plot cosine similarity between mutational profiles and signatures in a heatmap. 
 #' 
 #' 
-#' @param cos_sim_matrix Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
+#' @param cos_sim_matrix Matrix with pairwise cosine similarities (dimensions: n samples X n signatures).
 #'                       Result from \code{\link{cos_sim_matrix}}
 #' @param sig_order Character vector with the desired order of the signature names for plotting. Optional.
 #' @param cluster_samples Hierarchically cluster samples based on eucledian distance. Default = T.
@@ -20,7 +20,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_cosine_heatmap(cos_sim_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+#' plot_cosine_heatmap(cos_sim_matrix, sig_order, cluster_samples = TRUE, method = "complete", plot_values = TRUE)
 #' 
 #' @details 
 #' The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
@@ -64,7 +64,7 @@
 #' ## Plot the cosine similarity between each signature and each sample with hierarchical 
 #' ## sample clustering and signatures order based on similarity
 #' 
-#' plot_cosine_heatmap(cos_matrix, sig_order, cluster_samples = T, method = "complete")
+#' plot_cosine_heatmap(cos_matrix, sig_order, cluster_samples = TRUE, method = "complete")
 #' 
 #' 
 #' @seealso
@@ -74,7 +74,7 @@
 #' 
 #' @export
 
-plot_cosine_heatmap = function(cos_sim_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = F)
+plot_cosine_heatmap = function(cos_sim_matrix, sig_order, cluster_samples = TRUE, method = "complete", plot_values = FALSE)
 {
   # check explained argument
   if(class(cos_sim_matrix) != "matrix")
@@ -96,7 +96,7 @@ plot_cosine_heatmap = function(cos_sim_matrix, sig_order, cluster_samples = T, m
   {stop("sig_order must have the same length as the number of signatures in the explained matrix")}
   
   # if cluster samples is TRUE, perform clustering
-  if(cluster_samples == T)
+  if (cluster_samples)
   {
   # cluster samples based on eucledian distance between relative contribution
   hc.sample = hclust(dist(cos_sim_matrix), method = method)
@@ -124,13 +124,13 @@ plot_cosine_heatmap = function(cos_sim_matrix, sig_order, cluster_samples = T, m
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(x=NULL, y=NULL)
   # if plot_values is TRUE, add values to heatmap
-  if(plot_values == T)
+  if (plot_values)
   {
     heatmap = heatmap + geom_text(aes(label = round(Cosine.sim, 2)), size = 3)
   }
   
   # if cluster samples is TRUE, make dendrogram
-  if(cluster_samples == T)
+  if (cluster_samples)
   {
     # get dendrogram
     dhc = as.dendrogram(hc.sample)

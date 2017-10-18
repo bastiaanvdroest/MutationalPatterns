@@ -45,7 +45,7 @@
 #' ## Read example bed file with replication direction annotation
 #' repli_file = system.file("extdata/ReplicationDirectionRegions.bed", 
 #'                           package = "MutationalPatterns")
-#' repli_strand = read.table(repli_file, header = T)
+#' repli_strand = read.table(repli_file, header = TRUE)
 #' repli_strand_granges = GRanges(seqnames = repli_strand$Chr, 
 #'                                ranges = IRanges(start = repli_strand$Start + 1, 
 #'                                end = repli_strand$Stop), 

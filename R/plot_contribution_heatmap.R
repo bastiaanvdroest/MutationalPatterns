@@ -18,7 +18,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = TRUE, method = "complete", plot_values = TRUE)
 #'
 #' @examples
 #'#' ## See the 'mut_matrix()' example for how we obtained the following
@@ -48,7 +48,7 @@
 #' ## Contribution heatmap without sample clustering
 #' plot_contribution_heatmap(nmf_res$contribution, 
 #'                           sig_order = c("Signature B", "Signature A"), 
-#'                           cluster_samples = F, method = "complete")
+#'                           cluster_samples = FALSE, method = "complete")
 #'
 #' @seealso
 #' \code{\link{extract_signatures}},
@@ -58,7 +58,7 @@
 #' @export
 
 # plotting function for relative contribution of signatures in heatmap
-plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = F)
+plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = TRUE, method = "complete", plot_values = FALSE)
 {
   # check contribution argument
   if(class(contribution) != "matrix")
@@ -83,7 +83,7 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
   contribution_norm = contribution / rowSums(contribution)
   
   # if cluster samples is TRUE, perform clustering
-  if(cluster_samples == T)
+  if (cluster_samples)
   {
     # hiearchically cluster samples based on eucledian distance between relative contribution
     hc.sample = hclust(dist(contribution_norm), method = method)
@@ -111,13 +111,13 @@ plot_contribution_heatmap = function(contribution, sig_order, cluster_samples = 
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(x=NULL, y=NULL) 
   # if plot_values is TRUE, add values to heatmap
-  if(plot_values == T)
+  if (plot_values)
   {
     heatmap = heatmap + geom_text(aes(label = round(Contribution, 2)), size = 3)
   }
   
   # if cluster_samples is TRUE, make dendrogram
-  if(cluster_samples == T)
+  if (cluster_samples)
   {
     # get dendrogram
     dhc = as.dendrogram(hc.sample)

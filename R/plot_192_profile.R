@@ -35,7 +35,7 @@
 #'
 #' @export
 
-plot_192_profile = function(mut_matrix, colors, ymax = 0.2, condensed = F)
+plot_192_profile = function(mut_matrix, colors, ymax = 0.2, condensed = FALSE)
 {
     # Relative contribution
     norm_mut_matrix = apply(mut_matrix, 2, function(x) x / sum(x))
@@ -66,7 +66,7 @@ plot_192_profile = function(mut_matrix, colors, ymax = 0.2, condensed = F)
     # To avoid compiling trouble, we initialize them to NULL.
     value = NULL
     
-    if(condensed == T)
+    if (condensed)
     {
       plot = ggplot(data=df3, aes(x=context,
                                   y=value,

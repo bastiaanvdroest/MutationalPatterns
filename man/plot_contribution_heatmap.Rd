@@ -4,7 +4,7 @@
 \alias{plot_contribution_heatmap}
 \title{Plot signature contribution heatmap}
 \usage{
-plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+plot_contribution_heatmap(contribution, sig_order, cluster_samples = TRUE, method = "complete", plot_values = TRUE)
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
@@ -53,7 +53,7 @@ plot_contribution_heatmap(nmf_res$contribution,
 ## Contribution heatmap without sample clustering
 plot_contribution_heatmap(nmf_res$contribution, 
                           sig_order = c("Signature B", "Signature A"), 
-                          cluster_samples = F, method = "complete")
+                          cluster_samples = FALSE, method = "complete")
 
 }
 \seealso{

@@ -7,11 +7,13 @@
 cluster_signatures(signatures, method = "complete")
 }
 \arguments{
-\item{signatures}{Matrix with 96 trinucleotides (rows) and any number of signatures (columns)}
+\item{signatures}{Matrix with 96 trinucleotides (rows) and any number of
+signatures (columns)}
 
-\item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
-"ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
-or "centroid" (= UPGMC). Default = "complete".}
+\item{method}{The agglomeration method to be used for hierarchical
+clustering. This should be one of "ward.D", "ward.D2", "single", "complete",
+"average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or
+"centroid" (= UPGMC). Default = "complete".}
 }
 \value{
 hclust object

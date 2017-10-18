@@ -63,7 +63,7 @@
 #' @export
 
 read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
-                                 group = "auto+sex", check_alleles = TRUE)
+                                    group = "auto+sex", check_alleles = TRUE)
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
@@ -148,7 +148,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                     # creating a data frame will work as expected.
                     unique_names <- unique(groups_names)
                     groups <- llply(unique_names, function(x) groups[groups_names == x])
-                    groups <- llply(groups, unlist, recursive = F)
+                    groups <- llply(groups, unlist, recursive = FALSE)
 
                     # In case there are multiple styles applied, we only use the first.
                     groups <- unique(as.vector(groups[[1]]))
