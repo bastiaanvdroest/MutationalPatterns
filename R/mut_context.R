@@ -19,14 +19,14 @@
 #' ref_genome <- "BSgenome.Hsapiens.UCSC.hg19"
 #' library(ref_genome, character.only = TRUE)
 #'
-#' mut_context <- mutation_context(vcfs[[1]], ref_genome)
+#' mut_context <- mut_context(vcfs[[1]], ref_genome)
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
 #'
 #' @export
 
-mutation_context = function(vcf, ref_genome) 
+mut_context = function(vcf, ref_genome) 
 {
     # Make sure that the chromosome names are compatible with each other.
     if (!(all(seqlevels(vcf) %in% seqlevels(get(ref_genome)))))
@@ -50,7 +50,14 @@ mutation_context = function(vcf, ref_genome)
 
 get_mut_context <- function(vcf, ref_genome)
 {
-    .Defunct("mutation_context", package="MutationalPatterns",
-                msg=paste("This function has been removed.  Use",
-                            "'mutation_context' instead."))
+    .Defunct("mut_context", package="MutationalPatterns",
+                msg=paste("This function has been renamed. Use",
+                            "'mut_context' instead."))
+}
+
+mutation_context <- function(vcf, ref_genome)
+{
+  .Defunct("mut_context", package="MutationalPatterns",
+           msg=paste("This function has been renamed. Use",
+                     "'mut_context' instead."))
 }

@@ -71,7 +71,7 @@ cos_sim_matrix = function(mut_matrix1, mut_matrix2)
 
 explained_by_signatures = function(mut_matrix, signatures)
 {
-  .Defunct("explained_by_signatures", package="MutationalPatterns",
+  .Defunct("cos_sim_matrix", package="MutationalPatterns",
            msg=paste("This function has been renamed to",
                      "'cos_sim_matrix'."))
 }

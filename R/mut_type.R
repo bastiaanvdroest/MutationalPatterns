@@ -12,14 +12,14 @@
 #' vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
 #'                 package="MutationalPatterns"))
 #'
-#' mutation_types(vcfs[[1]])
+#' mut_type(vcfs[[1]])
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}}
 #'
 #' @export
 
-mutation_types = function(vcf) 
+mut_type = function(vcf) 
 {
     muts = mutations_from_vcf(vcf)
     types = unlist(muts)
@@ -33,12 +33,19 @@ mutation_types = function(vcf)
 }
 
 ##
-## Deprecated variants
+## Deprecated functions
 ##
 
 get_types <- function(vcf)
 {
-    .Defunct("mutation_types", package="MutationalPatterns",
-                msg=paste("This function has been removed.  Use",
-                            "'mutation_types' instead."))
+    .Defunct("mut_type", package="MutationalPatterns",
+                msg=paste("This function has been renamed. Use",
+                            "'mut_type' instead."))
+}
+
+mutation_types <- function(vcf)
+{
+    .Defunct("mut_type", package="MutationalPatterns",
+           msg=paste("This function has been renamed. Use",
+                     "'mut_type' instead."))
 }

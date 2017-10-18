@@ -63,7 +63,7 @@
 #' genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
 #'                         package="MutationalPatterns"))
 #'
-#' strand_from_vcf(vcfs[[1]], genes_hg19, mode = "transcription)
+#' mut_strand(vcfs[[1]], genes_hg19, mode = "transcription)
 #' 
 #' ## For replication strand:
 #' ## Read example bed file with replication direction annotation
@@ -78,14 +78,14 @@
 #' ## UCSC seqlevelsstyle
 #' seqlevelsStyle(repli_strand_granges) = "UCSC"
 #' 
-#' strand_from_vcf(vcfs[[1]], repli_strand_granges, mode = "transcription)
+#' mut_strand(vcfs[[1]], repli_strand_granges, mode = "transcription)
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
 #'
 #' @export
 
-strand_from_vcf = function(vcf, ranges, mode = "transcription")
+mut_strand = function(vcf, ranges, mode = "transcription")
 {
   # Transcription mode
   if(mode == "transcription")
@@ -212,7 +212,14 @@ strand_from_vcf = function(vcf, ranges, mode = "transcription")
 
 get_strand <- function(vcf, genes)
 {
-    .Defunct("strand_from_vcf", package="MutationalPatterns",
-                msg=paste("This function has been removed.  Use",
-                            "'strand_from_vcf' instead."))
+    .Defunct("mut_strand", package="MutationalPatterns",
+                msg=paste("This function has been renamed. Use",
+                            "'mut_strand' instead."))
+}
+
+strand_from_vcf <- function(vcf, genes)
+{
+  .Defunct("mut_strand", package="MutationalPatterns",
+           msg=paste("This function has been renamed. Use",
+                     "'mut_strand' instead."))
 }

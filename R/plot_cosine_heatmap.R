@@ -3,8 +3,8 @@
 #' Plot cosine similarity between mutational profiles and signatures in a heatmap. 
 #' 
 #' 
-#' @param explained Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
-#'                  Result from \code{\link{cos_sim_matrix}}
+#' @param cos_sim_matrix Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
+#'                       Result from \code{\link{cos_sim_matrix}}
 #' @param sig_order Character vector with the desired order of the signature names for plotting. Optional.
 #' @param cluster_samples Hierarchically cluster samples based on eucledian distance. Default = T.
 #' @param method The agglomeration method to be used for hierarchical clustering. This should be one of 
@@ -20,7 +20,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @usage
-#' plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+#' plot_cosine_heatmap(cos_sim_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 #' 
 #' @details 
 #' The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
@@ -55,7 +55,7 @@
 #'                     package="MutationalPatterns"))
 #'
 #' ## Calculate the cosine similarity between each signature and each 96 mutational profile
-#' explained = explained_by_signatures(mut_mat, cancer_signatures)
+#' cos_matrix = cos_sim_matrix(mut_mat, cancer_signatures)
 #' 
 #' ## Cluster signatures based on cosine similarity 
 #' sig_hclust = cluster_signatures(cancer_signatures)
@@ -64,60 +64,60 @@
 #' ## Plot the cosine similarity between each signature and each sample with hierarchical 
 #' ## sample clustering and signatures order based on similarity
 #' 
-#' plot_cosine_heatmap(explained, sig_order, cluster_samples = T, method = "complete")
+#' plot_cosine_heatmap(cos_matrix, sig_order, cluster_samples = T, method = "complete")
 #' 
 #' 
 #' @seealso
 #' \code{\link{mut_matrix}},
-#' \code{\link{explained_by_signatures}},
+#' \code{\link{cos_sim_matrix}},
 #' \code{\link{cluster_signatures}} 
 #' 
 #' @export
 
-plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = F)
+plot_cosine_heatmap = function(cos_sim_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = F)
 {
   # check explained argument
-  if(class(explained_matrix) != "matrix")
-  {stop("explained_matrix must be a matrix")}
+  if(class(cos_sim_matrix) != "matrix")
+  {stop("cos_sim_matrix must be a matrix")}
   # matrix should have row and colnames
-  if(length(colnames(explained_matrix)) == 0)
-  {stop("explained_matrix is missing colnames")}
-  if(length(rownames(explained_matrix)) == 0)
-  {stop("explained_matrix is missing rownames")}
+  if(length(colnames(cos_sim_matrix)) == 0)
+  {stop("cos_sim_matrix is missing colnames")}
+  if(length(rownames(cos_sim_matrix)) == 0)
+  {stop("cos_sim_matrix is missing rownames")}
   # if no signature order is provided, use the order as in the input matrix
   if(missing(sig_order))
   {
-    sig_order = colnames(explained_matrix)
+    sig_order = colnames(cos_sim_matrix)
   }
   # check sig_order argument
   if(class(sig_order) != "character")
   {stop("sig_order must be a character vector")}
-  if(length(sig_order) != ncol(explained_matrix))
+  if(length(sig_order) != ncol(cos_sim_matrix))
   {stop("sig_order must have the same length as the number of signatures in the explained matrix")}
   
   # if cluster samples is TRUE, perform clustering
   if(cluster_samples == T)
   {
   # cluster samples based on eucledian distance between relative contribution
-  hc.sample = hclust(dist(explained_matrix), method = method)
+  hc.sample = hclust(dist(cos_sim_matrix), method = method)
   # order samples according to clustering
-  sample_order = rownames(explained_matrix)[hc.sample$order]
+  sample_order = rownames(cos_sim_matrix)[hc.sample$order]
   }
   else
   {
-    sample_order = rownames(explained_matrix)
+    sample_order = rownames(cos_sim_matrix)
   }
   
   # melt
-  explained_matrix.m = melt(explained_matrix)
+  cos_sim_matrix.m = melt(cos_sim_matrix)
   # assign variable names
-  colnames(explained_matrix.m) = c("Sample", "Signature", "Cosine.sim")
+  colnames(cos_sim_matrix.m) = c("Sample", "Signature", "Cosine.sim")
   
   # change factor levels to the correct order for plotting
-  explained_matrix.m$Signature = factor(explained_matrix.m$Signature, levels = sig_order)
-  explained_matrix.m$Sample = factor(explained_matrix.m$Sample, levels = sample_order)
+  cos_sim_matrix.m$Signature = factor(cos_sim_matrix.m$Signature, levels = sig_order)
+  cos_sim_matrix.m$Sample = factor(cos_sim_matrix.m$Sample, levels = sample_order)
   # plot heatmap
-  heatmap = ggplot(explained_matrix.m, aes(x=Signature, y=Sample, fill=Cosine.sim, order=Sample)) + 
+  heatmap = ggplot(cos_sim_matrix.m, aes(x=Signature, y=Sample, fill=Cosine.sim, order=Sample)) + 
     geom_tile(color = "white") +
     scale_fill_distiller(palette = "YlGnBu", direction = 1, name = "Cosine \nsimilarity", limits = c(0,1)) +
     theme_bw() + 
@@ -149,7 +149,7 @@ plot_cosine_heatmap = function(explained_matrix, sig_order, cluster_samples = T,
   {
     plot_final = heatmap +
       # reverse order of the samples such that first is up
-      ylim(rev(levels(factor(explained_matrix.m$Sample))))
+      ylim(rev(levels(factor(cos_sim_matrix.m$Sample))))
   }
   
   return(plot_final)

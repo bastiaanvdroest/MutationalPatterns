@@ -23,7 +23,7 @@
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
-#' \code{\link{mutation_context}}
+#' \code{\link{mut_context}}
 #'
 #' @export
 
@@ -38,9 +38,9 @@ type_context = function(vcf, ref_genome)
         return(res)
     }
 
-    mut_context = mutation_context(vcf, ref_genome)
+    mut_context = mut_context(vcf, ref_genome)
     muts = mutations_from_vcf(vcf)
-    types = mutation_types(vcf)
+    types = mut_type(vcf)
 
     # find the mutations for which the context needs to be adjusted
     x = which(muts != types)
