@@ -48,6 +48,12 @@ mut_context = function(vcf, ref_genome)
 ## Deprecated variants
 ##
 
+#'
+#' This function has been removed.  Use 'mutation_context' instead.
+#'
+#' @noRd
+#' @export
+
 get_mut_context <- function(vcf, ref_genome)
 {
     .Defunct("mut_context", package="MutationalPatterns",

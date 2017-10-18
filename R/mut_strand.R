@@ -210,12 +210,24 @@ mut_strand = function(vcf, ranges, mode = "transcription")
 ## Renamed function
 ##
 
+#'
+#' This function has been renamed. Use 'mut_strand' instead.
+#'
+#' @noRd
+#' @export
+
 get_strand <- function(vcf, genes)
 {
     .Defunct("mut_strand", package="MutationalPatterns",
                 msg=paste("This function has been renamed. Use",
                             "'mut_strand' instead."))
 }
+
+#'
+#' This function has been renamed. Use 'mut_strand' instead.
+#'
+#' @noRd
+#' @export
 
 strand_from_vcf <- function(vcf, genes)
 {
