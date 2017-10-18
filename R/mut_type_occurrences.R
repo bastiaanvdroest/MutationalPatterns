@@ -38,7 +38,7 @@ mut_type_occurrences = function(vcf_list, ref_genome)
     for(i in 1:n_samples)
     {
         vcf = vcf_list[[i]]
-        types = mutation_types(vcf)
+        types = mut_type(vcf)
 
         CT_context = 0
         CT_at_CpG = 0
