@@ -2,17 +2,18 @@
 % Please edit documentation in R/strand_from_vcf.R
 \name{strand_from_vcf}
 \alias{strand_from_vcf}
-\title{Find transcriptional strand of base substitutions in vcf}
+\title{Find strand of mutations}
 \usage{
 strand_from_vcf(vcf, ranges, mode = "transcription")
 }
 \arguments{
 \item{vcf}{GRanges containing the VCF object}
 
-\item{mode}{"transcription" or "replication", default = "transcription"}
+\item{ranges}{GRanges object with the genomic ranges of:
+1. (transcription mode) the gene bodies with strand (+/-) information, or 
+2. (replication mode) the replication strand with 'strand_info' metadata}
 
-\item{genes}{GRanges with gene bodies definitions including strand
-information}
+\item{mode}{"transcription" or "replication", default = "transcription"}
 }
 \value{
 Character vector with transcriptional strand information with
@@ -21,18 +22,38 @@ untranscribed/sense/coding strand, "T" for
 transcribed/anti-sense/non-coding strand.
 }
 \description{
-For the positions that are within gene bodies it is determined whether
-the "C" or "T" base is on the same strand as the gene definition. (Since
-by convention we regard base substitutions as C>X or T>X.)
+Find strand of mutations
 }
 \details{
+For transcription mode:
+Definitions of gene bodies with strand (+/-) information should be defined
+in a GRanges object.
+
+For the base substitutions that are within gene bodies, it is determined whether
+the "C" or "T" base is on the same strand as the gene definition. (Since
+by convention we regard base substitutions as C>X or T>X.)
+
 Base substitions on the same strand as the gene definitions are considered
-untranscribed, and on the opposite strand of gene bodies as transcribed,
+"untranscribed", and on the opposite strand of gene bodies as "transcribed",
 since the gene definitions report the coding or sense strand, which is
 untranscribed.
 
 No strand information "-" is returned for base substitutions outside gene
-bodies, or base substitutions that overlap with more than one gene body.
+bodies, or base substitutions that overlap with more than one gene body on 
+the same strand.
+
+For replication mode:
+Replication directions of genomic ranges should be defined in GRanges object.
+The GRanges object should have a "strand_info" metadata column, 
+which contains only two different annotations, e.g. "left" and "right", or 
+"leading" and "lagging". The genomic ranges cannot overlap, to allow only one 
+annotation per location.
+
+For each base substitution it is determined on which strand it is located.
+No strand information "-" is returned for base substitutions in unannotated 
+genomic regions.
+
+With the package we provide an example dataset, see example code.
 }
 \examples{
 ## For this example we need our variants from the VCF samples, and
@@ -41,13 +62,7 @@ bodies, or base substitutions that overlap with more than one gene body.
 vcfs <- readRDS(system.file("states/read_vcfs_as_granges_output.rds",
                 package="MutationalPatterns"))
 
-# Exclude mitochondrial and allosomal chromosomes.
-autosomal = extractSeqlevelsByGroup(species="Homo_sapiens",
-                                    style="UCSC",
-                                    group="auto")
-
-vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
-
+## For transcription strand:
 ## You can obtain the known genes from the UCSC hg19 dataset using
 ## Bioconductor:
 # source("https://bioconductor.org/biocLite.R")
@@ -58,7 +73,22 @@ vcfs = lapply(vcfs, function(x) keepSeqlevels(x, autosomal))
 genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
                         package="MutationalPatterns"))
 
-strand_from_vcf(vcfs[[1]], genes_hg19)
+strand_from_vcf(vcfs[[1]], genes_hg19, mode = "transcription)
+
+## For replication strand:
+## Read example bed file with replication direction annotation
+## Read replistrand data
+repli_file = system.file("extdata/ReplicationDirectionRegions.bed", 
+                          package = "MutationalPatterns")
+repli_strand = read.table(repli_file, header = T)
+repli_strand_granges = GRanges(seqnames = repli_strand$Chr, 
+                               ranges = IRanges(start = repli_strand$Start + 1, 
+                               end = repli_strand$Stop), 
+                               strand_info = repli_strand$Class)
+## UCSC seqlevelsstyle
+seqlevelsStyle(repli_strand_granges) = "UCSC"
+
+strand_from_vcf(vcfs[[1]], repli_strand_granges, mode = "transcription)
 
 }
 \seealso{

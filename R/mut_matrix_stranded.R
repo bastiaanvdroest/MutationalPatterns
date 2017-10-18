@@ -2,14 +2,16 @@
 #' strand information
 #'
 #' Make a mutation count matrix with 192 features: 96 trinucleotides and 2 strands,
-#' these can be transcriptional strand
+#' these can be transcription or replication strand
 #'
 #' @param vcf_list List of collapsed vcf objects
 #' @param ref_genome BSGenome reference genome object 
-#' @param ranges GRanges object with the genomic ranges of the two strand
+#' @param ranges GRanges object with the genomic ranges of:
+#' 1. (transcription mode) the gene bodies with strand (+/-) information, or 
+#' 2. (replication mode) the replication strand with 'strand_info' metadata 
 #' @param mode "transcription" or "replication", default = "transcription"
 #'
-#' @return 192 mutation count matrix (96 * 2 strands)
+#' @return 192 mutation count matrix (96 X 2 strands)
 #'
 #' @import GenomicRanges
 #' @importFrom parallel detectCores
@@ -25,6 +27,7 @@
 #' ref_genome = "BSgenome.Hsapiens.UCSC.hg19"
 #' library(ref_genome, character.only = TRUE)
 #'
+#' ## Transcription strand analysis:
 #' ## You can obtain the known genes from the UCSC hg19 dataset using
 #' ## Bioconductor:
 #' # source("https://bioconductor.org/biocLite.R")
@@ -35,11 +38,30 @@
 #' genes_hg19 <- readRDS(system.file("states/genes_hg19.rds",
 #'                         package="MutationalPatterns"))
 #'
-#' mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19)
+#' mut_mat_s = mut_matrix_stranded(vcfs, ref_genome, genes_hg19, 
+#'                                 mode = "transcription")
+#' 
+#' ## Replication strand analysis:
+#' ## Read example bed file with replication direction annotation
+#' repli_file = system.file("extdata/ReplicationDirectionRegions.bed", 
+#'                           package = "MutationalPatterns")
+#' repli_strand = read.table(repli_file, header = T)
+#' repli_strand_granges = GRanges(seqnames = repli_strand$Chr, 
+#'                                ranges = IRanges(start = repli_strand$Start + 1, 
+#'                                end = repli_strand$Stop), 
+#'                                strand_info = repli_strand$Class)
+#' ## UCSC seqlevelsstyle
+#' seqlevelsStyle(repli_strand_granges) = "UCSC"
+#' # The levels determine the order in which the features 
+#' # will be countend and plotted in the downstream analyses
+#' # You can specify your preferred order of the levels:
+#' levels(repli_strand_granges$strand_info) = c("left", "right")
+#' 
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
-#' \code{link{mut_matrix}}
+#' \code{\link{mut_matrix}},
+#' \code{\link{mut_strand}}
 #'
 #' @export
 

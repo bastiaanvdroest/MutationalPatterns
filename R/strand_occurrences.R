@@ -1,6 +1,6 @@
-#' Count occurrences per base substitution type and transcriptional strand
+#' Count occurrences per base substitution type and strand
 #' 
-#' For each base substitution type and transcriptional strand the total number
+#' For each base substitution type and strand the total number
 #' of mutations and the relative contribution within a group is returned.
 #'
 #' @param mut_mat_s 192 feature mutation count matrix, result from
@@ -8,9 +8,7 @@
 #' @param by Character vector with grouping info, optional
 #'
 #' @return A data.frame with the total number of mutations and relative
-#' contribution within group per base substitution type and
-#' transcriptional strand (T = transcribed strand,
-#' U = untranscribed strand).
+#' contribution within group per base substitution type and strand 
 #'
 #' @importFrom stats aggregate
 #' @importFrom reshape2 melt
