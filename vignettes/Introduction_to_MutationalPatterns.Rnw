@@ -182,8 +182,8 @@ C>T, T>A, T>C, T>G.  For example, when the reference allele is G and the
 alternative allele is T (G>T), this functions returns the G:C>T:A mutation
 as a C>A mutation:
 
-<<mutation_types>>=
-types = mutation_types(vcfs[[1]])
+<<mut_type>>=
+types = mut_type(vcfs[[1]])
 head(types, 12)
 @
 
@@ -191,8 +191,8 @@ To retrieve the context (one base upstream and one base downstream) of the
 positions in the VCF object from the reference genome, you can use the
 \Rfunction{mutation\_context} function:
 
-<<mutation_context>>=
-context = mutation_context(vcfs[[1]], ref_genome)
+<<mut_context>>=
+context = mut_context(vcfs[[1]], ref_genome)
 head(context, 12)
 @
 
@@ -506,8 +506,8 @@ object. Function returns ``-'' for positions outside gene bodies, ``U'' for
 untranscribed/sense/coding strand, ``T'' for transcribed/anti-sense/non-coding
 strand.
 
-<<strand_from_vcf>>=
-strand = strand_from_vcf(vcfs[[1]], genes_hg19)
+<<mut_strand>>=
+strand = mut_strand(vcfs[[1]], genes_hg19)
 head(strand, 10)
 @ 
 
@@ -764,10 +764,8 @@ Download the example surveyed region data:
 
 <<download_bed_data>>=
 ## Get the filename with surveyed/callable regions
-surveyed_file <- list.files(system.file("extdata",
-                            package = "MutationalPatterns"),
-                            pattern = ".bed",
-                            full.names = TRUE)
+surveyed_file <- system.file("extdata/callableloci-sample.bed",
+                             package = "MutationalPatterns")
 
 ## Import the file using rtracklayer and use the UCSC naming standard
 library(rtracklayer)
