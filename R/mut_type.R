@@ -37,7 +37,7 @@ mut_type = function(vcf)
 ##
 
 #'
-#' This function has been removed.  Use 'mutation_types' instead.
+#' This function has been renamed.  Use 'mut_type' instead.
 #'
 #' @noRd
 #' @export
@@ -48,6 +48,12 @@ get_types <- function(vcf)
                 msg=paste("This function has been renamed. Use",
                             "'mut_type' instead."))
 }
+
+#'
+#' This function has been renamed.  Use 'mut_type' instead.
+#'
+#' @noRd
+#' @export
 
 mutation_types <- function(vcf)
 {

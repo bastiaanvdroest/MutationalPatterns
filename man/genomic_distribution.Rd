@@ -7,13 +7,13 @@
 genomic_distribution(vcf_list, surveyed_list, region_list)
 }
 \arguments{
-\item{vcf_list}{A list with VCF GRanges objects}
+\item{vcf_list}{A GRangesList or a list with VCF GRanges objects.}
 
-\item{surveyed_list}{A list with Granges of regions of the genome that have
-been surveyed (e.g. determined using GATK CallableLoci)}
+\item{surveyed_list}{A GRangesList or a list with GRanges of regions of
+the genome that have been surveyed (e.g. determined using GATK CallableLoci).}
 
-\item{region_list}{List with GRanges objects containing locations of
-genomic regions}
+\item{region_list}{A GRangesList or a list with GRanges objects containing
+locations of genomic regions.}
 }
 \value{
 A data.frame containing the number observed and number of expected
