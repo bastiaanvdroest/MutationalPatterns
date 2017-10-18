@@ -4,9 +4,12 @@
 \alias{plot_cosine_heatmap}
 \title{Plot cosine similarity heatmap}
 \usage{
-plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+plot_cosine_heatmap(cos_sim_matrix, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 }
 \arguments{
+\item{cos_sim_matrix}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
+Result from \code{\link{cos_sim_matrix}}}
+
 \item{sig_order}{Character vector with the desired order of the signature names for plotting. Optional.}
 
 \item{cluster_samples}{Hierarchically cluster samples based on eucledian distance. Default = T.}
@@ -16,9 +19,6 @@ plot_cosine_heatmap(explained_matrix, sig_order, cluster_samples = T, method = "
 or "centroid" (= UPGMC). Default = "complete".}
 
 \item{plot_values}{Plot cosine similarity values in heatmap. Default = F.}
-
-\item{explained}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures). 
-Result from \code{\link{cos_sim_matrix}}}
 }
 \value{
 Heatmap with cosine similarity of each signature with each 96 mutational profile
@@ -59,7 +59,7 @@ mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                     package="MutationalPatterns"))
 
 ## Calculate the cosine similarity between each signature and each 96 mutational profile
-explained = explained_by_signatures(mut_mat, cancer_signatures)
+cos_matrix = cos_sim_matrix(mut_mat, cancer_signatures)
 
 ## Cluster signatures based on cosine similarity 
 sig_hclust = cluster_signatures(cancer_signatures)
@@ -68,12 +68,12 @@ sig_order = colnames(cancer_signatures)[sig_hclust$order]
 ## Plot the cosine similarity between each signature and each sample with hierarchical 
 ## sample clustering and signatures order based on similarity
 
-plot_cosine_heatmap(explained, sig_order, cluster_samples = T, method = "complete")
+plot_cosine_heatmap(cos_matrix, sig_order, cluster_samples = T, method = "complete")
 
 
 }
 \seealso{
 \code{\link{mut_matrix}},
-\code{\link{explained_by_signatures}},
+\code{\link{cos_sim_matrix}},
 \code{\link{cluster_signatures}}
 }
