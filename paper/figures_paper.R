@@ -3,7 +3,7 @@
 # @Description: Script for generating figures for MutationalPatterns paper
 
 # ----- PACKAGES ----
-library("MutationalPatterns") # TODO: specify Bioconductor version of the package!
+library("MutationalPatterns") 
 library("ggplot2")
 library("gridExtra")
 library("reshape2")
@@ -15,9 +15,9 @@ library(ref_genome, character.only = TRUE)
 # https://wgs11.op.umcutrecht.nl/mutational_patterns_ASCs/data/
 
 # Specify the directory where the data is downloaded to
-data_dir = "/Users/fblokzijl/Documents/ASC_multi_tissues/data/"
+data_dir = "...."
 # Specify your output directory
-out_dir = "~/Nextcloud/Francis/MutationalPatternsPackage/BMC Bioinformatics/figures/"
+out_dir = "...."
 
 # read MutPat objects
 MutPat_object = readRDS(paste(data_dir, "MutPat_object.rds", sep = ""))
