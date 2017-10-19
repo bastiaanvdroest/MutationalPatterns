@@ -17,11 +17,9 @@
 #' @importFrom ggdendro dendro_data segment theme_dendro
 #' @importFrom cowplot plot_grid
 #'
-#' @usage
-#' plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = T)
 #'
 #' @examples
-#'#' ## See the 'mut_matrix()' example for how we obtained the following
+#' ## See the 'mut_matrix()' example for how we obtained the following
 #' ## mutation matrix.
 #' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
 #'                                 package="MutationalPatterns"))

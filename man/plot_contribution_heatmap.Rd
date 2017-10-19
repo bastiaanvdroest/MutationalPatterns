@@ -4,7 +4,8 @@
 \alias{plot_contribution_heatmap}
 \title{Plot signature contribution heatmap}
 \usage{
-plot_contribution_heatmap(contribution, sig_order, cluster_samples = T, method = "complete", plot_values = T)
+plot_contribution_heatmap(contribution, sig_order, cluster_samples = T,
+  method = "complete", plot_values = F)
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
