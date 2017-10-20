@@ -297,7 +297,9 @@ plot(estimate)
 \end{center}
 \end{figure}
 
-Extract 2 mutational signatures from the mutation count matrix with \Rfunction{extract\_signatures}:
+Extract 2 mutational signatures from the mutation count matrix with \Rfunction{extract\_signatures}
+(For larger datasets it is wise to perform more iterations by changing the nrun parameter to achieve 
+stability and avoid local minima):
 
 <<extract_signatures>>=
 nmf_res <- extract_signatures(mut_mat, rank = 2, nrun = 10)
