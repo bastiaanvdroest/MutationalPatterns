@@ -21,7 +21,7 @@
 #' cancer_signatures <- read.table(filename, sep = "\t", header = TRUE)
 #' 
 #' ## Match the order to MutationalPatterns standard of mutation matrix
-#' order = match(row.names(mut_matrix), cancer_signatures$Somatic.Mutation.Type)
+#' order = match(row.names(mut_mat), cancer_signatures$Somatic.Mutation.Type)
 #' ## Reorder cancer signatures dataframe
 #' cancer_signatures = cancer_signatures[order,]
 #' ## Use trinucletiode changes names as row.names

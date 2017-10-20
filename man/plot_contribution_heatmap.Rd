@@ -4,7 +4,8 @@
 \alias{plot_contribution_heatmap}
 \title{Plot signature contribution heatmap}
 \usage{
-plot_contribution_heatmap(contribution, sig_order, cluster_samples = TRUE, method = "complete", plot_values = TRUE)
+plot_contribution_heatmap(contribution, sig_order, cluster_samples = TRUE,
+  method = "complete", plot_values = FALSE)
 }
 \arguments{
 \item{contribution}{Signature contribution matrix}
@@ -26,7 +27,7 @@ Heatmap with relative contribution of each signature for each sample
 Plot relative contribution of signatures in a heatmap
 }
 \examples{
-#' ## See the 'mut_matrix()' example for how we obtained the following
+## See the 'mut_matrix()' example for how we obtained the following
 ## mutation matrix.
 mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                                 package="MutationalPatterns"))
