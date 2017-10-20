@@ -55,8 +55,10 @@
 #' # The levels determine the order in which the features 
 #' # will be countend and plotted in the downstream analyses
 #' # You can specify your preferred order of the levels:
-#' levels(repli_strand_granges$strand_info) = c("left", "right")
+#' repli_strand_granges$strand_info = factor(repli_strand_granges$strand_info, levels = c("left", "right"))
 #' 
+#' mut_mat_s_rep = mut_matrix_stranded(vcfs, ref_genome, repli_strand_granges, 
+#'                                 mode = "replication")
 #'
 #' @seealso
 #' \code{\link{read_vcfs_as_granges}},
