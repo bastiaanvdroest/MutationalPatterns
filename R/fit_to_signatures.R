@@ -21,8 +21,7 @@
 #' mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
 #'                     package="MutationalPatterns"))
 #'
-#' ## You can download the signatures from the pan-cancer study by
-#' ## Alexandrov et al:
+#' ## You can download the signatures from the COSMIC website:
 #' # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 #' 
 #' ## We copied the file into our package for your convenience.

@@ -4,38 +4,36 @@
 \alias{plot_cosine_heatmap}
 \title{Plot cosine similarity heatmap}
 \usage{
-plot_cosine_heatmap(cos_sim_matrix, sig_order, cluster_samples = TRUE, method = "complete", plot_values = TRUE)
+plot_cosine_heatmap(cos_sim_matrix, col_order, cluster_rows = TRUE,
+  method = "complete", plot_values = FALSE)
 }
 \arguments{
-\item{cos_sim_matrix}{Matrix with pairwise cosine similarities (dimensions: n samples X n signatures).
+\item{cos_sim_matrix}{Matrix with pairwise cosine similarities.
 Result from \code{\link{cos_sim_matrix}}}
 
-\item{sig_order}{Character vector with the desired order of the signature names for plotting. Optional.}
+\item{col_order}{Character vector with the desired order of the columns names for plotting. Optional.}
 
-\item{cluster_samples}{Hierarchically cluster samples based on eucledian distance. Default = T.}
+\item{cluster_rows}{Hierarchically cluster rows based on eucledian distance. Default = TRUE.}
 
 \item{method}{The agglomeration method to be used for hierarchical clustering. This should be one of 
 "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) 
 or "centroid" (= UPGMC). Default = "complete".}
 
-\item{plot_values}{Plot cosine similarity values in heatmap. Default = F.}
+\item{plot_values}{Plot cosine similarity values in heatmap. Default = FALSE.}
 }
 \value{
-Heatmap with cosine similarity of each signature with each 96 mutational profile
+Heatmap with cosine similarities
 }
 \description{
-Plot cosine similarity between mutational profiles and signatures in a heatmap.
-}
-\details{
-The cosine similarity is a value between 0 (distinct) and 1 (identical) and indicates how much of the 96 
-mutation profile can be explained by an individual signature. Similar mutational signatures will be equally 
-good at explaining a mutational profile. For this reason it is recommended to cluster the signatures based 
-on cosine similarity with \code{\link{cluster_signatures}} and plot the signatures in this order, see example.
+Plot pairwise cosine similarities in a heatmap.
 }
 \examples{
 
-## You can download the signatures from the pan-cancer study by
-## Alexandrov et al:
+## See the 'mut_matrix()' example for how we obtained the mutation matrix:
+mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
+                    package="MutationalPatterns"))
+
+## You can download the signatures from the COSMIC:
 # http://cancer.sanger.ac.uk/cancergenome/assets/signatures_probabilities.txt
 
 ## We copied the file into our package for your convenience.
@@ -44,7 +42,7 @@ filename <- system.file("extdata/signatures_probabilities.txt",
 cancer_signatures <- read.table(filename, sep = "\\t", header = TRUE)
 
 ## Match the order to MutationalPatterns standard of mutation matrix
-order = match(row.names(mut_matrix), cancer_signatures$Somatic.Mutation.Type)
+order = match(row.names(mut_mat), cancer_signatures$Somatic.Mutation.Type)
 ## Reorder cancer signatures dataframe
 cancer_signatures = cancer_signatures[order,]
 ## Use trinucletiode changes names as row.names
@@ -54,22 +52,17 @@ cancer_signatures = as.matrix(cancer_signatures[,4:33])
 ## Rename signatures to number only
 colnames(cancer_signatures) = as.character(1:30)
 
-## See the 'mut_matrix()' example for how we obtained the mutation matrix:
-mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
-                    package="MutationalPatterns"))
-
 ## Calculate the cosine similarity between each signature and each 96 mutational profile
 cos_matrix = cos_sim_matrix(mut_mat, cancer_signatures)
 
 ## Cluster signatures based on cosine similarity 
 sig_hclust = cluster_signatures(cancer_signatures)
-sig_order = colnames(cancer_signatures)[sig_hclust$order]
+col_order = colnames(cancer_signatures)[sig_hclust$order]
 
 ## Plot the cosine similarity between each signature and each sample with hierarchical 
 ## sample clustering and signatures order based on similarity
 
-plot_cosine_heatmap(cos_matrix, sig_order, cluster_samples = TRUE, method = "complete")
-
+plot_cosine_heatmap(cos_matrix, col_order, cluster_rows = TRUE, method = "complete")
 
 }
 \seealso{
