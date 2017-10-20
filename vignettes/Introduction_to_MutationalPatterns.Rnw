@@ -250,7 +250,7 @@ Plot 96 profile of two sample in a more condensed plotting format:
 \begin{figure}[H]
 \begin{center}
 <<plot_96_profile_3, fig=TRUE, width=7, height=3>>=
-plot_96_profile(mut_mat[,c(1,7)], condensed = T)
+plot_96_profile(mut_mat[,c(1,7)], condensed = TRUE)
 @
 \end{center}
 \end{figure}
@@ -313,7 +313,7 @@ Plot the 96-profile of the signatures:
 \begin{figure}[H]
 \begin{center}
 <<plot_96_profile, fig=TRUE, width=7, height=3>>=
-plot_96_profile(nmf_res$signatures, condensed = T)
+plot_96_profile(nmf_res$signatures, condensed = TRUE)
 @
 \end{center}
 \end{figure}
@@ -367,7 +367,7 @@ Plot signature contribution as a heatmap without sample clustering:
 \begin{figure}[H]
 \begin{center}
 <<plot_contribution_heatmap2, fig=TRUE, width=6, height=3>>=
-pch2 <- plot_contribution_heatmap(nmf_res$contribution, cluster_samples = F)
+pch2 <- plot_contribution_heatmap(nmf_res$contribution, cluster_samples = FALSE)
 grid.arrange(pch1, pch2, ncol = 2, widths = c(2,1.6))
 @
 \end{center}
@@ -412,7 +412,7 @@ Plot mutational profile of the first two COSMIC signatures:
 \begin{figure}[H]
 \begin{center}
 <<plot_96_profile_COSMIC, fig=TRUE, width=7, height=3>>=
-plot_96_profile(cancer_signatures[,1:2], condensed = T, ymax = 0.3)
+plot_96_profile(cancer_signatures[,1:2], condensed = TRUE, ymax = 0.3)
 @
 \end{center}
 \end{figure}
@@ -650,7 +650,7 @@ Read example bed file provided with the package with replication direction annot
 <<repli_file>>=
 repli_file = system.file("extdata/ReplicationDirectionRegions.bed",
                            package = "MutationalPatterns")
-repli_strand = read.table(repli_file, header = T)
+repli_strand = read.table(repli_file, header = TRUE)
 # Store in GRanges object
 repli_strand_granges = GRanges(seqnames = repli_strand$Chr,
 ranges = IRanges(start = repli_strand$Start + 1, end = repli_strand$Stop), strand_info = repli_strand$Class)
