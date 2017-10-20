@@ -27,7 +27,7 @@ Heatmap with relative contribution of each signature for each sample
 Plot relative contribution of signatures in a heatmap
 }
 \examples{
-#' ## See the 'mut_matrix()' example for how we obtained the following
+## See the 'mut_matrix()' example for how we obtained the following
 ## mutation matrix.
 mut_mat <- readRDS(system.file("states/mut_mat_data.rds",
                                 package="MutationalPatterns"))
