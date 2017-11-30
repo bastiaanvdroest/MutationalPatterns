@@ -81,13 +81,6 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
     if (!(class(ref_genome) == "BSgenome"))
         stop("Please provide the name of a BSgenome object.")
 
-    # Using the parallel version of 'apply' effectively disables proper
-    # error-reporting.  A common error turns out to be non-existent input
-    # files.  So, this check provides the right error reporting.
-    if (!all(sapply (vcf_files, file.exists)))
-        stop(paste("Not all VCF files exist.  Please verify the location of",
-                   "your input files."))
-
     # Detect the number of available cores.  Windows does not support forking,
     # only threading, so unfortunately, we have to set it to 1.
     # On confined OS environments, this value can be NA, and in such
@@ -98,11 +91,10 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
     else
         num_cores = 1
 
-    # To be able to print warnings from within the mclapply call,
-    # we need to explicitly set this option. See:
-    # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=17122
+    # We handle errors separately for mclapply, because the error reporting
+    # of mclapply is done through its return value(s).
     original_warn_state = getOption("warn")
-    options(warn=1)
+    options(warn=-1)
 
     # Show the warning once for all VCF files that are loaded with this
     # call to read_vcfs_as_granges.
@@ -115,7 +107,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                       "and cause obscure errors."))
     }
 
-    vcf_list <- GRangesList(mclapply (vcf_files, function (file)
+    vcf_list <- mclapply (vcf_files, function (file)
     {
         # Use VariantAnnotation's readVcf, but only store the
         # GRanges information in memory.  This speeds up the
@@ -192,11 +184,20 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         }
 
         return(vcf)
-    }, mc.cores = num_cores, mc.silent = FALSE))
+    }, mc.cores = num_cores)
 
     # Reset the option.
     options(warn=original_warn_state)
-    
+
+    # mclapply wraps the call into a try(..., silent=TRUE)
+    # When an error occurs, the error is returned, and accessible in the
+    # return value(s).  The for-loop below checks for erroneous returns
+    # and shows the error message of the first occurring error.
+    for (i in 1:length(vcf_files))
+        if (class (vcf_list[[i]]) == "try-error")
+            stop (vcf_list[[i]])
+
+    vcf_list <- GRangesList(vcf_list)
     # Set the provided names for the samples.
     names(vcf_list) <- sample_names
 
