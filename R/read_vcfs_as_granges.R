@@ -210,8 +210,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         if (class (item) == "try-error") stop (item)
         # Handle warnings.
         if (!is.null(item[[2]]))
-            for (i in 1:length(item[[2]]))
-                warning (item[[2]][i])
+            for (i in item[[2]])
+                warning (i)
 
         # Unpack the GRanges
         return(item[[1]])
