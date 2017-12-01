@@ -184,8 +184,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                 vcf = vcf[-rem]
                 warnings <- c(warnings,
                               paste(length(rem),
-                                    " position(s) with indels and multiple",
-                                    " alternative alleles are removed."))
+                                    "position(s) with indels and/or multiple",
+                                    "alternative alleles are excluded."))
             }
         }
 
