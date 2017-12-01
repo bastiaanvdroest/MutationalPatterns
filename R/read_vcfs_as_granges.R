@@ -112,8 +112,10 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                             "errors."))
     }
 
-    vcf_list <- mclapply (vcf_files, function (file)
+    vcf_list <- mclapply (seq_along(vcf_files), function (index)
     {
+        file <- vcf_files[index]
+
         # Use VariantAnnotation's readVcf, but only store the
         # GRanges information in memory.  This speeds up the
         # loading significantly.
@@ -185,7 +187,8 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
                 warnings <- c(warnings,
                               paste(length(rem),
                                     "position(s) with indels and/or multiple",
-                                    "alternative alleles are excluded."))
+                                    "alternative alleles are excluded from",
+                                    paste(sample_names[[index]], ".", sep = "")))
             }
         }
 
