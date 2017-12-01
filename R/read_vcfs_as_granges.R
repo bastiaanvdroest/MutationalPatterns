@@ -91,20 +91,25 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
     else
         num_cores = 1
 
-    # We handle errors separately for mclapply, because the error reporting
-    # of mclapply is done through its return value(s).
+    # We handle errors and warnings separately for mclapply, because the error
+    # reporting of mclapply is done through its return value(s).
     original_warn_state = getOption("warn")
     options(warn=-1)
+
+    # Store warning messages in a vector.
+    warnings <- NULL
 
     # Show the warning once for all VCF files that are loaded with this
     # call to read_vcfs_as_granges.
     if (!check_alleles)
     {
-        warning(paste("check_alleles is set to FALSE.  Make sure your input",
-                      "VCF does not contain any positions with insertions,",
-                      "deletions or multiple alternative alleles, as these",
-                      "positions cannot be analysed with MutationalPatterns",
-                      "and cause obscure errors."))
+        warnings <- c(warnings,
+                      paste("check_alleles is set to FALSE.  Make sure your",
+                            "input VCF does not contain any positions with",
+                            "insertions, deletions or multiple alternative",
+                            "alleles, as these positions cannot be analysed",
+                            "with MutationalPatterns and cause obscure",
+                            "errors."))
     }
 
     vcf_list <- mclapply (vcf_files, function (file)
@@ -177,13 +182,16 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
             if (length(rem) > 0)
             {
                 vcf = vcf[-rem]
-                warning(length(rem),
-                        " position(s) with indels and multiple",
-                        " alternative alleles are removed.")
+                warnings <- c(warnings,
+                              paste(length(rem),
+                                    " position(s) with indels and multiple",
+                                    " alternative alleles are removed."))
             }
         }
 
-        return(vcf)
+        # Pack GRanges object and the warnings to be able to display warnings
+        # at a later time.
+        return(list(vcf, warnings))
     }, mc.cores = num_cores)
 
     # Reset the option.
@@ -193,9 +201,21 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
     # When an error occurs, the error is returned, and accessible in the
     # return value(s).  The for-loop below checks for erroneous returns
     # and shows the error message of the first occurring error.
-    for (i in 1:length(vcf_files))
-        if (class (vcf_list[[i]]) == "try-error")
-            stop (vcf_list[[i]])
+    #
+    # The return values of the mclapply output are packed as
+    # list(<GRanges>, <warnings>).  The function below unpacks the GRanges
+    # and displays the warnings.
+    vcf_list <- lapply (vcf_list, function (item) {
+        # Handle errors.
+        if (class (item) == "try-error") stop (item)
+        # Handle warnings.
+        if (!is.null(item[[2]]))
+            for (i in 1:length(item[[2]]))
+                warning (item[[2]][i])
+
+        # Unpack the GRanges
+        return(item[[1]])
+    })
 
     vcf_list <- GRangesList(vcf_list)
     # Set the provided names for the samples.
