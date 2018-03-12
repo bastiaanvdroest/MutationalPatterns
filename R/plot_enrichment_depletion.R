@@ -3,7 +3,7 @@
 #' @param df Dataframe result from enrichment_depletion_test()
 #' @return Plot with two parts. 1: Barplot with no. mutations expected and
 #' observed per region. 2: Effect size of enrichment/depletion
-#' (log2ratio) with results significance test.
+#' (log2ratio) with results significance test. The plots are drawn directly onto a device by grid arrange and therefore cannot be saved as an object.
 #'
 #' @import ggplot2
 #' @importFrom gridExtra grid.arrange
@@ -34,7 +34,7 @@
 
 plot_enrichment_depletion = function(df)
 {
-    df2 = melt(df[,c(1,2,6,8)])
+    df2 = melt(df[,c(1,2,6,8)], id = c("by", "region"))
 
     # These variables will be available at run-time, but not at compile-time.
     # To avoid compiling trouble, we initialize them to NULL.
@@ -59,7 +59,7 @@ plot_enrichment_depletion = function(df)
                 axis.text.x = element_blank(),
                 legend.title=element_blank()) +
         xlab("") +
-        ylab("No. mutations")
+        ylab("No. mutations") +
     scale_x_discrete(breaks=NULL)
 
     # determine max y value for plotting
@@ -78,7 +78,6 @@ plot_enrichment_depletion = function(df)
         geom_text(
             aes(x = by,
                 y = log2((observed+0.1) / (expected+0.1)),
-                ymax = log2((observed+0.1) / (expected+0.1)),
                 label = significant,
                 vjust = ifelse(sign(log2((observed+0.1) /
                                             (expected+0.1))) > 0, 0.5, 1)),
@@ -92,6 +91,5 @@ plot_enrichment_depletion = function(df)
         ylab("log2(observed/expected)") +
         scale_x_discrete(breaks = NULL)
 
-    plot = grid.arrange(plot1, plot2, heights = c(2,1.2))
-    return(plot)
+    grid.arrange(plot1, plot2, heights = c(2,1.2))
 }
