@@ -15,9 +15,9 @@ library(ref_genome, character.only = TRUE)
 # https://wgs11.op.umcutrecht.nl/mutational_patterns_ASCs/data/
 
 # Specify the directory where the data is downloaded to
-data_dir = "~/surfdrive/Old projects/ASC_multi_tissues/data/"
+data_dir = "..."
 # Specify your output directory
-out_dir = "~/surfdrive/MutationalPatterns_manuscript/Genome biology/revision/results/"
+out_dir = "..."
 
 # read MutPat objects
 MutPat_object = readRDS(paste(data_dir, "MutPat_object.rds", sep = ""))
