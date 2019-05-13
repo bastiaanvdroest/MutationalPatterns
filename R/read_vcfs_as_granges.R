@@ -65,7 +65,7 @@
 #' @export
 
 read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
-                                    group = "auto+sex", check_alleles = TRUE, n_cores)
+                                    group = "auto+sex", check_alleles = TRUE, n_cores = "autodetect")
 {
     # Check sample names
     if (length(vcf_files) != length(sample_names))
@@ -89,7 +89,7 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
     # On confined OS environments, this value can be NA, and in such
     # situations we need to fallback to 1 core.
     
-    if(missing(n_cores))
+    if(n_cores == "autodetect")
     {
       n_cores = detectCores()
         if (!(.Platform$OS.type == "windows" || is.na(n_cores)))
@@ -97,6 +97,12 @@ read_vcfs_as_granges <- function(vcf_files, sample_names, genome,
         else
           n_cores = 1
     }
+    
+    # check n_cores is numeric value
+    if(!is.numeric(n_cores))
+      stop("n_cores must be a numeric value")
+    # n_cores must be an integer
+    n_cores = as.integer(n_cores)
 
     # We handle errors and warnings separately for mclapply, because the error
     # reporting of mclapply is done through its return value(s).
