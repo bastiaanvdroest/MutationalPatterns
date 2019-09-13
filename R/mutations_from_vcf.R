@@ -40,7 +40,7 @@ mutations_from_vcf = function(vcf, mode)
         warning("Some of your data is missing an ALT and/or a REF column.")
     
     muts = list()
-
+    
     for (m in mode)
     {
       if (m == "snv")
@@ -63,6 +63,10 @@ mutations_from_vcf = function(vcf, mode)
         muts[[m]] = paste(ref_ind,alt_ind,sep=">")
       }
     }
-
-    return(muts)
+    if(length(names(muts)==1)){
+      muts=muts[[1]]
+    }
+    
+    return(muts) 
+    
 }
