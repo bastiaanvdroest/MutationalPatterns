@@ -42,16 +42,9 @@
 plot_signature_strand_bias = function(signatures_strand_bias, type, colors)
 {
     # Check mutation type argument
+    if (missing(type)) type_default = TRUE
+    else type_default = FALSE
     type = check_mutation_type(type)  
-    
-    # If indel variables not present in global environment, set to empty
-    if (!exists("indel_class"))
-    {
-      indel_class = c()
-      indel_colors = c()
-      indel_context = c()
-      indel_class_header = c()
-    }
     
     if (class(signatures_strand_bias) == "list")
     {  
@@ -76,53 +69,53 @@ plot_signature_strand_bias = function(signatures_strand_bias, type, colors)
         signatures_strand_bias = list("snv"=signatures_strand_bias[types %in% TRIPLETS_96,],
                                       "dbs"=signatures_strand_bias[types %in% DBS,])
         method = "combine"
-      } else if (all(types %in% indel_context))
+      } else if (all(types %in% INDEL_CONTEXT))
       {
         signatures_strand_bias = list("indel"=signatures_strand_bias)
-      } else if (all(types %in% c(TRIPLETS_96,indel_context)))
+      } else if (all(types %in% c(TRIPLETS_96,INDEL_CONTEXT)))
       {
         signatures_strand_bias = list("snv"=signatures_strand_bias[types %in% TRIPLETS_96,],
-                          "indel"=signatures_strand_bias[types %in% indel_context,])
+                          "indel"=signatures_strand_bias[types %in% INDEL_CONTEXT,])
         method = "combine"
-      } else if (all(types %in% c(DBS, indel_context)))
+      } else if (all(types %in% c(DBS, INDEL_CONTEXT)))
       {
         signatures_strand_bias = list("dbs"=signatures_strand_bias[types %in% DBS,],
-                          "indel"=signatures_strand_bias[types %in% indel_context,])
+                          "indel"=signatures_strand_bias[types %in% INDEL_CONTEXT,])
         method = "combine"
-      } else if (all(types %in% c(TRIPLETS_96, DBS, indel_context)))
+      } else if (all(types %in% c(TRIPLETS_96, DBS, INDEL_CONTEXT)))
       {
         signatures_strand_bias = list("snv"=signatures_strand_bias[types %in% TRIPLETS_96,],
                           "dbs"=signatures_strand_bias[types %in% DBS,],
-                          "indel"=signatures_strand_bias[types %in% indel_context,])
+                          "indel"=signatures_strand_bias[types %in% INDEL_CONTEXT,])
         method = "combine"
       } else {
         stop("Mutation matrix is not a list and mutation types could not be derived")
       }
-      
-      if (!(type %in% names(signatures_strand_bias)))
-        stop("Given mutation type(s) not found in mutation matrix")
     }
+    
+    if (type_default) type = names(signatures_strand_bias)
+    else type = intersect(type, names(signatures_strand_bias))
     
     if (missing(colors))
     {
       colors = list()
       if ("snv" %in% names(signatures_strand_bias)) { colors[["snv"]] = COLORS6 }
       if ("dbs" %in% names(signatures_strand_bias)) { colors[["dbs"]] = COLORS10 }
-      if ("indel" %in% names(signatures_strand_bias)) { colors[["indel"]] = indel_colors }
+      if ("indel" %in% names(signatures_strand_bias)) { colors[["indel"]] = COLORS_INDEL }
     }
   
     # Set strand info
     strand = list("snv" = rep(c("U", "T"), 96), 
                   "dbs" = rep(c("U", "T"), 78),
-                  "indel" = rep(c("U", "T"), length(indel_context)))
+                  "indel" = rep(c("U", "T"), length(INDEL_CONTEXT)))
     
     # Set substitutions of mutation types
     substitutions = list("snv" = list("type"=SUBSTITUTIONS, 
                                       "strand"=rep(SUBSTITUTIONS, each = 32)),
                          "dbs" = list("type"=SUBSTITUTIONS_DBS, 
                                       "strand"=rep(do.call(rbind, strsplit(DBS, ">"))[,1], each = 2)),
-                         "indel" = list("type"=unique(paste(indel_class_header,indel_class, sep=".")),
-                                        "strand"=rep(paste(indel_class_header,indel_class, sep="."), each=2)))
+                         "indel" = list("type"=unique(paste(INDEL_CLASS_HEADER,INDEL_CLASS, sep=".")),
+                                        "strand"=rep(paste(INDEL_CLASS_HEADER,INDEL_CLASS, sep="."), each=2)))
     
     plots = list()
     

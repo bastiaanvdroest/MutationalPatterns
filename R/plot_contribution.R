@@ -84,12 +84,19 @@ plot_contribution = function(contribution,
         stop("mode parameter should be either 'relative', 'absolute' or 'both'")
   
     # check mutation type
+    if (missing(type)) type_default = TRUE
+    else type_default = FALSE
     type = check_mutation_type(type)
     
     if (class(contribution) == "list")
     {
-      if (all(type %in% names(contribution))) {contribution = contribution[type]}
-      else {stop("One or more values of 'type' is not found in 'contribution'")}
+      if (!type_default)
+      {
+        if (all(type %in% names(contribution))) {contribution = contribution[type]}
+        else {stop("One or more values of 'type' is not found in 'contribution'")}
+      } else {
+        type = names(contribution)
+      }
       
       for (m in type)
       {
@@ -109,7 +116,7 @@ plot_contribution = function(contribution,
       
       if (class(signatures) == "matrix"){
         for (m in names(contribution)){
-          if (any(colnames(signatures) == rownames(contribution))){
+          if (any(colnames(signatures) == rownames(contribution[[m]]))){
             signatures = list(signatures)
             names(signatures) = m
           }
@@ -121,9 +128,18 @@ plot_contribution = function(contribution,
       
       if (is.null(rownames(contribution)))
         stop("Provide contribution matrix with rownames for signatures")
-      else
-        warning(paste("Matrix given for 'contribution', treated as combined",
-                      "signatures"), call.=TRUE, immediate.=TRUE)
+      
+      if (is.list(signatures))
+      {
+        keep_sigs = NULL
+        for (m in names(signatures)){
+          if (any(rownames(contribution) %in% colnames(signatures[[m]]))){
+            keep_sigs <- c(keep_sigs,m)
+          }
+        }
+        signatures = signatures[keep_sigs]
+        signatures = do.call(rbind, signatures)
+      }
     }
   
     if (length(palette) == 0)
@@ -166,7 +182,8 @@ plot_contribution = function(contribution,
         
         # Take all signatures with contribution more than 0
         sigs <- names(which(rowSums(contribution[[m]]) > 0))
-        contribution[[m]] = contribution[[m]][which(rowSums(contribution[[m]]) > 0),]
+        contribution[[m]] = contribution[[m]][which(rowSums(contribution[[m]]) > 0),
+                                              ,drop=FALSE]
         
         if(length(sigs) == 1)
         {
@@ -209,7 +226,7 @@ plot_contribution = function(contribution,
             theme(panel.grid.minor.y=element_blank(),
                   panel.grid.major.y=element_blank())
           
-          plots[[m]] = c(plots[[m]], list(plot))
+          plots[[m]][["relative"]] = plot
         }
       
         # Handle the absolute mode.
@@ -248,7 +265,7 @@ plot_contribution = function(contribution,
             theme(panel.grid.minor.y=element_blank(),
                   panel.grid.major.y=element_blank())
           
-          plots[[m]] = c(plots[[m]], list(plot))
+          plots[[m]][["absolute"]] = plot
         }
       
         if (mode_next == "none")
@@ -280,7 +297,7 @@ plot_contribution = function(contribution,
       plotlist = list()
       for (m in names(plots))
       {
-        if (class(plots[[m]]) == "list")
+        if (length(class(plots[[m]])) == 1)
         {
           plotlist = c(plotlist, list(plots[[m]][[1]]))
           plotlist = c(plotlist, list(plots[[m]][[2]]))
@@ -342,8 +359,10 @@ plot_contribution = function(contribution,
       }
       
       # Take all signatures with contribution more than 0
-      contribution = contribution[which(rowSums(contribution) > 0),]
-      abs_contribution = abs_contribution[which(rowSums(abs_contribution) > 0),]
+      contribution = contribution[which(rowSums(contribution) > 0),
+                                  ,drop=FALSE]
+      abs_contribution = abs_contribution[which(rowSums(abs_contribution) > 0),
+                                          ,drop=FALSE]
       
       palette = unlist(unname(palette))
       
